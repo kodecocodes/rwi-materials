@@ -30,18 +30,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
-struct APIToken: Codable {
-  let tokenType: String
-  let expiresInSeconds: Int
-  let accessToken: String
-  
-  private var requestedAt = Date()
-}
-
-extension APIToken {
-  var expiresAt: Date {
-    Calendar.current.date(byAdding: .second, value: expiresInSeconds, to: requestedAt) ?? Date()
-  }
+struct Breed: Codable {
+  let primery: String?
+  let secondary: String?
+  let mixed: Bool
+  let unknown: Bool
 }

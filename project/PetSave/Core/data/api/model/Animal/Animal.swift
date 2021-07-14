@@ -32,16 +32,27 @@
 
 import Foundation
 
-struct APIToken: Codable {
-  let tokenType: String
-  let expiresInSeconds: Int
-  let accessToken: String
-  
-  private var requestedAt = Date()
-}
-
-extension APIToken {
-  var expiresAt: Date {
-    Calendar.current.date(byAdding: .second, value: expiresInSeconds, to: requestedAt) ?? Date()
-  }
+struct Animal: Codable {
+    let id: Int
+    let organizationId: String
+    let url: URL
+    let type: String
+    let species: String
+    let breeds: Breed
+    let colors: Breed
+    let age: Age
+    let gender: Gender
+    let size: Size
+    let coat: String?
+    let name: String
+    let description: String?
+    let photos: [PhotoSize]
+    let videos: [VideoLink]
+    let status: AdoptionStatus
+    let attributes: AnimalAttributes
+    let environment: AnimalEnvironment?
+    let tags: [String]
+    let contact: APIColors
+    let publishedAt: Date
+    let distance: Double?
 }

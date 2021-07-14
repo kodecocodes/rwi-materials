@@ -30,4 +30,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+enum Age: String, Codable {
+  case baby = "Baby"
+  case young = "Young"
+  case adult = "Adult"
+  case senior = "Senior"
+}

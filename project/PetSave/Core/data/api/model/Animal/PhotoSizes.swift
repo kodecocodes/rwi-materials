@@ -32,16 +32,9 @@
 
 import Foundation
 
-struct APIToken: Codable {
-  let tokenType: String
-  let expiresInSeconds: Int
-  let accessToken: String
-  
-  private var requestedAt = Date()
-}
-
-extension APIToken {
-  var expiresAt: Date {
-    Calendar.current.date(byAdding: .second, value: expiresInSeconds, to: requestedAt) ?? Date()
-  }
+struct PhotoSize: Codable {
+  let small: URL?
+  let medium: URL?
+  let large: URL?
+  let full: URL?
 }

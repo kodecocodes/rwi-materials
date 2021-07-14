@@ -30,18 +30,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
-struct APIToken: Codable {
-  let tokenType: String
-  let expiresInSeconds: Int
-  let accessToken: String
-  
-  private var requestedAt = Date()
-}
-
-extension APIToken {
-  var expiresAt: Date {
-    Calendar.current.date(byAdding: .second, value: expiresInSeconds, to: requestedAt) ?? Date()
-  }
+enum Gender: String, Codable {
+  case female = "Female"
+  case male = "Male"
 }

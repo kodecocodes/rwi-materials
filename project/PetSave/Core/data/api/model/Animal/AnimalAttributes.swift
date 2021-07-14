@@ -30,4 +30,10 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+struct AnimalAttributes: Codable {
+  let spayedNeutered: Bool
+  let houseTrained: Bool
+  let declawed: Bool?
+  let specialNeeds: Bool
+  let shotsCurrent: Bool
+}
