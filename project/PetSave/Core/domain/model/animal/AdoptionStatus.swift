@@ -30,4 +30,8 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+enum AdoptionStatus: String, Codable {
+  case adoptable = "Adoptable"
+  case adopted = "Adopted"
+  case found = "Found"
+}

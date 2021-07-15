@@ -172,25 +172,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		84A59F72269E8C3400237A83 /* Animal */ = {
-			isa = PBXGroup;
-			children = (
-				AE6A380F269B5DB10054C842 /* Coat.swift */,
-				AE6A381B269B5DF20054C842 /* Size.swift */,
-				AE6A3815269B5DCD0054C842 /* Gender.swift */,
-				AE6A380B269B5D9E0054C842 /* Age.swift */,
-				AE6A380D269B5DA90054C842 /* Breed.swift */,
-				AE6A3791269B59310054C842 /* Animal.swift */,
-				84A59F73269E8C4700237A83 /* PhotoSizes.swift */,
-				84A59F75269E8DF000237A83 /* VideoLink.swift */,
-				84A59F77269E906400237A83 /* AnimalAttributes.swift */,
-				84A59F79269E920300237A83 /* AnimalEnvironment.swift */,
-				84A59F7B269E92F800237A83 /* APIColors.swift */,
-				84A59F7D269E9BDA00237A83 /* AdoptionStatus.swift */,
-			);
-			path = Animal;
-			sourceTree = "<group>";
-		};
 		AE6A376B269A86560054C842 /* AnimalsNearYou */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +353,18 @@
 			isa = PBXGroup;
 			children = (
 				AE6A3789269B58720054C842 /* details */,
+				AE6A380F269B5DB10054C842 /* Coat.swift */,
+				AE6A381B269B5DF20054C842 /* Size.swift */,
+				AE6A3815269B5DCD0054C842 /* Gender.swift */,
+				AE6A380B269B5D9E0054C842 /* Age.swift */,
+				AE6A380D269B5DA90054C842 /* Breed.swift */,
+				AE6A3791269B59310054C842 /* Animal.swift */,
+				84A59F73269E8C4700237A83 /* PhotoSizes.swift */,
+				84A59F75269E8DF000237A83 /* VideoLink.swift */,
+				84A59F77269E906400237A83 /* AnimalAttributes.swift */,
+				84A59F79269E920300237A83 /* AnimalEnvironment.swift */,
+				84A59F7B269E92F800237A83 /* APIColors.swift */,
+				84A59F7D269E9BDA00237A83 /* AdoptionStatus.swift */,
 				AE6A381F269B5E0E0054C842 /* Media.swift */,
 			);
 			path = animal;
@@ -390,7 +383,6 @@
 		AE6A378E269B58EA0054C842 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				84A59F72269E8C3400237A83 /* Animal */,
 				AE6A378F269B59110054C842 /* APIToken.swift */,
 			);
 			path = model;
