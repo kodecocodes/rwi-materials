@@ -4,16 +4,16 @@
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
-    <entity name="Organization" representedClassName="Organization" syncable="YES" codeGenerationType="class"/>
-    <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class"/>
-    <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class"/>
-    <entity name="Video" representedClassName="Video" syncable="YES" codeGenerationType="class"/>
+    <entity name="OrganizationEntity" representedClassName="OrganizationEntity" syncable="YES" codeGenerationType="class"/>
+    <entity name="PhotoEntity" representedClassName="PhotoEntity" syncable="YES" codeGenerationType="class"/>
+    <entity name="TagEntity" representedClassName="TagEntity" syncable="YES" codeGenerationType="class"/>
+    <entity name="VideoEntity" representedClassName="VideoEntity" syncable="YES" codeGenerationType="class"/>
     <elements>
         <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-        <element name="Photo" positionX="-54" positionY="0" width="128" height="29"/>
-        <element name="Video" positionX="-36" positionY="9" width="128" height="29"/>
-        <element name="Tag" positionX="-18" positionY="27" width="128" height="29"/>
-        <element name="Organization" positionX="0" positionY="45" width="128" height="29"/>
+        <element name="PhotoEntity" positionX="-54" positionY="0" width="128" height="29"/>
+        <element name="VideoEntity" positionX="-36" positionY="9" width="128" height="29"/>
+        <element name="TagEntity" positionX="-18" positionY="27" width="128" height="29"/>
+        <element name="OrganizationEntity" positionX="0" positionY="45" width="128" height="29"/>
         <element name="AnimalTag" positionX="18" positionY="63" width="128" height="29"/>
     </elements>
 </model>

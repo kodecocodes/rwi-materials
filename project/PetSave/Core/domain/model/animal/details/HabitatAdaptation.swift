@@ -31,3 +31,9 @@
 /// THE SOFTWARE.
 
 import Foundation
+
+struct HabitatAdaptation {
+  var goodWithChildren: Bool
+  var goodWithDogs: Bool
+  var goodWithCats: Bool
+}

@@ -31,3 +31,10 @@
 /// THE SOFTWARE.
 
 import Foundation
+
+struct HealthDetails {
+  var isSpayedOrNeutered: Bool
+  var isDeclawed: Bool
+  var hasSpecialNeeds: Bool
+  var shotsAreCurrent: Bool
+}

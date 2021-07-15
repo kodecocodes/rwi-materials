@@ -31,3 +31,17 @@
 /// THE SOFTWARE.
 
 import Foundation
+
+struct Details {
+  var description: String
+  var age: Age
+  var species: String
+  var breed: Breed
+  var colors: APIColors
+  var gender: Gender
+  var size: Size
+  var coat: Coat
+  var healthDetails: HealthDetails
+  var habitatAdaptation: HabitatAdaptation
+  var organization: Organization
+}

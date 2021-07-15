@@ -40,6 +40,7 @@
 		AE6A381C269B5DF20054C842 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A381B269B5DF20054C842 /* Size.swift */; };
 		AE6A3820269B5E0E0054C842 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A381F269B5E0E0054C842 /* Media.swift */; };
 		AE6A3822269B5E1A0054C842 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3821269B5E1A0054C842 /* Organization.swift */; };
+		AE6A3825269FC7670054C842 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3824269FC7670054C842 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		AE6A381B269B5DF20054C842 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		AE6A381F269B5E0E0054C842 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		AE6A3821269B5E1A0054C842 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		AE6A3824269FC7670054C842 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +348,7 @@
 			children = (
 				AE6A3788269B58680054C842 /* animal */,
 				AE6A3787269B58600054C842 /* organization */,
+				AE6A3823269FC7470054C842 /* user */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -407,6 +410,14 @@
 				AE6A3804269B5C050054C842 /* PetSaveUITests.swift */,
 			);
 			path = PetSaveUITests;
+			sourceTree = "<group>";
+		};
+		AE6A3823269FC7470054C842 /* user */ = {
+			isa = PBXGroup;
+			children = (
+				AE6A3824269FC7670054C842 /* User.swift */,
+			);
+			path = user;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -570,6 +581,7 @@
 				84A59F74269E8C4700237A83 /* PhotoSizes.swift in Sources */,
 				AE6A380C269B5D9E0054C842 /* Age.swift in Sources */,
 				AE6A3810269B5DB10054C842 /* Coat.swift in Sources */,
+				AE6A3825269FC7670054C842 /* User.swift in Sources */,
 				AE6A3820269B5E0E0054C842 /* Media.swift in Sources */,
 				AE6A3786269B58350054C842 /* AnimalsView.swift in Sources */,
 				84A59F7E269E9BDB00237A83 /* AdoptionStatus.swift in Sources */,
