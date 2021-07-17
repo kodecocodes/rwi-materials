@@ -32,24 +32,36 @@
 
 import Foundation
 
-struct Organization: Codable {
-  var id: String
-  var contact: Contact
-  var distance: Double
+protocol AnimalFetcher {
+  func fetchAnimals(page: Int) async -> [Animal]
 }
 
-//TODO use built in classes from AddressBook here?
-struct Contact: Codable {
-  var email: String
-  var phone: String?
-  var address: Address
-}
-
-struct Address: Codable {
-  var address1: String?
-  var address2: String?
-  var city: String
-  var state: String
-  var postcode: String
-  var country: String
+final class AnimalsNearYouViewModel: ObservableObject {
+  @Published var animals: [Animal]
+  @Published var isLoading: Bool
+  
+  var page = 0
+  
+  private let animalFetcher: AnimalFetcher
+  
+  init(
+    animals: [Animal] = [],
+    isLoading: Bool = true,
+    animalFetcher: AnimalFetcher
+  ) {
+    self.animals = animals
+    self.isLoading = isLoading
+    self.animalFetcher = animalFetcher
+  }
+  
+  func fetchAnimals() async {
+    let animals = await animalFetcher.fetchAnimals(page: 0)
+    await updateAnimals(animals: animals)
+  }
+  
+  @MainActor
+  func updateAnimals(animals: [Animal]) {
+    self.animals = animals
+    isLoading = false
+  }
 }

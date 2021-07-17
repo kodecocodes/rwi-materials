@@ -34,7 +34,25 @@ import SwiftUI
 
 struct ContentView: View {
   var body: some View {
-    Text("Hello World")
+    TabView {
+      NavigationView {
+        AnimalsNearYouView(
+          viewModel: AnimalsNearYouViewModel(
+            animalFetcher: AnimalFetcherMock()
+          )
+        )
+      }
+      .tabItem {
+        Label("Near you", systemImage: "location")
+      }
+      
+      NavigationView {
+        SearchView()
+      }
+      .tabItem {
+        Label("Search", systemImage: "magnifyingglass")
+      }
+    }
   }
 }
 

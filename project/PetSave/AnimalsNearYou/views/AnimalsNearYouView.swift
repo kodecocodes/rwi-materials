@@ -33,13 +33,48 @@
 import SwiftUI
 
 struct AnimalsNearYouView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  @ObservedObject var viewModel: AnimalsNearYouViewModel
+  private let columns = [
+    GridItem(.flexible()),
+    GridItem(.flexible())
+  ]
+  
+  var body: some View {
+    ScrollView {
+      LazyVGrid(columns: columns) {
+        ForEach(viewModel.animals) { animal in
+          AnimalCell(animal: animal)
+        }
+      }
+      .padding()
     }
+    .navigationTitle("Animals near you")
+    .overlay {
+      if viewModel.isLoading {
+        ProgressView("Finding Animals near you...")
+      }
+    }
+    .task(viewModel.fetchAnimals)
+  }
 }
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnimalsNearYouView()
+  static var previews: some View {
+    NavigationView {
+      AnimalsNearYouView(
+        viewModel: AnimalsNearYouViewModel(
+          isLoading: true,
+          animalFetcher: AnimalFetcherMock()
+        )
+      )
     }
+  }
+}
+
+#warning("Remove later, only for testing purposes...")
+struct AnimalFetcherMock: AnimalFetcher {
+  func fetchAnimals(page: Int) async -> [Animal] {
+    sleep(5)
+    return Animal.mock
+  }
 }

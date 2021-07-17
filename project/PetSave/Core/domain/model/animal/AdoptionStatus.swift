@@ -31,7 +31,7 @@
 /// THE SOFTWARE.
 
 enum AdoptionStatus: String, Codable {
-  case adoptable = "Adoptable"
-  case adopted = "Adopted"
-  case found = "Found"
+  case adoptable = "adoptable"
+  case adopted = "adopted"
+  case found = "found"
 }

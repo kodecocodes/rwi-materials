@@ -32,27 +32,27 @@
 
 import Foundation
 
-struct Animal: Codable {
-    let id: Int
-    let organizationId: String
-    let url: URL
-    let type: String
-    let species: String
-    let breeds: Breed
-    let colors: Breed
-    let age: Age
-    let gender: Gender
-    let size: Size
-    let coat: String?
-    let name: String
-    let description: String?
-    let photos: [PhotoSize]
-    let videos: [VideoLink]
-    let status: AdoptionStatus
-    let attributes: AnimalAttributes
-    let environment: AnimalEnvironment?
-    let tags: [String]
-    let contact: APIColors
-    let publishedAt: Date
-    let distance: Double?
+struct Animal: Codable, Identifiable {
+  let id: Int
+  let organizationId: String?
+  let url: URL
+  let type: String
+  let species: String
+  let breeds: Breed
+  let colors: APIColors
+  let age: Age
+  let gender: Gender
+  let size: Size
+  let coat: String?
+  let name: String
+  let description: String?
+  let photos: [PhotoSize]
+  let videos: [VideoLink]
+  let status: AdoptionStatus
+  let attributes: AnimalAttributes
+  let environment: AnimalEnvironment?
+  let tags: [String]
+  let contact: Contact
+  let publishedAt: String
+  let distance: Double?
 }

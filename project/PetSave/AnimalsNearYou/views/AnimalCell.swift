@@ -30,26 +30,44 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-struct Organization: Codable {
-  var id: String
-  var contact: Contact
-  var distance: Double
+struct AnimalCell: View {
+  let animal: Animal
+  
+  var animalPicture: URL? {
+    animal.photos.first?.medium ?? animal.photos.first?.full
+  }
+  
+  var body: some View {
+    VStack {
+      AsyncImage(url: animalPicture) { image in
+        image
+          .resizable()
+      } placeholder: {
+        Image("rw-logo")
+          .resizable()
+          .overlay {
+            if animalPicture != nil {
+              ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.gray.opacity(0.4))
+            }
+          }
+      }
+      .aspectRatio(1, contentMode: .fill)
+      .cornerRadius(8)
+      
+      Text(animal.name)
+        .multilineTextAlignment(.center)
+        .font(.headline)
+    }
+  }
 }
 
-//TODO use built in classes from AddressBook here?
-struct Contact: Codable {
-  var email: String
-  var phone: String?
-  var address: Address
-}
-
-struct Address: Codable {
-  var address1: String?
-  var address2: String?
-  var city: String
-  var state: String
-  var postcode: String
-  var country: String
+struct AnimalCell_Previews: PreviewProvider {
+  static var previews: some View {
+    AnimalCell(animal: Animal.mock[0])
+      .frame(width: 164, height: 164)
+  }
 }

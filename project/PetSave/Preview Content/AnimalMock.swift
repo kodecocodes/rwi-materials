@@ -32,24 +32,14 @@
 
 import Foundation
 
-struct Organization: Codable {
-  var id: String
-  var contact: Contact
-  var distance: Double
+extension Animal {
+  static let mock = loadAnimals()
 }
 
-//TODO use built in classes from AddressBook here?
-struct Contact: Codable {
-  var email: String
-  var phone: String?
-  var address: Address
-}
-
-struct Address: Codable {
-  var address1: String?
-  var address2: String?
-  var city: String
-  var state: String
-  var postcode: String
-  var country: String
+fileprivate func loadAnimals() -> [Animal] {
+  guard let url = Bundle.main.url(forResource: "AnimalsMock", withExtension: "json"),
+          let data = try? Data(contentsOf: url) else { return [] }
+  let decoder = JSONDecoder()
+  decoder.keyDecodingStrategy = .convertFromSnakeCase
+  return try! decoder.decode([Animal].self, from: data)
 }
