@@ -35,6 +35,7 @@ import UIKit
 protocol PetFinderApiRouterProtocol {
   var path: String { get }
   var requestType: RequestType { get }
+  var headers: [String : String] { get }
   var params: [String : Any] { get }
 }
 
@@ -48,10 +49,15 @@ extension PetFinderApiRouterProtocol {
     return [:]
   }
   
+  var headers: [String : String] {
+    return [:]
+  }
+  
   func urlRequest() -> URLRequest {
     let requestURL = baseURL.appendingPathComponent(path)
     var urlRequest = URLRequest(url: requestURL)
     urlRequest.httpMethod = requestType.rawValue
+    if !headers.isEmpty { urlRequest.allHTTPHeaderFields = headers }
     do {
     if !params.isEmpty {
       urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
