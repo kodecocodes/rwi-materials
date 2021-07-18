@@ -31,3 +31,7 @@
 /// THE SOFTWARE.
 
 import Foundation
+
+class ApiConstants {
+  static let baseURLString = "https://api.petfinder.com/v2"
+}

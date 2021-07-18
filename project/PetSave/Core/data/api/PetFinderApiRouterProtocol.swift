@@ -30,29 +30,47 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import UIKit
 
-protocol PetFinderApiProtocol {
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T
+protocol PetFinderApiRouterProtocol {
+  var path: String { get }
+  var requestType: RequestType { get }
+  var headers: [String : String] { get }
+  var params: [String : Any] { get }
 }
 
-class PetFinderApi: PetFinderApiProtocol {
+extension PetFinderApiRouterProtocol {
   
-  let apiManager: ApiManagerProtocol
-  let jsonDecoder: JSONDecoder
-  
-  init(apiManager: ApiManagerProtocol, jsonDecoder: JSONDecoder = JSONDecoder()) {
-    self.apiManager = apiManager
-    self.jsonDecoder = jsonDecoder
+  var baseURL: URL {
+    return URL(string: ApiConstants.baseURLString)!
   }
   
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T {
+  var params: [String : Any] {
+    return [:]
+  }
+  
+  var headers: [String : String] {
+    return [:]
+  }
+  
+  func urlRequest() -> URLRequest {
+    let requestURL = baseURL.appendingPathComponent(path)
+    var urlRequest = URLRequest(url: requestURL)
+    urlRequest.httpMethod = requestType.rawValue
+    if !headers.isEmpty { urlRequest.allHTTPHeaderFields = headers }
     do {
-      let data = try await apiManager.request(with: petFinderApiRouter)
-      let decoded = try jsonDecoder.decode(T.self, from: data)
-      return decoded
-    } catch {
-      throw error
+    if !params.isEmpty {
+      urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
     }
+    } catch {
+      print(error.localizedDescription)
+    }
+    return urlRequest
   }
+}
+
+enum RequestType: String {
+  case GET = "GET"
+  case POST = "POST"
+  
 }

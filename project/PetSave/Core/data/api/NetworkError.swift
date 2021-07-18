@@ -32,27 +32,13 @@
 
 import Foundation
 
-protocol PetFinderApiProtocol {
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T
-}
-
-class PetFinderApi: PetFinderApiProtocol {
+public enum NetworkError: Error, CustomStringConvertible {
+  case invalidServerResponse
   
-  let apiManager: ApiManagerProtocol
-  let jsonDecoder: JSONDecoder
-  
-  init(apiManager: ApiManagerProtocol, jsonDecoder: JSONDecoder = JSONDecoder()) {
-    self.apiManager = apiManager
-    self.jsonDecoder = jsonDecoder
-  }
-  
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T {
-    do {
-      let data = try await apiManager.request(with: petFinderApiRouter)
-      let decoded = try jsonDecoder.decode(T.self, from: data)
-      return decoded
-    } catch {
-      throw error
+  public var description: String {
+    switch self {
+    case .invalidServerResponse:
+      return "The server returned an invalid response."
     }
   }
 }
