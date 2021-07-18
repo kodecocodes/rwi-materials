@@ -30,38 +30,10 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
-protocol AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
-}
-
-final class AnimalsNearYouViewModel: ObservableObject {
-  @Published var animals: [Animal]
-  @Published var isLoading: Bool
-  
-  var page = 0
-  
-  private let animalFetcher: AnimalFetcher
-  
-  init(
-    animals: [Animal] = [],
-    isLoading: Bool = true,
-    animalFetcher: AnimalFetcher
-  ) {
-    self.animals = animals
-    self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
-  }
-  
-  func fetchAnimals() async {
-    let animals = await animalFetcher.fetchAnimals(page: 0)
-    await updateAnimals(animals: animals)
-  }
-  
-  @MainActor
-  func updateAnimals(animals: [Animal]) {
-    self.animals += animals
-    isLoading = false
-  }
+enum AnimalSearchAge: String, CaseIterable {
+  case none
+  case baby
+  case young
+  case adult
+  case senior
 }

@@ -33,13 +33,96 @@
 import SwiftUI
 
 struct SearchView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  @ObservedObject var viewModel: SearchViewModel
+  
+  var body: some View {
+    AnimalsGrid(animals: viewModel.animals)
+      .navigationTitle("Find your future pet")
+      .searchable(text: $viewModel.searchText)
+      .onChange(of: viewModel.searchText) { _ in
+        viewModel.search()
+      }
+      .overlay {
+        if viewModel.animals.isEmpty {
+          emptyAnimalsView
+        }
+      }
+      .toolbar {
+        ToolbarItem {
+          filterMenu
+        }
+      }
+  }
+  
+  var emptyAnimalsView: some View {
+    VStack {
+      Image("cat")
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 248, height: 248)
+      Text("Use the search field to find your new pet! Don't forget to use the filters \(Image(systemName: "slider.horizontal.3")) to narrow down the search.")
+        .font(.callout)
     }
+    .padding()
+  }
+  
+  var filterMenu: some View {
+    Menu {
+      Section {
+        Text("Filter by age")
+        Picker("Age", selection: $viewModel.ageSelection) {
+          ForEach(AnimalSearchAge.allCases, id: \.self) { age in
+            Text(age.rawValue.capitalized)
+          }
+        }
+        .onChange(of: viewModel.ageSelection) { _ in
+          viewModel.search()
+        }
+      }
+      Section {
+        Text("Filter by type")
+        Picker("Type", selection: $viewModel.typeSelection) {
+          ForEach(AnimalSearchType.allCases, id: \.self) { type in
+            Text(type.rawValue.capitalized)
+          }
+        }
+        .onChange(of: viewModel.typeSelection) { _ in
+          viewModel.search()
+        }
+      }
+    } label: {
+      Label("Filter", systemImage: "slider.horizontal.3")
+    }
+  }
 }
 
 struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
+  static var previews: some View {
+    NavigationView {
+      SearchView(
+        viewModel: SearchViewModel(
+          animalSearcher: AnimalSearcherMock()
+        )
+      )
     }
+  }
+}
+
+#warning("For testing purposes")
+struct AnimalSearcherMock: AnimalSearcher {
+  func searchAnimal(
+    by text: String,
+    age: AnimalSearchAge,
+    type: AnimalSearchType
+  ) async -> [Animal] {
+    sleep(5)
+    var animals = Animal.mock
+    if age != .none {
+      animals = animals.filter { $0.age.rawValue.lowercased() == age.rawValue.lowercased() }
+    }
+    if type != .none {
+      animals = animals.filter { $0.type.lowercased() == type.rawValue.lowercased() }
+    }
+    return animals.filter { $0.name.contains(text) }
+  }
 }

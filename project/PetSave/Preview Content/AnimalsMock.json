@@ -472,5 +472,421 @@
               "href": "/v2/organizations/ca710"
           }
       }
+  },
+  {
+      "id": 52341850,
+      "organization_id": "ND07",
+      "url": "https://www.petfinder.com/dog/yankee-in-foster-52341850/nd/fargo/homeward-animal-shelter-nd07/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+          "primary": "Pit Bull Terrier",
+          "secondary": null,
+          "mixed": false,
+          "unknown": false
+      },
+      "colors": {
+          "primary": null,
+          "secondary": null,
+          "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Male",
+      "size": "Medium",
+      "coat": null,
+      "attributes": {
+          "spayed_neutered": true,
+          "house_trained": true,
+          "declawed": null,
+          "special_needs": false,
+          "shots_current": true
+      },
+      "environment": {
+          "children": null,
+          "dogs": null,
+          "cats": false
+      },
+      "tags": [],
+      "name": "Yankee--In Foster",
+      "description": "Life, Liberty, and the Pursuit of a Forever Home... err, I mean Happiness... actually, it&amp;#39;s all the same to me....",
+      "organization_animal_id": "D-20-209",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:21:29+0000",
+      "published_at": "2021-07-14T03:21:29+0000",
+      "distance": null,
+      "contact": {
+          "email": "info@homewardonline.org",
+          "phone": "701-239-0077   ",
+          "address": {
+              "address1": "1201 28th Avenue North",
+              "address2": null,
+              "city": "Fargo",
+              "state": "ND",
+              "postcode": "58102",
+              "country": "US"
+          }
+      },
+      "_links": {
+          "self": {
+              "href": "/v2/animals/52341850"
+          },
+          "type": {
+              "href": "/v2/types/dog"
+          },
+          "organization": {
+              "href": "/v2/organizations/nd07"
+          }
+      }
+  },
+  {
+      "id": 52341849,
+      "organization_id": "WA650",
+      "url": "https://www.petfinder.com/dog/panzer-52341849/wa/seattle/dog-gone-seattle-wa650/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+          "primary": "Doberman Pinscher",
+          "secondary": null,
+          "mixed": false,
+          "unknown": false
+      },
+      "colors": {
+          "primary": null,
+          "secondary": null,
+          "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Male",
+      "size": "Large",
+      "coat": null,
+      "attributes": {
+          "spayed_neutered": true,
+          "house_trained": true,
+          "declawed": null,
+          "special_needs": false,
+          "shots_current": true
+      },
+      "environment": {
+          "children": null,
+          "dogs": true,
+          "cats": null
+      },
+      "tags": [],
+      "name": "Panzer",
+      "description": "Animal Profile: Panzer is a red cropped and docked Dobie who is estimated at 2-3 years old and weighs about...",
+      "organization_animal_id": "16955302-A751308",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:21:28+0000",
+      "published_at": "2021-07-14T03:21:28+0000",
+      "distance": null,
+      "contact": {
+          "email": "adopt@doggoneseattle.org",
+          "phone": null,
+          "address": {
+              "address1": null,
+              "address2": null,
+              "city": "Seattle",
+              "state": "WA",
+              "postcode": "98165",
+              "country": "US"
+          }
+      },
+      "_links": {
+          "self": {
+              "href": "/v2/animals/52341849"
+          },
+          "type": {
+              "href": "/v2/types/dog"
+          },
+          "organization": {
+              "href": "/v2/organizations/wa650"
+          }
+      }
+  },
+  {
+      "id": 52341841,
+      "organization_id": "MN441",
+      "url": "https://www.petfinder.com/dog/fiona-52341841/mn/pequot-lakes/northern-lakes-rescue-mn441/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+          "primary": "Pit Bull Terrier",
+          "secondary": null,
+          "mixed": false,
+          "unknown": false
+      },
+      "colors": {
+          "primary": "Apricot / Beige",
+          "secondary": null,
+          "tertiary": null
+      },
+      "age": "Young",
+      "gender": "Female",
+      "size": "Medium",
+      "coat": null,
+      "attributes": {
+          "spayed_neutered": false,
+          "house_trained": false,
+          "declawed": null,
+          "special_needs": false,
+          "shots_current": true
+      },
+      "environment": {
+          "children": true,
+          "dogs": true,
+          "cats": null
+      },
+      "tags": [
+          "Gentle and Friendly"
+      ],
+      "name": "Fiona",
+      "description": "Hi, I am Fiona. I am a 9 month old beautiful sweet pittie girl! I love to play with my...",
+      "organization_animal_id": "24925",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:20:46+0000",
+      "published_at": "2021-07-14T03:20:46+0000",
+      "distance": null,
+      "contact": {
+          "email": "info@northernlakesrescue.org",
+          "phone": null,
+          "address": {
+              "address1": null,
+              "address2": null,
+              "city": "Pequot Lakes",
+              "state": "MN",
+              "postcode": "56472",
+              "country": "US"
+          }
+      },
+      "_links": {
+          "self": {
+              "href": "/v2/animals/52341841"
+          },
+          "type": {
+              "href": "/v2/types/dog"
+          },
+          "organization": {
+              "href": "/v2/organizations/mn441"
+          }
+      }
+  },
+  {
+      "id": 52341799,
+      "organization_id": "MN441",
+      "url": "https://www.petfinder.com/dog/liberty-52341799/mn/pequot-lakes/northern-lakes-rescue-mn441/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+          "primary": "Chihuahua",
+          "secondary": "Mixed Breed",
+          "mixed": true,
+          "unknown": false
+      },
+      "colors": {
+          "primary": "Yellow / Tan / Blond / Fawn",
+          "secondary": null,
+          "tertiary": null
+      },
+      "age": "Baby",
+      "gender": "Female",
+      "size": "Small",
+      "coat": null,
+      "attributes": {
+          "spayed_neutered": false,
+          "house_trained": false,
+          "declawed": null,
+          "special_needs": false,
+          "shots_current": false
+      },
+      "environment": {
+          "children": true,
+          "dogs": true,
+          "cats": true
+      },
+      "tags": [
+          "Playful"
+      ],
+      "name": "Liberty",
+      "description": "Liberty was born in foster care. She is a sweet little girl that loves life. Please apply at northernlakesrescue.org. Adoption...",
+      "organization_animal_id": "24985",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:20:46+0000",
+      "published_at": "2021-07-14T03:20:46+0000",
+      "distance": null,
+      "contact": {
+          "email": "info@northernlakesrescue.org",
+          "phone": null,
+          "address": {
+              "address1": null,
+              "address2": null,
+              "city": "Pequot Lakes",
+              "state": "MN",
+              "postcode": "56472",
+              "country": "US"
+          }
+      },
+      "_links": {
+          "self": {
+              "href": "/v2/animals/52341799"
+          },
+          "type": {
+              "href": "/v2/types/dog"
+          },
+          "organization": {
+              "href": "/v2/organizations/mn441"
+          }
+      }
+  },
+  {
+      "id": 52341800,
+      "organization_id": "MN441",
+      "url": "https://www.petfinder.com/dog/gertrude-52341800/mn/pequot-lakes/northern-lakes-rescue-mn441/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+          "primary": "Chihuahua",
+          "secondary": "Mixed Breed",
+          "mixed": true,
+          "unknown": false
+      },
+      "colors": {
+          "primary": "Black",
+          "secondary": null,
+          "tertiary": null
+      },
+      "age": "Senior",
+      "gender": "Female",
+      "size": "Small",
+      "coat": null,
+      "attributes": {
+          "spayed_neutered": true,
+          "house_trained": false,
+          "declawed": null,
+          "special_needs": true,
+          "shots_current": false
+      },
+      "environment": {
+          "children": null,
+          "dogs": null,
+          "cats": null
+      },
+      "tags": [
+          "Playful"
+      ],
+      "name": "Gertrude",
+      "description": "I&amp;#39;m a chi mix who is energetic, loves walks and snuggling on my foster parents laps. Gertrude&amp;#39;s adoption fee is...",
+      "organization_animal_id": "21568",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:20:46+0000",
+      "published_at": "2021-07-14T03:20:46+0000",
+      "distance": null,
+      "contact": {
+          "email": "info@northernlakesrescue.org",
+          "phone": null,
+          "address": {
+              "address1": null,
+              "address2": null,
+              "city": "Pequot Lakes",
+              "state": "MN",
+              "postcode": "56472",
+              "country": "US"
+          }
+      },
+      "_links": {
+          "self": {
+              "href": "/v2/animals/52341800"
+          },
+          "type": {
+              "href": "/v2/types/dog"
+          },
+          "organization": {
+              "href": "/v2/organizations/mn441"
+          }
+      }
+  },
+  {
+      "id": 52341806,
+      "organization_id": "MN441",
+      "url": "https://www.petfinder.com/dog/midnight-52341806/mn/pequot-lakes/northern-lakes-rescue-mn441/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+          "primary": "English Bulldog",
+          "secondary": "American Staffordshire Terrier",
+          "mixed": true,
+          "unknown": false
+      },
+      "colors": {
+          "primary": "Black",
+          "secondary": null,
+          "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Female",
+      "size": "Large",
+      "coat": null,
+      "attributes": {
+          "spayed_neutered": true,
+          "house_trained": false,
+          "declawed": null,
+          "special_needs": false,
+          "shots_current": false
+      },
+      "environment": {
+          "children": true,
+          "dogs": null,
+          "cats": false
+      },
+      "tags": [
+          "Playful"
+      ],
+      "name": "Midnight",
+      "description": "Hey, Midnight here. I am a 5 year old female bulldog/pit mix that is a lot bigger than I look...",
+      "organization_animal_id": "24381",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:20:46+0000",
+      "published_at": "2021-07-14T03:20:46+0000",
+      "distance": null,
+      "contact": {
+          "email": "info@northernlakesrescue.org",
+          "phone": null,
+          "address": {
+              "address1": null,
+              "address2": null,
+              "city": "Pequot Lakes",
+              "state": "MN",
+              "postcode": "56472",
+              "country": "US"
+          }
+      },
+      "_links": {
+          "self": {
+              "href": "/v2/animals/52341806"
+          },
+          "type": {
+              "href": "/v2/types/dog"
+          },
+          "organization": {
+              "href": "/v2/organizations/mn441"
+          }
+      }
   }
 ]

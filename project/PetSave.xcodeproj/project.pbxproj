@@ -12,6 +12,10 @@
 		18D775C722AD944400AE281E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C622AD944400AE281E /* Assets.xcassets */; };
 		18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C922AD944400AE281E /* Preview Assets.xcassets */; };
 		18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D775DA22AD963800AE281E /* LaunchScreen.storyboard */; };
+		8471844826A47E8200645C52 /* AnimalsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471844726A47E8100645C52 /* AnimalsGrid.swift */; };
+		8485B72426A4A176001874CB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B72326A4A176001874CB /* SearchViewModel.swift */; };
+		8485B72726A4A3AB001874CB /* AnimalSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B72626A4A3AB001874CB /* AnimalSearchType.swift */; };
+		8485B72926A4A3BF001874CB /* AnimalSearchAge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B72826A4A3BF001874CB /* AnimalSearchAge.swift */; };
 		849C44CF26A0B53F009899B0 /* AnimalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C44CE26A0B53F009899B0 /* AnimalCell.swift */; };
 		849C44EB26A0B7C9009899B0 /* AnimalMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C44EA26A0B7C9009899B0 /* AnimalMock.swift */; };
 		849C44ED26A0B8CC009899B0 /* AnimalsNearYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C44EC26A0B8CC009899B0 /* AnimalsNearYouViewModel.swift */; };
@@ -72,6 +76,10 @@
 		18D775C922AD944400AE281E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		18D775CE22AD944400AE281E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D775DE22AD96B400AE281E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8471844726A47E8100645C52 /* AnimalsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsGrid.swift; sourceTree = "<group>"; };
+		8485B72326A4A176001874CB /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		8485B72626A4A3AB001874CB /* AnimalSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSearchType.swift; sourceTree = "<group>"; };
+		8485B72826A4A3BF001874CB /* AnimalSearchAge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSearchAge.swift; sourceTree = "<group>"; };
 		849C44CE26A0B53F009899B0 /* AnimalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalCell.swift; sourceTree = "<group>"; };
 		849C44EA26A0B7C9009899B0 /* AnimalMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalMock.swift; sourceTree = "<group>"; };
 		849C44EC26A0B8CC009899B0 /* AnimalsNearYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsNearYouViewModel.swift; sourceTree = "<group>"; };
@@ -182,6 +190,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		8485B72226A4A15A001874CB /* viewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8485B72326A4A176001874CB /* SearchViewModel.swift */,
+			);
+			path = viewModels;
+			sourceTree = "<group>";
+		};
+		8485B72526A4A398001874CB /* models */ = {
+			isa = PBXGroup;
+			children = (
+				8485B72626A4A3AB001874CB /* AnimalSearchType.swift */,
+				8485B72826A4A3BF001874CB /* AnimalSearchAge.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		AE6A376B269A86560054C842 /* AnimalsNearYou */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,8 +219,8 @@
 		AE6A376C269A866A0054C842 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				AE6A3772269B558A0054C842 /* domain */,
-				AE6A3770269B54B60054C842 /* viewModels */,
+				8485B72526A4A398001874CB /* models */,
+				8485B72226A4A15A001874CB /* viewModels */,
 				AE6A3771269B54BC0054C842 /* views */,
 			);
 			path = Search;
@@ -216,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				AE6A377F269B57770054C842 /* AnimalsNearYouView.swift */,
-				849C44CE26A0B53F009899B0 /* AnimalCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -229,42 +253,12 @@
 			path = viewModels;
 			sourceTree = "<group>";
 		};
-		AE6A3770269B54B60054C842 /* viewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = viewModels;
-			sourceTree = "<group>";
-		};
 		AE6A3771269B54BC0054C842 /* views */ = {
 			isa = PBXGroup;
 			children = (
 				AE6A3781269B57940054C842 /* SearchView.swift */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		AE6A3772269B558A0054C842 /* domain */ = {
-			isa = PBXGroup;
-			children = (
-				AE6A3773269B55900054C842 /* model */,
-				AE6A3774269B55DA0054C842 /* useCases */,
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		AE6A3773269B55900054C842 /* model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		AE6A3774269B55DA0054C842 /* useCases */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = useCases;
 			sourceTree = "<group>";
 		};
 		AE6A3775269B56010054C842 /* data */ = {
@@ -289,8 +283,9 @@
 		AE6A3777269B56180054C842 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				AE6A377E269B56B70054C842 /* viewModels */,
 				AE6A3785269B58350054C842 /* AnimalsView.swift */,
+				8471844726A47E8100645C52 /* AnimalsGrid.swift */,
+				849C44CE26A0B53F009899B0 /* AnimalCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -344,13 +339,6 @@
 				AE6A3823269FC7470054C842 /* user */,
 			);
 			path = model;
-			sourceTree = "<group>";
-		};
-		AE6A377E269B56B70054C842 /* viewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = viewModels;
 			sourceTree = "<group>";
 		};
 		AE6A3787269B58600054C842 /* organization */ = {
@@ -591,7 +579,9 @@
 				AE6A3825269FC7670054C842 /* User.swift in Sources */,
 				AE6A3820269B5E0E0054C842 /* Media.swift in Sources */,
 				849C44ED26A0B8CC009899B0 /* AnimalsNearYouViewModel.swift in Sources */,
+				8485B72926A4A3BF001874CB /* AnimalSearchAge.swift in Sources */,
 				AE6A3786269B58350054C842 /* AnimalsView.swift in Sources */,
+				8485B72426A4A176001874CB /* SearchViewModel.swift in Sources */,
 				84A59F7E269E9BDB00237A83 /* AdoptionStatus.swift in Sources */,
 				AE6A3816269B5DCD0054C842 /* Gender.swift in Sources */,
 				18D775C522AD944300AE281E /* ContentView.swift in Sources */,
@@ -609,7 +599,9 @@
 				AE6A3818269B5DDC0054C842 /* HabitatAdaptation.swift in Sources */,
 				AE6A37D0269B5A320054C842 /* Persistence.swift in Sources */,
 				AE6A3792269B59310054C842 /* Animal.swift in Sources */,
+				8485B72726A4A3AB001874CB /* AnimalSearchType.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,
+				8471844826A47E8200645C52 /* AnimalsGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

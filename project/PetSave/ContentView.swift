@@ -47,7 +47,11 @@ struct ContentView: View {
       }
       
       NavigationView {
-        SearchView()
+        SearchView(
+          viewModel: SearchViewModel(
+            animalSearcher: AnimalSearcherMock()
+          )
+        )
       }
       .tabItem {
         Label("Search", systemImage: "magnifyingglass")

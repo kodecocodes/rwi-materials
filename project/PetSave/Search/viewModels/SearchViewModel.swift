@@ -32,36 +32,44 @@
 
 import Foundation
 
-protocol AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
+protocol AnimalSearcher {
+  func searchAnimal(
+    by text: String,
+    age: AnimalSearchAge,
+    type: AnimalSearchType
+  ) async -> [Animal]
 }
 
-final class AnimalsNearYouViewModel: ObservableObject {
-  @Published var animals: [Animal]
-  @Published var isLoading: Bool
+final class SearchViewModel: ObservableObject {
+  @Published var searchText = ""
+  @Published var ageSelection = AnimalSearchAge.none
+  @Published var typeSelection = AnimalSearchType.none
+  @Published var animals: [Animal] = []
   
-  var page = 0
+  private let animalSearcher: AnimalSearcher
   
-  private let animalFetcher: AnimalFetcher
-  
-  init(
-    animals: [Animal] = [],
-    isLoading: Bool = true,
-    animalFetcher: AnimalFetcher
-  ) {
-    self.animals = animals
-    self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
+  init(animalSearcher: AnimalSearcher) {
+    self.animalSearcher = animalSearcher
   }
   
-  func fetchAnimals() async {
-    let animals = await animalFetcher.fetchAnimals(page: 0)
-    await updateAnimals(animals: animals)
+  func search() {
+    guard !searchText.isEmpty else {
+      animals = []
+      return
+    }
+    
+    Task {
+      let animals = await animalSearcher.searchAnimal(
+        by: searchText,
+        age: ageSelection,
+        type: typeSelection
+      )
+      await update(animals: animals)
+    }
   }
-  
+
   @MainActor
-  func updateAnimals(animals: [Animal]) {
-    self.animals += animals
-    isLoading = false
+  func update(animals: [Animal]) {
+    self.animals = animals
   }
 }

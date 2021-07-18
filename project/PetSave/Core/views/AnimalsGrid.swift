@@ -30,38 +30,30 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-protocol AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
+struct AnimalsGrid: View {
+  let animals: [Animal]
+  
+  private let columns = [
+    GridItem(.flexible()),
+    GridItem(.flexible())
+  ]
+  
+  var body: some View {
+    ScrollView {
+      LazyVGrid(columns: columns) {
+        ForEach(animals) { animal in
+          AnimalCell(animal: animal)
+        }
+      }
+      .padding()
+    }
+  }
 }
 
-final class AnimalsNearYouViewModel: ObservableObject {
-  @Published var animals: [Animal]
-  @Published var isLoading: Bool
-  
-  var page = 0
-  
-  private let animalFetcher: AnimalFetcher
-  
-  init(
-    animals: [Animal] = [],
-    isLoading: Bool = true,
-    animalFetcher: AnimalFetcher
-  ) {
-    self.animals = animals
-    self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
-  }
-  
-  func fetchAnimals() async {
-    let animals = await animalFetcher.fetchAnimals(page: 0)
-    await updateAnimals(animals: animals)
-  }
-  
-  @MainActor
-  func updateAnimals(animals: [Animal]) {
-    self.animals += animals
-    isLoading = false
+struct AnimalsGrid_Previews: PreviewProvider {
+  static var previews: some View {
+    AnimalsGrid(animals: Animal.mock)
   }
 }
