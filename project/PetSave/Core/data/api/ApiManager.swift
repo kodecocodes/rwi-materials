@@ -32,27 +32,27 @@
 
 import Foundation
 
-protocol PetFinderApiProtocol {
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T
+protocol ApiManagerProtocol {
+  func request(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> Data
 }
 
-class PetFinderApi: PetFinderApiProtocol {
+class ApiManager: NSObject, ApiManagerProtocol {
   
-  let apiManager: ApiManagerProtocol
-  let jsonDecoder: JSONDecoder
+  private let urlSession: URLSession
   
-  init(apiManager: ApiManagerProtocol, jsonDecoder: JSONDecoder = JSONDecoder()) {
-    self.apiManager = apiManager
-    self.jsonDecoder = jsonDecoder
+  init(urlSession: URLSession = URLSession.shared) {
+    self.urlSession = urlSession
   }
   
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T {
-    do {
-      let data = try await apiManager.request(with: petFinderApiRouter)
-      let decoded = try jsonDecoder.decode(T.self, from: data)
-      return decoded
-    } catch {
-      throw error
-    }
+  func request(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> Data {
+    
+    let (data, response) = try await urlSession.data(for: petFinderApiRouter.urlRequest())
+    
+    guard let httpResponse = response as? HTTPURLResponse,
+          httpResponse.statusCode == 200 else {
+            throw NetworkError.invalidServerResponse
+          }
+    
+    return data
   }
 }
