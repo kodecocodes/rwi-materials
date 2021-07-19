@@ -46,10 +46,10 @@ struct Contact: Codable {
 }
 
 struct Address: Codable {
-  var address1: String?
+  var address1: String
   var address2: String?
   var city: String
   var state: String
-  var postcode: String
+  var postalcode: String
   var country: String
 }

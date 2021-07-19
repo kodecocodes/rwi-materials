@@ -30,9 +30,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct Breed: Codable {
-  let primary: String?
-  let secondary: String?
-  let mixed: Bool
-  let unknown: Bool
-}
+import Foundation
+
+//Helper methods to go here!

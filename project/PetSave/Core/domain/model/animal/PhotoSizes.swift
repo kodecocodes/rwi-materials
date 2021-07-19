@@ -32,7 +32,7 @@
 
 import Foundation
 
-struct PhotoSize: Codable {
+struct PhotoSizes: Codable {
   let small: URL?
   let medium: URL?
   let large: URL?

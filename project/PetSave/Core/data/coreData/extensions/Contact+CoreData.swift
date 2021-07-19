@@ -29,10 +29,31 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
+///
 
-struct Breed: Codable {
-  let primary: String?
-  let secondary: String?
-  let mixed: Bool
-  let unknown: Bool
+import Foundation
+import CoreData
+
+extension Contact {
+  
+  init(managedObject: ContactEntity) {
+    
+    self.email = managedObject.email!
+    self.phone = managedObject.phone
+    self.address = Address(managedObject: managedObject.address!)
+//    self.animal = Animal(managedObject: managedObject.animal!)
+//    self.organization = Organization(managedObject: managedObject.organization!)
+  }
+  
+  func toManagedObject(context: NSManagedObjectContext) -> ContactEntity {
+    
+    let persistedValue = ContactEntity.init(context: context)
+    let mirror = Mirror(reflecting: self)
+    for case let (label?, value) in mirror.children {
+      persistedValue.setValue(value, forKey: label)
+    }
+    
+    return persistedValue
+  }
 }
+

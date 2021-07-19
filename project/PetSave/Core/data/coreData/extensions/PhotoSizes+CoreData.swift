@@ -30,9 +30,29 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct Breed: Codable {
-  let primary: String?
-  let secondary: String?
-  let mixed: Bool
-  let unknown: Bool
+import Foundation
+
+import Foundation
+import CoreData
+
+extension PhotoSizes {
+  
+  init(managedObject: PhotoSizesEntity) {
+    
+    self.full = managedObject.full
+    self.large = managedObject.large
+    self.medium = managedObject.medium
+    self.small = managedObject.small
+  }
+  
+  func toManagedObject(context: NSManagedObjectContext) -> PhotoSizesEntity {
+    
+    let persistedValue = PhotoSizesEntity.init(context: context)
+    let mirror = Mirror(reflecting: self)
+    for case let (label?, value) in mirror.children {
+      persistedValue.setValue(value, forKey: label)
+    }
+    
+    return persistedValue
+  }
 }

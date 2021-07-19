@@ -33,7 +33,7 @@
 import Foundation
 
 struct Details {
-  var description: String
+  var desc: String
   var age: Age
   var species: String
   var breed: Breed
@@ -41,7 +41,7 @@ struct Details {
   var gender: Gender
   var size: Size
   var coat: Coat
-  var healthDetails: HealthDetails
-  var habitatAdaptation: HabitatAdaptation
+//  var healthDetails: HealthDetails
+//  var habitatAdaptation: HabitatAdaptation
   var organization: Organization
 }
