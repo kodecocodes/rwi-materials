@@ -32,36 +32,47 @@
 
 import SwiftUI
 
-enum AnimalSearchType: String, CaseIterable {
-  case none
-  case cat
-  case dog
-  case rabbit
-  case smallAndFurry = "Small & Furry"
-  case horse
-  case bird
-  case scalesFinsAndOther = "Scales, Fins & Other"
-  case barnyard
-}
-
-extension AnimalSearchType {
-  var suggestionImage: Image {
-    switch self {
-    case .smallAndFurry:
-      return Image("smallAndFurry")
-    case .scalesFinsAndOther:
-      return Image("scalesFinsAndOther")
-    default:
-      return Image(rawValue)
-    }
+struct AnimalTypeSuggestionView: View {
+  let suggestion: AnimalSearchType
+  
+  private var gradientColors: [Color] {
+    [
+      Color.clear,
+      Color.black
+    ]
+  }
+  
+  private var gradientOverlay: some View {
+    LinearGradient(colors: gradientColors, startPoint: .top, endPoint: .bottom)
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .opacity(0.3)
+  }
+  
+  var body: some View {
+    suggestion.suggestionImage
+      .resizable()
+      .aspectRatio(1, contentMode: .fill)
+      .frame(height: 96)
+      .overlay(gradientOverlay)
+      .overlay(alignment: .bottomLeading) {
+        Text(suggestion.rawValue.capitalized)
+          .padding(12)
+          .foregroundColor(.white)
+          .font(.headline)
+      }
+      .cornerRadius(16)
   }
 }
 
-extension AnimalSearchType {
-  static var suggestions: [AnimalSearchType] {
-    var suggestions = AnimalSearchType.allCases
-    // Removing 'none' from suggestions
-    suggestions.removeFirst()
-    return suggestions
+struct AnimalTypeSuggestionView_Previews: PreviewProvider {
+  static var previews: some View {
+    AnimalTypeSuggestionView(suggestion: AnimalSearchType.cat)
+      .previewLayout(.sizeThatFits)
+//    Group {
+//      ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
+//        AnimalTypeSuggestionView(suggestion: suggestion)
+//          .previewLayout(.sizeThatFits)
+//      }
+//    }
   }
 }

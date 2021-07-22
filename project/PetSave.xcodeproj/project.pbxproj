@@ -26,6 +26,8 @@
 		84A59F7A269E920300237A83 /* AnimalEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A59F79269E920300237A83 /* AnimalEnvironment.swift */; };
 		84A59F7C269E92F800237A83 /* APIColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A59F7B269E92F800237A83 /* APIColors.swift */; };
 		84A59F7E269E9BDB00237A83 /* AdoptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A59F7D269E9BDA00237A83 /* AdoptionStatus.swift */; };
+		84E562B526A8B56100BF252E /* AnimalTypeSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E562B426A8B56100BF252E /* AnimalTypeSuggestionView.swift */; };
+		84F7D50E26A8C3360087F322 /* SuggestionsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7D50D26A8C3360087F322 /* SuggestionsGrid.swift */; };
 		8FC35C5B26A4643900DDA13F /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC35C5A26A4643800DDA13F /* ApiManager.swift */; };
 		8FC35C5D26A4801600DDA13F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC35C5C26A4801600DDA13F /* NetworkError.swift */; };
 		8FC35C5F26A482D700DDA13F /* PetFinderApiRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC35C5E26A482D700DDA13F /* PetFinderApiRouterProtocol.swift */; };
@@ -93,6 +95,8 @@
 		84A59F79269E920300237A83 /* AnimalEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalEnvironment.swift; sourceTree = "<group>"; };
 		84A59F7B269E92F800237A83 /* APIColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIColors.swift; sourceTree = "<group>"; };
 		84A59F7D269E9BDA00237A83 /* AdoptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptionStatus.swift; sourceTree = "<group>"; };
+		84E562B426A8B56100BF252E /* AnimalTypeSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalTypeSuggestionView.swift; sourceTree = "<group>"; };
+		84F7D50D26A8C3360087F322 /* SuggestionsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsGrid.swift; sourceTree = "<group>"; };
 		8FC35C5A26A4643800DDA13F /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		8FC35C5C26A4801600DDA13F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		8FC35C5E26A482D700DDA13F /* PetFinderApiRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderApiRouterProtocol.swift; sourceTree = "<group>"; };
@@ -263,6 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				AE6A3781269B57940054C842 /* SearchView.swift */,
+				84E562B426A8B56100BF252E /* AnimalTypeSuggestionView.swift */,
+				84F7D50D26A8C3360087F322 /* SuggestionsGrid.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -602,11 +608,13 @@
 				AE6A378D269B58D30054C842 /* ApiConstants.swift in Sources */,
 				AE6A381A269B5DE70054C842 /* HealthDetails.swift in Sources */,
 				84A59F7C269E92F800237A83 /* APIColors.swift in Sources */,
+				84F7D50E26A8C3360087F322 /* SuggestionsGrid.swift in Sources */,
 				AE6A380E269B5DA90054C842 /* Breed.swift in Sources */,
 				AE6A3780269B57770054C842 /* AnimalsNearYouView.swift in Sources */,
 				AE6A378B269B58B30054C842 /* PetFinderApi.swift in Sources */,
 				84A59F76269E8DF000237A83 /* VideoLink.swift in Sources */,
 				AE6A3814269B5DC20054C842 /* Details.swift in Sources */,
+				84E562B526A8B56100BF252E /* AnimalTypeSuggestionView.swift in Sources */,
 				8FC35C5B26A4643900DDA13F /* ApiManager.swift in Sources */,
 				AE6A3818269B5DDC0054C842 /* HabitatAdaptation.swift in Sources */,
 				AE6A37D0269B5A320054C842 /* Persistence.swift in Sources */,

@@ -53,11 +53,6 @@ final class SearchViewModel: ObservableObject {
   }
   
   func search() {
-    guard !searchText.isEmpty else {
-      animals = []
-      return
-    }
-    
     Task {
       let animals = await animalSearcher.searchAnimal(
         by: searchText,
@@ -66,6 +61,11 @@ final class SearchViewModel: ObservableObject {
       )
       await update(animals: animals)
     }
+  }
+  
+  func selectTypeSuggestion(_ type: AnimalSearchType) {
+    typeSelection = type
+    search()
   }
 
   @MainActor

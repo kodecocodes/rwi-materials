@@ -40,34 +40,41 @@ struct AnimalCell: View {
   }
   
   var body: some View {
-    VStack {
-      AsyncImage(url: animalPicture) { image in
-        image
-          .resizable()
-      } placeholder: {
-        Image("rw-logo")
-          .resizable()
-          .overlay {
-            if animalPicture != nil {
-              ProgressView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.gray.opacity(0.4))
+    NavigationLink(destination: AnimalsView(animal: animal)) {
+      VStack(alignment: .leading) {
+        AsyncImage(url: animalPicture) { image in
+          image
+            .resizable()
+        } placeholder: {
+          Image("rw-logo")
+            .resizable()
+            .overlay {
+              if animalPicture != nil {
+                ProgressView()
+                  .frame(maxWidth: .infinity, maxHeight: .infinity)
+                  .background(.gray.opacity(0.4))
+              }
             }
-          }
+        }
+        .aspectRatio(1, contentMode: .fill)
+        .cornerRadius(8)
+        
+        Text(animal.name)
+          .multilineTextAlignment(.center)
+          .font(.headline)
+        Text(animal.type)
+          .font(.subheadline)
       }
-      .aspectRatio(1, contentMode: .fill)
-      .cornerRadius(8)
-      
-      Text(animal.name)
-        .multilineTextAlignment(.center)
-        .font(.headline)
     }
+    .buttonStyle(.plain)
   }
 }
 
 struct AnimalCell_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalCell(animal: Animal.mock[0])
-      .frame(width: 164, height: 164)
+    NavigationView {
+      AnimalCell(animal: Animal.mock[0])
+        .frame(width: 164, height: 164)
+    }
   }
 }

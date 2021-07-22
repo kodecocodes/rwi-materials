@@ -1,12 +1,12 @@
 [
   {
-      "id": 52341863,
-      "organization_id": "CA714",
-      "url": "https://www.petfinder.com/dog/champ-52341863/ca/oakland/oakland-animal-services-ca714/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
-      "type": "Dog",
-      "species": "Dog",
+      "id": 52432090,
+      "organization_id": "PA174",
+      "url": "https://www.petfinder.com/cat/kiki-52432090/pa/west-chester/brandywine-valley-spca-pennsylvania-pa174/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Cat",
+      "species": "Cat",
       "breeds": {
-          "primary": "Pit Bull Terrier",
+          "primary": "Domestic Short Hair",
           "secondary": null,
           "mixed": false,
           "unknown": false
@@ -16,14 +16,14 @@
           "secondary": null,
           "tertiary": null
       },
-      "age": "Young",
-      "gender": "Male",
-      "size": "Large",
+      "age": "Adult",
+      "gender": "Female",
+      "size": "Medium",
       "coat": null,
       "attributes": {
-          "spayed_neutered": false,
+          "spayed_neutered": true,
           "house_trained": false,
-          "declawed": null,
+          "declawed": false,
           "special_needs": false,
           "shots_current": false
       },
@@ -33,40 +33,52 @@
           "cats": null
       },
       "tags": [],
-      "name": "Champ",
-      "description": "On Tue Jul 13 20:13:34 PDT 2021 Champ was available. For current animal profile, images and videos please visit https://petportal.oaklandanimalservices.org/myapp/publicAnimalProfile/show/51202...",
-      "organization_animal_id": "16971380-54119",
-      "photos": [],
-      "primary_photo_cropped": null,
+      "name": "Kiki",
+      "description": null,
+      "organization_animal_id": "48037715",
+      "photos": [
+          {
+              "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=100",
+              "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=300",
+              "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=600",
+              "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800"
+          }
+      ],
+      "primary_photo_cropped": {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=300",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=450",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800"
+      },
       "videos": [],
       "status": "adoptable",
-      "status_changed_at": "2021-07-14T03:22:58+0000",
-      "published_at": "2021-07-14T03:22:58+0000",
-      "distance": null,
+      "status_changed_at": "2021-07-21T22:06:28+0000",
+      "published_at": "2021-07-21T22:06:28+0000",
+      "distance": 94.6233,
       "contact": {
-          "email": "adoption@oaklandsanimals.org",
-          "phone": "(510) 535-5602",
+          "email": "info@bvspca.org",
+          "phone": "(610) 692-6113",
           "address": {
-              "address1": "1101 29th Ave",
+              "address1": "1212 Phoenixville Pike",
               "address2": null,
-              "city": "Oakland",
-              "state": "CA",
-              "postcode": "94601",
+              "city": "West Chester",
+              "state": "PA",
+              "postcode": "19380",
               "country": "US"
           }
       },
       "_links": {
           "self": {
-              "href": "/v2/animals/52341863"
+              "href": "/v2/animals/52432090"
           },
           "type": {
-              "href": "/v2/types/dog"
+              "href": "/v2/types/cat"
           },
           "organization": {
-              "href": "/v2/organizations/ca714"
+              "href": "/v2/organizations/pa174"
           }
       }
-  },
+      },
   {
       "id": 52341861,
       "organization_id": "CA129",

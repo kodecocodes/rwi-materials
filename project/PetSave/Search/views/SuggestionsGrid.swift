@@ -32,36 +32,39 @@
 
 import SwiftUI
 
-enum AnimalSearchType: String, CaseIterable {
-  case none
-  case cat
-  case dog
-  case rabbit
-  case smallAndFurry = "Small & Furry"
-  case horse
-  case bird
-  case scalesFinsAndOther = "Scales, Fins & Other"
-  case barnyard
-}
-
-extension AnimalSearchType {
-  var suggestionImage: Image {
-    switch self {
-    case .smallAndFurry:
-      return Image("smallAndFurry")
-    case .scalesFinsAndOther:
-      return Image("scalesFinsAndOther")
-    default:
-      return Image(rawValue)
+struct SuggestionsGrid: View {
+  let suggestions: [AnimalSearchType]
+  let action: (AnimalSearchType) -> ()
+  
+  private let columns = [
+    GridItem(.flexible()),
+    GridItem(.flexible())
+  ]
+  
+  var body: some View {
+    VStack(alignment: .leading) {
+      Divider()
+      Text("Browse by Type")
+        .font(.title2.bold())
+      LazyVGrid(columns: columns) {
+        ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
+          Button(action: { action(suggestion) }) {
+            AnimalTypeSuggestionView(suggestion: suggestion)
+          }
+          .buttonStyle(.plain)
+        }
+      }
     }
+    .padding()
   }
 }
 
-extension AnimalSearchType {
-  static var suggestions: [AnimalSearchType] {
-    var suggestions = AnimalSearchType.allCases
-    // Removing 'none' from suggestions
-    suggestions.removeFirst()
-    return suggestions
+struct SuggestionsGrid_Previews: PreviewProvider {
+  static var previews: some View {
+    SuggestionsGrid(
+      suggestions: AnimalSearchType.suggestions
+    ) { _ in
+      
+    }
   }
 }

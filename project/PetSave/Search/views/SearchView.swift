@@ -35,35 +35,41 @@ import SwiftUI
 struct SearchView: View {
   @ObservedObject var viewModel: SearchViewModel
   
-  var body: some View {
-    AnimalsGrid(animals: viewModel.animals)
-      .navigationTitle("Find your future pet")
-      .searchable(text: $viewModel.searchText)
-      .onChange(of: viewModel.searchText) { _ in
-        viewModel.search()
-      }
-      .overlay {
-        if viewModel.animals.isEmpty {
-          emptyAnimalsView
-        }
-      }
-      .toolbar {
-        ToolbarItem {
-          filterMenu
-        }
-      }
-  }
+  // For some reason, isSearching only change on subviews.
+  // isSearching is also get only so we can't dismiss the searchbar after hitting submit.
+//  @Environment(\.isSearching) var isSearching: Bool
   
-  var emptyAnimalsView: some View {
-    VStack {
-      Image("cat")
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 248, height: 248)
-      Text("Use the search field to find your new pet! Don't forget to use the filters \(Image(systemName: "slider.horizontal.3")) to narrow down the search.")
-        .font(.callout)
+  private let columns = [
+    GridItem(.flexible()),
+    GridItem(.flexible())
+  ]
+  
+  var body: some View {
+    ScrollView {
+      if viewModel.animals.isEmpty {
+        SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { suggestion in
+          viewModel.selectTypeSuggestion(suggestion)
+        }
+      } else {
+        AnimalsGrid(animals: viewModel.animals)
+      }
     }
-    .padding()
+    .navigationTitle("Find your future pet")
+    .searchable(text: $viewModel.searchText)
+    .onSubmit(of: .search) {
+      viewModel.search()
+    }
+    // There's no .onCancel(of: .search) modifier to clear the view if the user canceled the search or cleared the search bar.
+//    .onChange(of: viewModel.searchText) { newText in
+//      if newText.isEmpty {
+//        viewModel.resetSearch()
+//      }
+//    }
+    .toolbar {
+      ToolbarItem {
+        filterMenu
+      }
+    }
   }
   
   var filterMenu: some View {
@@ -115,7 +121,6 @@ struct AnimalSearcherMock: AnimalSearcher {
     age: AnimalSearchAge,
     type: AnimalSearchType
   ) async -> [Animal] {
-    sleep(5)
     var animals = Animal.mock
     if age != .none {
       animals = animals.filter { $0.age.rawValue.lowercased() == age.rawValue.lowercased() }
