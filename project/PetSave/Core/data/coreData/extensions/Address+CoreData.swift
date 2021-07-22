@@ -32,8 +32,29 @@
 
 import Foundation
 
-struct HabitatAdaptation {
-  var goodWithChildren: Bool
-  var goodWithDogs: Bool
-  var goodWithCats: Bool
+import Foundation
+import CoreData
+
+extension Address {
+  
+  init(managedObject: AddressEntity) {
+    
+    self.address1 = managedObject.address1!
+    self.address2 = managedObject.address2!
+    self.city = managedObject.city!
+    self.country = managedObject.country!
+    self.postalcode = managedObject.postalcode!
+    self.state = managedObject.state!
+  }
+  
+  func toManagedObject(context: NSManagedObjectContext) -> AddressEntity {
+    
+    let persistedValue = AddressEntity.init(context: context)
+    let mirror = Mirror(reflecting: self)
+    for case let (label?, value) in mirror.children {
+      persistedValue.setValue(value, forKey: label)
+    }
+    
+    return persistedValue
+  }
 }

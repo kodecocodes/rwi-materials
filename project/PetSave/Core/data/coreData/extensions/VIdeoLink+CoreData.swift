@@ -30,9 +30,26 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct Breed: Codable {
-  let primary: String?
-  let secondary: String?
-  let mixed: Bool
-  let unknown: Bool
+import Foundation
+import CoreData
+
+extension VideoLink {
+  
+  init(managedObject: VideoLinkEntity) {
+    
+    self.embedded = managedObject.embedded
+//    self.animal = managedObject.animal
+
+  }
+  
+  func toManagedObject(context: NSManagedObjectContext) -> VideoLinkEntity {
+    
+    let persistedValue = VideoLinkEntity.init(context: context)
+    let mirror = Mirror(reflecting: self)
+    for case let (label?, value) in mirror.children {
+      persistedValue.setValue(value, forKey: label)
+    }
+    
+    return persistedValue
+  }
 }

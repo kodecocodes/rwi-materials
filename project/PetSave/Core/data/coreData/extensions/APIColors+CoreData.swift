@@ -30,9 +30,26 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct Breed: Codable {
-  let primary: String?
-  let secondary: String?
-  let mixed: Bool
-  let unknown: Bool
+import Foundation
+import CoreData
+
+extension APIColors {
+  
+  init(managedObject: APIColorsEntity) {
+    
+    self.primary = managedObject.primary
+    self.secondary = managedObject.secondary
+    self.tertiary = managedObject.tertiary
+  }
+  
+  func toManagedObject(context: NSManagedObjectContext) -> APIColorsEntity {
+    
+    let persistedValue = APIColorsEntity.init(context: context)
+    let mirror = Mirror(reflecting: self)
+    for case let (label?, value) in mirror.children {
+      persistedValue.setValue(value, forKey: label)
+    }
+    
+    return persistedValue
+  }
 }

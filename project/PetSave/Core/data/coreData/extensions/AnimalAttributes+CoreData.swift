@@ -30,9 +30,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct Breed: Codable {
-  let primary: String?
-  let secondary: String?
-  let mixed: Bool
-  let unknown: Bool
+import Foundation
+import CoreData
+
+extension AnimalAttributes {
+  
+  init(managedObject: AnimalAttributesEntity) {
+    
+    self.declawed = managedObject.declawed
+    self.houseTrained = managedObject.houseTrained
+    self.shotsCurrent = managedObject.shotsCurrent
+    self.spayedNeutered = managedObject.spayedNeutered
+    self.specialNeeds = managedObject.specialNeeds
+  }
+  
+  func toManagedObject(context: NSManagedObjectContext) -> AnimalAttributesEntity {
+    
+    let persistedValue = AnimalAttributesEntity.init(context: context)
+    let mirror = Mirror(reflecting: self)
+    for case let (label?, value) in mirror.children {
+      persistedValue.setValue(value, forKey: label)
+    }
+    
+    return persistedValue
+  }
 }
