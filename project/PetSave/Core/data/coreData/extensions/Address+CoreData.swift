@@ -43,7 +43,7 @@ extension Address {
     self.address2 = managedObject.address2!
     self.city = managedObject.city!
     self.country = managedObject.country!
-    self.postalcode = managedObject.postalcode!
+    self.postcode = managedObject.postalcode!
     self.state = managedObject.state!
   }
   

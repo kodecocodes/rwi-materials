@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19178.1" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AddressEntity" representedClassName="AddressEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="address1" attributeType="String"/>
+        <attribute name="address1" optional="YES" attributeType="String"/>
         <attribute name="address2" optional="YES" attributeType="String"/>
         <attribute name="city" attributeType="String"/>
         <attribute name="country" attributeType="String"/>
@@ -33,7 +33,7 @@
         <attribute name="type" attributeType="String"/>
         <attribute name="url" attributeType="URI"/>
         <relationship name="attributes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalAttributesEntity" inverseName="animal" inverseEntity="AnimalAttributesEntity"/>
-        <relationship name="breed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BreedEntity" inverseName="animal" inverseEntity="BreedEntity"/>
+        <relationship name="breeds" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BreedEntity" inverseName="animal" inverseEntity="BreedEntity"/>
         <relationship name="colors" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="APIColorsEntity" inverseName="animal" inverseEntity="APIColorsEntity"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="animal" inverseEntity="ContactEntity"/>
         <relationship name="environment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEnvironmentEntity" inverseName="animal" inverseEntity="AnimalEnvironmentEntity"/>
@@ -57,7 +57,7 @@
         <attribute name="primary" optional="YES" attributeType="String"/>
         <attribute name="secondary" optional="YES" attributeType="String"/>
         <attribute name="unknown" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="animal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="breed" inverseEntity="AnimalEntity"/>
+        <relationship name="animal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="breeds" inverseEntity="AnimalEntity"/>
     </entity>
     <entity name="ContactEntity" representedClassName="ContactEntity" syncable="YES" codeGenerationType="class">
         <attribute name="email" attributeType="String"/>

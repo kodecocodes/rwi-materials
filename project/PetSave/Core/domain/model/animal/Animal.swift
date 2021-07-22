@@ -38,7 +38,7 @@ struct Animal: Codable, Identifiable {
   let url: URL?
   let type: String
   let species: String?
-  let breed: Breed
+  let breeds: Breed
   let colors: APIColors
   let age: Age
   let gender: Gender
@@ -53,6 +53,6 @@ struct Animal: Codable, Identifiable {
   let environment: AnimalEnvironment?
   let tags: [String]
   let contact: Contact
-  let publishedAt: Date?
+  let publishedAt: String?
   let distance: Double?
 }

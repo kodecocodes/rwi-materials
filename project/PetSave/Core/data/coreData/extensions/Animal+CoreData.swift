@@ -96,7 +96,7 @@ extension Animal {
     self.id = Int(managedObject.id)
     self.name = managedObject.name!
     self.organizationId = managedObject.organizationId
-    self.publishedAt = managedObject.publishedAt
+    self.publishedAt = managedObject.publishedAt?.description
     self.size = managedObject.size
     self.species = managedObject.species
     self.status = managedObject.status
@@ -105,7 +105,7 @@ extension Animal {
     self.url = managedObject.url
     
     self.attributes = AnimalAttributes(managedObject: managedObject.attributes!)
-    self.breed = Breed(managedObject: managedObject.breed!)
+    self.breeds = Breed(managedObject: managedObject.breeds!)
     self.colors = APIColors(managedObject: managedObject.colors!)
     self.contact = Contact(managedObject: managedObject.contact!)
     self.environment = AnimalEnvironment(managedObject: managedObject.environment!)
