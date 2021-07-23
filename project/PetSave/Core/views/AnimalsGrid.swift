@@ -54,6 +54,8 @@ struct AnimalsGrid: View {
 
 struct AnimalsGrid_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalsGrid(animals: Animal.mock)
+    NavigationView {
+      AnimalsGrid(animals: Animal.mock)
+    }
   }
 }

@@ -30,9 +30,26 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-enum Age: String, Codable {
+import SwiftUI
+
+enum Age: String, Codable, CaseIterable {
   case baby = "Baby"
   case young = "Young"
   case adult = "Adult"
   case senior = "Senior"
+}
+
+extension Age {
+  var color: Color {
+    switch self {
+    case .baby:
+      return .cyan
+    case .young:
+      return .orange
+    case .adult:
+      return .green
+    case .senior:
+      return .blue
+    }
+  }
 }

@@ -63,7 +63,7 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
 #warning("Remove later, only for testing purposes...")
 struct AnimalFetcherMock: AnimalFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
-    sleep(2)
+    await Task.sleep(2)
     return Animal.mock
   }
 }

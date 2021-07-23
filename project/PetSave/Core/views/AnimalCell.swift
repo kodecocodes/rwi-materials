@@ -41,7 +41,7 @@ struct AnimalCell: View {
   
   var body: some View {
     NavigationLink(destination: AnimalsView(animal: animal)) {
-      VStack(alignment: .leading) {
+      VStack(alignment: .leading, spacing: 4) {
         AsyncImage(url: animalPicture) { image in
           image
             .resizable()
@@ -59,11 +59,26 @@ struct AnimalCell: View {
         .aspectRatio(1, contentMode: .fill)
         .cornerRadius(8)
         
-        Text(animal.name)
-          .multilineTextAlignment(.center)
-          .font(.headline)
-        Text(animal.type)
-          .font(.subheadline)
+        VStack(alignment: .leading) {
+          Text(animal.name)
+            .multilineTextAlignment(.center)
+            .font(.headline)
+          Text(animal.breed)
+            .font(.subheadline)
+        }
+        .lineLimit(1)
+        HStack {
+          Text(animal.age.rawValue)
+            .padding(4)
+            .background(animal.age.color.opacity(0.2))
+            .cornerRadius(8)
+            .foregroundColor(animal.age.color)
+          Text(animal.gender.rawValue)
+            .padding(4)
+            .background(.pink.opacity(0.2))
+            .cornerRadius(8)
+            .foregroundColor(Color.pink)
+        }
       }
     }
     .buttonStyle(.plain)

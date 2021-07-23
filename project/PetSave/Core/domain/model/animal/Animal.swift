@@ -56,3 +56,9 @@ struct Animal: Codable, Identifiable {
   let publishedAt: String?
   let distance: Double?
 }
+
+extension Animal {
+  var breed: String {
+    breeds.primary ?? breeds.secondary ?? ""
+  }
+}
