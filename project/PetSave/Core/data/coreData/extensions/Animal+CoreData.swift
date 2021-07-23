@@ -90,7 +90,7 @@ extension Animal {
     
     self.age = managedObject.age
     self.coat = managedObject.coat
-    self.desc = managedObject.desc
+    self.description = managedObject.desc
     self.distance = managedObject.distance
     self.gender = managedObject.gender
     self.id = Int(managedObject.id)

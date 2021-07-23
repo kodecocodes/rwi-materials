@@ -19,7 +19,7 @@
       "age": "Adult",
       "gender": "Female",
       "size": "Medium",
-      "coat": null,
+      "coat": "Short",
       "attributes": {
           "spayed_neutered": true,
           "house_trained": false,
@@ -34,7 +34,7 @@
       },
       "tags": [],
       "name": "Kiki",
-      "description": null,
+      "description": "A lovely and sweet Domestic Short Hair cat. Kiki is a docile cat that whenver possible is asking for belly rubs.",
       "organization_animal_id": "48037715",
       "photos": [
           {

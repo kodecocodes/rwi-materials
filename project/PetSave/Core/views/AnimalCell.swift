@@ -35,21 +35,17 @@ import SwiftUI
 struct AnimalCell: View {
   let animal: Animal
   
-  var animalPicture: URL? {
-    animal.photos.first?.medium ?? animal.photos.first?.full
-  }
-  
   var body: some View {
     NavigationLink(destination: AnimalsView(animal: animal)) {
       VStack(alignment: .leading, spacing: 4) {
-        AsyncImage(url: animalPicture) { image in
+        AsyncImage(url: animal.picture) { image in
           image
             .resizable()
         } placeholder: {
           Image("rw-logo")
             .resizable()
             .overlay {
-              if animalPicture != nil {
+              if animal.picture != nil {
                 ProgressView()
                   .frame(maxWidth: .infinity, maxHeight: .infinity)
                   .background(.gray.opacity(0.4))
@@ -69,15 +65,9 @@ struct AnimalCell: View {
         .lineLimit(1)
         HStack {
           Text(animal.age.rawValue)
-            .padding(4)
-            .background(animal.age.color.opacity(0.2))
-            .cornerRadius(8)
-            .foregroundColor(animal.age.color)
+            .modifier(AnimalAttributesCard(color: animal.age.color))
           Text(animal.gender.rawValue)
-            .padding(4)
-            .background(.pink.opacity(0.2))
-            .cornerRadius(8)
-            .foregroundColor(Color.pink)
+            .modifier(AnimalAttributesCard(color: .pink))
         }
       }
     }
@@ -91,5 +81,18 @@ struct AnimalCell_Previews: PreviewProvider {
       AnimalCell(animal: Animal.mock[0])
         .frame(width: 164, height: 164)
     }
+  }
+}
+
+#warning("Remove to its own file.")
+struct AnimalAttributesCard: ViewModifier {
+  let color: Color
+  func body(content: Content) -> some View {
+    content
+      .padding(4)
+      .background(color.opacity(0.2))
+      .cornerRadius(8)
+      .foregroundColor(color)
+      .font(.subheadline)
   }
 }

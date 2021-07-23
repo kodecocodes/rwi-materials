@@ -45,7 +45,7 @@ struct Animal: Codable, Identifiable {
   let size: Size
   let coat: Coat?
   let name: String
-  let desc: String?
+  let description: String?
   let photos: [PhotoSizes]
   let videos: [VideoLink]
   let status: AdoptionStatus
@@ -60,5 +60,37 @@ struct Animal: Codable, Identifiable {
 extension Animal {
   var breed: String {
     breeds.primary ?? breeds.secondary ?? ""
+  }
+  
+  var picture: URL? {
+    photos.first?.medium ?? photos.first?.full
+  }
+  
+  #warning("Move to Animal details model")
+  var phoneLink: URL? {
+    guard let phoneNumber = contact.phone else { return nil }
+    let formattedPhoneNumber = phoneNumber.replacingOccurrences(of: "(", with: "")
+      .replacingOccurrences(of: ")", with: "")
+      .replacingOccurrences(of: "-", with: "")
+      .replacingOccurrences(of: " ", with: "")
+    return URL(string: "tel:\(formattedPhoneNumber)")
+  }
+  
+  var emailLink: URL? {
+    URL(string: "mailto:\(contact.email)")
+  }
+  
+  var address: String {
+    let address = contact.address
+    return [
+      address.address1,
+      address.address2,
+      address.city,
+      address.state,
+      address.postcode,
+      address.country
+    ]
+    .compactMap { $0 }
+    .joined(separator: ", ")
   }
 }
