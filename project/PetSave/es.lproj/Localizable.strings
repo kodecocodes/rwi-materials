@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  PetSave
+
+  Created by Teacher on 7/21/21.
+  Copyright © 2021 Ray Wenderlich. All rights reserved.
+*/
+
+/*Search View Navigation Title*/
+"SEARCH_NAVIGATION_TITLE" = "Find in Spanish";

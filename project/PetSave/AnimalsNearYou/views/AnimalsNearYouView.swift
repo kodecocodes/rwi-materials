@@ -32,6 +32,8 @@
 
 import SwiftUI
 
+//Chapter 10: Animation here while data is loading, replacing ProgressView
+
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   
@@ -57,6 +59,17 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
         )
       )
     }
+    
+    
+    NavigationView {
+      AnimalsNearYouView(
+        viewModel: AnimalsNearYouViewModel(
+          isLoading: true,
+          animalFetcher: AnimalFetcherMock()
+        )
+      )
+    }
+    .preferredColorScheme(.dark)
   }
 }
 

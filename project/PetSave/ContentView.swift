@@ -43,7 +43,7 @@ struct ContentView: View {
         )
       }
       .tabItem {
-        Label("Near you", systemImage: "location")
+        Label("Near you", systemImage: "location")  //Chapter 12 - SF Symbols
       }
       
       NavigationView {
@@ -54,7 +54,7 @@ struct ContentView: View {
         )
       }
       .tabItem {
-        Label("Search", systemImage: "magnifyingglass")
+        Label("Search", systemImage: "magnifyingglass") //Chapter 12 - SF Symbols
       }
     }
   }

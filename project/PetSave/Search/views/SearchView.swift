@@ -32,7 +32,12 @@
 
 import SwiftUI
 
+//Chapter 10: Animation here while data is loading
+
 struct SearchView: View {
+  
+  let navigationTitle = NSLocalizedString("SEARCH_NAVIGATION_TITLE", comment: "Search View Navigation Title")
+  
   @ObservedObject var viewModel: SearchViewModel
   
   // For some reason, isSearching only change on subviews.
@@ -49,6 +54,7 @@ struct SearchView: View {
       if viewModel.animals.isEmpty {
         SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { suggestion in
           viewModel.selectTypeSuggestion(suggestion)
+
         }
       } else {
         AnimalsGrid(animals: viewModel.animals)
@@ -104,12 +110,32 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      SearchView(
-        viewModel: SearchViewModel(
-          animalSearcher: AnimalSearcherMock()
+    Group {
+      NavigationView {
+        SearchView(
+          viewModel: SearchViewModel(
+            animalSearcher: AnimalSearcherMock()
+          )
         )
-      )
+      }
+      
+      NavigationView {
+        SearchView(
+          viewModel: SearchViewModel(
+            animalSearcher: AnimalSearcherMock()
+          )
+        )
+      }.environment(\.locale, .init(identifier: "es"))
+        .previewDisplayName("Spanish Locale")
+
+      //Chapter 12 - Dark mode previews
+      NavigationView {
+        SearchView(
+          viewModel: SearchViewModel(
+            animalSearcher: AnimalSearcherMock()
+          )
+        )
+      }.preferredColorScheme(.dark)
     }
   }
 }

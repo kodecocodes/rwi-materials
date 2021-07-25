@@ -31,43 +31,28 @@
 /// THE SOFTWARE.
 
 import Foundation
-import CoreData
+import Combine
 
-class CoreDataHelper {
-
-  static let context = PersistenceController.shared.container.viewContext
-
-  static func clearDatabase() {
-    let entities = PersistenceController.shared.container.managedObjectModel.entities
-    entities.compactMap{$0.name}.forEach(clearTable)
+public struct PetService {
+  
+  private var url: URL {
+    urlComponents.url!
   }
-
-  private static func clearTable(_ entity: String) {
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-    do {
-      try context.execute(deleteRequest)
-      try context.save()
-    } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
-    }
+  
+  private var urlComponents: URLComponents {
+    var components = URLComponents()
+    components.scheme = "https"
+    components.host = "api.petfinder.com"
+    components.path = "/v2"
+    return components
   }
-
 }
 
-//Chapter 3 - deleting data
-extension Collection where Element == NSManagedObject, Index == Int{
-  func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext) {
-  
-    indices.forEach { index in
-      viewContext.delete(self[index])
-    }
-
-    do {
-      try viewContext.save()
-    } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
-    }
+extension PetService: PetServiceDataPublisher {
+  public func publisher() -> AnyPublisher<Data, URLError> {
+    URLSession.shared
+      .dataTaskPublisher(for: url)
+      .map(\.data)
+      .eraseToAnyPublisher()
   }
 }

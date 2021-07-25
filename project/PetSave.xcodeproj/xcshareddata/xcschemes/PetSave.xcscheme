@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AE6A37DA269B5B500054C842"
+               BlueprintIdentifier = "AE6A37F4269B5B850054C842"
                BuildableName = "PetSaveTests.xctest"
                BlueprintName = "PetSaveTests"
                ReferencedContainer = "container:PetSave.xcodeproj">
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AE6A37E7269B5B5C0054C842"
+               BlueprintIdentifier = "AE6A3801269B5C050054C842"
                BuildableName = "PetSaveUITests.xctest"
                BlueprintName = "PetSaveUITests"
                ReferencedContainer = "container:PetSave.xcodeproj">
@@ -54,6 +54,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = "en"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"

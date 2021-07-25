@@ -30,44 +30,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-import CoreData
+import XCTest
 
-class CoreDataHelper {
+class SearchViewModelTests: XCTestCase {
 
-  static let context = PersistenceController.shared.container.viewContext
-
-  static func clearDatabase() {
-    let entities = PersistenceController.shared.container.managedObjectModel.entities
-    entities.compactMap{$0.name}.forEach(clearTable)
-  }
-
-  private static func clearTable(_ entity: String) {
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-    do {
-      try context.execute(deleteRequest)
-      try context.save()
-    } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
-    }
-  }
-
-}
-
-//Chapter 3 - deleting data
-extension Collection where Element == NSManagedObject, Index == Int{
-  func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext) {
-  
-    indices.forEach { index in
-      viewContext.delete(self[index])
+    override func setUpWithError() throws {
+        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
-    do {
-      try viewContext.save()
-    } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+    override func tearDownWithError() throws {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-  }
+
+    func testExample() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    }
+
+    func testPerformanceExample() throws {
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
+    }
+
 }

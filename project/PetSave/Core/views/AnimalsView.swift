@@ -33,6 +33,10 @@
 import SwiftUI
 import MapKit
 
+//Chapter 10: Animation here while data is loading
+//Chapter 10: Animate image of pet to full screen
+//Chapter 10: Custom control for ranking
+
 class LocationFetcher: ObservableObject {
   @Published var coordinates = MKCoordinateRegion(
     center: CLLocationCoordinate2D(

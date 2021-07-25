@@ -44,6 +44,18 @@ final class SearchViewModel: ObservableObject {
   @Published var searchText = ""
   @Published var ageSelection = AnimalSearchAge.none
   @Published var typeSelection = AnimalSearchType.none
+  
+  //Chapter 3 - Fetching Data - likely to replace the animals array below - the Data API will pull results, store them in the database, and then this sectioned fetch request will help keep the UI up to date
+  /*
+   @SectionedFetchRequest<String, Animal>(
+   
+    sectionIdentifier: \.breed,
+    sortDescriptors: [NSSortDescriptor(keyPath: \Animal.name, ascending: true)],
+    animation: .default
+   ) private var animals
+   
+   */
+  
   @Published var animals: [Animal] = []
   
   private let animalSearcher: AnimalSearcher
@@ -67,6 +79,8 @@ final class SearchViewModel: ObservableObject {
     typeSelection = type
     search()
   }
+
+  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
 
   @MainActor
   func update(animals: [Animal]) {

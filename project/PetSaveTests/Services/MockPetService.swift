@@ -31,43 +31,23 @@
 /// THE SOFTWARE.
 
 import Foundation
-import CoreData
+import Combine
+import PetSave
 
-class CoreDataHelper {
-
-  static let context = PersistenceController.shared.container.viewContext
-
-  static func clearDatabase() {
-    let entities = PersistenceController.shared.container.managedObjectModel.entities
-    entities.compactMap{$0.name}.forEach(clearTable)
-  }
-
-  private static func clearTable(_ entity: String) {
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-    do {
-      try context.execute(deleteRequest)
-      try context.save()
-    } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
-    }
-  }
-
-}
-
-//Chapter 3 - deleting data
-extension Collection where Element == NSManagedObject, Index == Int{
-  func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext) {
+struct MockPetService: PetServiceDataPublisher {
   
-    indices.forEach { index in
-      viewContext.delete(self[index])
+  let data: Data
+  let error: URLError?
+  
+  func publisher() -> AnyPublisher<Data, URLError> {
+    
+    let publisher = CurrentValueSubject<Data, URLError>(data)
+    
+    if let error = error {
+      publisher.send(completion: .failure(error))
     }
-
-    do {
-      try viewContext.save()
-    } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
-    }
+    
+    return publisher.eraseToAnyPublisher()
   }
+  
 }

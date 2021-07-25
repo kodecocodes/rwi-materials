@@ -37,6 +37,18 @@ protocol AnimalFetcher {
 }
 
 final class AnimalsNearYouViewModel: ObservableObject {
+  
+  //Chapter 3 - Fetching Data - likely to replace the animals array below - the Data API will pull results, store them in the database, and then this sectioned fetch request will help keep the UI up to date
+  /*
+   @SectionedFetchRequest<String, Animal>(
+   
+    sectionIdentifier: \.breed,
+    sortDescriptors: [NSSortDescriptor(keyPath: \Animal.name, ascending: true)],
+    animation: .default
+   ) private var animals
+   
+   */
+  
   @Published var animals: [Animal]
   @Published var isLoading: Bool
   
@@ -61,6 +73,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
     await updateAnimals(animals: animals)
   }
   
+  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
   @MainActor
   func updateAnimals(animals: [Animal]) {
     self.animals += animals

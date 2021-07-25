@@ -30,44 +30,50 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-import CoreData
+import XCTest
+@testable import PetSave
 
-class CoreDataHelper {
-
-  static let context = PersistenceController.shared.container.viewContext
-
-  static func clearDatabase() {
-    let entities = PersistenceController.shared.container.managedObjectModel.entities
-    entities.compactMap{$0.name}.forEach(clearTable)
-  }
-
-  private static func clearTable(_ entity: String) {
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-    do {
-      try context.execute(deleteRequest)
-      try context.save()
-    } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
-    }
-  }
-
-}
-
-//Chapter 3 - deleting data
-extension Collection where Element == NSManagedObject, Index == Int{
-  func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext) {
+class PetSaveTests: XCTestCase {
   
-    indices.forEach { index in
-      viewContext.delete(self[index])
-    }
-
+  override func setUpWithError() throws {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+  }
+  
+  override func tearDownWithError() throws {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+  }
+  
+  func testExample() throws {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+  }
+  
+  func test_createPetWithSamplePetData() {
+    
+    //Given
+    guard let url = Bundle.main.url(forResource: "AnimalsMock", withExtension: "json"),
+      let data = try? Data(contentsOf: url)
+      else { return XCTFail("AnimalsMock file missing or data is corrupted") }
+    
+    let pet: Animal
+    
+    //When
     do {
-      try viewContext.save()
+      pet = try JSONDecoder().decode(Animal.self, from: data)
     } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+      return XCTFail(error.localizedDescription)
+    }
+    
+    //Then
+    XCTAssert(pet.name == "Kiki", "Mock pet name was expected to be Kiki but was \(pet.name)")
+    
+  }
+  
+  func testPerformanceExample() throws {
+    // This is an example of a performance test case.
+    measure {
+      // Put the code you want to measure the time of here.
     }
   }
+  
 }
