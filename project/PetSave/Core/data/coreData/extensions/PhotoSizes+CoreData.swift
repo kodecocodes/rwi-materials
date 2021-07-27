@@ -35,24 +35,27 @@ import Foundation
 import Foundation
 import CoreData
 
-extension PhotoSizes {
+extension PhotoSizes: CoreDataPersistable {
+
+  typealias ManagedType = PhotoSizesEntity
   
-  init(managedObject: PhotoSizesEntity) {
-    
-    self.full = managedObject.full
-    self.large = managedObject.large
-    self.medium = managedObject.medium
-    self.small = managedObject.small
-  }
-  
-  func toManagedObject(context: NSManagedObjectContext) -> PhotoSizesEntity {
-    
-    let persistedValue = PhotoSizesEntity.init(context: context)
-    let mirror = Mirror(reflecting: self)
-    for case let (label?, value) in mirror.children {
-      persistedValue.setValue(value, forKey: label)
-    }
-    
-    return persistedValue
-  }
+//  init(managedObject: PhotoSizesEntity) {
+//    
+//    self.id = Int(managedObject.id)
+//    self.full = managedObject.full
+//    self.large = managedObject.large
+//    self.medium = managedObject.medium
+//    self.small = managedObject.small
+//  }
+//  
+//  func toManagedObject(context: NSManagedObjectContext) /*-> PhotoSizesEntity*/ {
+//
+//    let persistedValue = PhotoSizesEntity.init(context: context)
+//    let mirror = Mirror(reflecting: self)
+//    for case let (label?, value) in mirror.children {
+//      persistedValue.setValue(value, forKey: label)
+//    }
+//
+////    return persistedValue
+//  }
 }

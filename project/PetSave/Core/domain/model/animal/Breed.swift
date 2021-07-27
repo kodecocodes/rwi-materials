@@ -31,6 +31,7 @@
 /// THE SOFTWARE.
 
 struct Breed: Codable {
+  var id: Int?
   let primary: String?
   let secondary: String?
   let mixed: Bool

@@ -33,17 +33,18 @@
 import Foundation
 import CoreData
 
-extension VideoLink: UUIDIdentifiable {
+extension VideoLink: CoreDataPersistable {
 
+  typealias ManagedType = VideoLinkEntity
   
-  init(managedObject: VideoLinkEntity) {
-    self.id = Int(managedObject.id)
-    self.embedded = managedObject.embedded
-//    self.animal = managedObject.animal
-
-  }
+//  init(managedObject: VideoLinkEntity) {
+//    self.id = Int(managedObject.id)
+//    self.embedded = managedObject.embedded
+////    self.animal = managedObject.animal
+//
+//  }
   
-//  func toManagedObject(context: NSManagedObjectContext) -> VideoLinkEntity {
+//  func toManagedObject(context: NSManagedObjectContext) /*-> VideoLinkEntity*/ {
 //
 //    let persistedValue = VideoLinkEntity.init(context: context)
 //    let mirror = Mirror(reflecting: self)
@@ -51,6 +52,6 @@ extension VideoLink: UUIDIdentifiable {
 //      persistedValue.setValue(value, forKey: label)
 //    }
 //
-//    return persistedValue
+////    return persistedValue
 //  }
 }

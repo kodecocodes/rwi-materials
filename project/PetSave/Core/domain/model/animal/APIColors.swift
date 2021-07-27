@@ -31,6 +31,7 @@
 /// THE SOFTWARE.
 
 struct APIColors: Codable {
+  var id: Int?
   let primary: String?
   let secondary: String?
   let tertiary: String?

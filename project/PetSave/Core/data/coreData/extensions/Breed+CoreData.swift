@@ -33,24 +33,26 @@
 import Foundation
 import CoreData
 
-extension Breed {
+extension Breed: CoreDataPersistable {
+
+  typealias ManagedType = BreedEntity
   
-  init(managedObject: BreedEntity) {
-    
-    self.mixed = managedObject.mixed
-    self.primary = managedObject.primary
-    self.secondary = managedObject.secondary
-    self.unknown = managedObject.unknown
-  }
-  
-  func toManagedObject(context: NSManagedObjectContext) -> BreedEntity {
-    
-    let persistedValue = BreedEntity.init(context: context)
-    let mirror = Mirror(reflecting: self)
-    for case let (label?, value) in mirror.children {
-      persistedValue.setValue(value, forKey: label)
-    }
-    
-    return persistedValue
-  }
+//  init(managedObject: BreedEntity) {
+//    self.id = Int(managedObject.id)
+//    self.mixed = managedObject.mixed
+//    self.primary = managedObject.primary
+//    self.secondary = managedObject.secondary
+//    self.unknown = managedObject.unknown
+//  }
+//  
+//  func toManagedObject(context: NSManagedObjectContext) /*-> BreedEntity*/ {
+//
+//    let persistedValue = BreedEntity.init(context: context)
+//    let mirror = Mirror(reflecting: self)
+//    for case let (label?, value) in mirror.children {
+//      persistedValue.setValue(value, forKey: label)
+//    }
+//
+////    return persistedValue
+//  }
 }

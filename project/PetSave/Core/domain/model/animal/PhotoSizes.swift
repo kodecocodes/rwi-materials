@@ -33,6 +33,7 @@
 import Foundation
 
 struct PhotoSizes: Codable {
+  var id: Int?
   let small: URL?
   let medium: URL?
   let large: URL?

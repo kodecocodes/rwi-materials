@@ -31,6 +31,7 @@
 /// THE SOFTWARE.
 
 struct AnimalEnvironment: Codable {
+  var id: Int?
   let children: Bool?
   let dogs: Bool?
   let cats: Bool?

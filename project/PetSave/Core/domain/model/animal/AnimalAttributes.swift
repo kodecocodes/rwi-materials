@@ -31,6 +31,7 @@
 /// THE SOFTWARE.
 
 struct AnimalAttributes: Codable {
+  var id: Int?
   let spayedNeutered: Bool
   let houseTrained: Bool
   let declawed: Bool?

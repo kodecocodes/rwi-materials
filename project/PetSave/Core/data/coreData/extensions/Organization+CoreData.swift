@@ -35,23 +35,22 @@ import Foundation
 import Foundation
 import CoreData
 
-extension Organization {
+extension Organization: UUIDIdentifiable {
   
-  init(managedObject: OrganizationEntity) {
-    
-    self.distance = managedObject.distance
-    self.id = managedObject.id!
-    self.contact = Contact(managedObject: managedObject.contact!)
-  }
   
-  func toManagedObject(context: NSManagedObjectContext) -> OrganizationEntity {
-    
+//  init(managedObject: OrganizationEntity) {
+//    
+//    self.distance = managedObject.distance
+//    self.id = managedObject.id!
+//    self.contact = Contact(managedObject: managedObject.contact!)
+//  }
+  
+  mutating func toManagedObject(context: NSManagedObjectContext) -> OrganizationEntity {
+
     let persistedValue = OrganizationEntity.init(context: context)
-    let mirror = Mirror(reflecting: self)
-    for case let (label?, value) in mirror.children {
-      persistedValue.setValue(value, forKey: label)
-    }
-    
+    persistedValue.distance = self.distance
+    persistedValue.contact = self.contact.toManagedObject(context: context)
+
     return persistedValue
   }
 }

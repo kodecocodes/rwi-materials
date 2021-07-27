@@ -33,19 +33,21 @@
 import Foundation
 
 struct Organization: Codable {
-  var id: String
+  var id: Int?
   var contact: Contact
   var distance: Double
 }
 
 //TODO use built in classes from AddressBook here?
 struct Contact: Codable {
+  var id: Int?
   var email: String
   var phone: String?
   var address: Address
 }
 
 struct Address: Codable {
+  var id: Int?
   var address1: String?
   var address2: String?
   var city: String

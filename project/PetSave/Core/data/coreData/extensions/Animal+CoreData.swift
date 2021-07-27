@@ -84,46 +84,65 @@ extension AnimalEntity {
   
 }
 
-extension Animal {
+extension Animal: UUIDIdentifiable {
+
   
-  init(managedObject: AnimalEntity) {
-    
-    self.age = managedObject.age
-    self.coat = managedObject.coat
-    self.description = managedObject.desc
-    self.distance = managedObject.distance
-    self.gender = managedObject.gender
-    self.id = Int(managedObject.id)
-    self.name = managedObject.name!
-    self.organizationId = managedObject.organizationId
-    self.publishedAt = managedObject.publishedAt?.description
-    self.size = managedObject.size
-    self.species = managedObject.species
-    self.status = managedObject.status
-    self.tags = []
-    self.type = managedObject.type!
-    self.url = managedObject.url
-    
-    self.attributes = AnimalAttributes(managedObject: managedObject.attributes!)
-    self.breeds = Breed(managedObject: managedObject.breeds!)
-    self.colors = APIColors(managedObject: managedObject.colors!)
-    self.contact = Contact(managedObject: managedObject.contact!)
-    self.environment = AnimalEnvironment(managedObject: managedObject.environment!)
-    
-    self.photos = managedObject.photos?.allObjects as! [PhotoSizes]
-    self.videos = managedObject.videos?.allObjects as! [VideoLink]
-    
-  }
   
-  func toManagedObject(context: NSManagedObjectContext) -> AnimalEntity {
-    
+//  init(managedObject: AnimalEntity) {
+//    
+//    self.age = managedObject.age
+//    self.coat = managedObject.coat
+//    self.description = managedObject.desc
+//    self.distance = managedObject.distance
+//    self.gender = managedObject.gender
+//    self.id = Int(managedObject.id)
+//    self.name = managedObject.name!
+//    self.organizationId = managedObject.organizationId
+//    self.publishedAt = managedObject.publishedAt?.description
+//    self.size = managedObject.size
+//    self.species = managedObject.species
+//    self.status = managedObject.status
+//    self.tags = []
+//    self.type = managedObject.type!
+//    self.url = managedObject.url
+//    
+//    self.attributes = AnimalAttributes(managedObject: managedObject.attributes!)
+//
+//    self.colors = APIColors(managedObject: managedObject.colors!)
+//    self.contact = Contact(managedObject: managedObject.contact!)
+//    self.environment = AnimalEnvironment(managedObject: managedObject.environment!)
+//    
+//    self.photos = managedObject.photos?.allObjects as! [PhotoSizes]
+//    self.videos = managedObject.videos?.allObjects as! [VideoLink]
+//
+//    self.breeds = Breed(managedObject: managedObject.breeds!)
+//    
+//  }
+
+  mutating func toManagedObject(context: NSManagedObjectContext) {
     let persistedValue = AnimalEntity.init(context: context)
-    let mirror = Mirror(reflecting: self)
-    for case let (label?, value) in mirror.children {
-      persistedValue.setValue(value, forKey: label)
-    }
-    
-    return persistedValue
+    persistedValue.age = self.age
+    persistedValue.coat = self.coat!
+    persistedValue.desc = self.description
+    persistedValue.distance = self.distance!
+    persistedValue.gender = self.gender
+    persistedValue.id = Int64(self.id!)
+    persistedValue.name = self.name
+    persistedValue.organizationId = self.organizationId
+    persistedValue.publishedAt = self.publishedAt
+    persistedValue.size = self.size
+    persistedValue.species = self.species
+    persistedValue.status = self.status
+    persistedValue.type = self.type
+    persistedValue.url = self.url
+    persistedValue.attributes = self.attributes.toManagedObject(context: context)
+    persistedValue.colors = self.colors.toManagedObject(context: context)
+    persistedValue.contact = self.contact.toManagedObject(context: context)
+    persistedValue.environment = self.environment?.toManagedObject(context: context)
+    persistedValue.photos = NSSet(array: self.photos)
+    persistedValue.videos = NSSet(array: self.videos)
+    persistedValue.breeds = self.breeds.toManagedObject(context: context)
+
   }
   
 }

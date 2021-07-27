@@ -29,35 +29,73 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
-///
 
 import Foundation
 import CoreData
 
-extension Contact: CoreDataPersistable {
+protocol CoreDataPersistable: UUIDIdentifiable {
+  associatedtype ManagedType
 
-  typealias ManagedType = ContactEntity
-  
-  
-//  init(managedObject: ContactEntity) {
-//    
-//    self.id = Int(managedObject.id)
-//    self.email = managedObject.email!
-//    self.phone = managedObject.phone
-//    self.address = Address(managedObject: managedObject.address!)
-////    self.animal = Animal(managedObject: managedObject.animal!)
-////    self.organization = Organization(managedObject: managedObject.organization!)
-//  }
-  
-//  func toManagedObject(context: NSManagedObjectContext) -> ContactEntity {
-//    
-//    let persistedValue = ContactEntity.init(context: context)
-//    let mirror = Mirror(reflecting: self)
-//    for case let (label?, value) in mirror.children {
-//      persistedValue.setValue(value, forKey: label)
-//    }
-//    
-//    return persistedValue
-//  }
+  mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType
+
+  func save(context: NSManagedObjectContext) throws
 }
 
+extension CoreDataPersistable where ManagedType: NSManagedObject {
+
+  mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType {
+
+    let persistedValue: ManagedType!
+    if let id = self.id {
+      let fetchRequest = ManagedType.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+      if let results = try? context.fetch(fetchRequest),
+         let firstResult = results.first as? ManagedType {
+        persistedValue = firstResult
+      } else {
+        persistedValue = ManagedType.init(context: context)
+        self.id = persistedValue.value(forKey: "id") as? Int
+      }
+    } else {
+      persistedValue = ManagedType.init(context: context)
+      self.id = persistedValue.value(forKey: "id") as? Int
+    }
+
+    let mirror = Mirror(reflecting: self)
+    for case let (label?, value) in mirror.children {
+      persistedValue.setValue(value, forKey: label)
+    }
+
+    return persistedValue
+  }
+
+  func save(context: NSManagedObjectContext) throws {
+
+    try context.save()
+  }
+}
+
+protocol UUIDIdentifiable: Identifiable {
+  var id: Int? { get set }
+}
+
+
+//
+//extension CoreDataPersistable where Self: NSManagedObject & Identifiable {
+//  
+//  func save(inViewContext viewContext: NSManagedObjectContext) {
+//    
+////    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Self.self))
+////
+////    fetchRequest.predicate = NSPredicate(format: "id = %@", self.id as CVarArg)
+//    
+//    self.toManagedObject(context: viewContext)
+//    
+//    do {
+//      try viewContext.save()
+//    } catch {
+//      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+//    }
+//    
+//  }
+//}
