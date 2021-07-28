@@ -32,50 +32,38 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
-
-struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+struct AnimalContactsView: View {
+  let animal: Animal
   
   var body: some View {
-    AnimalsGrid(animals: viewModel.animals)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if viewModel.isLoading {
-          ProgressView("Finding Animals near you...")
+    VStack(alignment: .leading) {
+      Text("Contact")
+        .font(.headline)
+      HStack {
+        if let phoneLink = animal.phoneLink, let phoneNumber = animal.contact.phone {
+          AnimalContactLink(
+            title: phoneNumber,
+            iconName: "phone.fill",
+            url: phoneLink,
+            color: .green
+          )
+        }
+        if let emailLink = animal.emailLink, let emailAddress = animal.contact.email {
+          AnimalContactLink(
+            title: emailAddress,
+            iconName: "envelope.fill",
+            url: emailLink,
+            color: .blue
+          )
         }
       }
-      .task(viewModel.fetchAnimals)
+    }
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
+struct AnimalContactsView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-  }
-}
-
-#warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
-    return Animal.mock
+    AnimalContactsView(animal: Animal.mock[0])
+      .previewLayout(.sizeThatFits)
   }
 }

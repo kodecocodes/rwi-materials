@@ -32,50 +32,49 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
+//Chapter 10: Animation here while data is loading
+//Chapter 10: Animate image of pet to full screen
+//Chapter 10: Custom control for ranking
 
-struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+struct AnimalDetailsView: View {
+  let animal: Animal
   
   var body: some View {
-    AnimalsGrid(animals: viewModel.animals)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if viewModel.isLoading {
-          ProgressView("Finding Animals near you...")
+    ScrollView {
+      LazyVStack {
+        AnimalHeaderView(animal: animal)
+        AnimalDetailRow(animal: animal)
+        VStack(alignment: .leading, spacing: 24) {
+          if let description = animal.description {
+            VStack(alignment: .leading) {
+              Text("Details")
+                .font(.title2)
+              Text(description)
+            }
+          }
+          AnimalContactsView(animal: animal)
+          AnimalLocationView(animal: animal)
         }
+        .padding(.horizontal)
+        .padding(.bottom)
       }
-      .task(viewModel.fetchAnimals)
+    }
+    .navigationTitle(animal.name)
+    .navigationBarTitleDisplayMode(.inline)
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
+struct AnimalsView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
+    Group {
+      NavigationView {
+        AnimalDetailsView(animal: Animal.mock[0])
+      }
+      
+      NavigationView {
+        AnimalDetailsView(animal: Animal.mock[0])
+      }
+      .previewDevice("iPhone SE (2nd generation)")
     }
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-  }
-}
-
-#warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
-    return Animal.mock
   }
 }

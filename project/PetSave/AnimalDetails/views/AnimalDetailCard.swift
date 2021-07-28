@@ -32,50 +32,39 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
-
-struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+struct AnimalDetailCard: View {
+  let title: String
+  let value: String
+  let color: Color
   
   var body: some View {
-    AnimalsGrid(animals: viewModel.animals)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if viewModel.isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
-      .task(viewModel.fetchAnimals)
+    VStack {
+      Text(title)
+        .font(.subheadline)
+      Text(value)
+        .font(.headline)
+    }
+    .padding(.vertical)
+    .frame(width: 96)
+    .background(color.opacity(0.2))
+    .foregroundColor(color)
+    .cornerRadius(8)
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
+struct AnimalDetailCard_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
+    HStack {
+      AnimalDetailCard(
+        title: "Age",
+        value: "Adult",
+        color: .green
+      )
+      AnimalDetailCard(
+        title: "Age",
+        value: "Baby",
+        color: .blue
       )
     }
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-  }
-}
-
-#warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
-    return Animal.mock
   }
 }

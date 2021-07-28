@@ -31,51 +31,43 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import MapKit
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
-
-struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+struct AnimalLocationView: View {
+  let animal: Animal
+  
+  @StateObject var locationFetcher = LocationFetcher()
   
   var body: some View {
-    AnimalsGrid(animals: viewModel.animals)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if viewModel.isLoading {
-          ProgressView("Finding Animals near you...")
-        }
+    VStack(alignment: .leading, spacing: 4) {
+      Text("Location")
+        .font(.headline)
+      Text(animal.address)
+        .font(.subheadline)
+        .textSelection(.enabled)
+      
+      Button(action: openAddressInMaps) {
+        Map(coordinateRegion: $locationFetcher.coordinates, interactionModes: [])
       }
-      .task(viewModel.fetchAnimals)
+      .buttonStyle(.plain)
+      .frame(height: 200)
+      .cornerRadius(16)
+      .task {
+        await locationFetcher.search(by: animal.address)
+      }
+    }
+  }
+  
+  func openAddressInMaps() {
+    let placemark = MKPlacemark(coordinate: locationFetcher.coordinates.center)
+    let mapItem = MKMapItem(placemark: placemark)
+    mapItem.openInMaps(launchOptions: nil)
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
+struct AnimalLocationView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-  }
-}
-
-#warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
-    return Animal.mock
+    AnimalLocationView(animal: Animal.mock[0])
+      .previewLayout(.sizeThatFits)
   }
 }

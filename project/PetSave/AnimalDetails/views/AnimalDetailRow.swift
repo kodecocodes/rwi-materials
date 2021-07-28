@@ -32,50 +32,46 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
-
-struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+struct AnimalDetailRow: View {
+  let animal: Animal
   
   var body: some View {
-    AnimalsGrid(animals: viewModel.animals)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if viewModel.isLoading {
-          ProgressView("Finding Animals near you...")
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack {
+        AnimalDetailCard(
+          title: "Age",
+          value: animal.age.rawValue,
+          color: animal.age.color
+        )
+
+        AnimalDetailCard(
+          title: "Gender",
+          value: animal.gender.rawValue,
+          color: .pink
+        )
+
+        AnimalDetailCard(
+          title: "Size",
+          value: animal.size.rawValue,
+          color: .mint
+        )
+
+        if let coat = animal.coat {
+          AnimalDetailCard(
+            title: "Coat",
+            value: coat.rawValue,
+            color: .brown
+          )
         }
       }
-      .task(viewModel.fetchAnimals)
+      .padding(.horizontal)
+    }
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
+struct AnimalDetailCards_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-  }
-}
-
-#warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
-    return Animal.mock
+    AnimalDetailRow(animal: Animal.mock[0])
+      .previewLayout(.sizeThatFits)
   }
 }

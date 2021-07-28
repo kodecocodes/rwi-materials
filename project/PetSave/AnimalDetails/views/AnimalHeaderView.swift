@@ -32,50 +32,46 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
-
-struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+struct AnimalHeaderView: View {
+  let animal: Animal
   
   var body: some View {
-    AnimalsGrid(animals: viewModel.animals)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if viewModel.isLoading {
-          ProgressView("Finding Animals near you...")
-        }
+    VStack {
+      AsyncImage(url: animal.picture) { image in
+        image
+          .resizable()
+      } placeholder: {
+        Image("rw-logo")
+          .resizable()
+          .overlay {
+            if animal.picture != nil {
+              ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.gray.opacity(0.4))
+            }
+          }
       }
-      .task(viewModel.fetchAnimals)
+      .aspectRatio(1, contentMode: .fit)
+      .cornerRadius(8)
+
+      VStack(alignment: .leading) {
+        HStack {
+          Text(animal.name)
+            .font(.largeTitle)
+          Spacer()
+          Text(animal.type)
+        }
+        Text(animal.breed)
+          .font(.title3)
+      }
+      .padding(.horizontal)
+    }
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
+struct AnimalHeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-  }
-}
-
-#warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
-    return Animal.mock
+    AnimalHeaderView(animal: Animal.mock[0])
+      .previewLayout(.sizeThatFits)
   }
 }

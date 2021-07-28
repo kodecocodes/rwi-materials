@@ -36,7 +36,7 @@ struct AnimalCell: View {
   let animal: Animal
   
   var body: some View {
-    NavigationLink(destination: AnimalsView(animal: animal)) {
+    NavigationLink(destination: AnimalDetailsView(animal: animal)) {
       VStack(alignment: .leading, spacing: 4) {
         AsyncImage(url: animal.picture) { image in
           image

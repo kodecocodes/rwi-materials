@@ -30,52 +30,26 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
+import MapKit
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
-
-struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+final class LocationFetcher: ObservableObject {
+  @Published var coordinates = MKCoordinateRegion(
+    center: CLLocationCoordinate2D(
+      latitude: 37.3320003,
+      longitude: -122.0307812
+    ),
+    span: MKCoordinateSpan(
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01
+    )
+  )
   
-  var body: some View {
-    AnimalsGrid(animals: viewModel.animals)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if viewModel.isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
-      .task(viewModel.fetchAnimals)
-  }
-}
-
-struct AnimalsNearYouView_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: true,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-  }
-}
-
-#warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
-    return Animal.mock
+  private let geocoder = CLGeocoder()
+  
+  func search(by address: String) async {
+    guard let placemarks = try? await geocoder.geocodeAddressString(address),
+          let location = placemarks.first?.location else { return }
+    coordinates.center = location.coordinate
   }
 }
