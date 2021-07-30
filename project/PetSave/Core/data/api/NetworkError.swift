@@ -32,10 +32,11 @@
 
 import Foundation
 
-public enum NetworkError: Error, CustomStringConvertible {
+public enum NetworkError: LocalizedError {
+  
   case invalidServerResponse
   
-  public var description: String {
+  public var errorDescription: String? {
     switch self {
     case .invalidServerResponse:
       return "The server returned an invalid response."

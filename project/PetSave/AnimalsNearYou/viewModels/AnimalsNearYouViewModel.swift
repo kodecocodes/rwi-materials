@@ -49,7 +49,11 @@ final class AnimalsNearYouViewModel: ObservableObject {
    
    */
   
-  @Published var animals: [Animal]
+  @Published var animals: [Animal] {
+    didSet {
+      print(animals)
+    }
+  }
   @Published var isLoading: Bool
   
   var page = 0
@@ -68,8 +72,10 @@ final class AnimalsNearYouViewModel: ObservableObject {
   
   func fetchAnimals() async {
     // .task() is called everytime the view appears, even when you switch tabs...
-    guard animals.isEmpty else { return }
-    let animals = await animalFetcher.fetchAnimals(page: 0)
+//    guard animals.isEmpty else { return }
+    DispatchQueue.main.async { self.isLoading = true }
+    page += 1
+    let animals = await animalFetcher.fetchAnimals(page: page)
     await updateAnimals(animals: animals)
   }
   

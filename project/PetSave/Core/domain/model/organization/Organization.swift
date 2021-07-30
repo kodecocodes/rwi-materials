@@ -41,7 +41,7 @@ struct Organization: Codable {
 //TODO use built in classes from AddressBook here?
 struct Contact: Codable {
   var id: Int?
-  var email: String
+  var email: String?
   var phone: String?
   var address: Address
 }

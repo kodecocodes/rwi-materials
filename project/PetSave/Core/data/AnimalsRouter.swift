@@ -30,48 +30,30 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-protocol PetFinderApiRouterProtocol {
-  var path: String { get }
-  var requestType: RequestType { get }
-  var headers: [String : String] { get }
-  var params: [String : Any] { get }
-}
-
-extension PetFinderApiRouterProtocol {
+enum AnimalsRouter: PetFinderApiRouterProtocol {
   
-  var baseURL: String {
-    return ApiConstants.baseURLString
-  }
+  case getAnimalsWith(page: Int)
+  case getAnimalsBy(postCode: String)
+  case getAnimalsByLocation(latitide: String, longitude: String)
   
-  var params: [String : Any] {
-    return [:]
-  }
-  
-  var headers: [String : String] {
-    return ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJyZ3E0aUlCejJhcjFXcnFpYTFwNEpmOHZvRkZLVnQzcko1TmxaVVdjYzR1czUwaHFORSIsImp0aSI6Ijk4ZTYzOWZhMWM2MTE0MzQxYmUzZWIyMGEzOGUxMGE5ZWU5NmU1MTllNzk4N2U4Y2RlOWQwNjMyYzE5NTk1NzhhYjE0MTJiYjNlMzQ1Y2ZkIiwiaWF0IjoxNjI3NjAzMTQwLCJuYmYiOjE2Mjc2MDMxNDAsImV4cCI6MTYyNzYwNjc0MCwic3ViIjoiIiwic2NvcGVzIjpbXX0.O94hS2GQFEGwN5YajK5wNK0rxDTHbRKin7LFoGRjZsdU32vcmH4J3Py_uooRTyOUHarqGn-IGHd8W0SwVKN7JX_mLRCS7hrmQo-cJrGwdmKo0yxp21NiqiyUn1dXHRF2_qUcTY1HE5s6eN1Etq0LG2XFZRdkukE4nxeapcEThAG_9WKNY1AUgchMc2RnDighVr7yWzQF-YnFZ_xJvorupfY4GSDN3tiU-x6jvvlw0-nSdHhsVlAErYT2SWRB_3onU-Qui9JLa8Nb_sqXVq0vl1TWkU19U7KNhVg1bW9NIkjEgCoJxtZtbiQ0bKt5VfXrzzYOT62iuXy9iLit1YqBtQ"]
-  }
-  
-  func urlRequest() throws -> URLRequest {
-    let requestURL = URL(string: baseURL + path)!
-    var urlRequest = URLRequest(url: requestURL)
-    print(requestURL)
-    urlRequest.httpMethod = requestType.rawValue
-    if !headers.isEmpty { urlRequest.allHTTPHeaderFields = headers }
-    do {
-    if !params.isEmpty {
-      urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
+  var path: String {
+    switch self {
+    case .getAnimalsWith(let page):
+      return "/animals?page=\(page)"
+    case .getAnimalsBy(let postCode):
+      return "/animals?location=\(postCode)"
+    case .getAnimalsByLocation( _,_):
+      return "/types"
     }
-    } catch {
-      throw error
+  }
+  
+  var requestType: RequestType {
+    switch self {
+    case .getAnimalsWith(_), .getAnimalsBy(_), .getAnimalsByLocation(_, _):
+      return .GET
     }
-    return urlRequest
   }
 }
 
-enum RequestType: String {
-  case GET = "GET"
-  case POST = "POST"
-  
-}

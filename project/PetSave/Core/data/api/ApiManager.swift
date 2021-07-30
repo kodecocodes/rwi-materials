@@ -52,7 +52,7 @@ class ApiManager: NSObject, ApiManagerProtocol {
           httpResponse.statusCode == 200 else {
             throw NetworkError.invalidServerResponse
           }
-    
+    print(String.init(data: data, encoding: String.Encoding.utf8))
     return data
   }
 }

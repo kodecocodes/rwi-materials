@@ -41,7 +41,7 @@ class PetFinderApi: PetFinderApiProtocol {
   let apiManager: ApiManagerProtocol
   let jsonDecoder: JSONDecoder
   
-  init(apiManager: ApiManagerProtocol, jsonDecoder: JSONDecoder = JSONDecoder()) {
+  init(apiManager: ApiManagerProtocol = ApiManager(), jsonDecoder: JSONDecoder = JSONDecoder()) {
     self.apiManager = apiManager
     self.jsonDecoder = jsonDecoder
   }
