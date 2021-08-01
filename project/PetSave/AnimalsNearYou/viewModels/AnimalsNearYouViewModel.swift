@@ -49,12 +49,9 @@ final class AnimalsNearYouViewModel: ObservableObject {
    
    */
   
-  @Published var animals: [Animal] {
-    didSet {
-      print(animals)
-    }
-  }
+  @Published var animals: [Animal]
   @Published var isLoading: Bool
+  @Published var isFetchingMoreAnimals = false
   
   var page = 1
   
@@ -70,6 +67,10 @@ final class AnimalsNearYouViewModel: ObservableObject {
     self.animalFetcher = animalFetcher
   }
   
+  var showMoreButtonOpacity: Double {
+    animals.isEmpty ? 0 : 1
+  }
+  
   func fetchAnimals() async {
     // .task() is called everytime the view appears, even when you switch tabs...
     DispatchQueue.main.async { self.isLoading = true }
@@ -77,11 +78,13 @@ final class AnimalsNearYouViewModel: ObservableObject {
     await addAnimals(animals: animals)
   }
   
-  func performNextAnimalFetch() async {
-    DispatchQueue.main.async { self.isLoading = true }
-    self.page += 1
-    let animals = await animalFetcher.fetchAnimals(page: self.page)
-    await updateAnimals(animals: animals)
+  func fetchMoreAnimals() {
+    isFetchingMoreAnimals = true
+    Task {
+      page += 1
+      let animals = await animalFetcher.fetchAnimals(page: page)
+      await updateAnimals(animals: animals)
+    }
   }
   
   //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
@@ -89,6 +92,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
   func updateAnimals(animals: [Animal]) {
     self.animals += animals
     isLoading = false
+    isFetchingMoreAnimals = false
   }
   
   @MainActor

@@ -37,39 +37,25 @@ import SwiftUI
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   
-  private let columns = [
-    GridItem(.flexible()),
-    GridItem(.flexible())
-  ]
-  
-  
   var body: some View {
-//    AnimalsGrid(animals: viewModel.animals)
       ScrollView {
-        LazyVGrid(columns: columns) {
-          ForEach(viewModel.animals) { animal in
-            AnimalCell(animal: animal)
-          }
+        AnimalsGrid(animals: viewModel.animals)
+        if viewModel.isFetchingMoreAnimals {
+          ProgressView("Finding more animals...")
+        } else {
+          Button("Load more", action: viewModel.fetchMoreAnimals)
+            .opacity(viewModel.showMoreButtonOpacity)
+            .buttonStyle(.bordered)
+            .tint(.blue)
+            .controlSize(.large)
+            .controlProminence(.increased)
+            .padding()
         }
-        .padding()
-        Button(action: {
-          Task(priority: .background) {
-           await viewModel.performNextAnimalFetch()
-          }
-        
-        }) {
-          Text("Load More...")
-            .foregroundColor(.accentColor)
-        }
-        .opacity(viewModel.animals.isEmpty ? 0 : 1)
-        .buttonStyle(.plain)
-        .padding()
       }
       .navigationTitle("Animals near you")
       .overlay {
         if viewModel.isLoading {
           ProgressView("Finding Animals near you...")
-            .foregroundColor(.black)
         }
       }
       .task(viewModel.fetchAnimals)

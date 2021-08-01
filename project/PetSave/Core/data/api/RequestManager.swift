@@ -38,11 +38,11 @@ protocol RequestManagerProtocol {
 
 class RequestManager: RequestManagerProtocol {
   
-  private let apiManager: ApiManagerProtocol
+  private let apiManager: APIManagerProtocol
   private let jsonDecoder: JSONDecoder
   private let tokenValidator: TokenValidatorProtocol
   
-  init(apiManager: ApiManagerProtocol = ApiManager(),
+  init(apiManager: APIManagerProtocol = APIManager(),
        jsonDecoder: JSONDecoder = JSONDecoder(),
        tokenValidator: TokenValidatorProtocol = TokenValidator()) {
     self.apiManager = apiManager

@@ -75,7 +75,7 @@ class TokenValidator: TokenValidatorProtocol {
   }
   
   private func refreshToken() async throws -> String {
-    let requestManager = ApiManager()
+    let requestManager = APIManager()
     do {
       let data: Data = try await requestManager.request(with: AuthTokenRouter.auth)
       jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
