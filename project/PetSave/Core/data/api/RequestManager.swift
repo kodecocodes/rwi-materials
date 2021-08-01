@@ -49,6 +49,10 @@ class RequestManager: RequestManagerProtocol {
     self.jsonDecoder = jsonDecoder
     self.tokenValidator = tokenValidator
   }
+}
+
+class PetFinderAPI: PetFinderAPIProtocol {
+  let apiManager: APIManagerProtocol
   
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
     do {

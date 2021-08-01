@@ -66,11 +66,11 @@ struct SearchView: View {
       viewModel.search()
     }
     // There's no .onCancel(of: .search) modifier to clear the view if the user canceled the search or cleared the search bar.
-//    .onChange(of: viewModel.searchText) { newText in
-//      if newText.isEmpty {
-//        viewModel.resetSearch()
-//      }
-//    }
+    .onChange(of: viewModel.searchText) { newText in
+      if newText.isEmpty {
+        viewModel.resetSearch()
+      }
+    }
     .toolbar {
       ToolbarItem {
         filterMenu

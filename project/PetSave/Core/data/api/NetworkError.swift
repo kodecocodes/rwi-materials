@@ -33,13 +33,8 @@
 import Foundation
 
 public enum NetworkError: LocalizedError {
-  
   case invalidServerResponse
-  
   public var errorDescription: String? {
-    switch self {
-    case .invalidServerResponse:
-      return "The server returned an invalid response."
-    }
+    "The server returned an invalid response."
   }
 }
