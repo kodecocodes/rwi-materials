@@ -32,46 +32,63 @@
 
 import UIKit
 
-protocol PetFinderApiRouterProtocol {
+protocol PetFinderAPIRouterProtocol {
   var path: String { get }
   var requestType: RequestType { get }
   var headers: [String : String] { get }
   var params: [String : Any] { get }
 }
 
-extension PetFinderApiRouterProtocol {
-  
+extension PetFinderAPIRouterProtocol {
   var baseURL: String {
-    return ApiConstants.baseURLString
+    APIConstants.baseURLString
   }
   
   var params: [String : Any] {
-    return [:]
+    [:]
   }
   
   var headers: [String : String] {
-    return ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJyZ3E0aUlCejJhcjFXcnFpYTFwNEpmOHZvRkZLVnQzcko1TmxaVVdjYzR1czUwaHFORSIsImp0aSI6Ijk4ZTYzOWZhMWM2MTE0MzQxYmUzZWIyMGEzOGUxMGE5ZWU5NmU1MTllNzk4N2U4Y2RlOWQwNjMyYzE5NTk1NzhhYjE0MTJiYjNlMzQ1Y2ZkIiwiaWF0IjoxNjI3NjAzMTQwLCJuYmYiOjE2Mjc2MDMxNDAsImV4cCI6MTYyNzYwNjc0MCwic3ViIjoiIiwic2NvcGVzIjpbXX0.O94hS2GQFEGwN5YajK5wNK0rxDTHbRKin7LFoGRjZsdU32vcmH4J3Py_uooRTyOUHarqGn-IGHd8W0SwVKN7JX_mLRCS7hrmQo-cJrGwdmKo0yxp21NiqiyUn1dXHRF2_qUcTY1HE5s6eN1Etq0LG2XFZRdkukE4nxeapcEThAG_9WKNY1AUgchMc2RnDighVr7yWzQF-YnFZ_xJvorupfY4GSDN3tiU-x6jvvlw0-nSdHhsVlAErYT2SWRB_3onU-Qui9JLa8Nb_sqXVq0vl1TWkU19U7KNhVg1bW9NIkjEgCoJxtZtbiQ0bKt5VfXrzzYOT62iuXy9iLit1YqBtQ"]
+    [
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5VEZ3R0JjOG12NUxTa01sNHd2a2pDZ1FScXNTMzJOVHk0MllJVUtZcnVSODAwbHBMcCIsImp0aSI6ImMzMGU0MDgxZDk0YjhmMDNlNDEyNTJkMGQ1NTE1NzM3ODI3ZWJhYjFkNGUzYmI1NmM1Y2NiZDNmZDNhZWE3YmEzZmE2YTk2ZWJhMWZiNTE2IiwiaWF0IjoxNjI3Nzk0NzU1LCJuYmYiOjE2Mjc3OTQ3NTUsImV4cCI6MTYyNzc5ODM1NSwic3ViIjoiIiwic2NvcGVzIjpbXX0.dELLJk4ue26TRhSZEmBSthaCxUVsuVrAMALyY0yhJDdwo2r7vR6oGk8Rw7VBTULXEQPauO1czG0vGO9HioC0nCEW_xQsV5DCZ_GWSGO5X820ADh-WQ9lPZyrSdo7RoH31Ao1wYFDSCSr41_F9t6Dopy7u9lF4HoxCwTnbXHcJI4e6eNGd1kaopjVOXitIsHFyzFQ0_y7LyMCvwbFX9Yy9SswatwylqwfrxoxVkCOwImqTtA3PWs5CnZ4-oCWYNsI2nzEZ0UBNuF6AHTPAQZ9_FoVipWwrJ9HAexwvgXW5Gs8aELhfGI79W810hcxz6Vg2NDpQJVlqAdyvjSnyaPYbQ"
+    ]
   }
   
   func urlRequest() throws -> URLRequest {
     let requestURL = URL(string: baseURL + path)!
     var urlRequest = URLRequest(url: requestURL)
-    print(requestURL)
     urlRequest.httpMethod = requestType.rawValue
-    if !headers.isEmpty { urlRequest.allHTTPHeaderFields = headers }
-    do {
+    if !headers.isEmpty {
+      urlRequest.allHTTPHeaderFields = headers
+    }
     if !params.isEmpty {
       urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
     }
-    } catch {
-      throw error
-    }
+    printURLRequest(urlRequest)
     return urlRequest
+  }
+  
+  private func printURLRequest(_ urlRequest: URLRequest) {
+    print()
+    print("↗️↗️↗️ Outgoing Request ↗️↗️↗️")
+    print("URL: \(urlRequest)")
+    print()
+    
+    if let headers = urlRequest.allHTTPHeaderFields {
+      print("Headers:")
+      print(headers)
+      print()
+    }
+    
+    if let httpBody = urlRequest.httpBody {
+      print("Body:")
+      print(httpBody)
+      print()
+    }
   }
 }
 
 enum RequestType: String {
   case GET = "GET"
   case POST = "POST"
-  
 }

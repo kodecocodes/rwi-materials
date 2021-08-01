@@ -32,27 +32,36 @@
 
 import Foundation
 
-protocol ApiManagerProtocol {
-  func request(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> Data
+protocol APIManagerProtocol {
+  func request(with petFinderApiRouter: PetFinderAPIRouterProtocol) async throws -> Data
 }
 
-class ApiManager: NSObject, ApiManagerProtocol {
-  
+class APIManager: APIManagerProtocol {
   private let urlSession: URLSession
   
   init(urlSession: URLSession = URLSession.shared) {
     self.urlSession = urlSession
   }
   
-  func request(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> Data {
-    
+  func request(with petFinderApiRouter: PetFinderAPIRouterProtocol) async throws -> Data {
     let (data, response) = try await urlSession.data(for: petFinderApiRouter.urlRequest())
-    
     guard let httpResponse = response as? HTTPURLResponse,
-          httpResponse.statusCode == 200 else {
-            throw NetworkError.invalidServerResponse
-          }
-    print(String.init(data: data, encoding: String.Encoding.utf8))
+            httpResponse.statusCode == 200 else { throw NetworkError.invalidServerResponse }
+    printResponse(httpResponse, data: data)
     return data
+  }
+}
+
+private extension APIManager {
+  func printResponse(_ response: HTTPURLResponse, data: Data) {
+    print()
+    print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
+    print(response)
+    print()
+    
+    print("Response Body:")
+    if let responseString = String(data: data, encoding: .utf8) {
+      print(responseString)
+    }
   }
 }

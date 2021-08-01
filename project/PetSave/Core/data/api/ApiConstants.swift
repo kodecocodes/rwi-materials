@@ -30,8 +30,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
-class ApiConstants {
+enum APIConstants {
   static let baseURLString = "https://api.petfinder.com/v2"
 }

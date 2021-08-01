@@ -41,21 +41,21 @@ struct AnimalsGrid: View {
   ]
   
   var body: some View {
-    ScrollView {
-      LazyVGrid(columns: columns) {
-        ForEach(animals) { animal in
-          AnimalCell(animal: animal)
-        }
+    LazyVGrid(columns: columns) {
+      ForEach(animals) { animal in
+        AnimalCell(animal: animal)
       }
-      .padding()
     }
+    .padding()
   }
 }
 
 struct AnimalsGrid_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      AnimalsGrid(animals: Animal.mock)
+      ScrollView {
+        AnimalsGrid(animals: Animal.mock)
+      }
     }
   }
 }

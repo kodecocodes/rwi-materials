@@ -32,27 +32,30 @@
 
 import Foundation
 
-protocol PetFinderApiProtocol {
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T
+protocol PetFinderAPIProtocol {
+  var apiManager: APIManagerProtocol { get }
+  var jsonDecoder: JSONDecoder { get }
+  func request<T: Decodable>(with petFinderApiRouter: PetFinderAPIRouterProtocol) async throws -> T
 }
 
-class PetFinderApi: PetFinderApiProtocol {
-  
-  let apiManager: ApiManagerProtocol
-  let jsonDecoder: JSONDecoder
-  
-  init(apiManager: ApiManagerProtocol = ApiManager(), jsonDecoder: JSONDecoder = JSONDecoder()) {
-    self.apiManager = apiManager
-    self.jsonDecoder = jsonDecoder
+extension PetFinderAPIProtocol {
+  var jsonDecoder: JSONDecoder {
+    let jsonDecoder = JSONDecoder()
+    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    return jsonDecoder
   }
   
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T {
-    do {
-      let data = try await apiManager.request(with: petFinderApiRouter)
-      let decoded = try jsonDecoder.decode(T.self, from: data)
-      return decoded
-    } catch {
-      throw error
-    }
+  func request<T: Decodable>(with petFinderApiRouter: PetFinderAPIRouterProtocol) async throws -> T {
+    let data = try await apiManager.request(with: petFinderApiRouter)
+    let decoded = try jsonDecoder.decode(T.self, from: data)
+    return decoded
+  }
+}
+
+class PetFinderAPI: PetFinderAPIProtocol {
+  let apiManager: APIManagerProtocol
+  
+  init(apiManager: APIManagerProtocol = APIManager()) {
+    self.apiManager = apiManager
   }
 }

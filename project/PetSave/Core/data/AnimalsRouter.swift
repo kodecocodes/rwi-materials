@@ -32,8 +32,7 @@
 
 import Foundation
 
-enum AnimalsRouter: PetFinderApiRouterProtocol {
-  
+enum AnimalsRouter: PetFinderAPIRouterProtocol {
   case getAnimalsWith(page: Int)
   case getAnimalsBy(postCode: String)
   case getAnimalsByLocation(latitide: String, longitude: String)
@@ -44,16 +43,13 @@ enum AnimalsRouter: PetFinderApiRouterProtocol {
       return "/animals?page=\(page)"
     case .getAnimalsBy(let postCode):
       return "/animals?location=\(postCode)"
-    case .getAnimalsByLocation( _,_):
-      return "/types"
+    case .getAnimalsByLocation(let latitude, let longitude):
+      return "/animals?location=\(latitude),\(longitude)"
     }
   }
   
   var requestType: RequestType {
-    switch self {
-    case .getAnimalsWith(_), .getAnimalsBy(_), .getAnimalsByLocation(_, _):
-      return .GET
-    }
+    .GET
   }
 }
 

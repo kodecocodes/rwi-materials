@@ -37,39 +37,25 @@ import SwiftUI
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   
-  private let columns = [
-    GridItem(.flexible()),
-    GridItem(.flexible())
-  ]
-  
-  
   var body: some View {
-//    AnimalsGrid(animals: viewModel.animals)
       ScrollView {
-        LazyVGrid(columns: columns) {
-          ForEach(viewModel.animals) { animal in
-            AnimalCell(animal: animal)
-          }
+        AnimalsGrid(animals: viewModel.animals)
+        if viewModel.isFetchingMoreAnimals {
+          ProgressView("Finding more animals...")
+        } else {
+          Button("Load more", action: viewModel.fetchMoreAnimals)
+            .opacity(viewModel.showMoreButtonOpacity)
+            .buttonStyle(.bordered)
+            .tint(.blue)
+            .controlSize(.large)
+            .controlProminence(.increased)
+            .padding()
         }
-        .padding()
-        Button(action: {
-          Task(priority: .background) {
-           await viewModel.fetchAnimals()
-          }
-        
-        }) {
-          Text("Load More...")
-            .foregroundColor(.accentColor)
-        }
-        .opacity(viewModel.animals.isEmpty ? 0 : 1)
-        .buttonStyle(.plain)
-        .padding()
       }
       .navigationTitle("Animals near you")
       .overlay {
         if viewModel.isLoading {
           ProgressView("Finding Animals near you...")
-            .foregroundColor(.black)
         }
       }
       .task(viewModel.fetchAnimals)
@@ -99,34 +85,8 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
   }
 }
 
-class FetchAnimals: AnimalFetcher {
-  
-  private let petFinderApi: PetFinderApiProtocol
-  private var pagination: Pagination?
-  
-  init(petFinderApi: PetFinderApiProtocol = PetFinderApi()) {
-    self.petFinderApi = petFinderApi
-  }
-  
-  func fetchAnimals(page: Int) async -> [Animal] {
-    do {
-      // if user has scrolled more than the total pages.
-      if let pagination = self.pagination, page >= pagination.totalPages {
-        return []
-      }
-      
-      let animals: AnimalContainer = try await petFinderApi.request(with: AnimalsRouter.getAnimalsWith(page: page))
-      self.pagination = animals.pagination
-      return animals.animals
-    } catch {
-      print(error.localizedDescription)
-    }
-    return []
-  }
-}
-
 #warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
+struct AnimalFetcherMock: AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
     await Task.sleep(2)
     return Animal.mock

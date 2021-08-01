@@ -32,7 +32,7 @@
 
 import Foundation
 
-protocol AnimalFetcher {
+protocol AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal]
 }
 
@@ -49,34 +49,42 @@ final class AnimalsNearYouViewModel: ObservableObject {
    
    */
   
-  @Published var animals: [Animal] {
-    didSet {
-      print(animals)
-    }
-  }
+  @Published var animals: [Animal]
   @Published var isLoading: Bool
+  @Published var isFetchingMoreAnimals = false
   
-  var page = 0
+  var page = 1
   
-  private let animalFetcher: AnimalFetcher
+  private let animalsFetcher: AnimalsFetcher
   
   init(
     animals: [Animal] = [],
     isLoading: Bool = true,
-    animalFetcher: AnimalFetcher
+    animalFetcher: AnimalsFetcher
   ) {
     self.animals = animals
     self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
+    self.animalsFetcher = animalFetcher
+  }
+  
+  var showMoreButtonOpacity: Double {
+    animals.isEmpty ? 0 : 1
   }
   
   func fetchAnimals() async {
     // .task() is called everytime the view appears, even when you switch tabs...
-//    guard animals.isEmpty else { return }
-    DispatchQueue.main.async { self.isLoading = true }
-    page += 1
-    let animals = await animalFetcher.fetchAnimals(page: page)
+    guard animals.isEmpty else { return }
+    let animals = await animalsFetcher.fetchAnimals(page: page)
     await updateAnimals(animals: animals)
+  }
+  
+  func fetchMoreAnimals() {
+    isFetchingMoreAnimals = true
+    Task {
+      page += 1
+      let animals = await animalsFetcher.fetchAnimals(page: page)
+      await updateAnimals(animals: animals)
+    }
   }
   
   //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
@@ -84,5 +92,6 @@ final class AnimalsNearYouViewModel: ObservableObject {
   func updateAnimals(animals: [Animal]) {
     self.animals += animals
     isLoading = false
+    isFetchingMoreAnimals = false
   }
 }
