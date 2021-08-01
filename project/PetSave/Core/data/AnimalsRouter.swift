@@ -32,7 +32,7 @@
 
 import Foundation
 
-enum AnimalsRouter: PetFinderApiRouterProtocol {
+enum AnimalsRouter: RouterProtocol {
   
   case getAnimalsWith(page: Int)
   case getAnimalsBy(postCode: String)

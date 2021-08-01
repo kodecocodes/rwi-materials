@@ -54,7 +54,7 @@ struct AnimalsNearYouView: View {
         .padding()
         Button(action: {
           Task(priority: .background) {
-           await viewModel.fetchAnimals()
+           await viewModel.performNextAnimalFetch()
           }
         
         }) {
@@ -101,11 +101,11 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
 
 class FetchAnimals: AnimalFetcher {
   
-  private let petFinderApi: PetFinderApiProtocol
+  private let requestManager: RequestManagerProtocol
   private var pagination: Pagination?
   
-  init(petFinderApi: PetFinderApiProtocol = PetFinderApi()) {
-    self.petFinderApi = petFinderApi
+  init(requestManager: RequestManagerProtocol = RequestManager()) {
+    self.requestManager = requestManager
   }
   
   func fetchAnimals(page: Int) async -> [Animal] {
@@ -115,11 +115,11 @@ class FetchAnimals: AnimalFetcher {
         return []
       }
       
-      let animals: AnimalContainer = try await petFinderApi.request(with: AnimalsRouter.getAnimalsWith(page: page))
+      let animals: AnimalContainer = try await requestManager.request(with: AnimalsRouter.getAnimalsWith(page: page))
       self.pagination = animals.pagination
       return animals.animals
     } catch {
-      print(error.localizedDescription)
+      print(error)
     }
     return []
   }

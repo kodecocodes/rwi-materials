@@ -56,7 +56,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
   }
   @Published var isLoading: Bool
   
-  var page = 0
+  var page = 1
   
   private let animalFetcher: AnimalFetcher
   
@@ -74,8 +74,16 @@ final class AnimalsNearYouViewModel: ObservableObject {
     // .task() is called everytime the view appears, even when you switch tabs...
 //    guard animals.isEmpty else { return }
     DispatchQueue.main.async { self.isLoading = true }
-    page += 1
-    let animals = await animalFetcher.fetchAnimals(page: page)
+    //self.page += page
+    let animals = await animalFetcher.fetchAnimals(page: self.page)
+//    await updateAnimals(animals: animals)
+    await addAnimals(animals: animals)
+  }
+  
+  func performNextAnimalFetch() async {
+    DispatchQueue.main.async { self.isLoading = true }
+    self.page += 1
+    let animals = await animalFetcher.fetchAnimals(page: self.page)
     await updateAnimals(animals: animals)
   }
   
@@ -83,6 +91,12 @@ final class AnimalsNearYouViewModel: ObservableObject {
   @MainActor
   func updateAnimals(animals: [Animal]) {
     self.animals += animals
+    isLoading = false
+  }
+  
+  @MainActor
+  func addAnimals(animals: [Animal]) {
+    self.animals = animals
     isLoading = false
   }
 }

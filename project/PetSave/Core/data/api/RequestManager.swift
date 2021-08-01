@@ -32,23 +32,30 @@
 
 import Foundation
 
-protocol PetFinderApiProtocol {
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T
+protocol RequestManagerProtocol {
+  func request<T: Decodable>(with router: RouterProtocol) async throws -> T
 }
 
-class PetFinderApi: PetFinderApiProtocol {
+class RequestManager: RequestManagerProtocol {
   
-  let apiManager: ApiManagerProtocol
-  let jsonDecoder: JSONDecoder
+  private let apiManager: ApiManagerProtocol
+  private let jsonDecoder: JSONDecoder
+  private let tokenValidator: TokenValidatorProtocol
   
-  init(apiManager: ApiManagerProtocol = ApiManager(), jsonDecoder: JSONDecoder = JSONDecoder()) {
+  init(apiManager: ApiManagerProtocol = ApiManager(),
+       jsonDecoder: JSONDecoder = JSONDecoder(),
+       tokenValidator: TokenValidatorProtocol = TokenValidator()) {
     self.apiManager = apiManager
     self.jsonDecoder = jsonDecoder
+    self.tokenValidator = tokenValidator
   }
   
-  func request<T: Decodable>(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> T {
+  func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
     do {
-      let data = try await apiManager.request(with: petFinderApiRouter)
+      
+      let authToken = try await tokenValidator.validateToken()
+      let data = try await apiManager.request(with: router, authToken: authToken)
+      jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
       let decoded = try jsonDecoder.decode(T.self, from: data)
       return decoded
     } catch {

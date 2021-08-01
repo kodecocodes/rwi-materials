@@ -30,19 +30,19 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import UIKit
+import Foundation
 
 struct Pagination: Codable {
   let countPerPage, totalCount, currentPage, totalPages: Int
-  let links: PaginationLinks
+  let _links: PaginationLinks
   
-  enum CodingKeys: String, CodingKey {
-    case countPerPage = "count_per_page"
-    case totalCount = "total_count"
-    case currentPage = "current_page"
-    case totalPages = "total_pages"
-    case links = "_links"
-  }
+//  enum CodingKeys: String, CodingKey {
+//    case countPerPage = "count_per_page"
+//    case totalCount = "total_count"
+//    case currentPage = "current_page"
+//    case totalPages = "total_pages"
+//    case links = "_links"
+//  }
 }
 
 // MARK: - PaginationLinks

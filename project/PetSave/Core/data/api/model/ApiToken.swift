@@ -34,14 +34,17 @@ import Foundation
 
 struct APIToken: Codable {
   let tokenType: String
-  let expiresInSeconds: Int
+  let expiresIn: Int
   let accessToken: String
-  
-  private var requestedAt = Date()
 }
 
 extension APIToken {
+  
+  private var requestedAt: Date {
+    Date()
+  }
+  
   var expiresAt: Date {
-    Calendar.current.date(byAdding: .second, value: expiresInSeconds, to: requestedAt) ?? Date()
+    Calendar.current.date(byAdding: .second, value: expiresIn, to: requestedAt) ?? Date()
   }
 }

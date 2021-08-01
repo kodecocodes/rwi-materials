@@ -33,7 +33,7 @@
 import Foundation
 
 protocol ApiManagerProtocol {
-  func request(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> Data
+  func request(with petFinderApiRouter: RouterProtocol, authToken: String) async throws -> Data
 }
 
 class ApiManager: NSObject, ApiManagerProtocol {
@@ -44,15 +44,15 @@ class ApiManager: NSObject, ApiManagerProtocol {
     self.urlSession = urlSession
   }
   
-  func request(with petFinderApiRouter: PetFinderApiRouterProtocol) async throws -> Data {
+  func request(with router: RouterProtocol, authToken: String = "") async throws -> Data {
     
-    let (data, response) = try await urlSession.data(for: petFinderApiRouter.urlRequest())
-    
+    let (data, response) = try await urlSession.data(for: router.request(authToken: authToken))
+    print(String.init(data: data, encoding: String.Encoding.utf8))
     guard let httpResponse = response as? HTTPURLResponse,
           httpResponse.statusCode == 200 else {
             throw NetworkError.invalidServerResponse
           }
-    print(String.init(data: data, encoding: String.Encoding.utf8))
+
     return data
   }
 }
