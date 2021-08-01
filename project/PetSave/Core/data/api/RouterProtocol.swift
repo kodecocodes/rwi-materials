@@ -84,25 +84,6 @@ extension RouterProtocol {
     
     return urlRequest
   }
-  
-  private func printURLRequest(_ urlRequest: URLRequest) {
-    print()
-    print("↗️↗️↗️ Outgoing Request ↗️↗️↗️")
-    print("URL: \(urlRequest)")
-    print()
-    
-    if let headers = urlRequest.allHTTPHeaderFields {
-      print("Headers:")
-      print(headers)
-      print()
-    }
-    
-    if let httpBody = urlRequest.httpBody {
-      print("Body:")
-      print(httpBody)
-      print()
-    }
-  }
 }
 
 enum RequestType: String {

@@ -32,7 +32,7 @@
 
 import Foundation
 
-protocol AnimalsFetcher {
+protocol AnimalFetcher {
   func fetchAnimals(page: Int) async -> [Animal]
 }
 
@@ -49,26 +49,25 @@ final class AnimalsNearYouViewModel: ObservableObject {
    
    */
   
-  @Published var animals: [Animal]
+  @Published var animals: [Animal] {
+    didSet {
+      print(animals)
+    }
+  }
   @Published var isLoading: Bool
-  @Published var isFetchingMoreAnimals = false
   
   var page = 1
   
-  private let animalsFetcher: AnimalsFetcher
+  private let animalFetcher: AnimalFetcher
   
   init(
     animals: [Animal] = [],
     isLoading: Bool = true,
-    animalFetcher: AnimalsFetcher
+    animalFetcher: AnimalFetcher
   ) {
     self.animals = animals
     self.isLoading = isLoading
-    self.animalsFetcher = animalFetcher
-  }
-  
-  var showMoreButtonOpacity: Double {
-    animals.isEmpty ? 0 : 1
+    self.animalFetcher = animalFetcher
   }
   
   func fetchAnimals() async {
@@ -88,21 +87,11 @@ final class AnimalsNearYouViewModel: ObservableObject {
     await updateAnimals(animals: animals)
   }
   
-  func fetchMoreAnimals() {
-    isFetchingMoreAnimals = true
-    Task {
-      page += 1
-      let animals = await animalsFetcher.fetchAnimals(page: page)
-      await updateAnimals(animals: animals)
-    }
-  }
-  
   //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
   @MainActor
   func updateAnimals(animals: [Animal]) {
     self.animals += animals
     isLoading = false
-    isFetchingMoreAnimals = false
   }
   
   @MainActor

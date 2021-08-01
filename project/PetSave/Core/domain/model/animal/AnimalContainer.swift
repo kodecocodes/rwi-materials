@@ -30,32 +30,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-final class FetchAnimalsService {
-  private let petFinderApi: PetFinderAPIProtocol
-  private var pagination: Pagination?
-  
-  init(petFinderApi: PetFinderAPIProtocol = PetFinderAPI()) {
-    self.petFinderApi = petFinderApi
-  }
-}
+import Foundation
 
-// MARK: - AnimalsFetcher
-extension FetchAnimalsService: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    // if user has scrolled more than the total pages.
-    if let pagination = pagination, page >= pagination.totalPages {
-      #warning("Handle later on ViewModel")
-      return []
-    }
-    
-    do {
-      let animalsContainer: AnimalsContainer = try await petFinderApi.request(with: AnimalsRouter.getAnimalsWith(page: page))
-      self.pagination = animalsContainer.pagination
-      return animalsContainer.animals
-    } catch {
-      #warning("Handle later on ViewModel")
-      print(error.localizedDescription)
-      return []
-    }
-  }
+struct AnimalContainer: Codable {
+  let animals: [Animal]
+  let pagination: Pagination
 }

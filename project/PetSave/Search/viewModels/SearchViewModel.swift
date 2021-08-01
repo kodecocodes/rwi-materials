@@ -75,10 +75,6 @@ final class SearchViewModel: ObservableObject {
     }
   }
   
-  func resetSearch() {
-    animals = []
-  }
-  
   func selectTypeSuggestion(_ type: AnimalSearchType) {
     typeSelection = type
     search()

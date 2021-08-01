@@ -36,7 +36,8 @@ protocol ApiManagerProtocol {
   func request(with petFinderApiRouter: RouterProtocol, authToken: String) async throws -> Data
 }
 
-class APIManager: APIManagerProtocol {
+class ApiManager: NSObject, ApiManagerProtocol {
+  
   private let urlSession: URLSession
   
   init(urlSession: URLSession = URLSession.shared) {
@@ -53,19 +54,5 @@ class APIManager: APIManagerProtocol {
           }
 
     return data
-  }
-}
-
-private extension APIManager {
-  func printResponse(_ response: HTTPURLResponse, data: Data) {
-    print()
-    print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
-    print(response)
-    print()
-    
-    print("Response Body:")
-    if let responseString = String(data: data, encoding: .utf8) {
-      print(responseString)
-    }
   }
 }

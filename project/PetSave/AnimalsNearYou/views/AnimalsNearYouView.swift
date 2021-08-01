@@ -37,19 +37,19 @@ import SwiftUI
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   
+  private let columns = [
+    GridItem(.flexible()),
+    GridItem(.flexible())
+  ]
+  
+  
   var body: some View {
+//    AnimalsGrid(animals: viewModel.animals)
       ScrollView {
-        AnimalsGrid(animals: viewModel.animals)
-        if viewModel.isFetchingMoreAnimals {
-          ProgressView("Finding more animals...")
-        } else {
-          Button("Load more", action: viewModel.fetchMoreAnimals)
-            .opacity(viewModel.showMoreButtonOpacity)
-            .buttonStyle(.bordered)
-            .tint(.blue)
-            .controlSize(.large)
-            .controlProminence(.increased)
-            .padding()
+        LazyVGrid(columns: columns) {
+          ForEach(viewModel.animals) { animal in
+            AnimalCell(animal: animal)
+          }
         }
         .padding()
         Button(action: {
@@ -69,6 +69,7 @@ struct AnimalsNearYouView: View {
       .overlay {
         if viewModel.isLoading {
           ProgressView("Finding Animals near you...")
+            .foregroundColor(.black)
         }
       }
       .task(viewModel.fetchAnimals)
@@ -125,7 +126,7 @@ class FetchAnimals: AnimalFetcher {
 }
 
 #warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalsFetcher {
+struct AnimalFetcherMock: AnimalFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
     await Task.sleep(2)
     return Animal.mock

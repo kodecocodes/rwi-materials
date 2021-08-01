@@ -38,7 +38,7 @@ struct ContentView: View {
       NavigationView {
         AnimalsNearYouView(
           viewModel: AnimalsNearYouViewModel(
-            animalFetcher: FetchAnimalsService()
+            animalFetcher: FetchAnimals()
           )
         )
       }
