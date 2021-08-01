@@ -72,11 +72,8 @@ final class AnimalsNearYouViewModel: ObservableObject {
   
   func fetchAnimals() async {
     // .task() is called everytime the view appears, even when you switch tabs...
-//    guard animals.isEmpty else { return }
     DispatchQueue.main.async { self.isLoading = true }
-    //self.page += page
     let animals = await animalFetcher.fetchAnimals(page: self.page)
-//    await updateAnimals(animals: animals)
     await addAnimals(animals: animals)
   }
   
