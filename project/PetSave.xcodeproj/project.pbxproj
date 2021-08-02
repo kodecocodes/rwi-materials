@@ -47,6 +47,8 @@
 		AE477D3326A510BD0086C768 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE477D3226A510BD0086C768 /* CoreDataHelper.swift */; };
 		AE477D3526A790170086C768 /* CoreDataPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE477D3426A790170086C768 /* CoreDataPersistable.swift */; };
 		AE4B2B4326AF94D8008AEED4 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B2B4226AF94D8008AEED4 /* Persistable.swift */; };
+		AE4B2B4526B0DDEF008AEED4 /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */; };
+		AE4B2B4726B0E9B8008AEED4 /* PetRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */; };
 		AE4B35B126A4EEFC00ABB892 /* Animal+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B35B026A4EEFB00ABB892 /* Animal+CoreData.swift */; };
 		AE4B35B326A4EF1200ABB892 /* AnimalAttributes+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B35B226A4EF1200ABB892 /* AnimalAttributes+CoreData.swift */; };
 		AE4B35B526A4EF1F00ABB892 /* AnimalEnvironment+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B35B426A4EF1F00ABB892 /* AnimalEnvironment+CoreData.swift */; };
@@ -151,6 +153,8 @@
 		AE477D3226A510BD0086C768 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		AE477D3426A790170086C768 /* CoreDataPersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistable.swift; sourceTree = "<group>"; };
 		AE4B2B4226AF94D8008AEED4 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
+		AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
+		AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRankingView.swift; sourceTree = "<group>"; };
 		AE4B35B026A4EEFB00ABB892 /* Animal+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Animal+CoreData.swift"; sourceTree = "<group>"; };
 		AE4B35B226A4EF1200ABB892 /* AnimalAttributes+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnimalAttributes+CoreData.swift"; sourceTree = "<group>"; };
 		AE4B35B426A4EF1F00ABB892 /* AnimalEnvironment+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnimalEnvironment+CoreData.swift"; sourceTree = "<group>"; };
@@ -499,6 +503,8 @@
 			children = (
 				8471844726A47E8100645C52 /* AnimalsGrid.swift */,
 				849C44CE26A0B53F009899B0 /* AnimalCell.swift */,
+				AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */,
+				AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -830,6 +836,7 @@
 				AE5EA13926AC97B300895E34 /* PetServiceDataPublisher.swift in Sources */,
 				8F19D27026B61BA00064BC63 /* TokenValidator.swift in Sources */,
 				8FC35C5D26A4801600DDA13F /* NetworkError.swift in Sources */,
+				AE4B2B4526B0DDEF008AEED4 /* LoadingAnimation.swift in Sources */,
 				AE6A3822269B5E1A0054C842 /* Organization.swift in Sources */,
 				AE5EA13D26AC99C200895E34 /* PetImageService.swift in Sources */,
 				84A59F7A269E920300237A83 /* AnimalEnvironment.swift in Sources */,
@@ -840,6 +847,7 @@
 				AE4B35CB26A4F05700ABB892 /* Address+CoreData.swift in Sources */,
 				AE6A378D269B58D30054C842 /* APIConstants.swift in Sources */,
 				AE5EA13B26AC97EE00895E34 /* PetService.swift in Sources */,
+				AE4B2B4726B0E9B8008AEED4 /* PetRankingView.swift in Sources */,
 				84A59F7C269E92F800237A83 /* APIColors.swift in Sources */,
 				84F7D50E26A8C3360087F322 /* SuggestionsGrid.swift in Sources */,
 				AE6A380E269B5DA90054C842 /* Breed.swift in Sources */,

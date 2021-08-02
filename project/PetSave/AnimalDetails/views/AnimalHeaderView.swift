@@ -69,9 +69,108 @@ struct AnimalHeaderView: View {
   }
 }
 
+extension View {
+  @ViewBuilder
+  func `if`<Transform: View>(_ condition: Bool, modify: (Self) -> Transform) -> some View {
+    if condition {
+      modify(self)
+    } else {
+      self
+    }
+  }
+}
+
+struct AnimalHeaderView2: View {
+  let animal: Animal
+  @Binding var zoomed: Bool
+  let geometry: GeometryProxy
+
+  var body: some View {
+//    HStack(alignment: .top) {
+//      GeometryReader { geometry in
+    LazyHStack {
+        AsyncImage(url: animal.picture) { image in
+          image
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+//            .if(!zoomed) { $0.aspectRatio(contentMode: .fit) }
+
+        } placeholder: {
+          Image("rw-logo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .overlay {
+              if animal.picture != nil {
+                ProgressView()
+                  .frame(maxWidth: .infinity, maxHeight: .infinity)
+                  .background(.gray.opacity(0.4))
+              }
+            }
+        }
+        .clipShape(
+//          zoomed ? RoundedRectangle(cornerRadius: 0) : Circle()
+//          Circle()
+          RoundedRectangle(cornerRadius: zoomed ? 0 : 300)
+        )
+        .frame(width: zoomed ? geometry.frame(in: .global).midX  : 100,
+               height: zoomed ? geometry.frame(in: .global).midX : 100)
+        .position(
+          x: zoomed ? geometry.frame(in: .global).midX - 35 : 50,
+          y: zoomed ? geometry.frame(in: .global).midX : 50
+        )
+        .scaleEffect((zoomed ? 5 : 3) / 3)
+        .shadow(radius: zoomed ? 10 : 1)
+        .animation(.spring(), value: zoomed)
+//        .onTapGesture { zoomed.toggle() }
+
+        HeaderTitle(animal: animal, zoomed: $zoomed, geometry: geometry)
+    }
+  }
+}
+
+struct HeaderTitle : View {
+
+  let animal: Animal
+  @Binding var zoomed: Bool
+  var geometry: GeometryProxy
+
+  var body: some View {
+
+    VStack(alignment: .leading) {
+
+      Text(animal.name)
+        .font(.largeTitle)
+        .frame(maxWidth: .infinity, alignment: zoomed ? .center : .leading)
+      Text("\(animal.breed) \(animal.type)")
+        .font(.title3)
+        .frame(maxWidth: .infinity, alignment: zoomed ? .center : .leading)
+    }
+    .position(
+      x: zoomed ? 0: 100, //geometry.frame(in: .global).midX : 100,
+      y: zoomed ? geometry.frame(in: .global).midY + geometry.frame(in: .global).midX : 50
+    )
+    .frame(maxWidth: .infinity)
+    .animation(.spring(), value: zoomed)
+  }
+
+}
+
+struct HeaderTitle_Previews: PreviewProvider {
+  static var previews: some View {
+    GeometryReader { geometry in
+      HeaderTitle(animal: Animal.mock[0], zoomed: .constant(true), geometry: geometry)
+    }
+    .previewLayout(.sizeThatFits)
+  }
+}
+
 struct AnimalHeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalHeaderView(animal: Animal.mock[0])
-      .previewLayout(.sizeThatFits)
+//    AnimalHeaderView(animal: Animal.mock[0])
+//      .previewLayout(.sizeThatFits)
+    GeometryReader { geometry in
+      AnimalHeaderView2(animal: Animal.mock[0], zoomed: .constant(true), geometry: geometry)
+        .previewLayout(.sizeThatFits)
+    }
   }
 }

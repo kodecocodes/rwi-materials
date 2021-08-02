@@ -38,25 +38,35 @@ import SwiftUI
 
 struct AnimalDetailsView: View {
   let animal: Animal
+  @State var zoomed = false
   
   var body: some View {
-    ScrollView {
-      LazyVStack {
-        AnimalHeaderView(animal: animal)
-        AnimalDetailRow(animal: animal)
-        VStack(alignment: .leading, spacing: 24) {
-          if let description = animal.description {
-            VStack(alignment: .leading) {
-              Text("Details")
-                .font(.title2)
-              Text(description)
+    GeometryReader { geometry in
+      ScrollView {
+        ZStack(alignment: .leading) {
+
+          LazyVStack(alignment: .leading) {
+            AnimalHeaderView2(animal: animal, zoomed: $zoomed, geometry: geometry)
+              .onTapGesture { zoomed.toggle() }
+            AnimalDetailRow(animal: animal)
+              .blur(radius: zoomed ? 20 : 0)
+            VStack(alignment: .leading, spacing: 24) {
+              if let description = animal.description {
+                VStack(alignment: .leading) {
+                  Text("Details")
+                    .font(.title2)
+                  Text(description)
+                }
+              }
+              AnimalContactsView(animal: animal)
+              AnimalLocationView(animal: animal)
             }
+            .blur(radius: zoomed ? 20 : 0)
+            .padding(.horizontal)
+            .padding(.bottom)
           }
-          AnimalContactsView(animal: animal)
-          AnimalLocationView(animal: animal)
+          .animation(.spring(), value: zoomed)
         }
-        .padding(.horizontal)
-        .padding(.bottom)
       }
     }
     .navigationTitle(animal.name)
@@ -69,6 +79,7 @@ struct AnimalsView_Previews: PreviewProvider {
     Group {
       NavigationView {
         AnimalDetailsView(animal: Animal.mock[0])
+          .previewLayout(.sizeThatFits)
       }
       
       NavigationView {
