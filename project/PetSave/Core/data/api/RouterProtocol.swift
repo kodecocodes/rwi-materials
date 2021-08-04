@@ -41,7 +41,6 @@ protocol RouterProtocol {
 }
 
 extension RouterProtocol {
-  
   var baseURL: String {
     ApiConstants.baseURLString
   }
@@ -57,7 +56,6 @@ extension RouterProtocol {
   var headers: [String : String] {
     [:]
   }
-
   
   func request(authToken: String) async throws -> URLRequest {
     let url = URL(string: baseURL + path)!
@@ -74,12 +72,8 @@ extension RouterProtocol {
     
     urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-    do {
     if !params.isEmpty {
       urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
-    }
-    } catch {
-      throw error
     }
     
     return urlRequest

@@ -33,33 +33,41 @@
 import Foundation
 
 protocol RequestManagerProtocol {
+  var apiManager: APIManagerProtocol { get }
+  var jsonDecoder: JSONDecoder { get }
+  var tokenValidator: TokenValidatorProtocol { get }
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T
 }
 
-class RequestManager: RequestManagerProtocol {
-  
-  private let apiManager: APIManagerProtocol
-  private let jsonDecoder: JSONDecoder
-  private let tokenValidator: TokenValidatorProtocol
-  
-  init(apiManager: APIManagerProtocol = APIManager(),
-       jsonDecoder: JSONDecoder = JSONDecoder(),
-       tokenValidator: TokenValidatorProtocol = TokenValidator()) {
-    self.apiManager = apiManager
-    self.jsonDecoder = jsonDecoder
-    self.tokenValidator = tokenValidator
+extension RequestManagerProtocol {
+  var jsonDecoder: JSONDecoder {
+    let jsonDecoder = JSONDecoder()
+    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    return jsonDecoder
   }
   
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
-    do {
-      
-      let authToken = try await tokenValidator.validateToken()
-      let data = try await apiManager.request(with: router, authToken: authToken)
-      jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-      let decoded = try jsonDecoder.decode(T.self, from: data)
-      return decoded
-    } catch {
-      throw error
-    }
+    let authToken = try await tokenValidator.validateToken()
+    let data = try await apiManager.request(with: router, authToken: "Bearer \(authToken)")
+    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    let decoded = try jsonDecoder.decode(T.self, from: data)
+    return decoded
+  }
+}
+
+class RequestManager: RequestManagerProtocol {
+  let apiManager: APIManagerProtocol
+  let tokenValidator: TokenValidatorProtocol
+  
+  init(
+    apiManager: APIManagerProtocol = APIManager(),
+    tokenValidator: TokenValidatorProtocol = TokenValidator(
+      userDefaults: .standard,
+      authFetcher: AuthService(),
+      keychainManager: KeychainManager()
+    )
+  ) {
+    self.apiManager = apiManager
+    self.tokenValidator = tokenValidator
   }
 }

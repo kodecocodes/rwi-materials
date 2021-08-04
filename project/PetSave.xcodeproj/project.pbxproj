@@ -33,6 +33,12 @@
 		84B0507826B0E8F500E0A709 /* AnimalContactLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507726B0E8F500E0A709 /* AnimalContactLink.swift */; };
 		84B0507C26B0EFA800E0A709 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507B26B0EFA800E0A709 /* LocationFetcher.swift */; };
 		84B0507E26B0F12200E0A709 /* AnimalDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */; };
+		84BCAF9E26BAFE8000401AD5 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCAF9D26BAFE8000401AD5 /* KeychainManager.swift */; };
+		84BCAFA026BB00DA00401AD5 /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCAF9F26BB00DA00401AD5 /* KeychainError.swift */; };
+		84BCAFA226BB013100401AD5 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCAFA126BB013100401AD5 /* AuthService.swift */; };
+		84BCAFA526BB086C00401AD5 /* AuthTokenFetcherMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCAFA426BB086C00401AD5 /* AuthTokenFetcherMock.swift */; };
+		84BCAFA726BB08E200401AD5 /* TokenTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCAFA626BB08E200401AD5 /* TokenTestHelper.swift */; };
+		84D950D926B9E5E900F586F7 /* TokenValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D950D826B9E5E900F586F7 /* TokenValidatorTests.swift */; };
 		84E562B526A8B56100BF252E /* AnimalTypeSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E562B426A8B56100BF252E /* AnimalTypeSuggestionView.swift */; };
 		84F7D50E26A8C3360087F322 /* SuggestionsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7D50D26A8C3360087F322 /* SuggestionsGrid.swift */; };
 		84F8C32826B66044000E8307 /* FetchAnimalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F8C32726B66044000E8307 /* FetchAnimalsService.swift */; };
@@ -139,6 +145,12 @@
 		84B0507726B0E8F500E0A709 /* AnimalContactLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalContactLink.swift; sourceTree = "<group>"; };
 		84B0507B26B0EFA800E0A709 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
 		84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailCard.swift; sourceTree = "<group>"; };
+		84BCAF9D26BAFE8000401AD5 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		84BCAF9F26BB00DA00401AD5 /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
+		84BCAFA126BB013100401AD5 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		84BCAFA426BB086C00401AD5 /* AuthTokenFetcherMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTokenFetcherMock.swift; sourceTree = "<group>"; };
+		84BCAFA626BB08E200401AD5 /* TokenTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenTestHelper.swift; sourceTree = "<group>"; };
+		84D950D826B9E5E900F586F7 /* TokenValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenValidatorTests.swift; sourceTree = "<group>"; };
 		84E562B426A8B56100BF252E /* AnimalTypeSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalTypeSuggestionView.swift; sourceTree = "<group>"; };
 		84F7D50D26A8C3360087F322 /* SuggestionsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsGrid.swift; sourceTree = "<group>"; };
 		84F8C32726B66044000E8307 /* FetchAnimalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAnimalsService.swift; sourceTree = "<group>"; };
@@ -326,10 +338,21 @@
 			path = viewModels;
 			sourceTree = "<group>";
 		};
+		84BCAFA326BB080F00401AD5 /* TokenValidator */ = {
+			isa = PBXGroup;
+			children = (
+				84D950D826B9E5E900F586F7 /* TokenValidatorTests.swift */,
+				84BCAFA426BB086C00401AD5 /* AuthTokenFetcherMock.swift */,
+				84BCAFA626BB08E200401AD5 /* TokenTestHelper.swift */,
+			);
+			path = TokenValidator;
+			sourceTree = "<group>";
+		};
 		84F8C32626B66034000E8307 /* services */ = {
 			isa = PBXGroup;
 			children = (
 				84F8C32726B66044000E8307 /* FetchAnimalsService.swift */,
+				84BCAFA126BB013100401AD5 /* AuthService.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -366,6 +389,7 @@
 		AE5EA13E26AC9A4F00895E34 /* api */ = {
 			isa = PBXGroup;
 			children = (
+				84BCAFA326BB080F00401AD5 /* TokenValidator */,
 				AE5EA13F26AC9A5C00895E34 /* combine */,
 			);
 			path = api;
@@ -514,6 +538,7 @@
 			children = (
 				AE6A3783269B58080054C842 /* DateTimeUtil.swift */,
 				84B0507B26B0EFA800E0A709 /* LocationFetcher.swift */,
+				84BCAF9D26BAFE8000401AD5 /* KeychainManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -598,6 +623,7 @@
 			isa = PBXGroup;
 			children = (
 				AE6A378F269B59110054C842 /* APIToken.swift */,
+				84BCAF9F26BB00DA00401AD5 /* KeychainError.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -831,6 +857,7 @@
 				84A59F7E269E9BDB00237A83 /* AdoptionStatus.swift in Sources */,
 				AE6A3816269B5DCD0054C842 /* Gender.swift in Sources */,
 				18D775C522AD944300AE281E /* ContentView.swift in Sources */,
+				84BCAF9E26BAFE8000401AD5 /* KeychainManager.swift in Sources */,
 				AE4B35B326A4EF1200ABB892 /* AnimalAttributes+CoreData.swift in Sources */,
 				AE4B35C326A4EF9E00ABB892 /* Organization+CoreData.swift in Sources */,
 				AE5EA13926AC97B300895E34 /* PetServiceDataPublisher.swift in Sources */,
@@ -842,6 +869,7 @@
 				84A59F7A269E920300237A83 /* AnimalEnvironment.swift in Sources */,
 				AE6A3790269B59110054C842 /* APIToken.swift in Sources */,
 				8FDD2CA126B3119400DBE33F /* AnimalContainer.swift in Sources */,
+				84BCAFA026BB00DA00401AD5 /* KeychainError.swift in Sources */,
 				AE4B35BB26A4EF5F00ABB892 /* Contact+CoreData.swift in Sources */,
 				8FDD2CA326B311AC00DBE33F /* Pagination.swift in Sources */,
 				AE4B35CB26A4F05700ABB892 /* Address+CoreData.swift in Sources */,
@@ -865,6 +893,7 @@
 				84B0507026B0E2EB00E0A709 /* AnimalDetailRow.swift in Sources */,
 				8485B72726A4A3AB001874CB /* AnimalSearchType.swift in Sources */,
 				AE4B35B726A4EF4100ABB892 /* APIColors+CoreData.swift in Sources */,
+				84BCAFA226BB013100401AD5 /* AuthService.swift in Sources */,
 				AE4B35B926A4EF5200ABB892 /* Breed+CoreData.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,
 				84F8C32826B66044000E8307 /* FetchAnimalsService.swift in Sources */,
@@ -878,8 +907,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BCAFA526BB086C00401AD5 /* AuthTokenFetcherMock.swift in Sources */,
 				AE5EA14326AC9A8B00895E34 /* PetImageServiceTests.swift in Sources */,
 				AE5EA14A26AC9B5200895E34 /* MockPetService.swift in Sources */,
+				84BCAFA726BB08E200401AD5 /* TokenTestHelper.swift in Sources */,
+				84D950D926B9E5E900F586F7 /* TokenValidatorTests.swift in Sources */,
 				AE5EA15126ACA2F400895E34 /* SearchViewModelTests.swift in Sources */,
 				AE6A37F8269B5B860054C842 /* PetSaveTests.swift in Sources */,
 				AE5EA14F26ACA2D800895E34 /* AnimalsNearYouViewModel.swift in Sources */,

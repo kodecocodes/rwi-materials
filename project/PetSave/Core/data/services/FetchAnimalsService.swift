@@ -40,7 +40,7 @@ final class FetchAnimalsService {
 }
 
 // MARK: - AnimalsFetcher
-extension FetchAnimalsService: AnimalFetcher {
+extension FetchAnimalsService: AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
     // if user has scrolled more than the total pages.
     if let pagination = pagination, page >= pagination.totalPages {
@@ -49,7 +49,7 @@ extension FetchAnimalsService: AnimalFetcher {
     }
     
     do {
-      let animalsContainer: AnimalContainer = try await petFinderApi.request(with: AnimalsRouter.getAnimalsWith(page: page))
+      let animalsContainer: AnimalsContainer = try await petFinderApi.request(with: AnimalsRouter.getAnimalsWith(page: page))
       self.pagination = animalsContainer.pagination
       return animalsContainer.animals
     } catch {

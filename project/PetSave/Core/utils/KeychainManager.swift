@@ -32,66 +32,56 @@
 
 import Foundation
 
-protocol AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
+protocol KeychainManagerProtocol {
+  func findKey(server: String, keyClass: CFString) -> String?
+  func save(key: String, server: String, keyClass: CFString) throws
+  func updateKey(attributes: CFDictionary, server: String, keyClass: CFString) throws
 }
 
-final class AnimalsNearYouViewModel: ObservableObject {
-  
-  //Chapter 3 - Fetching Data - likely to replace the animals array below - the Data API will pull results, store them in the database, and then this sectioned fetch request will help keep the UI up to date
-  /*
-   @SectionedFetchRequest<String, Animal>(
-   
-    sectionIdentifier: \.breed,
-    sortDescriptors: [NSSortDescriptor(keyPath: \Animal.name, ascending: true)],
-    animation: .default
-   ) private var animals
-   
-   */
-  
-  @Published var animals: [Animal]
-  @Published var isLoading: Bool
-  @Published var isFetchingMoreAnimals = false
-  
-  var page = 1
-  
-  private let animalFetcher: AnimalsFetcher
-  
-  init(
-    animals: [Animal] = [],
-    isLoading: Bool = true,
-    animalFetcher: AnimalsFetcher
-  ) {
-    self.animals = animals
-    self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
+struct KeychainManager: KeychainManagerProtocol {
+  func findKey(server: String, keyClass: CFString) -> String? {
+    let findQuery = [
+        kSecAttrServer: server,
+        kSecClass: keyClass,
+        kSecMatchLimit: kSecMatchLimitOne,
+        kSecReturnAttributes: true,
+        kSecReturnData: true
+    ] as CFDictionary
+    
+    var item: CFTypeRef?
+    let status = SecItemCopyMatching(findQuery, &item)
+    guard status == errSecSuccess else { return nil }
+    
+    guard let keychainDictionary = item as? NSDictionary,
+          let tokenData = keychainDictionary[kSecValueData] as? Data,
+          let token = String(data: tokenData, encoding: .utf8) else { return nil }
+    return token
   }
   
-  var showMoreButtonOpacity: Double {
-    animals.isEmpty ? 0 : 1
-  }
-  
-  func fetchAnimals() async {
-    // .task() is called everytime the view appears, even when you switch tabs...
-    guard animals.isEmpty else { return }
-    let animals = await animalFetcher.fetchAnimals(page: page)
-    await updateAnimals(animals: animals)
-  }
-  
-  func fetchMoreAnimals() {
-    isFetchingMoreAnimals = true
-    Task {
-      page += 1
-      let animals = await animalFetcher.fetchAnimals(page: page)
-      await updateAnimals(animals: animals)
+  func save(key: String, server: String, keyClass: CFString) throws {
+    guard let tokenData = key.data(using: .utf8) else { throw KeychainError.failedToConvertToData }
+    let addQuery = [
+        kSecValueData: tokenData,
+        kSecAttrServer: server,
+        kSecClass: keyClass
+    ] as CFDictionary
+    
+    let status = SecItemAdd(addQuery, nil)
+    guard status == errSecSuccess else {
+      throw KeychainError.ossError(status)
     }
   }
-  
-  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
-  @MainActor
-  func updateAnimals(animals: [Animal]) {
-    self.animals += animals
-    isLoading = false
-    isFetchingMoreAnimals = false
+   
+  func updateKey(attributes: CFDictionary, server: String, keyClass: CFString) throws {
+    let findQuery = [
+        kSecAttrServer: server,
+        kSecClass: keyClass
+    ] as CFDictionary
+    
+    let status = SecItemUpdate(findQuery, attributes)
+    
+    guard status == errSecSuccess else {
+      throw KeychainError.ossError(status)
+    }
   }
 }

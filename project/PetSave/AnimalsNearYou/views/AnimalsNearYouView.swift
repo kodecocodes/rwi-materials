@@ -85,34 +85,8 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
   }
 }
 
-class FetchAnimals: AnimalFetcher {
-  
-  private let requestManager: RequestManagerProtocol
-  private var pagination: Pagination?
-  
-  init(requestManager: RequestManagerProtocol = RequestManager()) {
-    self.requestManager = requestManager
-  }
-  
-  func fetchAnimals(page: Int) async -> [Animal] {
-    do {
-      // if user has scrolled more than the total pages.
-      if let pagination = self.pagination, page >= pagination.totalPages {
-        return []
-      }
-      
-      let animals: AnimalContainer = try await requestManager.request(with: AnimalsRouter.getAnimalsWith(page: page))
-      self.pagination = animals.pagination
-      return animals.animals
-    } catch {
-      print(error)
-    }
-    return []
-  }
-}
-
 #warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalFetcher {
+struct AnimalFetcherMock: AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
     await Task.sleep(2)
     return Animal.mock

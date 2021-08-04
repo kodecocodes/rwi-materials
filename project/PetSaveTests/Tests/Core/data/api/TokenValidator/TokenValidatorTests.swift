@@ -30,68 +30,58 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import XCTest
+@testable import PetSave
 
-protocol AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
-}
-
-final class AnimalsNearYouViewModel: ObservableObject {
+class TokenValidatorTests: XCTestCase {
+  var tokenValidator: TokenValidator!
   
-  //Chapter 3 - Fetching Data - likely to replace the animals array below - the Data API will pull results, store them in the database, and then this sectioned fetch request will help keep the UI up to date
-  /*
-   @SectionedFetchRequest<String, Animal>(
-   
-    sectionIdentifier: \.breed,
-    sortDescriptors: [NSSortDescriptor(keyPath: \Animal.name, ascending: true)],
-    animation: .default
-   ) private var animals
-   
-   */
-  
-  @Published var animals: [Animal]
-  @Published var isLoading: Bool
-  @Published var isFetchingMoreAnimals = false
-  
-  var page = 1
-  
-  private let animalFetcher: AnimalsFetcher
-  
-  init(
-    animals: [Animal] = [],
-    isLoading: Bool = true,
-    animalFetcher: AnimalsFetcher
-  ) {
-    self.animals = animals
-    self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
+  override func setUp() {
+    tokenValidator = TokenValidator(
+      userDefaults: UserDefaults.standard,
+      authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateValidToken),
+      keychainManager: KeychainManager()
+    )
   }
   
-  var showMoreButtonOpacity: Double {
-    animals.isEmpty ? 0 : 1
+  override func tearDown() {
+    let server = "api.petfinder.com"
+    UserDefaults.standard.set(nil, forKey: "expiresAt")
+    let deleteQuery = [
+        kSecAttrServer: server,
+        kSecClass: kSecClassInternetPassword
+    ] as CFDictionary
+    
+    SecItemDelete(deleteQuery)
   }
   
-  func fetchAnimals() async {
-    // .task() is called everytime the view appears, even when you switch tabs...
-    guard animals.isEmpty else { return }
-    let animals = await animalFetcher.fetchAnimals(page: page)
-    await updateAnimals(animals: animals)
+  func testRequestToken() async throws {
+    let token = try await tokenValidator.validateToken()
+    XCTAssertFalse(token.isEmpty)
   }
   
-  func fetchMoreAnimals() {
-    isFetchingMoreAnimals = true
-    Task {
-      page += 1
-      let animals = await animalFetcher.fetchAnimals(page: page)
-      await updateAnimals(animals: animals)
-    }
+  func testCachedToken() async throws {
+    let token = try await tokenValidator.validateToken()
+    let sameToken = try await tokenValidator.validateToken()
+    XCTAssertEqual(token, sameToken)
   }
   
-  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
-  @MainActor
-  func updateAnimals(animals: [Animal]) {
-    self.animals += animals
-    isLoading = false
-    isFetchingMoreAnimals = false
+  func testTokenFromKeychain() async throws {
+    try TokenTestHelper.saveTokenInKeychain(token: "abc")
+    UserDefaults.standard.set(Date().advanced(by: 5000).timeIntervalSince1970, forKey: "expiresAt")
+    let token = try await tokenValidator.validateToken()
+    XCTAssertEqual(token, "abc")
+  }
+  
+  func testExpiredToken() async throws {
+    tokenValidator = TokenValidator(
+      userDefaults: UserDefaults.standard,
+      authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateExpiredAuthToken),
+      keychainManager: KeychainManager()
+    )
+    
+    let expiredToken = try await tokenValidator.validateToken()
+    let newToken = try await tokenValidator.validateToken()
+    XCTAssertNotEqual(expiredToken, newToken)
   }
 }

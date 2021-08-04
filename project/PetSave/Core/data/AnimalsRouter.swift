@@ -33,7 +33,6 @@
 import Foundation
 
 enum AnimalsRouter: RouterProtocol {
-  
   case getAnimalsWith(page: Int)
   case getAnimalsBy(postCode: String)
   case getAnimalsByLocation(latitide: String, longitude: String)

@@ -32,66 +32,44 @@
 
 import Foundation
 
-protocol AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
+protocol AuthTokenFetcher {
+  func fetchToken() async throws -> APIToken
 }
 
-final class AnimalsNearYouViewModel: ObservableObject {
-  
-  //Chapter 3 - Fetching Data - likely to replace the animals array below - the Data API will pull results, store them in the database, and then this sectioned fetch request will help keep the UI up to date
-  /*
-   @SectionedFetchRequest<String, Animal>(
-   
-    sectionIdentifier: \.breed,
-    sortDescriptors: [NSSortDescriptor(keyPath: \Animal.name, ascending: true)],
-    animation: .default
-   ) private var animals
-   
-   */
-  
-  @Published var animals: [Animal]
-  @Published var isLoading: Bool
-  @Published var isFetchingMoreAnimals = false
-  
-  var page = 1
-  
-  private let animalFetcher: AnimalsFetcher
-  
-  init(
-    animals: [Animal] = [],
-    isLoading: Bool = true,
-    animalFetcher: AnimalsFetcher
-  ) {
-    self.animals = animals
-    self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
+struct AuthService {
+  private let requestManager = APIManager()
+}
+
+// MARK: - AuthTokenFetcher
+extension AuthService: AuthTokenFetcher {
+  func fetchToken() async throws -> APIToken {
+    let data: Data = try await requestManager.request(with: AuthTokenRouter.auth)
+    let jsonDecoder = JSONDecoder()
+    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    let apiToken = try jsonDecoder.decode(APIToken.self, from: data)
+    return apiToken
+  }
+}
+
+enum AuthTokenRouter: RouterProtocol {
+  case auth
+  var path: String {
+    "/oauth2/token"
+  }
+
+  var params: [String : Any] {
+    [
+      "grant_type" : ApiConstants.grantType,
+      "client_id" : ApiConstants.clientId,
+      "client_secret" : ApiConstants.clientSecret
+    ]
+  }
+
+  var addAuthorizationToken: Bool {
+    false
   }
   
-  var showMoreButtonOpacity: Double {
-    animals.isEmpty ? 0 : 1
-  }
-  
-  func fetchAnimals() async {
-    // .task() is called everytime the view appears, even when you switch tabs...
-    guard animals.isEmpty else { return }
-    let animals = await animalFetcher.fetchAnimals(page: page)
-    await updateAnimals(animals: animals)
-  }
-  
-  func fetchMoreAnimals() {
-    isFetchingMoreAnimals = true
-    Task {
-      page += 1
-      let animals = await animalFetcher.fetchAnimals(page: page)
-      await updateAnimals(animals: animals)
-    }
-  }
-  
-  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
-  @MainActor
-  func updateAnimals(animals: [Animal]) {
-    self.animals += animals
-    isLoading = false
-    isFetchingMoreAnimals = false
+  var requestType: RequestType {
+    .POST
   }
 }

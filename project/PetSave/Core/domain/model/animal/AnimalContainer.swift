@@ -32,7 +32,7 @@
 
 import Foundation
 
-struct AnimalContainer: Codable {
+struct AnimalsContainer: Codable {
   let animals: [Animal]
   let pagination: Pagination
 }

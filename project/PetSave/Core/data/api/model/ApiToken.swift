@@ -32,18 +32,23 @@
 
 import Foundation
 
-struct APIToken: Codable {
+struct APIToken {
   let tokenType: String
   let expiresIn: Int
   let accessToken: String
+  private let requestedAt = Date()
+}
+
+// MARK: - Codable
+extension APIToken: Codable {
+  enum CodingKeys: String, CodingKey {
+      case tokenType
+      case expiresIn
+      case accessToken
+    }
 }
 
 extension APIToken {
-  
-  private var requestedAt: Date {
-    Date()
-  }
-  
   var expiresAt: Date {
     Calendar.current.date(byAdding: .second, value: expiresIn, to: requestedAt) ?? Date()
   }
