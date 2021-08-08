@@ -32,84 +32,54 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
-
-struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
-  
-  @State var settingsIsPresented = false
-  
+struct AnimalRow: View {
+  let animal: Animal
   var body: some View {
-    List {
-      ForEach(viewModel.animals) { animal in
-        NavigationLink(destination: AnimalDetailsView(animal: animal)) {
-          AnimalRow(animal: animal)
+    HStack {
+      AsyncImage(url: animal.picture) { image in
+        image
+          .resizable()
+      } placeholder: {
+        Image("rw-logo")
+          .resizable()
+          .overlay {
+            if animal.picture != nil {
+              ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.gray.opacity(0.4))
+            }
+          }
+      }
+      .aspectRatio(1, contentMode: .fill)
+      .frame(width: 112, height: 112)
+      .cornerRadius(8)
+      
+      VStack(alignment: .leading) {
+        Text(animal.name)
+          .multilineTextAlignment(.center)
+          .font(.title3)
+        Text("\(animal.breed) \(animal.type)")
+          .font(.callout)
+        if let description = animal.description {
+          Text(description)
+            .lineLimit(2)
+            .font(.footnote)
+        }
+        
+        HStack {
+          Text(animal.age.rawValue)
+            .modifier(AnimalAttributesCard(color: animal.age.color))
+          Text(animal.gender.rawValue)
+            .modifier(AnimalAttributesCard(color: .pink))
         }
       }
-      if !viewModel.animals.isEmpty {
-        ProgressView("Finding more animals...")
-          .padding()
-          .frame(maxWidth: .infinity)
-          .onAppear(perform: viewModel.fetchMoreAnimals)
-      }
-    }
-    .task(viewModel.fetchAnimals)
-    .listStyle(.plain)
-    .navigationTitle("Animals near you")
-    .refreshable {
-      viewModel.refresh()
-    }
-    .overlay {
-      if viewModel.isLoading {
-        ProgressView("Finding Animals near you...")
-      }
-    }
-    .toolbar {
-      ToolbarItem(placement: .navigationBarTrailing) {
-        Button {
-          settingsIsPresented.toggle()
-        } label: {
-          Label("Settings", systemImage: "gearshape")
-        }
-        .sheet(isPresented: $settingsIsPresented) {
-          PreferencesView()
-        }
-      }
+      .lineLimit(1)
     }
   }
 }
 
-struct AnimalsNearYou2_Previews: PreviewProvider {
+struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          animals: Animal.mock,
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .environmentObject(LocationManager())
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          animals: Animal.mock,
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-    .environmentObject(LocationManager())
-  }
-}
-
-#warning("Remove later, only for testing purposes...")
-struct AnimalFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
-    return Animal.mock
+    AnimalRow(animal: Animal.mock[0])
   }
 }

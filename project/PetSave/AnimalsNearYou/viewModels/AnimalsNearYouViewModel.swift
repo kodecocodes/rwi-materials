@@ -87,6 +87,15 @@ final class AnimalsNearYouViewModel: ObservableObject {
     }
   }
   
+  func refresh() {
+    animals = []
+    isLoading = true
+    page = 1
+    Task {
+      await fetchAnimals()
+    }
+  }
+  
   //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
   @MainActor
   func updateAnimals(animals: [Animal]) {

@@ -1,15 +1,15 @@
 /// Copyright (c) 2021 Razeware LLC
-///
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
+/// 
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -30,39 +30,65 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Foundation
+import CoreLocation
 import SwiftUI
 
-struct ContentView: View {
-  var body: some View {
-    TabView {
-      NavigationView {
-        AnimalsNearYouView(
-          viewModel: AnimalsNearYouViewModel(
-            animalFetcher: FetchAnimalsService()
-          )
-        )
-      }
-      .tabItem {
-        Label("Near you", systemImage: "location")  //Chapter 12 - SF Symbols
-      }
-      .environmentObject(LocationManager())
-      
-      NavigationView {
-        SearchView(
-          viewModel: SearchViewModel(
-            animalSearcher: AnimalSearcherMock()
-          )
-        )
-      }
-      .tabItem {
-        Label("Search", systemImage: "magnifyingglass") //Chapter 12 - SF Symbols
-      }
-    }
+final class LocationManager: NSObject, ObservableObject {
+  @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
+  
+  @Published var userLocation = CLLocation(
+    latitude: 37.3320003,
+    longitude: -122.0307812
+  )
+  
+  @AppStorage("useUserLocation") var useUserLocation = false
+  
+  private lazy var cllLocationManager: CLLocationManager = {
+    let manager = CLLocationManager()
+    manager.delegate = self
+    return manager
+  }()
+  
+  func startUpdatingLocation() {
+    #warning("LocationButton is not working as it should. Probably a Beta bug. We'll try to remove this line later...")
+    cllLocationManager.requestWhenInUseAuthorization()
+    cllLocationManager.startUpdatingLocation()
+  }
+  
+  func updateAuthorizationStatus() {
+    authorizationStatus = cllLocationManager.authorizationStatus
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
+// MARK: - Location status
+extension LocationManager {
+  var locationIsDisabled: Bool {
+    authorizationStatus == .denied ||
+      authorizationStatus == .notDetermined ||
+      authorizationStatus == .restricted
+  }
+  
+  var openInSettings: Bool {
+    authorizationStatus == .denied || authorizationStatus == .restricted
+  }
+  
+  var shouldRequestForLocation: Bool {
+    authorizationStatus == .notDetermined
+  }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension LocationManager: CLLocationManagerDelegate {
+  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    updateAuthorizationStatus()
+  }
+  
+  func locationManager(
+    _ manager: CLLocationManager,
+    didUpdateLocations locations: [CLLocation]
+  ) {
+    guard let userLocation = locations.first else { return }
+    self.userLocation = userLocation
   }
 }
