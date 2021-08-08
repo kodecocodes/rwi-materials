@@ -39,6 +39,14 @@ struct SearchView: View {
   let navigationTitle = NSLocalizedString("SEARCH_NAVIGATION_TITLE", comment: "Search View Navigation Title")
   
   @ObservedObject var viewModel: SearchViewModel
+
+  #if !DEBUG
+  @SectionedFetchRequest<String, AnimalEntity>(
+    sectionIdentifier: \.breed,
+    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)],
+    animation: .default
+  ) private var sectionedAnimals : SectionedFetchResults<String, AnimalEntity>
+  #endif
   
   // For some reason, isSearching only change on subviews.
   // isSearching is also get only so we can't dismiss the searchbar after hitting submit.
@@ -57,7 +65,15 @@ struct SearchView: View {
 
         }
       } else {
+        #if DEBUG
         AnimalsGrid(animals: viewModel.animals)
+        #else
+        ForEach(sectionedAnimals) { animals in
+          Section(header: Text(animals.id)) {
+            AnimalsGrid(animals: animals.reversed())
+          }
+        }
+        #endif
       }
     }
     .navigationTitle("Find your future pet")
@@ -108,6 +124,7 @@ struct SearchView: View {
   }
 }
 
+#if DEBUG
 struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -139,21 +156,37 @@ struct SearchView_Previews: PreviewProvider {
     }
   }
 }
+#else
+struct SearchView_Previews: PreviewProvider {
+  static var previews: some View {
+    Group {
+      NavigationView {
+        SearchView(
+          viewModel: SearchViewModel(
+            animalSearcher: AnimalSearcherMock()
+          )
+        )
+      }
 
-#warning("For testing purposes")
-struct AnimalSearcherMock: AnimalSearcher {
-  func searchAnimal(
-    by text: String,
-    age: AnimalSearchAge,
-    type: AnimalSearchType
-  ) async -> [Animal] {
-    var animals = Animal.mock
-    if age != .none {
-      animals = animals.filter { $0.age.rawValue.lowercased() == age.rawValue.lowercased() }
+      NavigationView {
+        SearchView(
+          viewModel: SearchViewModel(
+            animalSearcher: AnimalSearcherMock()
+          )
+        )
+      }.environment(\.locale, .init(identifier: "es"))
+        .previewDisplayName("Spanish Locale")
+
+      //Chapter 12 - Dark mode previews
+      NavigationView {
+        SearchView(
+          viewModel: SearchViewModel(
+            animalSearcher: AnimalSearcherMock()
+          )
+        )
+      }.preferredColorScheme(.dark)
     }
-    if type != .none {
-      animals = animals.filter { $0.type.lowercased() == type.rawValue.lowercased() }
-    }
-    return animals.filter { $0.name.contains(text) }
   }
 }
+#endif
+

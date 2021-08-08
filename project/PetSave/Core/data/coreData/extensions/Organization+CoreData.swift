@@ -37,14 +37,6 @@ import CoreData
 
 extension Organization: UUIDIdentifiable {
   
-  
-//  init(managedObject: OrganizationEntity) {
-//    
-//    self.distance = managedObject.distance
-//    self.id = managedObject.id!
-//    self.contact = Contact(managedObject: managedObject.contact!)
-//  }
-  
   mutating func toManagedObject(context: NSManagedObjectContext) -> OrganizationEntity {
 
     let persistedValue = OrganizationEntity.init(context: context)

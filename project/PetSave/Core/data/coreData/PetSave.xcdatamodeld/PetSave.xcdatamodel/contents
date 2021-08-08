@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19178.1" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19186" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AddressEntity" representedClassName="AddressEntity" syncable="YES" codeGenerationType="class">
         <attribute name="address1" optional="YES" attributeType="String"/>
         <attribute name="address2" optional="YES" attributeType="String"/>
         <attribute name="city" attributeType="String"/>
         <attribute name="country" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="postalcode" attributeType="String"/>
+        <attribute name="postcode" attributeType="String"/>
         <attribute name="state" attributeType="String"/>
         <relationship name="contact" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="address" inverseEntity="ContactEntity"/>
     </entity>
@@ -41,6 +41,11 @@
         <relationship name="environment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEnvironmentEntity" inverseName="animal" inverseEntity="AnimalEnvironmentEntity"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PhotoSizesEntity" inverseName="animal" inverseEntity="PhotoSizesEntity"/>
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoLinkEntity" inverseName="animal" inverseEntity="VideoLinkEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="AnimalEnvironmentEntity" representedClassName="AnimalEnvironmentEntity" syncable="YES" codeGenerationType="class">
         <attribute name="cats" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

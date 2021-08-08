@@ -38,26 +38,5 @@ import CoreData
 extension Address: CoreDataPersistable {
 
   typealias ManagedType = AddressEntity
-  
-//  init(managedObject: AddressEntity) {
-//    self.id = Int(managedObject.id)
-//    self.address1 = managedObject.address1!
-//    self.address2 = managedObject.address2!
-//    self.city = managedObject.city!
-//    self.country = managedObject.country!
-//    self.postcode = managedObject.postalcode!
-//    self.state = managedObject.state!
-//  }
-//  
-//  func toManagedObject(context: NSManagedObjectContext) /*-> AddressEntity*/ {
-//
-//    let persistedValue = AddressEntity.init(context: context)
-//    let mirror = Mirror(reflecting: self)
-//    for case let (label?, value) in mirror.children {
-//      persistedValue.setValue(value, forKey: label)
-//    }
-//
-////    return persistedValue
-//  }
 
 }

@@ -46,7 +46,7 @@ class APIManager: APIManagerProtocol {
   func request(with router: RouterProtocol, authToken: String = "") async throws -> Data {
     
     let (data, response) = try await urlSession.data(for: router.request(authToken: authToken))
-    print(String.init(data: data, encoding: String.Encoding.utf8))
+//    print(String.init(data: data, encoding: String.Encoding.utf8))
     guard let httpResponse = response as? HTTPURLResponse,
           httpResponse.statusCode == 200 else {
             throw NetworkError.invalidServerResponse

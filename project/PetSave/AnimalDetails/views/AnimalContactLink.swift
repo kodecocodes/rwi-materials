@@ -65,6 +65,7 @@ struct AnimalContactLink_Previews: PreviewProvider {
       url: URL(string: "www.apple.com")!,
       color: .green
     )
+    .padding()
     .previewLayout(.sizeThatFits)
   }
 }

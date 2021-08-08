@@ -34,7 +34,11 @@ import SwiftUI
 import MapKit
 
 struct AnimalLocationView: View {
+  #if DEBUG
   let animal: Animal
+  #else
+  let animal: AnimalEntity
+  #endif
   
   @StateObject var locationFetcher = LocationFetcher()
   
@@ -65,9 +69,27 @@ struct AnimalLocationView: View {
   }
 }
 
+#if DEBUG
 struct AnimalLocationView_Previews: PreviewProvider {
   static var previews: some View {
     AnimalLocationView(animal: Animal.mock[0])
       .previewLayout(.sizeThatFits)
   }
 }
+#else
+struct AnimalLocationView_Previews: PreviewProvider {
+  static var previews: some View {
+    Group {
+      if let animalEntity = CoreDataHelper.getTestAnimal() {
+        AnimalLocationView(animal: animalEntity)
+          .padding()
+          .previewLayout(.sizeThatFits)
+      } else {
+        NavigationView {
+          Text("No available test animal in database")
+        }
+      }
+    }
+  }
+}
+#endif

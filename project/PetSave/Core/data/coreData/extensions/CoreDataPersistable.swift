@@ -63,7 +63,10 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
 
     let mirror = Mirror(reflecting: self)
     for case let (label?, value) in mirror.children {
-      persistedValue.setValue(value, forKey: label)
+      let value2 = Mirror(reflecting: value)
+      if value2.displayStyle != .optional || value2.children.count != 0 {
+          persistedValue.setValue(value, forKey: label)
+      }
     }
 
     return persistedValue
@@ -78,24 +81,3 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
 protocol UUIDIdentifiable: Identifiable {
   var id: Int? { get set }
 }
-
-
-//
-//extension CoreDataPersistable where Self: NSManagedObject & Identifiable {
-//  
-//  func save(inViewContext viewContext: NSManagedObjectContext) {
-//    
-////    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Self.self))
-////
-////    fetchRequest.predicate = NSPredicate(format: "id = %@", self.id as CVarArg)
-//    
-//    self.toManagedObject(context: viewContext)
-//    
-//    do {
-//      try viewContext.save()
-//    } catch {
-//      fatalError("\(#file), \(#function), \(error.localizedDescription)")
-//    }
-//    
-//  }
-//}

@@ -32,9 +32,9 @@
 
 struct AnimalAttributes: Codable {
   var id: Int?
-  let spayedNeutered: Bool?
-  let houseTrained: Bool?
-  let declawed: Bool?
-  let specialNeeds: Bool?
-  let shotsCurrent: Bool?
+  var spayedNeutered: Bool? = false
+  var houseTrained: Bool? = false
+  var declawed: Bool? = false
+  var specialNeeds: Bool? = false
+  var shotsCurrent: Bool? = false
 }

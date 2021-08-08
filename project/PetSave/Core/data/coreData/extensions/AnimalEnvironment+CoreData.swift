@@ -39,23 +39,4 @@ extension AnimalEnvironment: CoreDataPersistable {
 
   typealias ManagedType = AnimalEnvironmentEntity
   
-//  init(managedObject: AnimalEnvironmentEntity) {
-//
-//    self.id = Int(managedObject.id)
-//    self.cats = managedObject.cats
-//    self.children = managedObject.children
-//    self.dogs = managedObject.dogs
-////    self.unknown = managedObject.unknown
-//  }
-//
-//  func toManagedObject(context: NSManagedObjectContext) /*-> AnimalEnvironmentEntity*/ {
-//
-//    let persistedValue = AnimalEnvironmentEntity.init(context: context)
-//    let mirror = Mirror(reflecting: self)
-//    for case let (label?, value) in mirror.children {
-//      persistedValue.setValue(value, forKey: label)
-//    }
-//
-////    return persistedValue
-//  }
 }

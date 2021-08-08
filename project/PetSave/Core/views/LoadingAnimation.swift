@@ -48,11 +48,11 @@ struct LoadingAnimation: UIViewRepresentable {
 
   func makeUIView(context: Context) -> UIView {
 
-    let view = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
-    let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     image.clipsToBounds = true
     image.autoresizesSubviews = true
-    image.layer.cornerRadius = 20
+//    image.layer.cornerRadius = 20
     image.contentMode = UIView.ContentMode.scaleAspectFit
     image.image = animatedFrames
     view.addSubview(image)

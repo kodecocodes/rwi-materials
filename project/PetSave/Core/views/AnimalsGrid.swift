@@ -33,8 +33,13 @@
 import SwiftUI
 
 struct AnimalsGrid: View {
+
+  #if DEBUG
   let animals: [Animal]
-  
+  #else
+  let animals: [AnimalEntity]
+  #endif
+
   private let columns = [
     GridItem(.flexible()),
     GridItem(.flexible())
@@ -50,6 +55,7 @@ struct AnimalsGrid: View {
   }
 }
 
+#if DEBUG
 struct AnimalsGrid_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
@@ -59,3 +65,23 @@ struct AnimalsGrid_Previews: PreviewProvider {
     }
   }
 }
+#else
+struct AnimalsGrid_Previews: PreviewProvider {
+  static var previews: some View {
+
+    Group {
+      if let animalEntities = CoreDataHelper.getTestAnimals() {
+        NavigationView {
+          ScrollView {
+            AnimalsGrid(animals: animalEntities)
+          }
+        }
+      } else {
+        NavigationView {
+          Text("No available test animal in database")
+        }
+      }
+    }
+  }
+}
+#endif

@@ -36,75 +36,49 @@ import SwiftUI
 
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
-  
-  @State var settingsIsPresented = false
-  
+
+  #if !DEBUG
+  @SectionedFetchRequest<String, AnimalEntity>(
+    sectionIdentifier: \.breed,
+    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)],
+    animation: .default
+  ) private var sectionedAnimals : SectionedFetchResults<String, AnimalEntity>
+  #endif
+
   var body: some View {
-    List {
-      ForEach(viewModel.animals) { animal in
-        NavigationLink(destination: AnimalDetailsView(animal: animal)) {
-          AnimalRow(animal: animal)
+      ScrollView {
+        #if DEBUG
+        AnimalsGrid(animals: viewModel.animals)
+        #else
+        ForEach(sectionedAnimals) { animals in
+          Section(header: Text(animals.id)) {
+            AnimalsGrid(animals: animals.reversed())
+          }
+        }
+        #endif
+        if viewModel.isFetchingMoreAnimals {
+          ProgressView("Finding more animals...")
+        } else {
+          Button("Load more", action: viewModel.fetchMoreAnimals)
+            .opacity(viewModel.showMoreButtonOpacity)
+            .buttonStyle(.bordered)
+            .tint(.blue)
+            .controlSize(.large)
+            .buttonStyle(.borderedProminent)
+            .padding()
         }
       }
-      if !viewModel.animals.isEmpty {
-        ProgressView("Finding more animals...")
-          .padding()
-          .frame(maxWidth: .infinity)
-          .onAppear(perform: viewModel.fetchMoreAnimals)
-      }
-    }
-    .task(viewModel.fetchAnimals)
-    .listStyle(.plain)
-    .navigationTitle("Animals near you")
-    .refreshable {
-      viewModel.refresh()
-    }
-    .overlay {
-      if viewModel.isLoading {
-        ProgressView("Finding Animals near you...")
-      }
-    }
-    .toolbar {
-      ToolbarItem(placement: .navigationBarTrailing) {
-        Button {
-          settingsIsPresented.toggle()
-        } label: {
-          Label("Settings", systemImage: "gearshape")
-        }
-        .sheet(isPresented: $settingsIsPresented) {
-          PreferencesView()
+      .navigationTitle("Animals near you")
+      .overlay {
+        if viewModel.isLoading {
+          ProgressView("Finding Animals near you...")
         }
       }
-    }
+      .task(viewModel.fetchAnimals)
   }
 }
 
-struct AnimalsNearYou2_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          animals: Animal.mock,
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .environmentObject(LocationManager())
-    
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          animals: Animal.mock,
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock()
-        )
-      )
-    }
-    .preferredColorScheme(.dark)
-    .environmentObject(LocationManager())
-  }
-}
+#if DEBUG
 
 #warning("Remove later, only for testing purposes...")
 struct AnimalFetcherMock: AnimalsFetcher {
@@ -113,3 +87,61 @@ struct AnimalFetcherMock: AnimalsFetcher {
     return Animal.mock
   }
 }
+
+struct AnimalsNearYouView_Previews: PreviewProvider {
+  static var previews: some View {
+    NavigationView {
+      AnimalsNearYouView(
+        viewModel: AnimalsNearYouViewModel(
+          isLoading: true,
+          animalFetcher: AnimalFetcherMock()
+        )
+      )
+    }
+    
+    NavigationView {
+      AnimalsNearYouView(
+        viewModel: AnimalsNearYouViewModel(
+          isLoading: true,
+          animalFetcher: AnimalFetcherMock()
+        )
+      )
+    }
+    .preferredColorScheme(.dark)
+  }
+}
+#else
+
+//#warning("Remove later, only for testing purposes...")
+//struct AnimalFetcherDatabaseMock: AnimalsFetcher {
+//  func fetchAnimals(page: Int) async -> [AnimalEntity] {
+//    await Task.sleep(2)
+//    return CoreDataHelper.getTestAnimals()
+//  }
+//}
+
+struct AnimalsNearYouView_Previews: PreviewProvider {
+  static var previews: some View {
+    NavigationView {
+      AnimalsNearYouView(
+        viewModel: AnimalsNearYouViewModel(
+          animalFetcher: FetchAnimalsService()
+        )
+      )
+      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+
+    NavigationView {
+      AnimalsNearYouView(
+        viewModel: AnimalsNearYouViewModel(
+          animalFetcher: FetchAnimalsService()
+        )
+      )
+      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+    .preferredColorScheme(.dark)
+  }
+}
+#endif
+
+
