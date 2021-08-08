@@ -45,20 +45,15 @@ final class SearchViewModel: ObservableObject {
   @Published var ageSelection = AnimalSearchAge.none
   @Published var typeSelection = AnimalSearchType.none
   
-  //Chapter 3 - Fetching Data - likely to replace the animals array below - the Data API will pull results, store them in the database, and then this sectioned fetch request will help keep the UI up to date
-  /*
-   @SectionedFetchRequest<String, Animal>(
-   
-    sectionIdentifier: \.breed,
-    sortDescriptors: [NSSortDescriptor(keyPath: \Animal.name, ascending: true)],
-    animation: .default
-   ) private var animals
-   
-   */
-  
-  @Published var animals: [Animal] = []
+
   
   private let animalSearcher: AnimalSearcher
+
+//  #if DEBUG
+  @Published var animals: [Animal] = []
+//  #else
+//  @Published var animals: [AnimalEntity] = []
+//  #endif
   
   init(animalSearcher: AnimalSearcher) {
     self.animalSearcher = animalSearcher
@@ -85,9 +80,58 @@ final class SearchViewModel: ObservableObject {
   }
 
   //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
-
+  #if DEBUG
   @MainActor
   func update(animals: [Animal]) {
     self.animals = animals
   }
+  #else
+  @MainActor
+  func update(animals: [Animal]) {
+    self.animals = animals
+    for var animal in animals {
+      animal.toManagedObject(context: PersistenceController.shared.container.viewContext)
+    }
+  }
+  #endif
 }
+
+//#if DEBUG
+#warning("For testing purposes")
+struct AnimalSearcherMock: AnimalSearcher {
+  func searchAnimal(
+    by text: String,
+    age: AnimalSearchAge,
+    type: AnimalSearchType
+  ) async -> [Animal] {
+    var animals = Animal.mock
+    if age != .none {
+      animals = animals.filter { $0.age.rawValue.lowercased() == age.rawValue.lowercased() }
+    }
+    if type != .none {
+      animals = animals.filter { $0.type.lowercased() == type.rawValue.lowercased() }
+    }
+    return animals.filter { $0.name.contains(text) }
+  }
+}
+//#else
+//struct AnimalSearcherMock: AnimalSearcher {
+//  func searchAnimal(
+//    by text: String,
+//    age: AnimalSearchAge,
+//    type: AnimalSearchType
+//  ) async -> [AnimalEntity] {
+//    var animals = Animal.mock
+//    if age != .none {
+//      animals = animals.filter { $0.age.rawValue.lowercased() == age.rawValue.lowercased() }
+//    }
+//    if type != .none {
+//      animals = animals.filter { $0.type.lowercased() == type.rawValue.lowercased() }
+//    }
+//    let filteredAnimals = animals.filter { $0.name.contains(text) }
+//    for var animal in filteredAnimals {
+//      animal.toManagedObject(context: context)
+//    }
+//  }
+//}
+//#endif

@@ -37,47 +37,69 @@ protocol AnimalsFetcher {
 }
 
 final class AnimalsNearYouViewModel: ObservableObject {
-  
-  //Chapter 3 - Fetching Data - likely to replace the animals array below - the Data API will pull results, store them in the database, and then this sectioned fetch request will help keep the UI up to date
-  /*
-   @SectionedFetchRequest<String, Animal>(
-   
-    sectionIdentifier: \.breed,
-    sortDescriptors: [NSSortDescriptor(keyPath: \Animal.name, ascending: true)],
-    animation: .default
-   ) private var animals
-   
-   */
-  
-  @Published var animals: [Animal]
+
+
   @Published var isLoading: Bool
   @Published var isFetchingMoreAnimals = false
-  
+
   var page = 1
   
   private let animalFetcher: AnimalsFetcher
-  
-  init(
-    animals: [Animal] = [],
-    isLoading: Bool = true,
-    animalFetcher: AnimalsFetcher
-  ) {
+
+  #if DEBUG
+  @Published var animals: [Animal]
+
+  init(animals: [Animal] = [],
+       isLoading: Bool = true,
+       animalFetcher: AnimalsFetcher) {
     self.animals = animals
     self.isLoading = isLoading
     self.animalFetcher = animalFetcher
   }
-  
+
+  #else
+  let context = PersistenceController.shared.container.viewContext
+
+  init(isLoading: Bool = true,
+       animalFetcher: AnimalsFetcher) {
+    self.isLoading = isLoading
+    self.animalFetcher = animalFetcher
+  }
+  #endif
+
+  #if DEBUG
   var showMoreButtonOpacity: Double {
     animals.isEmpty ? 0 : 1
   }
-  
+  #else
+  var showMoreButtonOpacity: Double {
+    1
+  }
+  #endif
+
+  #if DEBUG
   func fetchAnimals() async {
     // .task() is called everytime the view appears, even when you switch tabs...
     guard animals.isEmpty else { return }
     let animals = await animalFetcher.fetchAnimals(page: page)
+    print("number of animals \(animals.count)")
     await updateAnimals(animals: animals)
   }
-  
+  #else
+  func fetchAnimals() async {
+    // .task() is called everytime the view appears, even when you switch tabs...
+    DispatchQueue.main.async { self.isLoading = true }
+    let animals = await animalFetcher.fetchAnimals(page: page)
+    await addAnimals(animals: animals)
+    do {
+      try context.save()
+    } catch {
+      print("Error saving to database \(error)")
+    }
+  }
+  #endif
+
+  #if DEBUG
   func fetchMoreAnimals() {
     isFetchingMoreAnimals = true
     Task {
@@ -86,12 +108,33 @@ final class AnimalsNearYouViewModel: ObservableObject {
       await updateAnimals(animals: animals)
     }
   }
-  
-  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
+  #else
+  func fetchMoreAnimals() {
+    isFetchingMoreAnimals = true
+    Task {
+      page += 1
+      let animals = await animalFetcher.fetchAnimals(page: page)
+      await addAnimals(animals: animals)
+//      DispatchQueue.main.async { self.isFetchingMoreAnimals = false }
+    }
+  }
+  #endif
+
+
+  #if DEBUG
   @MainActor
   func updateAnimals(animals: [Animal]) {
     self.animals += animals
     isLoading = false
     isFetchingMoreAnimals = false
   }
+  #else
+  @MainActor
+  func addAnimals(animals: [Animal]) {
+    for var animal in animals {
+      animal.toManagedObject(context: context)
+    }
+    isLoading = false
+  }
+  #endif
 }

@@ -37,25 +37,4 @@ extension AnimalAttributes: CoreDataPersistable {
 
   typealias ManagedType = AnimalAttributesEntity
   
-//  init(managedObject: AnimalAttributesEntity) {
-//    
-//    self.id = Int(managedObject.id)
-//    self.declawed = managedObject.declawed
-//    self.houseTrained = managedObject.houseTrained
-//    self.shotsCurrent = managedObject.shotsCurrent
-//    self.spayedNeutered = managedObject.spayedNeutered
-//    self.specialNeeds = managedObject.specialNeeds
-//  }
-//
-//  
-//  func toManagedObject(context: NSManagedObjectContext) /*-> AnimalAttributesEntity*/ {
-//
-//    let persistedValue = AnimalAttributesEntity.init(context: context)
-//    let mirror = Mirror(reflecting: self)
-//    for case let (label?, value) in mirror.children {
-//      persistedValue.setValue(value, forKey: label)
-//    }
-//
-////    return persistedValue
-//  }
 }

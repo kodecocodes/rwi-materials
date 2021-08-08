@@ -77,7 +77,7 @@ extension Animal {
   }
   
   var emailLink: URL? {
-    URL(string: "mailto:\(contact.email)")
+    URL(string: "mailto:\(contact.email ?? "NO EMAIL AVAILABLE")")
   }
   
   var address: String {

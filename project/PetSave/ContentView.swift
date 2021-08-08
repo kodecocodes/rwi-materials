@@ -41,6 +41,7 @@ struct ContentView: View {
             animalFetcher: FetchAnimalsService()
           )
         )
+        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
       }
       .tabItem {
         Label("Near you", systemImage: "location")  //Chapter 12 - SF Symbols

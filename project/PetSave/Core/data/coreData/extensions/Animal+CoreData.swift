@@ -80,51 +80,70 @@ extension AnimalEntity {
     }
   }
   
+  @objc var breed: String {
+    return breeds?.primary ?? breeds?.secondary ?? ""
+  }
 
+  var picture: URL? {
+    guard let photos = photos, photos.count > 0 else { return nil }
+    let photosArray = photos.allObjects as! [PhotoSizesEntity]
+    guard let firstPhoto = photosArray.first else { return nil }
+    let pic = firstPhoto.medium ?? firstPhoto.full ?? nil
+    return pic
+  }
+
+  var phoneLink: URL? {
+    guard let phoneNumber = contact?.phone else { return nil }
+    let formattedPhoneNumber = phoneNumber.replacingOccurrences(of: "(", with: "")
+      .replacingOccurrences(of: ")", with: "")
+      .replacingOccurrences(of: "-", with: "")
+      .replacingOccurrences(of: " ", with: "")
+    return URL(string: "tel:\(formattedPhoneNumber)")
+  }
+
+  var emailLink: URL? {
+    guard let emailAddress = contact?.email else { return nil }
+    return URL(string: "mailto:\(emailAddress)")
+  }
+
+  var address: String {
+    guard let address = contact?.address else { return "No address" }
+    return [
+      address.address1,
+      address.address2,
+      address.city,
+      address.state,
+      address.postcode,
+      address.country
+    ]
+    .compactMap { $0 }
+    .joined(separator: ", ")
+  }
   
 }
 
 extension Animal: UUIDIdentifiable {
 
-  
-  
-//  init(managedObject: AnimalEntity) {
-//    
-//    self.age = managedObject.age
-//    self.coat = managedObject.coat
-//    self.description = managedObject.desc
-//    self.distance = managedObject.distance
-//    self.gender = managedObject.gender
-//    self.id = Int(managedObject.id)
-//    self.name = managedObject.name!
-//    self.organizationId = managedObject.organizationId
-//    self.publishedAt = managedObject.publishedAt?.description
-//    self.size = managedObject.size
-//    self.species = managedObject.species
-//    self.status = managedObject.status
-//    self.tags = []
-//    self.type = managedObject.type!
-//    self.url = managedObject.url
-//    
-//    self.attributes = AnimalAttributes(managedObject: managedObject.attributes!)
-//
-//    self.colors = APIColors(managedObject: managedObject.colors!)
-//    self.contact = Contact(managedObject: managedObject.contact!)
-//    self.environment = AnimalEnvironment(managedObject: managedObject.environment!)
-//    
-//    self.photos = managedObject.photos?.allObjects as! [PhotoSizes]
-//    self.videos = managedObject.videos?.allObjects as! [VideoLink]
-//
-//    self.breeds = Breed(managedObject: managedObject.breeds!)
-//    
-//  }
+  private func checkForExistingAnimal(id: Int, context: NSManagedObjectContext) -> Bool {
+    let fetchRequest = AnimalEntity.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "id = %d", id)
+
+    if let results = try? context.fetch(fetchRequest),
+       let _ = results.first {
+      return true
+    }
+    return false
+  }
 
   mutating func toManagedObject(context: NSManagedObjectContext) {
+
+    guard checkForExistingAnimal(id: self.id!, context: context) == false else { return }
+
     let persistedValue = AnimalEntity.init(context: context)
     persistedValue.age = self.age
-    persistedValue.coat = self.coat!
+    persistedValue.coat = self.coat ?? .short
     persistedValue.desc = self.description
-    persistedValue.distance = self.distance!
+    persistedValue.distance = self.distance ?? 0
     persistedValue.gender = self.gender
     persistedValue.id = Int64(self.id!)
     persistedValue.name = self.name
@@ -139,8 +158,14 @@ extension Animal: UUIDIdentifiable {
     persistedValue.colors = self.colors.toManagedObject(context: context)
     persistedValue.contact = self.contact.toManagedObject(context: context)
     persistedValue.environment = self.environment?.toManagedObject(context: context)
-    persistedValue.photos = NSSet(array: self.photos)
-    persistedValue.videos = NSSet(array: self.videos)
+    persistedValue.addToPhotos(NSSet(array: self.photos.map { (photo: PhotoSizes) -> PhotoSizesEntity in
+      var mutablePhoto = photo
+      return mutablePhoto.toManagedObject(context: context)
+    }))
+    persistedValue.addToVideos(NSSet(array: self.videos.map { (video: VideoLink) -> VideoLinkEntity in
+      var mutableVideo = video
+      return mutableVideo.toManagedObject(context: context)
+    }))
     persistedValue.breeds = self.breeds.toManagedObject(context: context)
 
   }

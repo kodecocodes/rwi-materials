@@ -39,24 +39,4 @@ extension User: CoreDataPersistable {
 
   typealias ManagedType = UserEntity
   
-  
-  
-//  init(managedObject: UserEntity) {
-//    
-//    self.extra = managedObject.extra!
-////    self.id = managedObject.id!
-//    self.name = managedObject.name!
-//    self.password = managedObject.password!
-//  }
-  
-//  func toManagedObject(context: NSManagedObjectContext) /*-> UserEntity*/ {
-//
-//    let persistedValue = UserEntity.init(context: context)
-//    let mirror = Mirror(reflecting: self)
-//    for case let (label?, value) in mirror.children {
-//      persistedValue.setValue(value, forKey: label)
-//    }
-//
-////    return persistedValue
-//  }
 }

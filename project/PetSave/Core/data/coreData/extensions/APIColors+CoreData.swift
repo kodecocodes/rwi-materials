@@ -37,23 +37,4 @@ extension APIColors: CoreDataPersistable {
 
   typealias ManagedType = APIColorsEntity
 
-  
-//  init(managedObject: APIColorsEntity) {
-//    
-//    self.id = Int(managedObject.id)
-//    self.primary = managedObject.primary
-//    self.secondary = managedObject.secondary
-//    self.tertiary = managedObject.tertiary
-//  }
-//  
-//  func toManagedObject(context: NSManagedObjectContext) /*-> APIColorsEntity*/ {
-//
-//    let persistedValue = APIColorsEntity.init(context: context)
-//    let mirror = Mirror(reflecting: self)
-//    for case let (label?, value) in mirror.children {
-//      persistedValue.setValue(value, forKey: label)
-//    }
-//
-////    return persistedValue
-//  }
 }

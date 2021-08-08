@@ -37,8 +37,31 @@ import SwiftUI
 //Chapter 10: Custom control for ranking
 
 struct AnimalDetailsView: View {
-  let animal: Animal
+
+  let animalDescription: String?
+  let animalName: String?
+
   @State var zoomed = false
+
+  #if DEBUG
+  let animal: Animal
+
+  init(animal: Animal) {
+    self.animal = animal
+    self.animalDescription = animal.description
+    self.animalName = animal.name
+  }
+
+  #else
+  let animal: AnimalEntity
+
+  init(animal: AnimalEntity) {
+    self.animal = animal
+    self.animalDescription = animal.desc
+    self.animalName = animal.name
+  }
+  #endif
+
   
   var body: some View {
     GeometryReader { geometry in
@@ -51,7 +74,7 @@ struct AnimalDetailsView: View {
             AnimalDetailRow(animal: animal)
               .blur(radius: zoomed ? 20 : 0)
             VStack(alignment: .leading, spacing: 24) {
-              if let description = animal.description {
+              if let description = animalDescription {
                 VStack(alignment: .leading) {
                   Text("Details")
                     .font(.title2)
@@ -69,11 +92,12 @@ struct AnimalDetailsView: View {
         }
       }
     }
-    .navigationTitle(animal.name)
+    .navigationTitle(animalName ?? "")
     .navigationBarTitleDisplayMode(.inline)
   }
 }
 
+#if DEBUG
 struct AnimalsView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -81,7 +105,7 @@ struct AnimalsView_Previews: PreviewProvider {
         AnimalDetailsView(animal: Animal.mock[0])
           .previewLayout(.sizeThatFits)
       }
-      
+
       NavigationView {
         AnimalDetailsView(animal: Animal.mock[0])
       }
@@ -89,3 +113,30 @@ struct AnimalsView_Previews: PreviewProvider {
     }
   }
 }
+#else
+struct AnimalsView_Previews: PreviewProvider {
+  static var previews: some View {
+    Group {
+      if let animalEntity = CoreDataHelper.getTestAnimal() {
+        Group {
+          NavigationView {
+            AnimalDetailsView(animal: animalEntity)
+          }
+          .previewLayout(.sizeThatFits)
+          .previewDisplayName("iPhone SE (2nd generation)")
+          
+          NavigationView {
+            AnimalDetailsView(animal: animalEntity)
+          }
+          .previewDevice("iPhone 12 Pro")
+          .previewDisplayName("iPhone 12 Pro")
+        }
+      } else {
+        NavigationView {
+          Text("No available test animal in database")
+        }
+      }
+    }
+  }
+}
+#endif

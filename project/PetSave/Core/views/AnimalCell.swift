@@ -33,8 +33,27 @@
 import SwiftUI
 
 struct AnimalCell: View {
+
+  let animalName: String?
+
+  #if DEBUG
   let animal: Animal
-  
+
+  init(animal: Animal) {
+    self.animal = animal
+    self.animalName = animal.name
+  }
+
+  #else
+  let animal: AnimalEntity
+
+  init(animal: AnimalEntity) {
+    self.animal = animal
+    self.animalName = animal.name
+  }
+
+  #endif
+
   var body: some View {
     NavigationLink(destination: AnimalDetailsView(animal: animal)) {
       VStack(alignment: .leading, spacing: 4) {
@@ -46,6 +65,7 @@ struct AnimalCell: View {
             .resizable()
             .overlay {
               if animal.picture != nil {
+//                LoadingAnimation()
                 ProgressView()
                   .frame(maxWidth: .infinity, maxHeight: .infinity)
                   .background(.gray.opacity(0.4))
@@ -56,7 +76,7 @@ struct AnimalCell: View {
         .cornerRadius(8)
         
         VStack(alignment: .leading) {
-          Text(animal.name)
+          Text(animalName ?? "")
             .multilineTextAlignment(.center)
             .font(.headline)
           Text(animal.breed)
@@ -75,6 +95,7 @@ struct AnimalCell: View {
   }
 }
 
+#if DEBUG
 struct AnimalCell_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
@@ -83,6 +104,24 @@ struct AnimalCell_Previews: PreviewProvider {
     }
   }
 }
+#else
+struct AnimalCell_Previews: PreviewProvider {
+  static var previews: some View {
+    Group {
+      if let animalEntity = CoreDataHelper.getTestAnimal() {
+        NavigationView {
+          AnimalCell(animal: animalEntity)
+            .frame(width: 164, height: 164)
+        }
+      } else {
+        NavigationView {
+          Text("No available test animal in database")
+        }
+      }
+    }
+  }
+}
+#endif
 
 #warning("Remove to its own file.")
 struct AnimalAttributesCard: ViewModifier {

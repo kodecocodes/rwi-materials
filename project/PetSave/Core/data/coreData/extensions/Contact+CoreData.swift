@@ -38,26 +38,14 @@ extension Contact: CoreDataPersistable {
 
   typealias ManagedType = ContactEntity
   
-  
-//  init(managedObject: ContactEntity) {
-//    
-//    self.id = Int(managedObject.id)
-//    self.email = managedObject.email!
-//    self.phone = managedObject.phone
-//    self.address = Address(managedObject: managedObject.address!)
-////    self.animal = Animal(managedObject: managedObject.animal!)
-////    self.organization = Organization(managedObject: managedObject.organization!)
-//  }
-  
-//  func toManagedObject(context: NSManagedObjectContext) -> ContactEntity {
-//    
-//    let persistedValue = ContactEntity.init(context: context)
-//    let mirror = Mirror(reflecting: self)
-//    for case let (label?, value) in mirror.children {
-//      persistedValue.setValue(value, forKey: label)
-//    }
-//    
-//    return persistedValue
-//  }
+  mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType {
+    let persistedValue = ContactEntity.init(context: context)
+    persistedValue.email = self.email
+    persistedValue.phone = self.phone
+    persistedValue.address = self.address.toManagedObject(context: context)
+//    persistedValue.id = Int64(self.id!)
+    return persistedValue
+  }
+
 }
 

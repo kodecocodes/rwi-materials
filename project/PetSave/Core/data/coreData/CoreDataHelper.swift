@@ -54,6 +54,26 @@ class CoreDataHelper {
     }
   }
 
+  static func getTestAnimal() -> AnimalEntity? {
+    let fetchRequest = AnimalEntity.fetchRequest()
+
+    if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
+       let first = results.first {
+      return first
+    }
+    return nil
+  }
+
+  static func getTestAnimals() -> [AnimalEntity]? {
+    let fetchRequest = AnimalEntity.fetchRequest()
+
+    if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
+       results.count > 0 {
+      return results
+    }
+    return nil
+  }
+
 }
 
 //Chapter 3 - deleting data
