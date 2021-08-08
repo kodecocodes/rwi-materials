@@ -35,28 +35,36 @@ import SwiftUI
 //Chapter 10: Animation here while data is loading, replacing ProgressView
 
 struct AnimalsNearYouView2: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+  @ObservedObject var viewModel: AnimalsNearYouViewModel2
   @State var settingsIsPresented = false
+  
+  @FetchRequest(
+    sortDescriptors: [
+      NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)
+    ],
+    animation: .default
+  )
+  var animals: FetchedResults<AnimalEntity>
   
   var body: some View {
     List {
-      ForEach(viewModel.animals) { animal in
-        NavigationLink(destination: AnimalDetailsView(animal: animal)) {
+      ForEach(animals) { animal in
+        NavigationLink(destination: Text("TODO: Add Details View")) {
           AnimalRow(animal: animal)
         }
       }
-      if !viewModel.animals.isEmpty {
+      if !animals.isEmpty {
         ProgressView("Finding more animals...")
           .padding()
           .frame(maxWidth: .infinity)
-          .onAppear(perform: viewModel.fetchMoreAnimals)
+          .onAppear(perform: viewModel.fetchMoreAnimals2)
       }
     }
-    .task(viewModel.fetchAnimals)
+    .task(viewModel.fetchAnimals2)
     .listStyle(.plain)
     .navigationTitle("Animals near you")
     .refreshable {
-      viewModel.refresh()
+//      viewModel.refresh()
     }
     .overlay {
       if viewModel.isLoading {
@@ -81,26 +89,34 @@ struct AnimalsNearYouView2: View {
 struct AnimalsNearYouView2_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          animals: Animal.mock,
+      AnimalsNearYouView2(
+        viewModel: AnimalsNearYouViewModel2(
           isLoading: false,
-          animalFetcher: AnimalFetcherMock()
+          animalFetcher: AnimalFetcherMock(),
+          context: PersistenceController.preview.container.viewContext
         )
       )
     }
     .environmentObject(LocationManager())
+    .environment(
+      \.managedObjectContext,
+      PersistenceController.preview.container.viewContext
+    )
     
     NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          animals: Animal.mock,
+      AnimalsNearYouView2(
+        viewModel: AnimalsNearYouViewModel2(
           isLoading: false,
-          animalFetcher: AnimalFetcherMock()
+          animalFetcher: AnimalFetcherMock(),
+          context: PersistenceController.preview.container.viewContext
         )
       )
     }
     .preferredColorScheme(.dark)
     .environmentObject(LocationManager())
+    .environment(
+      \.managedObjectContext,
+      PersistenceController.preview.container.viewContext
+    )
   }
 }

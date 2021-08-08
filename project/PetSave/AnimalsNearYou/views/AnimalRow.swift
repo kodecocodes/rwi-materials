@@ -33,7 +33,7 @@
 import SwiftUI
 
 struct AnimalRow: View {
-  let animal: Animal
+  let animal: AnimalEntity
   var body: some View {
     HStack {
       AsyncImage(url: animal.picture) { image in
@@ -55,10 +55,10 @@ struct AnimalRow: View {
       .cornerRadius(8)
       
       VStack(alignment: .leading) {
-        Text(animal.name)
+        Text(animal.name ?? "")
           .multilineTextAlignment(.center)
           .font(.title3)
-        Text("\(animal.breed) \(animal.type)")
+        Text("\(animal.breed) \(animal.type ?? "")")
           .font(.callout)
         if let description = animal.description {
           Text(description)
@@ -80,6 +80,59 @@ struct AnimalRow: View {
 
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalRow(animal: Animal.mock[0])
+    AnimalRow(animal: animalMock)
+  }
+}
+
+#warning("Move to preview Content")
+extension PreviewProvider {
+  static var animalMock: AnimalEntity {
+    let context = PersistenceController.preview.container.viewContext
+    
+    let animalAttributes = AnimalAttributesEntity(context: context)
+    animalAttributes.id = 0
+    animalAttributes.declawed = false
+    animalAttributes.houseTrained = true
+    animalAttributes.shotsCurrent = false
+    animalAttributes.spayedNeutered = false
+    animalAttributes.specialNeeds = false
+    
+    let colors = APIColorsEntity(context: context)
+    colors.id = 0
+    colors.primary = "Brown"
+    colors.secondary = nil
+    colors.tertiary = nil
+    
+    let contact = ContactEntity(context: context)
+    contact.id = 0
+    contact.email = "renanbenattidias@gmail.com"
+    contact.phone = ""
+    
+    let breeds = BreedEntity(context: context)
+    breeds.id = 0
+    breeds.primary = ""
+    breeds.secondary = ""
+    
+    let animalEntity = AnimalEntity(context: context)
+    animalEntity.name = "Kiki"
+    animalEntity.age = .adult
+    animalEntity.desc = "A simple description of Kiki"
+    animalEntity.distance = 0
+    animalEntity.gender = .female
+    animalEntity.id = 0
+    animalEntity.organizationId = ""
+    animalEntity.publishedAt = ""
+    animalEntity.size = .large
+    animalEntity.species = ""
+    animalEntity.status = .adoptable
+    animalEntity.type = ""
+    animalEntity.url = URL(string: "www.raywenderlich.com")
+    animalEntity.attributes = animalAttributes
+    animalEntity.colors = colors
+    animalEntity.contact = contact
+    animalEntity.environment = nil
+    animalEntity.breeds = breeds
+    
+    return animalEntity
   }
 }

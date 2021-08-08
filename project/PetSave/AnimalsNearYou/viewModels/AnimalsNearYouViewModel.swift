@@ -47,19 +47,23 @@ final class AnimalsNearYouViewModel: ObservableObject {
   #if DEBUG
   @Published var animals: [Animal]
 
-  init(animals: [Animal] = [],
-       isLoading: Bool = true,
-       animalFetcher: AnimalsFetcher) {
+  init(
+    animals: [Animal] = [],
+    isLoading: Bool = true,
+    animalFetcher: AnimalsFetcher
+  ) {
     self.animals = animals
     self.isLoading = isLoading
-
+    self.animalFetcher = animalFetcher
   }
 
   #else
   let context = PersistenceController.shared.container.viewContext
 
-  init(isLoading: Bool = true,
-       animalFetcher: AnimalsFetcher) {
+  init(
+    isLoading: Bool = true,
+    animalFetcher: AnimalsFetcher
+  ) {
     self.isLoading = isLoading
     self.animalFetcher = animalFetcher
   }
@@ -106,33 +110,26 @@ final class AnimalsNearYouViewModel: ObservableObject {
       await updateAnimals(animals: animals)
     }
   }
-  
-  func refresh() {
-    animals = []
-    isLoading = true
-    page = 1
-    Task {
-      await fetchAnimals()
-    }
-  }
-  
-  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
-  @MainActor
-  func updateAnimals(animals: [Animal]) {
   #else
   func fetchMoreAnimals() {
     isFetchingMoreAnimals = true
-      animal.toManagedObject(context: context)
+    Task {
       page += 1
       let animals = await animalFetcher.fetchAnimals(page: page)
       await addAnimals(animals: animals)
 //      DispatchQueue.main.async { self.isFetchingMoreAnimals = false }
-    isLoading = false
+    }
   }
   #endif
 
 
   #if DEBUG
+  @MainActor
+  func updateAnimals(animals: [Animal]) {
+    self.animals += animals
+    isLoading = false
+    isFetchingMoreAnimals = false
+  }
   #else
   @MainActor
   func addAnimals(animals: [Animal]) {
@@ -142,3 +139,4 @@ final class AnimalsNearYouViewModel: ObservableObject {
     isLoading = false
   }
   #endif
+}

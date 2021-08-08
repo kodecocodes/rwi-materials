@@ -70,7 +70,7 @@
         <relationship name="animal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="breeds" inverseEntity="AnimalEntity"/>
     </entity>
     <entity name="ContactEntity" representedClassName="ContactEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="email" attributeType="String"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="phone" optional="YES" attributeType="String"/>
         <relationship name="address" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AddressEntity" inverseName="contact" inverseEntity="AddressEntity"/>
