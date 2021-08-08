@@ -35,6 +35,16 @@ import CoreData
 
 extension VideoLink: CoreDataPersistable {
 
+  var keyMap: [PartialKeyPath<VideoLink> : String] {
+
+    get {
+      [
+        \.embedded: "embedded",
+        \.id : "id"
+      ]
+    }
+  }
+  
   typealias ManagedType = VideoLinkEntity
   
 }

@@ -37,7 +37,6 @@ struct AnimalContactsView: View {
   let phoneNumber: String?
   let emailAddress: String?
 
-  #if DEBUG
   let animal: Animal
 
   init(animal: Animal) {
@@ -46,16 +45,6 @@ struct AnimalContactsView: View {
     emailAddress = animal.contact.email
   }
 
-  #else
-  let animal: AnimalEntity
-
-  init(animal: AnimalEntity) {
-    self.animal = animal
-    phoneNumber = animal.contact?.phone
-    emailAddress = animal.contact?.email
-  }
-  #endif
-  
   var body: some View {
     VStack(alignment: .leading) {
       Text("Contact")
@@ -82,27 +71,15 @@ struct AnimalContactsView: View {
   }
 }
 
-#if DEBUG
 struct AnimalContactsView_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalContactsView(animal: Animal.mock[0])
+    #if DEBUG
+    let animal  = Animal.mock[0]
+    #else
+    let animal = CoreDataHelper.getTestAnimal()!
+    #endif
+    AnimalContactsView(animal: animal)
+      .padding()
       .previewLayout(.sizeThatFits)
   }
 }
-#else
-struct AnimalContactsView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      if let animalEntity = CoreDataHelper.getTestAnimal() {
-        AnimalContactsView(animal: animalEntity)
-          .padding()
-          .previewLayout(.sizeThatFits)
-      } else {
-        NavigationView {
-          Text("No available test animal in database")
-        }
-      }
-    }
-  }
-}
-#endif

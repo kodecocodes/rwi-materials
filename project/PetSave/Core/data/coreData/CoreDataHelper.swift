@@ -54,25 +54,45 @@ class CoreDataHelper {
     }
   }
 
-  static func getTestAnimal() -> AnimalEntity? {
+  static func getTestAnimal() -> Animal? {
     let fetchRequest = AnimalEntity.fetchRequest()
 
     if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
        let first = results.first {
-      return first
+      return Animal(managedObject: first)
     }
     return nil
   }
 
-  static func getTestAnimals() -> [AnimalEntity]? {
+  static func getTestAnimals() -> [Animal]? {
     let fetchRequest = AnimalEntity.fetchRequest()
 
     if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
        results.count > 0 {
-      return results
+      return results.map{ Animal(managedObject: $0) }
     }
     return nil
   }
+
+//  static func getTestAnimal() -> AnimalEntity? {
+//    let fetchRequest = AnimalEntity.fetchRequest()
+//
+//    if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
+//       let first = results.first {
+//      return first
+//    }
+//    return nil
+//  }
+//
+//  static func getTestAnimals() -> [AnimalEntity]? {
+//    let fetchRequest = AnimalEntity.fetchRequest()
+//
+//    if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
+//       results.count > 0 {
+//      return results
+//    }
+//    return nil
+//  }
 
 }
 

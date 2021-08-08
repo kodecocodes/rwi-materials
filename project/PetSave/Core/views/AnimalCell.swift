@@ -35,8 +35,6 @@ import SwiftUI
 struct AnimalCell: View {
 
   let animalName: String?
-
-  #if DEBUG
   let animal: Animal
 
   init(animal: Animal) {
@@ -44,15 +42,6 @@ struct AnimalCell: View {
     self.animalName = animal.name
   }
 
-  #else
-  let animal: AnimalEntity
-
-  init(animal: AnimalEntity) {
-    self.animal = animal
-    self.animalName = animal.name
-  }
-
-  #endif
 
   var body: some View {
     NavigationLink(destination: AnimalDetailsView(animal: animal)) {
@@ -95,33 +84,19 @@ struct AnimalCell: View {
   }
 }
 
-#if DEBUG
 struct AnimalCell_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
+      #if DEBUG
       AnimalCell(animal: Animal.mock[0])
         .frame(width: 164, height: 164)
+      #else
+      AnimalCell(animal: CoreDataHelper.getTestAnimal()!)
+        .frame(width: 164, height: 164)
+      #endif
     }
   }
 }
-#else
-struct AnimalCell_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      if let animalEntity = CoreDataHelper.getTestAnimal() {
-        NavigationView {
-          AnimalCell(animal: animalEntity)
-            .frame(width: 164, height: 164)
-        }
-      } else {
-        NavigationView {
-          Text("No available test animal in database")
-        }
-      }
-    }
-  }
-}
-#endif
 
 #warning("Remove to its own file.")
 struct AnimalAttributesCard: ViewModifier {

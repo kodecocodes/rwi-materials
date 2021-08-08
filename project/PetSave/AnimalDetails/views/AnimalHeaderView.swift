@@ -82,12 +82,8 @@ extension View {
 
 struct AnimalHeaderView2: View {
 
-  #if DEBUG
   let animal: Animal
-  #else
-  let animal: AnimalEntity
-  #endif
-  
+
   @Binding var zoomed: Bool
   let geometry: GeometryProxy
 
@@ -158,7 +154,6 @@ struct HeaderTitle : View {
   let animalName: String?
   let animalType: String?
 
-  #if DEBUG
   let animal: Animal
 
   init(animal: Animal, zoomed: Binding<Bool>, geometry: GeometryProxy) {
@@ -168,18 +163,6 @@ struct HeaderTitle : View {
     self._zoomed = zoomed
     self.geometry = geometry
   }
-
-  #else
-  let animal: AnimalEntity
-
-  init(animal: AnimalEntity, zoomed: Binding<Bool>, geometry: GeometryProxy) {
-    self.animal = animal
-    self.animalType = animal.type
-    self.animalName = animal.name
-    self._zoomed = zoomed
-    self.geometry = geometry
-  }
-  #endif
 
   var body: some View {
 
@@ -204,46 +187,52 @@ struct HeaderTitle : View {
 
 }
 
-#if DEBUG
+//#if DEBUG
+//struct HeaderTitle_Previews: PreviewProvider {
+//  static var previews: some View {
+//    #if DEBUG
+//    let animal  = Animal.mock[0]
+//    #else
+//    let animal = CoreDataHelper.getTestAnimal()!
+//    #endif
+//    GeometryReader { geometry in
+//      HeaderTitle(animal: animal, zoomed: .constant(false), geometry: geometry)
+//    }
+//    .previewLayout(.sizeThatFits)
+//  }
+//}
+//
+//struct AnimalHeaderView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    #if DEBUG
+//    let animal  = Animal.mock[0]
+//    #else
+//    let animal = CoreDataHelper.getTestAnimal()!
+//    #endif
+//    AnimalHeaderView(animal: animal)
+//      .previewLayout(.sizeThatFits)
+//  }
+//}
+//#else
 struct HeaderTitle_Previews: PreviewProvider {
   static var previews: some View {
-    GeometryReader { geometry in
-      HeaderTitle(animal: Animal.mock[0], zoomed: .constant(false), geometry: geometry)
-    }
-    .previewLayout(.sizeThatFits)
-  }
-}
-
-struct AnimalHeaderView_Previews: PreviewProvider {
-  static var previews: some View {
-    AnimalHeaderView(animal: Animal.mock[0])
-      .previewLayout(.sizeThatFits)
-  }
-}
-#else
-struct HeaderTitle_Previews: PreviewProvider {
-  static var previews: some View {
+    #if DEBUG
+    let animal  = Animal.mock[0]
+    #else
+    let animal = CoreDataHelper.getTestAnimal()!
+    #endif
     Group {
-      if let animalEntity = CoreDataHelper.getTestAnimal() {
+      Group {
 
-        Group {
-
-          GeometryReader { geometry in
-            HeaderTitle(animal: animalEntity, zoomed: .constant(true), geometry: geometry)
-          }
-          .frame(width: 200, height: 100)
-
-          GeometryReader { geometry in
-            HeaderTitle(animal: animalEntity, zoomed: .constant(false), geometry: geometry)
-          }
-          .frame(width: 200, height: 100)
-
+        GeometryReader { geometry in
+          HeaderTitle(animal: animal, zoomed: .constant(true), geometry: geometry)
         }
+        .frame(width: 200, height: 100)
 
-      } else {
-        NavigationView {
-          Text("No available test animal in database")
+        GeometryReader { geometry in
+          HeaderTitle(animal: animal, zoomed: .constant(false), geometry: geometry)
         }
+        .frame(width: 200, height: 100)
       }
     }
     .previewLayout(.sizeThatFits)
@@ -252,34 +241,25 @@ struct HeaderTitle_Previews: PreviewProvider {
 
 struct AnimalHeaderView_Previews: PreviewProvider {
   static var previews: some View {
-
+    #if DEBUG
+    let animal  = Animal.mock[0]
+    #else
+    let animal = CoreDataHelper.getTestAnimal()!
+    #endif
     Group {
-      if let animalEntity = CoreDataHelper.getTestAnimal() {
-        Group {
-          GeometryReader { geometry in
-            AnimalHeaderView2(animal: animalEntity, zoomed: .constant(true), geometry: geometry)
-
-          }
-          .frame(width: 500, height: 700)
-
-          GeometryReader { geometry in
-            AnimalHeaderView2(animal: animalEntity, zoomed: .constant(false), geometry: geometry)
-
-          }
-          .frame(width: 500, height: 100)
+      Group {
+        GeometryReader { geometry in
+          AnimalHeaderView2(animal: animal, zoomed: .constant(true), geometry: geometry)
         }
+        .frame(width: 500, height: 700)
 
-
-      } else {
-        NavigationView {
-          Text("No available test animal in database")
+        GeometryReader { geometry in
+          AnimalHeaderView2(animal: animal, zoomed: .constant(false), geometry: geometry)
         }
+        .frame(width: 500, height: 100)
       }
     }
     .previewLayout(.sizeThatFits)
   }
 }
-
-
-#endif
 

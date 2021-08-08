@@ -52,7 +52,7 @@ struct AnimalsNearYouView: View {
         #else
         ForEach(sectionedAnimals) { animals in
           Section(header: Text(animals.id)) {
-            AnimalsGrid(animals: animals.reversed())
+            AnimalsGrid(animalEntities: animals.reversed())
           }
         }
         #endif
@@ -78,7 +78,7 @@ struct AnimalsNearYouView: View {
   }
 }
 
-#if DEBUG
+
 
 #warning("Remove later, only for testing purposes...")
 struct AnimalFetcherMock: AnimalsFetcher {
@@ -88,6 +88,7 @@ struct AnimalFetcherMock: AnimalsFetcher {
   }
 }
 
+#if DEBUG
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {

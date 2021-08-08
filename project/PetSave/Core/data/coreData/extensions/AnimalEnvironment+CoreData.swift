@@ -37,6 +37,18 @@ import CoreData
 
 extension AnimalEnvironment: CoreDataPersistable {
 
+  var keyMap: [PartialKeyPath<AnimalEnvironment> : String] {
+
+    get {
+      [
+        \.children : "children",
+        \.dogs : "dogs",
+        \.cats : "cats",
+        \.id : "id"
+      ]
+    }
+  }
+
   typealias ManagedType = AnimalEnvironmentEntity
   
 }

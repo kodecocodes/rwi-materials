@@ -32,7 +32,7 @@
 
 struct APIColors: Codable {
   var id: Int?
-  let primary: String?
+  var primary: String?
   var secondary: String? = ""
   var tertiary: String? = ""
 }

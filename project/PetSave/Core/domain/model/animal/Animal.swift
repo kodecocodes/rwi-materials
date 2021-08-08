@@ -81,7 +81,7 @@ extension Animal {
   }
   
   var address: String {
-    let address = contact.address
+    guard let address = contact.address else { return "" }
     return [
       address.address1,
       address.address2,

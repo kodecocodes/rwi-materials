@@ -39,12 +39,12 @@ class RequestManagerTests: XCTestCase {
 
 }
 
-class MockRequestManager: RequestManagerProtocol {
-  var apiManager: APIManagerProtocol
-  
-  var tokenValidator: TokenValidatorProtocol
-  
-  init() {
-    
-  }
-}
+//class MockRequestManager: RequestManagerProtocol {
+//  var apiManager: APIManagerProtocol
+//  
+//  var tokenValidator: TokenValidatorProtocol
+//  
+//  init() {
+//    
+//  }
+//}

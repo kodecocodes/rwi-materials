@@ -70,7 +70,7 @@ struct SearchView: View {
         #else
         ForEach(sectionedAnimals) { animals in
           Section(header: Text(animals.id)) {
-            AnimalsGrid(animals: animals.reversed())
+            AnimalsGrid(animalEntities: animals.reversed())
           }
         }
         #endif

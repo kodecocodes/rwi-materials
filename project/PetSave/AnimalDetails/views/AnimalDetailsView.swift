@@ -43,7 +43,6 @@ struct AnimalDetailsView: View {
 
   @State var zoomed = false
 
-  #if DEBUG
   let animal: Animal
 
   init(animal: Animal) {
@@ -51,17 +50,6 @@ struct AnimalDetailsView: View {
     self.animalDescription = animal.description
     self.animalName = animal.name
   }
-
-  #else
-  let animal: AnimalEntity
-
-  init(animal: AnimalEntity) {
-    self.animal = animal
-    self.animalDescription = animal.desc
-    self.animalName = animal.name
-  }
-  #endif
-
   
   var body: some View {
     GeometryReader { geometry in
@@ -97,46 +85,27 @@ struct AnimalDetailsView: View {
   }
 }
 
-#if DEBUG
+
 struct AnimalsView_Previews: PreviewProvider {
   static var previews: some View {
+    #if DEBUG
+    let animal  = Animal.mock[0]
+    #else
+    let animal = CoreDataHelper.getTestAnimal()!
+    #endif
     Group {
       NavigationView {
-        AnimalDetailsView(animal: Animal.mock[0])
+        AnimalDetailsView(animal: animal)
           .previewLayout(.sizeThatFits)
       }
+      .previewLayout(.sizeThatFits)
+      .previewDisplayName("iPhone SE (2nd generation)")
 
       NavigationView {
-        AnimalDetailsView(animal: Animal.mock[0])
+        AnimalDetailsView(animal: animal)
       }
-      .previewDevice("iPhone SE (2nd generation)")
+      .previewDevice("iPhone 12 Pro")
+      .previewDisplayName("iPhone 12 Pro")
     }
   }
 }
-#else
-struct AnimalsView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      if let animalEntity = CoreDataHelper.getTestAnimal() {
-        Group {
-          NavigationView {
-            AnimalDetailsView(animal: animalEntity)
-          }
-          .previewLayout(.sizeThatFits)
-          .previewDisplayName("iPhone SE (2nd generation)")
-          
-          NavigationView {
-            AnimalDetailsView(animal: animalEntity)
-          }
-          .previewDevice("iPhone 12 Pro")
-          .previewDisplayName("iPhone 12 Pro")
-        }
-      } else {
-        NavigationView {
-          Text("No available test animal in database")
-        }
-      }
-    }
-  }
-}
-#endif

@@ -36,13 +36,34 @@ import CoreData
 
 extension Contact: CoreDataPersistable {
 
+  init(managedObject: ContactEntity) {
+
+    self.id = Int(managedObject.id)
+    self.email = managedObject.email
+    self.phone = managedObject.phone
+    self.address = Address(managedObject: managedObject.address!)
+  }
+
+  var keyMap: [PartialKeyPath<Contact> : String] {
+
+    get {
+      [
+        \.email : "email",
+        \.phone : "phone",
+        \.address : "address"
+      ]
+    }
+  }
+
   typealias ManagedType = ContactEntity
   
   mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType {
     let persistedValue = ContactEntity.init(context: context)
     persistedValue.email = self.email
     persistedValue.phone = self.phone
-    persistedValue.address = self.address.toManagedObject(context: context)
+    if var address = self.address {
+      persistedValue.address = address.toManagedObject(context: context)
+    }
 //    persistedValue.id = Int64(self.id!)
     return persistedValue
   }

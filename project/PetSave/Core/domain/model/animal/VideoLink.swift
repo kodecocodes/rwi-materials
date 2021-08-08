@@ -34,5 +34,5 @@ import Foundation
 
 struct VideoLink: Codable {
   var id: Int?
-  let embedded: URL?
+  var embedded: URL?
 }

@@ -35,6 +35,20 @@ import CoreData
 
 extension AnimalAttributes: CoreDataPersistable {
 
+  var keyMap: [PartialKeyPath<AnimalAttributes> : String] {
+
+    get {
+      [
+        \.spayedNeutered : "spayedNeutered",
+        \.houseTrained : "houseTrained",
+        \.declawed : "declawed",
+        \.specialNeeds : "specialNeeds",
+        \.shotsCurrent : "shotsCurrent",
+        \.id : "id"
+      ]
+    }
+  }
+
   typealias ManagedType = AnimalAttributesEntity
   
 }

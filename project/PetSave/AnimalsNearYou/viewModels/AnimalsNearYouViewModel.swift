@@ -37,6 +37,7 @@ protocol AnimalsFetcher {
 }
 
 final class AnimalsNearYouViewModel: ObservableObject {
+
   @Published var isLoading: Bool
   @Published var isFetchingMoreAnimals = false
 

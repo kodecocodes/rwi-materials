@@ -33,11 +33,8 @@
 import SwiftUI
 
 struct AnimalDetailRow: View {
-  #if DEBUG
+
   let animal: Animal
-  #else
-  let animal: AnimalEntity
-  #endif
   
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
@@ -73,26 +70,14 @@ struct AnimalDetailRow: View {
   }
 }
 
-#if DEBUG
 struct AnimalDetailCards_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalDetailRow(animal: Animal.mock[0])
+    #if DEBUG
+    let animal  = Animal.mock[0]
+    #else
+    let animal = CoreDataHelper.getTestAnimal()!
+    #endif
+    AnimalDetailRow(animal: animal)
       .previewLayout(.sizeThatFits)
   }
 }
-#else
-struct AnimalDetailCards_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      if let animalEntity = CoreDataHelper.getTestAnimal() {
-        AnimalDetailRow(animal: animalEntity)
-          .previewLayout(.sizeThatFits)
-      } else {
-        NavigationView {
-          Text("No available test animal in database")
-        }
-      }
-    }
-  }
-}
-#endif

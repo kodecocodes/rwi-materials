@@ -37,6 +37,17 @@ import CoreData
 
 extension User: CoreDataPersistable {
 
+  var keyMap: [PartialKeyPath<User> : String] {
+
+    get {
+      [
+        \.name : "name",
+        \.password : "password",
+        \.extra : "extra",
+        \.id : "id"
+      ]
+    }
+  }
   typealias ManagedType = UserEntity
   
 }

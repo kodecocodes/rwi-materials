@@ -35,14 +35,31 @@ import Foundation
 import Foundation
 import CoreData
 
-extension Organization: UUIDIdentifiable {
-  
+extension Organization: CoreDataPersistable {
+
+  var keyMap: [PartialKeyPath<Organization> : String] {
+    get {
+      [
+        \.distance : "distance",
+        \.contact : "contact",
+      ]
+    }
+  }
+
+
+  init(managedObject: OrganizationEntity) {
+    self.id = Int(managedObject.id)
+    self.distance = managedObject.distance
+    self.contact = Contact(managedObject: managedObject.contact!)
+  }
+
   mutating func toManagedObject(context: NSManagedObjectContext) -> OrganizationEntity {
 
     let persistedValue = OrganizationEntity.init(context: context)
-    persistedValue.distance = self.distance
-    persistedValue.contact = self.contact.toManagedObject(context: context)
-
+    persistedValue.distance = self.distance ?? 0.0
+    if var contact = self.contact {
+      persistedValue.contact = contact.toManagedObject(context: context)
+    }
     return persistedValue
   }
 }

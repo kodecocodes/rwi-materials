@@ -36,12 +36,45 @@ import CoreData
 protocol CoreDataPersistable: UUIDIdentifiable {
   associatedtype ManagedType
 
+  var keyMap: [PartialKeyPath<Self> : String] { get }
+
+  init()
+
+  init(managedObject: ManagedType)
+
   mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType
 
   func save(context: NSManagedObjectContext) throws
 }
 
 extension CoreDataPersistable where ManagedType: NSManagedObject {
+
+  init(managedObject: ManagedType) {
+    self.init()
+    for attribute in managedObject.entity.attributesByName {  //this gets attributes, not relationships
+      if let keyP = keyMap.first(where: { $0.value == attribute.key })?.key {
+        let value = managedObject.value(forKey: attribute.key)
+        storeValue(value, toKeyPath: keyP)
+      }
+    }
+  }
+
+  private mutating func storeValue(_ value: Any?, toKeyPath partial: AnyKeyPath) { //}-> WritableKeyPath<Self, Any?>? {
+
+    switch partial {
+    case let kp as WritableKeyPath<Self, URL?>:
+      self[keyPath: kp] = value as? URL
+    case let kp as WritableKeyPath<Self, Int?>:
+      self[keyPath: kp] = value as? Int
+    case let kp as WritableKeyPath<Self, String?>:
+      self[keyPath: kp] = value as? String
+    case let kp as WritableKeyPath<Self, Bool?>:
+      self[keyPath: kp] = value as? Bool
+
+    default:
+      return
+    }
+  }
 
   mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType {
 

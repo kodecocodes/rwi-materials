@@ -49,11 +49,7 @@ final class SearchViewModel: ObservableObject {
   
   private let animalSearcher: AnimalSearcher
 
-//  #if DEBUG
   @Published var animals: [Animal] = []
-//  #else
-//  @Published var animals: [AnimalEntity] = []
-//  #endif
   
   init(animalSearcher: AnimalSearcher) {
     self.animalSearcher = animalSearcher

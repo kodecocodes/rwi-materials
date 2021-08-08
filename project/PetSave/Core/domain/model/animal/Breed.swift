@@ -32,8 +32,8 @@
 
 struct Breed: Codable {
   var id: Int?
-  let primary: String?
-  let secondary: String?
-  let mixed: Bool
-  let unknown: Bool
+  var primary: String?
+  var secondary: String?
+  var mixed: Bool?
+  var unknown: Bool?
 }

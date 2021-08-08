@@ -50,7 +50,7 @@ struct AnimalsNearYouView2: View {
     List {
       ForEach(animals) { animal in
         NavigationLink(destination: Text("TODO: Add Details View")) {
-          AnimalRow(animal: animal)
+          AnimalRow(animal: Animal(managedObject: animal))
         }
       }
       if !animals.isEmpty {

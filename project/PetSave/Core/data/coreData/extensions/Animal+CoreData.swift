@@ -124,6 +124,38 @@ extension AnimalEntity {
 
 extension Animal: UUIDIdentifiable {
 
+
+  init(managedObject: AnimalEntity) {
+
+    self.age = managedObject.age
+    self.coat = managedObject.coat
+    self.description = managedObject.desc
+    self.distance = managedObject.distance
+    self.gender = managedObject.gender
+    self.id = Int(managedObject.id)
+    self.name = managedObject.name!
+    self.organizationId = managedObject.organizationId
+    self.publishedAt = managedObject.publishedAt?.description
+    self.size = managedObject.size
+    self.species = managedObject.species
+    self.status = managedObject.status
+    self.tags = []
+    self.type = managedObject.type!
+    self.url = managedObject.url
+
+    self.attributes = AnimalAttributes(managedObject: managedObject.attributes!)
+
+    self.colors = APIColors(managedObject: managedObject.colors!)
+    self.contact = Contact(managedObject: managedObject.contact!)
+    self.environment = AnimalEnvironment(managedObject: managedObject.environment!)
+
+    self.photos = (managedObject.photos?.allObjects as! [PhotoSizesEntity]).map{ PhotoSizes(managedObject: $0) }
+    self.videos = (managedObject.videos?.allObjects as! [VideoLinkEntity]).map{ VideoLink(managedObject: $0) }
+
+    self.breeds = Breed(managedObject: managedObject.breeds!)
+
+  }
+
   private func checkForExistingAnimal(id: Int, context: NSManagedObjectContext) -> Bool {
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "id = %d", id)

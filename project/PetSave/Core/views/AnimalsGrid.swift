@@ -34,11 +34,15 @@ import SwiftUI
 
 struct AnimalsGrid: View {
 
-  #if DEBUG
   let animals: [Animal]
-  #else
-  let animals: [AnimalEntity]
-  #endif
+
+  init(animals: [Animal]) {
+    self.animals = animals
+  }
+
+  init(animalEntities: [AnimalEntity]) {
+    self.animals = animalEntities.map{ Animal(managedObject: $0) }
+  }
 
   private let columns = [
     GridItem(.flexible()),
@@ -55,33 +59,16 @@ struct AnimalsGrid: View {
   }
 }
 
-#if DEBUG
 struct AnimalsGrid_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
       ScrollView {
+        #if DEBUG
         AnimalsGrid(animals: Animal.mock)
+        #else
+        AnimalsGrid(animals: CoreDataHelper.getTestAnimals()!)
+        #endif
       }
     }
   }
 }
-#else
-struct AnimalsGrid_Previews: PreviewProvider {
-  static var previews: some View {
-
-    Group {
-      if let animalEntities = CoreDataHelper.getTestAnimals() {
-        NavigationView {
-          ScrollView {
-            AnimalsGrid(animals: animalEntities)
-          }
-        }
-      } else {
-        NavigationView {
-          Text("No available test animal in database")
-        }
-      }
-    }
-  }
-}
-#endif
