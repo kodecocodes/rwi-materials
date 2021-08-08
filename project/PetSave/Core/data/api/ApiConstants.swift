@@ -33,7 +33,8 @@
 import Foundation
 
 enum ApiConstants {
-  static let baseURLString = "https://api.petfinder.com/v2"
+  static let baseURLString = "https://api.petfinder.com"
+  static let version = "/v2"
   static let grantType = "client_credentials"
   static let clientId = "rgq4iIBz2ar1Wrqia1p4Jf8voFFKVt3rJ5NlZUWcc4us50hqNE"
   static let clientSecret = "vj5ZabUDXPZihpVUyCx4bs5Cz64ikomlYRsirdiH"

@@ -40,7 +40,7 @@ actor TokenValidator {
   private let userDefaults: UserDefaults
   private let authFetcher: AuthTokenFetcher
   private let keychainManager: KeychainManagerProtocol
-  private let server = "api.petfinder.com"
+  private let server = ApiConstants.baseURLString
   
   private var accesstoken: String? = nil
   private var expiresAt: Date = Date()
@@ -56,11 +56,11 @@ actor TokenValidator {
 extension TokenValidator: TokenValidatorProtocol {
   func validateToken() async throws -> String {
     if let token = accesstoken, expiresAt.compare(Date()) == .orderedDescending {
-      // Token and expiresAt are chached in-memory.
+      // Token and expiresAt are cached in-memory.
       return token
     }
     
-    // Token and expiresAt are not chached in-memory.
+    // Token and expiresAt are not cached in-memory.
     // Tries to fetch token from keychain and expires at from UserDefaults.
     if let keychainToken = await findToken(), let expiresAt = getExpiresAt(), expiresAt.compare(Date()) == .orderedDescending {
       self.accesstoken = keychainToken
@@ -72,7 +72,7 @@ extension TokenValidator: TokenValidatorProtocol {
     // Must fetch from API
     let apiToken = try await fetchToken()
     try await refreshWith(apiToken: apiToken)
-    return apiToken.accessToken
+    return apiToken.bearerAccessToken
   }
 }
 
@@ -84,7 +84,7 @@ private extension TokenValidator {
   
   func refreshWith(apiToken: APIToken) async throws {
     let expiresAt = apiToken.expiresAt
-    let accesstoken = apiToken.accessToken
+    let accesstoken = apiToken.bearerAccessToken
     
     if let _ = await findToken() {
       try await update(token: accesstoken)

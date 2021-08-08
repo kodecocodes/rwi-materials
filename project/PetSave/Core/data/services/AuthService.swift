@@ -52,7 +52,9 @@ extension AuthService: AuthTokenFetcher {
 }
 
 enum AuthTokenRouter: RouterProtocol {
+  
   case auth
+  
   var path: String {
     "/oauth2/token"
   }

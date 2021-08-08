@@ -30,26 +30,21 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import XCTest
+@testable import PetSave
 
-enum AnimalsRouter: RouterProtocol {
-  case getAnimalsWith(page: Int)
-  case getAnimalsBy(postCode: String)
-  case getAnimalsByLocation(latitude: String, longitude: String)
+class RequestManagerTests: XCTestCase {
   
-  var path: String {
-    switch self {
-    case .getAnimalsWith(let page):
-      return "/animals?page=\(page)"
-    case .getAnimalsBy(let postCode):
-      return "/animals?location=\(postCode)"
-    case .getAnimalsByLocation(let latitude, let longitude):
-      return "/animals?location=\(latitude),\(longitude)"
-    }
-  }
   
-  var requestType: RequestType {
-    .GET
-  }
+
 }
 
+class MockRequestManager: RequestManagerProtocol {
+  var apiManager: APIManagerProtocol
+  
+  var tokenValidator: TokenValidatorProtocol
+  
+  init() {
+    
+  }
+}

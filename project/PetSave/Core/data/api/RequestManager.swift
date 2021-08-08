@@ -48,8 +48,7 @@ extension RequestManagerProtocol {
   
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
     let authToken = try await tokenValidator.validateToken()
-    let data = try await apiManager.request(with: router, authToken: "Bearer \(authToken)")
-    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    let data = try await apiManager.request(with: router, authToken: authToken)
     let decoded = try jsonDecoder.decode(T.self, from: data)
     return decoded
   }

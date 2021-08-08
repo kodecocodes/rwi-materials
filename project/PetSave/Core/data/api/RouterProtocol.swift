@@ -42,7 +42,7 @@ protocol RouterProtocol {
 
 extension RouterProtocol {
   var baseURL: String {
-    ApiConstants.baseURLString
+    ApiConstants.baseURLString + ApiConstants.version
   }
   
   var addAuthorizationToken: Bool {

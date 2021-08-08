@@ -52,4 +52,8 @@ extension APIToken {
   var expiresAt: Date {
     Calendar.current.date(byAdding: .second, value: expiresIn, to: requestedAt) ?? Date()
   }
+  
+  var bearerAccessToken: String {
+    return "Bearer \(accessToken)"
+  }
 }
