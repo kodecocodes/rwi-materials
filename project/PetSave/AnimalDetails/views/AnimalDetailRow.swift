@@ -33,8 +33,7 @@
 import SwiftUI
 
 struct AnimalDetailRow: View {
-
-  let animal: Animal
+  let animal: AnimalEntity
   
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
@@ -72,12 +71,14 @@ struct AnimalDetailRow: View {
 
 struct AnimalDetailCards_Previews: PreviewProvider {
   static var previews: some View {
-    #if DEBUG
-    let animal  = Animal.mock[0]
-    #else
-    let animal = CoreDataHelper.getTestAnimal()!
-    #endif
-    AnimalDetailRow(animal: animal)
+    AnimalDetailRow(animal: animalMock)
       .previewLayout(.sizeThatFits)
+  }
+}
+
+#warning("Move to Preview content")
+extension PreviewProvider {
+  static var animalMock: AnimalEntity {
+    CoreDataHelper.getTestAnimal()!
   }
 }

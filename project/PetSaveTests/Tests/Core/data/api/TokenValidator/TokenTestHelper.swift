@@ -60,7 +60,7 @@ struct TokenTestHelper {
   }
 
   static func saveTokenInKeychain(token: String) throws {
-    let server = "api.petfinder.com"
+    let server = ApiConstants.baseURLString
     guard let tokenData = token.data(using: .utf8) else { throw KeychainError.failedToConvertToData }
     let addQuery = [
         kSecValueData: tokenData,

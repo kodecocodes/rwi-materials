@@ -31,113 +31,71 @@
 /// THE SOFTWARE.
 
 import Foundation
+import CoreData
 
 protocol AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal]
 }
 
 final class AnimalsNearYouViewModel: ObservableObject {
-
   @Published var isLoading: Bool
-  @Published var isFetchingMoreAnimals = false
+  @Published var hasMoreAnimals = true
 
   var page = 1
   
   private let animalFetcher: AnimalsFetcher
-
-  #if DEBUG
-  @Published var animals: [Animal]
-
-  init(
-    animals: [Animal] = [],
-    isLoading: Bool = true,
-    animalFetcher: AnimalsFetcher
-  ) {
-    self.animals = animals
-    self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
-  }
-
-  #else
-  let context = PersistenceController.shared.container.viewContext
+  private let context: NSManagedObjectContext
 
   init(
     isLoading: Bool = true,
-    animalFetcher: AnimalsFetcher
+    animalFetcher: AnimalsFetcher,
+    context: NSManagedObjectContext
   ) {
     self.isLoading = isLoading
     self.animalFetcher = animalFetcher
+    self.context = context
   }
-  #endif
-
-  #if DEBUG
-  var showMoreButtonOpacity: Double {
-    animals.isEmpty ? 0 : 1
-  }
-  #else
-  var showMoreButtonOpacity: Double {
-    1
-  }
-  #endif
-
-  #if DEBUG
+  
   func fetchAnimals() async {
-    // .task() is called everytime the view appears, even when you switch tabs...
-    guard animals.isEmpty else { return }
-    let animals = await animalFetcher.fetchAnimals(page: page)
-    print("number of animals \(animals.count)")
-    await updateAnimals(animals: animals)
-  }
-  #else
-  func fetchAnimals() async {
-    // .task() is called everytime the view appears, even when you switch tabs...
-    DispatchQueue.main.async { self.isLoading = true }
     let animals = await animalFetcher.fetchAnimals(page: page)
     await addAnimals(animals: animals)
+  }
+  
+  func fetchMoreAnimals() {
+    Task {
+      page += 1
+      let animals = await animalFetcher.fetchAnimals(page: page)
+      await addAnimals(animals: animals)
+    }
+  }
+
+  func refresh() {
+    CoreDataHelper.clearDatabase()
+    page = 1
+    Task {
+      await fetchAnimals()
+    }
+  }
+  
+  @MainActor
+  func addAnimals(animals: [Animal]) {
+    hasMoreAnimals = !animals.isEmpty
+    for var animal in animals {
+      animal.toManagedObject(context: context)
+    }
+    isLoading = false
     do {
       try context.save()
     } catch {
       print("Error saving to database \(error)")
     }
   }
-  #endif
+}
 
-  #if DEBUG
-  func fetchMoreAnimals() {
-    isFetchingMoreAnimals = true
-    Task {
-      page += 1
-      let animals = await animalFetcher.fetchAnimals(page: page)
-      await updateAnimals(animals: animals)
-    }
+#warning("Remove later, only for testing purposes...")
+struct AnimalFetcherMock: AnimalsFetcher {
+  func fetchAnimals(page: Int) async -> [Animal] {
+    await Task.sleep(2)
+    return Animal.mock
   }
-  #else
-  func fetchMoreAnimals() {
-    isFetchingMoreAnimals = true
-    Task {
-      page += 1
-      let animals = await animalFetcher.fetchAnimals(page: page)
-      await addAnimals(animals: animals)
-//      DispatchQueue.main.async { self.isFetchingMoreAnimals = false }
-    }
-  }
-  #endif
-
-
-  #if DEBUG
-  @MainActor
-  func updateAnimals(animals: [Animal]) {
-    self.animals += animals
-    isLoading = false
-    isFetchingMoreAnimals = false
-  }
-  #else
-  @MainActor
-  func addAnimals(animals: [Animal]) {
-    for var animal in animals {
-      animal.toManagedObject(context: context)
-    }
-    isLoading = false
-  }
-  #endif
 }

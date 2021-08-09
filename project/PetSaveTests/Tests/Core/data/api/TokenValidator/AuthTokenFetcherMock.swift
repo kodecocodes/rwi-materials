@@ -36,7 +36,7 @@ import Foundation
 struct AuthTokenFetcherMock: AuthTokenFetcher {
   let jsonGenerator: (() -> String)
   func fetchToken() async throws -> APIToken {
-    let data = jsonGenerator().data(using: .utf8)!
+    let data = jsonGenerator().data(using: .utf8) ?? Data()
     let jsonDecoder = JSONDecoder()
     jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
     let apiToken = try jsonDecoder.decode(APIToken.self, from: data)

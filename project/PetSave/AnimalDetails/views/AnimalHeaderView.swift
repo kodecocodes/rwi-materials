@@ -81,8 +81,7 @@ extension View {
 }
 
 struct AnimalHeaderView2: View {
-
-  let animal: Animal
+  let animal: AnimalEntity
 
   @Binding var zoomed: Bool
   let geometry: GeometryProxy
@@ -148,15 +147,14 @@ struct AnimalImage : View {
 }
 
 struct HeaderTitle : View {
-
   @Binding var zoomed: Bool
   var geometry: GeometryProxy
   let animalName: String?
   let animalType: String?
 
-  let animal: Animal
+  let animal: AnimalEntity
 
-  init(animal: Animal, zoomed: Binding<Bool>, geometry: GeometryProxy) {
+  init(animal: AnimalEntity, zoomed: Binding<Bool>, geometry: GeometryProxy) {
     self.animal = animal
     self.animalType = animal.type
     self.animalName = animal.name
@@ -216,24 +214,16 @@ struct HeaderTitle : View {
 //#else
 struct HeaderTitle_Previews: PreviewProvider {
   static var previews: some View {
-    #if DEBUG
-    let animal  = Animal.mock[0]
-    #else
-    let animal = CoreDataHelper.getTestAnimal()!
-    #endif
     Group {
-      Group {
-
-        GeometryReader { geometry in
-          HeaderTitle(animal: animal, zoomed: .constant(true), geometry: geometry)
-        }
-        .frame(width: 200, height: 100)
-
-        GeometryReader { geometry in
-          HeaderTitle(animal: animal, zoomed: .constant(false), geometry: geometry)
-        }
-        .frame(width: 200, height: 100)
+      GeometryReader { geometry in
+        HeaderTitle(animal: animalMock, zoomed: .constant(true), geometry: geometry)
       }
+      .frame(width: 200, height: 100)
+
+      GeometryReader { geometry in
+        HeaderTitle(animal: animalMock, zoomed: .constant(false), geometry: geometry)
+      }
+      .frame(width: 200, height: 100)
     }
     .previewLayout(.sizeThatFits)
   }
@@ -241,23 +231,16 @@ struct HeaderTitle_Previews: PreviewProvider {
 
 struct AnimalHeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    #if DEBUG
-    let animal  = Animal.mock[0]
-    #else
-    let animal = CoreDataHelper.getTestAnimal()!
-    #endif
     Group {
-      Group {
-        GeometryReader { geometry in
-          AnimalHeaderView2(animal: animal, zoomed: .constant(true), geometry: geometry)
-        }
-        .frame(width: 500, height: 700)
-
-        GeometryReader { geometry in
-          AnimalHeaderView2(animal: animal, zoomed: .constant(false), geometry: geometry)
-        }
-        .frame(width: 500, height: 100)
+      GeometryReader { geometry in
+        AnimalHeaderView2(animal: animalMock, zoomed: .constant(true), geometry: geometry)
       }
+      .frame(width: 500, height: 700)
+
+      GeometryReader { geometry in
+        AnimalHeaderView2(animal: animalMock, zoomed: .constant(false), geometry: geometry)
+      }
+      .frame(width: 500, height: 100)
     }
     .previewLayout(.sizeThatFits)
   }

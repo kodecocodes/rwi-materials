@@ -33,16 +33,18 @@
 import SwiftUI
 
 struct AnimalContactsView: View {
+  let animal: AnimalEntity
 
-  let phoneNumber: String?
-  let emailAddress: String?
-
-  let animal: Animal
-
-  init(animal: Animal) {
+  init(animal: AnimalEntity) {
     self.animal = animal
-    phoneNumber = animal.contact.phone
-    emailAddress = animal.contact.email
+  }
+
+  var phoneNumber: String? {
+    animal.contact?.phone
+  }
+
+  var emailAddress: String? {
+    animal.contact?.email
   }
 
   var body: some View {
@@ -73,12 +75,7 @@ struct AnimalContactsView: View {
 
 struct AnimalContactsView_Previews: PreviewProvider {
   static var previews: some View {
-    #if DEBUG
-    let animal  = Animal.mock[0]
-    #else
-    let animal = CoreDataHelper.getTestAnimal()!
-    #endif
-    AnimalContactsView(animal: animal)
+    AnimalContactsView(animal: animalMock)
       .padding()
       .previewLayout(.sizeThatFits)
   }

@@ -34,10 +34,8 @@ import SwiftUI
 import MapKit
 
 struct AnimalLocationView: View {
+  let animal: AnimalEntity
 
-  let animal: Animal
-
-  
   @StateObject var locationFetcher = LocationFetcher()
   
   var body: some View {
@@ -69,12 +67,7 @@ struct AnimalLocationView: View {
 
 struct AnimalLocationView_Previews: PreviewProvider {
   static var previews: some View {
-    #if DEBUG
-    let animal  = Animal.mock[0]
-    #else
-    let animal = CoreDataHelper.getTestAnimal()!
-    #endif
-    AnimalLocationView(animal: animal)
+    AnimalLocationView(animal: animalMock)
       .padding()
       .previewLayout(.sizeThatFits)
   }

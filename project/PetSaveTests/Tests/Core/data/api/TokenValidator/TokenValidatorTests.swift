@@ -45,7 +45,7 @@ class TokenValidatorTests: XCTestCase {
   }
   
   override func tearDown() {
-    let server = "api.petfinder.com"
+    let server = ApiConstants.baseURLString
     UserDefaults.standard.set(nil, forKey: "expiresAt")
     let deleteQuery = [
         kSecAttrServer: server,

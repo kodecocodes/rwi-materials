@@ -56,8 +56,8 @@ struct SearchView: View {
   var body: some View {
     List {
       ForEach(searchAnimalsResults) { animal in
-        NavigationLink(destination: AnimalDetailsView(animal: Animal(managedObject: animal))) {
-          AnimalRow(animal: Animal(managedObject: animal))
+        NavigationLink(destination: AnimalDetailsView(animal: animal)) {
+          AnimalRow(animal: animal)
         }
       }
     }

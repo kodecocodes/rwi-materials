@@ -39,7 +39,7 @@ import SwiftUI
 struct AnimalDetailsView: View {
   @State var zoomed = false
 
-  let animal: Animal
+  let animal: AnimalEntity
 
   var animalDescription: String? {
     animal.description
@@ -86,24 +86,18 @@ struct AnimalDetailsView: View {
 
 struct AnimalsView_Previews: PreviewProvider {
   static var previews: some View {
-    #if DEBUG
-    let animal  = Animal.mock[0]
-    #else
     let animal = CoreDataHelper.getTestAnimal()!
-    #endif
-    Group {
-      NavigationView {
-        AnimalDetailsView(animal: animal)
-          .previewLayout(.sizeThatFits)
-      }
-      .previewLayout(.sizeThatFits)
-      .previewDisplayName("iPhone SE (2nd generation)")
-
-      NavigationView {
-        AnimalDetailsView(animal: animal)
-      }
-      .previewDevice("iPhone 12 Pro")
-      .previewDisplayName("iPhone 12 Pro")
+    NavigationView {
+      AnimalDetailsView(animal: animal)
+        .previewLayout(.sizeThatFits)
     }
+    .previewLayout(.sizeThatFits)
+    .previewDisplayName("iPhone SE (2nd generation)")
+
+    NavigationView {
+      AnimalDetailsView(animal: animal)
+    }
+    .previewDevice("iPhone 12 Pro")
+    .previewDisplayName("iPhone 12 Pro")
   }
 }

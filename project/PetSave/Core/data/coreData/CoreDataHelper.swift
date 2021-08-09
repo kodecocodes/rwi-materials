@@ -33,8 +33,7 @@
 import Foundation
 import CoreData
 
-class CoreDataHelper {
-
+enum CoreDataHelper {
   static let context = PersistenceController.shared.container.viewContext
 
   static func clearDatabase() {
@@ -45,7 +44,6 @@ class CoreDataHelper {
   private static func clearTable(_ entity: String) {
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
     do {
       try context.execute(deleteRequest)
       try context.save()
@@ -53,7 +51,26 @@ class CoreDataHelper {
       fatalError("\(#file), \(#function), \(error.localizedDescription)")
     }
   }
+}
 
+//Chapter 3 - deleting data
+extension Collection where Element == NSManagedObject, Index == Int{
+  func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext) {
+  
+    indices.forEach { index in
+      viewContext.delete(self[index])
+    }
+
+    do {
+      try viewContext.save()
+    } catch {
+      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+    }
+  }
+}
+
+// MARK: - Xcode Previews Content
+extension CoreDataHelper {
   static func getTestAnimal() -> Animal? {
     let fetchRequest = AnimalEntity.fetchRequest()
 
@@ -74,40 +91,16 @@ class CoreDataHelper {
     return nil
   }
 
-//  static func getTestAnimal() -> AnimalEntity? {
-//    let fetchRequest = AnimalEntity.fetchRequest()
-//
-//    if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
-//       let first = results.first {
-//      return first
-//    }
-//    return nil
-//  }
-//
-//  static func getTestAnimals() -> [AnimalEntity]? {
-//    let fetchRequest = AnimalEntity.fetchRequest()
-//
-//    if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
-//       results.count > 0 {
-//      return results
-//    }
-//    return nil
-//  }
+  static func getTestAnimal() -> AnimalEntity? {
+    let fetchRequest = AnimalEntity.fetchRequest()
+    fetchRequest.fetchLimit = 1
+    guard let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest), let first = results.first else { return nil }
+    return first
+  }
 
-}
-
-//Chapter 3 - deleting data
-extension Collection where Element == NSManagedObject, Index == Int{
-  func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext) {
-  
-    indices.forEach { index in
-      viewContext.delete(self[index])
-    }
-
-    do {
-      try viewContext.save()
-    } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
-    }
+  static func getTestAnimals() -> [AnimalEntity]? {
+    let fetchRequest = AnimalEntity.fetchRequest()
+    guard let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest), results.count > 0 else { return nil }
+    return results
   }
 }

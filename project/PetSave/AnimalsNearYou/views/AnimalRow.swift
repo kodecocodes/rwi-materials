@@ -33,7 +33,19 @@
 import SwiftUI
 
 struct AnimalRow: View {
-  let animal: Animal
+  let animal: AnimalEntity
+
+  var animalName: String {
+    animal.name ?? ""
+  }
+
+  var animalType: String {
+    animal.type ?? ""
+  }
+
+  var animalBreedAndType: String {
+    "\(animal.breed) \(animalType)"
+  }
 
   var body: some View {
     HStack {
@@ -56,12 +68,12 @@ struct AnimalRow: View {
       .cornerRadius(8)
 
       VStack(alignment: .leading) {
-        Text(animal.name)
+        Text(animalName)
           .multilineTextAlignment(.center)
           .font(.title3)
-        Text("\(animal.breed) \(animal.type)")
+        Text(animalBreedAndType)
           .font(.callout)
-        if let description = animal.description {
+        if let description = animal.desc {
           Text(description)
             .lineLimit(2)
             .font(.footnote)
@@ -82,5 +94,18 @@ struct AnimalRow: View {
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
     AnimalRow(animal: CoreDataHelper.getTestAnimal()!)
+  }
+}
+
+#warning("Remove to its own file.")
+struct AnimalAttributesCard: ViewModifier {
+  let color: Color
+  func body(content: Content) -> some View {
+    content
+      .padding(4)
+      .background(color.opacity(0.2))
+      .cornerRadius(8)
+      .foregroundColor(color)
+      .font(.subheadline)
   }
 }

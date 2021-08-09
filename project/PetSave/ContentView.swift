@@ -40,26 +40,13 @@ struct ContentView: View {
       NavigationView {
         AnimalsNearYouView(
           viewModel: AnimalsNearYouViewModel(
-            animalFetcher: FetchAnimalsService()
-          )
-        )
-      }
-      .tabItem {
-        Label("Near you", systemImage: "location")  //Chapter 12 - SF Symbols
-      }
-      .environmentObject(LocationManager())
-      .environment(\.managedObjectContext, managedObjectContext)
-
-      NavigationView {
-        AnimalsNearYouView2(
-          viewModel: AnimalsNearYouViewModel2(
             animalFetcher: FetchAnimalsService(),
             context: managedObjectContext
           )
         )
       }
       .tabItem {
-        Label("Near you2", systemImage: "location")  //Chapter 12 - SF Symbols
+        Label("Near you", systemImage: "location")  //Chapter 12 - SF Symbols
       }
       .environmentObject(LocationManager())
       .environment(\.managedObjectContext, managedObjectContext)
