@@ -34,20 +34,15 @@ import Foundation
 import CoreData
 
 extension Breed: CoreDataPersistable {
-
-  var keyMap: [PartialKeyPath<Breed> : String] {
-
-    get {
-      [
-        \.primary : "primary",
-        \.secondary : "secondary",
-        \.mixed : "mixed",
-        \.unknown : "unknown",
-        \.id : "id"
-      ]
-    }
+  var keyMap: [PartialKeyPath<Breed>: String] {
+    [
+      \.primary: "primary",
+      \.secondary: "secondary",
+      \.mixed: "mixed",
+      \.unknown: "unknown",
+      \.id: "id"
+    ]
   }
 
   typealias ManagedType = BreedEntity
-  
 }

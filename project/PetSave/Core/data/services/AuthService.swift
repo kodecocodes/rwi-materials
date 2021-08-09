@@ -52,25 +52,24 @@ extension AuthService: AuthTokenFetcher {
 }
 
 enum AuthTokenRouter: RouterProtocol {
-  
   case auth
-  
+
   var path: String {
     "/oauth2/token"
   }
 
-  var params: [String : Any] {
+  var params: [String: Any] {
     [
-      "grant_type" : ApiConstants.grantType,
-      "client_id" : ApiConstants.clientId,
-      "client_secret" : ApiConstants.clientSecret
+      "grant_type": ApiConstants.grantType,
+      "client_id": ApiConstants.clientId,
+      "client_secret": ApiConstants.clientSecret
     ]
   }
 
   var addAuthorizationToken: Bool {
     false
   }
-  
+
   var requestType: RequestType {
     .POST
   }

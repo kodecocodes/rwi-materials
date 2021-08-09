@@ -33,7 +33,7 @@
 import Foundation
 @testable import PetSave
 
-struct TokenTestHelper {
+enum TokenTestHelper {
   static func randomString() -> String {
     let letters = "abcdefghijklmnopqrstuvwxyz"
     return String(letters.shuffled().prefix(8))
@@ -63,11 +63,11 @@ struct TokenTestHelper {
     let server = ApiConstants.baseURLString
     guard let tokenData = token.data(using: .utf8) else { throw KeychainError.failedToConvertToData }
     let addQuery = [
-        kSecValueData: tokenData,
-        kSecAttrServer: server,
-        kSecClass: kSecClassInternetPassword
+      kSecValueData: tokenData,
+      kSecAttrServer: server,
+      kSecClass: kSecClassInternetPassword
     ] as CFDictionary
-    
+
     let status = SecItemAdd(addQuery, nil)
     guard status == errSecSuccess else {
       throw KeychainError.ossError(status)

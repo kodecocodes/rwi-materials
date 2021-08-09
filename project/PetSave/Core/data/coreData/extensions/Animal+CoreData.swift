@@ -34,61 +34,62 @@ import Foundation
 import CoreData
 
 extension AnimalEntity {
-  
   var age: Age {
+    get {
+      Age(rawValue: ageValue!)!
+    }
     set {
       self.ageValue = newValue.rawValue
     }
-    get {
-      Age(rawValue: self.ageValue!)!
-    }
   }
-  
+
   var coat: Coat {
+    get {
+      Coat(rawValue: coatValue!)!
+    }
     set {
       self.coatValue = newValue.rawValue
     }
-    get {
-      Coat(rawValue: self.coatValue!)!
-    }
   }
-  
+
   var gender: Gender {
+    get {
+      Gender(rawValue: genderValue!)!
+    }
     set {
       self.genderValue = newValue.rawValue
     }
-    get {
-      Gender(rawValue: self.genderValue!)!
-    }
   }
-  
+
   var size: Size {
+    get {
+      Size(rawValue: sizeValue!)!
+    }
     set {
       self.sizeValue = newValue.rawValue
     }
-    get {
-      Size(rawValue: self.sizeValue!)!
-    }
   }
-  
+
   var status: AdoptionStatus {
+    get {
+      AdoptionStatus(rawValue: statusValue!)!
+    }
     set {
       self.statusValue = newValue.rawValue
     }
-    get {
-      AdoptionStatus(rawValue: self.statusValue!)!
-    }
   }
-  
+
   @objc var breed: String {
     return breeds?.primary ?? breeds?.secondary ?? ""
   }
 
   var picture: URL? {
+    #warning("I disabled the rule because NSSet does not have a propery 'isEmpty'. Check with FPE about this.")
+    // swiftlint:disable:next empty_count
     guard let photos = photos, photos.count > 0 else { return nil }
     let photosArray = photos.allObjects as! [PhotoSizesEntity]
     guard let firstPhoto = photosArray.first else { return nil }
-    let pic = firstPhoto.medium ?? firstPhoto.full ?? nil
+    let pic = firstPhoto.medium ?? firstPhoto.full
     return pic
   }
 
@@ -119,14 +120,10 @@ extension AnimalEntity {
     .compactMap { $0 }
     .joined(separator: ", ")
   }
-  
 }
 
 extension Animal: UUIDIdentifiable {
-
-
   init(managedObject: AnimalEntity) {
-
     self.age = managedObject.age
     self.coat = managedObject.coat
     self.description = managedObject.desc
@@ -142,35 +139,27 @@ extension Animal: UUIDIdentifiable {
     self.tags = []
     self.type = managedObject.type!
     self.url = managedObject.url
-
     self.attributes = AnimalAttributes(managedObject: managedObject.attributes!)
-
     self.colors = APIColors(managedObject: managedObject.colors!)
     self.contact = Contact(managedObject: managedObject.contact!)
     self.environment = AnimalEnvironment(managedObject: managedObject.environment!)
-
-    self.photos = (managedObject.photos?.allObjects as! [PhotoSizesEntity]).map{ PhotoSizes(managedObject: $0) }
-    self.videos = (managedObject.videos?.allObjects as! [VideoLinkEntity]).map{ VideoLink(managedObject: $0) }
-
+    self.photos = (managedObject.photos?.allObjects as! [PhotoSizesEntity]).map { PhotoSizes(managedObject: $0) }
+    self.videos = (managedObject.videos?.allObjects as! [VideoLinkEntity]).map { VideoLink(managedObject: $0) }
     self.breeds = Breed(managedObject: managedObject.breeds!)
-
   }
 
   private func checkForExistingAnimal(id: Int, context: NSManagedObjectContext) -> Bool {
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "id = %d", id)
 
-    if let results = try? context.fetch(fetchRequest),
-       let _ = results.first {
+    if let results = try? context.fetch(fetchRequest), results.first != nil {
       return true
     }
     return false
   }
 
   mutating func toManagedObject(context: NSManagedObjectContext) {
-
     guard checkForExistingAnimal(id: self.id!, context: context) == false else { return }
-
     let persistedValue = AnimalEntity.init(context: context)
     persistedValue.timestamp = Date()
     persistedValue.age = self.age
@@ -200,7 +189,5 @@ extension Animal: UUIDIdentifiable {
       return mutableVideo.toManagedObject(context: context)
     }))
     persistedValue.breeds = self.breeds.toManagedObject(context: context)
-
   }
-  
 }

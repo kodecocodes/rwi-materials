@@ -33,7 +33,6 @@
 import XCTest
 
 class PetServiceTests: XCTestCase {
-
   override func setUpWithError() throws {
     // Put setup code here. This method is called before the invocation of each test method in the class.
   }
@@ -42,11 +41,7 @@ class PetServiceTests: XCTestCase {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
 
-  func test_fetchPetSucceeds() throws {
-
-    
-
-  }
+  func test_fetchPetSucceeds() throws { }
 
   func testPerformanceExample() throws {
     // This is an example of a performance test case.
@@ -54,5 +49,4 @@ class PetServiceTests: XCTestCase {
       // Put the code you want to measure the time of here.
     }
   }
-
 }

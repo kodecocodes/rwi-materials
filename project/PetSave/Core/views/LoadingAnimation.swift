@@ -34,26 +34,23 @@ import Foundation
 import SwiftUI
 
 struct LoadingAnimation: UIViewRepresentable {
-
-  let animatedFrames: UIImage!
+  let animatedFrames: UIImage
 
   init() {
     var images: [UIImage] = []
     for i in 1...127 {
-      images.append(UIImage(named: "dog_\(String(format: "%03d", i))")!)
+      guard let image = UIImage(named: "dog_\(String(format: "%03d", i))") else { continue }
+      images.append(image)
     }
-    animatedFrames = UIImage.animatedImage(with: images, duration: 4)
+    animatedFrames = UIImage.animatedImage(with: images, duration: 4) ?? UIImage()
   }
 
-
   func makeUIView(context: Context) -> UIView {
-
     let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     image.clipsToBounds = true
     image.autoresizesSubviews = true
-//    image.layer.cornerRadius = 20
-    image.contentMode = UIView.ContentMode.scaleAspectFit
+    image.contentMode = .scaleAspectFit
     image.image = animatedFrames
     view.addSubview(image)
 
@@ -61,13 +58,11 @@ struct LoadingAnimation: UIViewRepresentable {
   }
 
   func updateUIView(_ uiView: UIViewType, context: Context) {
-    //no code here; just for protocol
+    // no code here; just for protocol
   }
-
 }
 
 struct LoadingAnimationView: View {
-
   var body: some View {
     VStack {
       LoadingAnimation()
@@ -77,6 +72,6 @@ struct LoadingAnimationView: View {
 
 struct LoadingAnimationView_Previews: PreviewProvider {
   static var previews: some View {
-      LoadingAnimationView()
+    LoadingAnimationView()
   }
 }

@@ -34,9 +34,7 @@ import Foundation
 import Combine
 
 public struct PetImageService {
-  
   private var url: String
-  
 }
 
 extension PetImageService: PetServiceDataPublisher {

@@ -37,7 +37,7 @@ struct AnimalLocationView: View {
   let animal: AnimalEntity
 
   @StateObject var locationFetcher = LocationFetcher()
-  
+
   var body: some View {
     VStack(alignment: .leading, spacing: 4) {
       Text("Location")
@@ -45,7 +45,7 @@ struct AnimalLocationView: View {
       Text(animal.address)
         .font(.subheadline)
         .textSelection(.enabled)
-      
+
       Button(action: openAddressInMaps) {
         Map(coordinateRegion: $locationFetcher.coordinates, interactionModes: [])
       }
@@ -57,7 +57,7 @@ struct AnimalLocationView: View {
       }
     }
   }
-  
+
   func openAddressInMaps() {
     let placemark = MKPlacemark(coordinate: locationFetcher.coordinates.center)
     let mapItem = MKMapItem(placemark: placemark)

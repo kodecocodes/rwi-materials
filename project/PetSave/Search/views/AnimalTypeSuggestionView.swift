@@ -34,20 +34,20 @@ import SwiftUI
 
 struct AnimalTypeSuggestionView: View {
   let suggestion: AnimalSearchType
-  
+
   private var gradientColors: [Color] {
     [
       Color.clear,
       Color.black
     ]
   }
-  
+
   private var gradientOverlay: some View {
     LinearGradient(colors: gradientColors, startPoint: .top, endPoint: .bottom)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .opacity(0.3)
   }
-  
+
   var body: some View {
     suggestion.suggestionImage
       .resizable()

@@ -34,7 +34,7 @@ import SwiftUI
 
 struct AnimalDetailRow: View {
   let animal: AnimalEntity
-  
+
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack {

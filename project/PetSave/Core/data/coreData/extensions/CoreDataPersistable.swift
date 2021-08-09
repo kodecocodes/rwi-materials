@@ -36,7 +36,7 @@ import CoreData
 protocol CoreDataPersistable: UUIDIdentifiable {
   associatedtype ManagedType
 
-  var keyMap: [PartialKeyPath<Self> : String] { get }
+  var keyMap: [PartialKeyPath<Self>: String] { get }
 
   init()
 
@@ -48,10 +48,9 @@ protocol CoreDataPersistable: UUIDIdentifiable {
 }
 
 extension CoreDataPersistable where ManagedType: NSManagedObject {
-
   init(managedObject: ManagedType) {
     self.init()
-    for attribute in managedObject.entity.attributesByName {  //this gets attributes, not relationships
+    for attribute in managedObject.entity.attributesByName {  // this gets attributes, not relationships
       if let keyP = keyMap.first(where: { $0.value == attribute.key })?.key {
         let value = managedObject.value(forKey: attribute.key)
         storeValue(value, toKeyPath: keyP)
@@ -59,17 +58,16 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
     }
   }
 
-  private mutating func storeValue(_ value: Any?, toKeyPath partial: AnyKeyPath) { //}-> WritableKeyPath<Self, Any?>? {
-
+  private mutating func storeValue(_ value: Any?, toKeyPath partial: AnyKeyPath) { // }-> WritableKeyPath<Self, Any?>? {
     switch partial {
-    case let kp as WritableKeyPath<Self, URL?>:
-      self[keyPath: kp] = value as? URL
-    case let kp as WritableKeyPath<Self, Int?>:
-      self[keyPath: kp] = value as? Int
-    case let kp as WritableKeyPath<Self, String?>:
-      self[keyPath: kp] = value as? String
-    case let kp as WritableKeyPath<Self, Bool?>:
-      self[keyPath: kp] = value as? Bool
+    case let keyPath as WritableKeyPath<Self, URL?>:
+      self[keyPath: keyPath] = value as? URL
+    case let keyPath as WritableKeyPath<Self, Int?>:
+      self[keyPath: keyPath] = value as? Int
+    case let keyPath as WritableKeyPath<Self, String?>:
+      self[keyPath: keyPath] = value as? String
+    case let keyPath as WritableKeyPath<Self, Bool?>:
+      self[keyPath: keyPath] = value as? Bool
 
     default:
       return
@@ -77,13 +75,12 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
   }
 
   mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType {
-
-    let persistedValue: ManagedType!
+    let persistedValue: ManagedType
     if let id = self.id {
       let fetchRequest = ManagedType.fetchRequest()
       fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
       if let results = try? context.fetch(fetchRequest),
-         let firstResult = results.first as? ManagedType {
+        let firstResult = results.first as? ManagedType {
         persistedValue = firstResult
       } else {
         persistedValue = ManagedType.init(context: context)
@@ -97,8 +94,8 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
     let mirror = Mirror(reflecting: self)
     for case let (label?, value) in mirror.children {
       let value2 = Mirror(reflecting: value)
-      if value2.displayStyle != .optional || value2.children.count != 0 {
-          persistedValue.setValue(value, forKey: label)
+      if value2.displayStyle != .optional || !value2.children.isEmpty {
+        persistedValue.setValue(value, forKey: label)
       }
     }
 
@@ -106,7 +103,6 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
   }
 
   func save(context: NSManagedObjectContext) throws {
-
     try context.save()
   }
 }

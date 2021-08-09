@@ -35,7 +35,7 @@ import XCTest
 
 class TokenValidatorTests: XCTestCase {
   var tokenValidator: TokenValidator!
-  
+
   override func setUp() {
     tokenValidator = TokenValidator(
       userDefaults: UserDefaults.standard,
@@ -43,43 +43,43 @@ class TokenValidatorTests: XCTestCase {
       keychainManager: KeychainManager()
     )
   }
-  
+
   override func tearDown() {
     let server = ApiConstants.baseURLString
     UserDefaults.standard.set(nil, forKey: "expiresAt")
     let deleteQuery = [
-        kSecAttrServer: server,
-        kSecClass: kSecClassInternetPassword
+      kSecAttrServer: server,
+      kSecClass: kSecClassInternetPassword
     ] as CFDictionary
-    
+
     SecItemDelete(deleteQuery)
   }
-  
+
   func testRequestToken() async throws {
     let token = try await tokenValidator.validateToken()
     XCTAssertFalse(token.isEmpty)
   }
-  
+
   func testCachedToken() async throws {
     let token = try await tokenValidator.validateToken()
     let sameToken = try await tokenValidator.validateToken()
     XCTAssertEqual(token, sameToken)
   }
-  
+
   func testTokenFromKeychain() async throws {
     try TokenTestHelper.saveTokenInKeychain(token: "abc")
     UserDefaults.standard.set(Date().advanced(by: 5000).timeIntervalSince1970, forKey: "expiresAt")
     let token = try await tokenValidator.validateToken()
     XCTAssertEqual(token, "abc")
   }
-  
+
   func testExpiredToken() async throws {
     tokenValidator = TokenValidator(
       userDefaults: UserDefaults.standard,
       authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateExpiredAuthToken),
       keychainManager: KeychainManager()
     )
-    
+
     let expiredToken = try await tokenValidator.validateToken()
     let newToken = try await tokenValidator.validateToken()
     XCTAssertNotEqual(expiredToken, newToken)

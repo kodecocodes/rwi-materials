@@ -41,45 +41,45 @@ protocol KeychainManagerProtocol {
 struct KeychainManager: KeychainManagerProtocol {
   func findKey(server: String, keyClass: CFString) -> String? {
     let findQuery = [
-        kSecAttrServer: server,
-        kSecClass: keyClass,
-        kSecMatchLimit: kSecMatchLimitOne,
-        kSecReturnAttributes: true,
-        kSecReturnData: true
+      kSecAttrServer: server,
+      kSecClass: keyClass,
+      kSecMatchLimit: kSecMatchLimitOne,
+      kSecReturnAttributes: true,
+      kSecReturnData: true
     ] as CFDictionary
-    
+
     var item: CFTypeRef?
     let status = SecItemCopyMatching(findQuery, &item)
     guard status == errSecSuccess else { return nil }
-    
+
     guard let keychainDictionary = item as? NSDictionary,
-          let tokenData = keychainDictionary[kSecValueData] as? Data,
-          let token = String(data: tokenData, encoding: .utf8) else { return nil }
+      let tokenData = keychainDictionary[kSecValueData] as? Data,
+      let token = String(data: tokenData, encoding: .utf8) else { return nil }
     return token
   }
-  
+
   func save(key: String, server: String, keyClass: CFString) throws {
     guard let tokenData = key.data(using: .utf8) else { throw KeychainError.failedToConvertToData }
     let addQuery = [
-        kSecValueData: tokenData,
-        kSecAttrServer: server,
-        kSecClass: keyClass
+      kSecValueData: tokenData,
+      kSecAttrServer: server,
+      kSecClass: keyClass
     ] as CFDictionary
-    
+
     let status = SecItemAdd(addQuery, nil)
     guard status == errSecSuccess else {
       throw KeychainError.ossError(status)
     }
   }
-   
+
   func updateKey(attributes: CFDictionary, server: String, keyClass: CFString) throws {
     let findQuery = [
-        kSecAttrServer: server,
-        kSecClass: keyClass
+      kSecAttrServer: server,
+      kSecClass: keyClass
     ] as CFDictionary
-    
+
     let status = SecItemUpdate(findQuery, attributes)
-    
+
     guard status == errSecSuccess else {
       throw KeychainError.ossError(status)
     }

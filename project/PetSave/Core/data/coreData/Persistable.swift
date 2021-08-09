@@ -30,11 +30,11 @@
 ///// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 ///// THE SOFTWARE.
 //
-//import Foundation
-//import CoreData
+// import Foundation
+// import CoreData
 //
 //
-//@propertyWrapper struct PersistableCollection<StructType: UUIDIdentifiable & Codable, ManagedObject: NSManagedObject> : Codable {
+// @propertyWrapper struct PersistableCollection<StructType: UUIDIdentifiable & Codable, ManagedObject: NSManagedObject> : Codable {
 //
 //  private var context: NSManagedObjectContext
 //
@@ -143,10 +143,10 @@
 ////    }
 //    return persistedValue
 //  }
-//}
+// }
 //
 ////Chapter 3 - storing data, converting between structs and classes
-//@propertyWrapper struct Persistable<StructType: UUIDIdentifiable & Codable, ManagedObject: NSManagedObject> : Codable {
+// @propertyWrapper struct Persistable<StructType: UUIDIdentifiable & Codable, ManagedObject: NSManagedObject> : Codable {
 //
 //  private var context: NSManagedObjectContext
 //
@@ -303,4 +303,4 @@
 ////    }
 //    return persistedValue
 //  }
-//}
+// }

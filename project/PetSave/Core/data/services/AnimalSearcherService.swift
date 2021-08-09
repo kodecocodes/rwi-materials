@@ -43,7 +43,9 @@ extension AnimalSearcherService: AnimalSearcher {
   ) async -> [Animal] {
     do {
       #warning("Add age and type filters")
-      let animalsContainer: AnimalsContainer = try await petFinderAPI.request(with: AnimalsRouter.getAnimalBy(name: text))
+      let animalsContainer: AnimalsContainer = try await petFinderAPI.request(
+        with: AnimalsRouter.getAnimalBy(name: text)
+      )
       return animalsContainer.animals
     } catch {
       #warning("Handle later on ViewModel")
@@ -52,5 +54,3 @@ extension AnimalSearcherService: AnimalSearcher {
     }
   }
 }
-
-

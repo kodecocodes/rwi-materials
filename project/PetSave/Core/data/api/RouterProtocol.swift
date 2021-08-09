@@ -35,8 +35,8 @@ import UIKit
 protocol RouterProtocol {
   var path: String { get }
   var requestType: RequestType { get }
-  var headers: [String : String] { get }
-  var params: [String : Any] { get }
+  var headers: [String: String] { get }
+  var params: [String: Any] { get }
   var addAuthorizationToken: Bool { get }
 }
 
@@ -44,53 +44,53 @@ extension RouterProtocol {
   var baseURL: String {
     ApiConstants.baseURLString + ApiConstants.version
   }
-  
+
   var addAuthorizationToken: Bool {
     true
   }
-  
-  var params: [String : Any] {
+
+  var params: [String: Any] {
     [:]
   }
-  
-  var headers: [String : String] {
+
+  var headers: [String: String] {
     [:]
   }
-  
+
   func request(authToken: String) async throws -> URLRequest {
-    let url = URL(string: baseURL + path)!
+    guard let url = URL(string: baseURL + path) else { throw NSError(domain: "URL string is malformed.", code: -1) }
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = requestType.rawValue
-    
+
     if !headers.isEmpty {
       urlRequest.allHTTPHeaderFields = headers
     }
-    
+
     if addAuthorizationToken {
       urlRequest.setValue(authToken, forHTTPHeaderField: "Authorization")
     }
-    
+
     urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
     if !params.isEmpty {
       urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
     }
-    
+
     return urlRequest
   }
-  
+
   private func printURLRequest(_ urlRequest: URLRequest) {
     print()
     print("↗️↗️↗️ Outgoing Request ↗️↗️↗️")
     print("URL: \(urlRequest)")
     print()
-    
+
     if let headers = urlRequest.allHTTPHeaderFields {
       print("Headers:")
       print(headers)
       print()
     }
-    
+
     if let httpBody = urlRequest.httpBody {
       print("Body:")
       print(httpBody)
@@ -100,6 +100,6 @@ extension RouterProtocol {
 }
 
 enum RequestType: String {
-  case GET = "GET"
-  case POST = "POST"
+  case GET
+  case POST
 }

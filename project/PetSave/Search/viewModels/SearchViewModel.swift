@@ -45,16 +45,16 @@ final class SearchViewModel: ObservableObject {
   @Published var searchText = ""
   @Published var ageSelection = AnimalSearchAge.none
   @Published var typeSelection = AnimalSearchType.none
-  
+
   private let animalSearcher: AnimalSearcher
-  
+
   let context: NSManagedObjectContext
 
   init(animalSearcher: AnimalSearcher, context: NSManagedObjectContext) {
     self.animalSearcher = animalSearcher
     self.context = context
   }
-  
+
   func search() {
     Task {
       let animals = await animalSearcher.searchAnimal(
@@ -65,13 +65,13 @@ final class SearchViewModel: ObservableObject {
       await update(animals: animals)
     }
   }
-  
+
   func selectTypeSuggestion(_ type: AnimalSearchType) {
     typeSelection = type
     search()
   }
 
-  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
+  // TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
   @MainActor
   func update(animals: [Animal]) {
     for var animal in animals {
@@ -80,7 +80,6 @@ final class SearchViewModel: ObservableObject {
   }
 }
 
-//#if DEBUG
 #warning("For testing purposes")
 struct AnimalSearcherMock: AnimalSearcher {
   func searchAnimal(

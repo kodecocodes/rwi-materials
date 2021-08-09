@@ -35,16 +35,17 @@ import CoreLocationUI
 
 struct PreferencesView: View {
   @EnvironmentObject var locationManager: LocationManager
-  
+
   let locationDeniedText = """
   PetSave does not have access to your location.
   To enable acess, open Settings > Location > Location Services and allow location while using the app.
   """
-  
+
   let locationReason = """
-  PetSave can use your current location to find animals near you. If you don't live in the US, you can turn this feature off and use a mocked location.
+  PetSave can use your current location to find animals near you.
+  If you don't live in the US, you can turn this feature off and use a mocked location.
   """
-  
+
   var body: some View {
     NavigationView {
       List {
@@ -52,7 +53,7 @@ struct PreferencesView: View {
           VStack {
             Toggle("Toggle real location", isOn: $locationManager.useUserLocation)
               .disabled(locationManager.locationIsDisabled)
-            
+
             if locationManager.openInSettings {
               VStack(spacing: 16) {
                 Text(locationDeniedText)
@@ -61,7 +62,7 @@ struct PreferencesView: View {
                   .font(.body.bold())
               }
             }
-            
+
             if locationManager.shouldRequestForLocation {
               LocationButton(
                 .currentLocation,
@@ -84,7 +85,7 @@ struct PreferencesView: View {
       .navigationBarTitleDisplayMode(.inline)
     }
   }
-  
+
   func openLocationSettings() {
     guard let bundleId = Bundle.main.bundleIdentifier,
       let url = URL(string: "\(UIApplication.openSettingsURLString)&path=LOCATION/\(bundleId)") else { return }

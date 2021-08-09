@@ -31,27 +31,20 @@
 /// THE SOFTWARE.
 
 import Foundation
-
-import Foundation
 import CoreData
 
 extension Address: CoreDataPersistable {
-
-  var keyMap: [PartialKeyPath<Address> : String] {
-
-    get {
-      [
-        \.address1 : "address1",
-        \.address2 : "address2",
-        \.city : "city",
-        \.state : "state",
-        \.postcode : "postcode",
-        \.country : "country",
-        \.id : "id"
-      ]
-    }
+  var keyMap: [PartialKeyPath<Address>: String] {
+    [
+      \.address1: "address1",
+      \.address2: "address2",
+      \.city: "city",
+      \.state: "state",
+      \.postcode: "postcode",
+      \.country: "country",
+      \.id: "id"
+    ]
   }
 
   typealias ManagedType = AddressEntity
-
 }

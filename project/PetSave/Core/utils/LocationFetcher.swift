@@ -44,12 +44,12 @@ final class LocationFetcher: ObservableObject {
       longitudeDelta: 0.01
     )
   )
-  
+
   private let geocoder = CLGeocoder()
-  
+
   func search(by address: String) async {
     guard let placemarks = try? await geocoder.geocodeAddressString(address),
-          let location = placemarks.first?.location else { return }
+      let location = placemarks.first?.location else { return }
     coordinates.center = location.coordinate
   }
 }

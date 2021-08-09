@@ -42,7 +42,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
   @Published var hasMoreAnimals = true
 
   var page = 1
-  
+
   private let animalFetcher: AnimalsFetcher
   private let context: NSManagedObjectContext
 
@@ -55,12 +55,12 @@ final class AnimalsNearYouViewModel: ObservableObject {
     self.animalFetcher = animalFetcher
     self.context = context
   }
-  
+
   func fetchAnimals() async {
     let animals = await animalFetcher.fetchAnimals(page: page)
     await addAnimals(animals: animals)
   }
-  
+
   func fetchMoreAnimals() {
     Task {
       page += 1
@@ -76,7 +76,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
       await fetchAnimals()
     }
   }
-  
+
   @MainActor
   func addAnimals(animals: [Animal]) {
     hasMoreAnimals = !animals.isEmpty

@@ -31,25 +31,18 @@
 /// THE SOFTWARE.
 
 import Foundation
-
-import Foundation
 import CoreData
 
 extension PhotoSizes: CoreDataPersistable {
-
-  var keyMap: [PartialKeyPath<PhotoSizes> : String] {
-
-    get {
-      [
-        \.small : "small",
-        \.medium : "medium",
-        \.large : "large",
-        \.full : "full",
-        \.id : "id"
-      ]
-    }
+  var keyMap: [PartialKeyPath<PhotoSizes>: String] {
+    [
+      \.small: "small",
+      \.medium: "medium",
+      \.large: "large",
+      \.full: "full",
+      \.id: "id"
+    ]
   }
 
   typealias ManagedType = PhotoSizesEntity
-  
 }

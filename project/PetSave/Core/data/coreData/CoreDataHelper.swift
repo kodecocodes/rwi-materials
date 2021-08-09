@@ -38,7 +38,7 @@ enum CoreDataHelper {
 
   static func clearDatabase() {
     let entities = PersistenceController.shared.container.managedObjectModel.entities
-    entities.compactMap{$0.name}.forEach(clearTable)
+    entities.compactMap(\.name).forEach(clearTable)
   }
 
   private static func clearTable(_ entity: String) {
@@ -53,10 +53,9 @@ enum CoreDataHelper {
   }
 }
 
-//Chapter 3 - deleting data
-extension Collection where Element == NSManagedObject, Index == Int{
+// Chapter 3 - deleting data
+extension Collection where Element == NSManagedObject, Index == Int {
   func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext) {
-  
     indices.forEach { index in
       viewContext.delete(self[index])
     }
@@ -75,7 +74,7 @@ extension CoreDataHelper {
     let fetchRequest = AnimalEntity.fetchRequest()
 
     if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
-       let first = results.first {
+      let first = results.first {
       return Animal(managedObject: first)
     }
     return nil
@@ -84,9 +83,8 @@ extension CoreDataHelper {
   static func getTestAnimals() -> [Animal]? {
     let fetchRequest = AnimalEntity.fetchRequest()
 
-    if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
-       results.count > 0 {
-      return results.map{ Animal(managedObject: $0) }
+    if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest), !results.isEmpty {
+      return results.map { Animal(managedObject: $0) }
     }
     return nil
   }
@@ -94,13 +92,15 @@ extension CoreDataHelper {
   static func getTestAnimal() -> AnimalEntity? {
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
-    guard let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest), let first = results.first else { return nil }
+    guard let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
+      let first = results.first else { return nil }
     return first
   }
 
   static func getTestAnimals() -> [AnimalEntity]? {
     let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest), results.count > 0 else { return nil }
+    guard let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
+      !results.isEmpty else { return nil }
     return results
   }
 }

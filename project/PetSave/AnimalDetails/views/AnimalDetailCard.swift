@@ -36,7 +36,7 @@ struct AnimalDetailCard: View {
   let title: String
   let value: String
   let color: Color
-  
+
   var body: some View {
     VStack {
       Text(title)

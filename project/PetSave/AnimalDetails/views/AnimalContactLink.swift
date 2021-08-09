@@ -37,7 +37,7 @@ struct AnimalContactLink: View {
   let iconName: String
   let url: URL
   let color: Color
-  
+
   var body: some View {
     Link(destination: url) {
       VStack(spacing: 4) {

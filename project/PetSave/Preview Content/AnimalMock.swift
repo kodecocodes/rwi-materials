@@ -36,10 +36,11 @@ extension Animal {
   static let mock = loadAnimals()
 }
 
-fileprivate func loadAnimals() -> [Animal] {
+private func loadAnimals() -> [Animal] {
   guard let url = Bundle.main.url(forResource: "AnimalsMock", withExtension: "json"),
-          let data = try? Data(contentsOf: url) else { return [] }
+    let data = try? Data(contentsOf: url) else { return [] }
   let decoder = JSONDecoder()
   decoder.keyDecodingStrategy = .convertFromSnakeCase
-  return try! decoder.decode([Animal].self, from: data)
+  let animals = try? decoder.decode([Animal].self, from: data)
+  return animals ?? []
 }

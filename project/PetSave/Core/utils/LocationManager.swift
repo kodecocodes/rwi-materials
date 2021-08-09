@@ -36,26 +36,26 @@ import SwiftUI
 
 final class LocationManager: NSObject, ObservableObject {
   @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
-  
+
   @Published var userLocation = CLLocation(
     latitude: 37.3320003,
     longitude: -122.0307812
   )
-  
+
   @AppStorage("useUserLocation") var useUserLocation = false
-  
+
   private lazy var cllLocationManager: CLLocationManager = {
     let manager = CLLocationManager()
     manager.delegate = self
     return manager
   }()
-  
+
   func startUpdatingLocation() {
     #warning("LocationButton is not working as it should. Probably a Beta bug. We'll try to remove this line later...")
     cllLocationManager.requestWhenInUseAuthorization()
     cllLocationManager.startUpdatingLocation()
   }
-  
+
   func updateAuthorizationStatus() {
     authorizationStatus = cllLocationManager.authorizationStatus
   }
@@ -68,11 +68,11 @@ extension LocationManager {
       authorizationStatus == .notDetermined ||
       authorizationStatus == .restricted
   }
-  
+
   var openInSettings: Bool {
     authorizationStatus == .denied || authorizationStatus == .restricted
   }
-  
+
   var shouldRequestForLocation: Bool {
     authorizationStatus == .notDetermined
   }
@@ -83,7 +83,7 @@ extension LocationManager: CLLocationManagerDelegate {
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
     updateAuthorizationStatus()
   }
-  
+
   func locationManager(
     _ manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]

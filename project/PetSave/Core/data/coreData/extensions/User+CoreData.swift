@@ -31,23 +31,16 @@
 /// THE SOFTWARE.
 
 import Foundation
-
-import Foundation
 import CoreData
 
 extension User: CoreDataPersistable {
-
-  var keyMap: [PartialKeyPath<User> : String] {
-
-    get {
-      [
-        \.name : "name",
-        \.password : "password",
-        \.extra : "extra",
-        \.id : "id"
-      ]
-    }
+  var keyMap: [PartialKeyPath<User>: String] {
+    [
+      \.name: "name",
+      \.password: "password",
+      \.extra: "extra",
+      \.id: "id"
+    ]
   }
   typealias ManagedType = UserEntity
-  
 }

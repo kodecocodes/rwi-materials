@@ -35,19 +35,16 @@ import Combine
 import PetSave
 
 struct MockPetService: PetServiceDataPublisher {
-  
   let data: Data
   let error: URLError?
-  
+
   func publisher() -> AnyPublisher<Data, URLError> {
-    
     let publisher = CurrentValueSubject<Data, URLError>(data)
-    
+
     if let error = error {
       publisher.send(completion: .failure(error))
     }
-    
+
     return publisher.eraseToAnyPublisher()
   }
-  
 }

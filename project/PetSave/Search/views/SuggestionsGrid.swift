@@ -34,22 +34,24 @@ import SwiftUI
 
 struct SuggestionsGrid: View {
   let suggestions: [AnimalSearchType]
-  let action: (AnimalSearchType) -> ()
-  
+  let action: (AnimalSearchType) -> Void
+
   @Environment(\.isSearching) var isSearching: Bool
-  
+
   private let columns = [
     GridItem(.flexible()),
     GridItem(.flexible())
   ]
-  
+
   var body: some View {
     VStack(alignment: .leading) {
       Text("Browse by Type")
         .font(.title2.bold())
       LazyVGrid(columns: columns) {
         ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
-          Button(action: { action(suggestion) }) {
+          Button {
+            action(suggestion)
+          } label: {
             AnimalTypeSuggestionView(suggestion: suggestion)
           }
           .buttonStyle(.plain)
@@ -65,8 +67,6 @@ struct SuggestionsGrid_Previews: PreviewProvider {
   static var previews: some View {
     SuggestionsGrid(
       suggestions: AnimalSearchType.suggestions
-    ) { _ in
-      
-    }
+    ) { _ in }
   }
 }

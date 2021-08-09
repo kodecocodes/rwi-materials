@@ -32,19 +32,19 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading
+// Chapter 10: Animation here while data is loading
 
 struct SearchView: View {
   let navigationTitle = NSLocalizedString("SEARCH_NAVIGATION_TITLE", comment: "Search View Navigation Title")
-  
+
   @ObservedObject var viewModel: SearchViewModel
-  
+
   @FetchRequest(
     sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],
     animation: .default
   )
   private var animals: FetchedResults<AnimalEntity>
-  
+
   var searchAnimalsResults: [AnimalEntity] {
     if viewModel.searchText.isEmpty {
       return []
@@ -52,7 +52,7 @@ struct SearchView: View {
       return animals.filter { $0.name?.contains(viewModel.searchText) ?? false }
     }
   }
-  
+
   var body: some View {
     List {
       ForEach(searchAnimalsResults) { animal in
@@ -78,7 +78,7 @@ struct SearchView: View {
       }
     }
   }
-  
+
   var filterMenu: some View {
     Menu {
       Section {
@@ -120,7 +120,7 @@ struct SearchView_Previews: PreviewProvider {
         )
       )
     }
-    
+
     NavigationView {
       SearchView(
         viewModel: SearchViewModel(
@@ -132,7 +132,7 @@ struct SearchView_Previews: PreviewProvider {
     .environment(\.locale, .init(identifier: "es"))
     .previewDisplayName("Spanish Locale")
 
-    //Chapter 12 - Dark mode previews
+    // Chapter 12 - Dark mode previews
     NavigationView {
       SearchView(
         viewModel: SearchViewModel(

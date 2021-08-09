@@ -42,17 +42,17 @@ struct APIToken {
 // MARK: - Codable
 extension APIToken: Codable {
   enum CodingKeys: String, CodingKey {
-      case tokenType
-      case expiresIn
-      case accessToken
-    }
+    case tokenType
+    case expiresIn
+    case accessToken
+  }
 }
 
 extension APIToken {
   var expiresAt: Date {
     Calendar.current.date(byAdding: .second, value: expiresIn, to: requestedAt) ?? Date()
   }
-  
+
   var bearerAccessToken: String {
     return "Bearer \(accessToken)"
   }

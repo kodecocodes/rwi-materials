@@ -41,9 +41,8 @@ actor TokenValidator {
   private let authFetcher: AuthTokenFetcher
   private let keychainManager: KeychainManagerProtocol
   private let server = ApiConstants.baseURLString
-  
-  private var accesstoken: String? = nil
-  private var expiresAt: Date = Date()
+  private var accesstoken: String?
+  private var expiresAt = Date()
 
   init(userDefaults: UserDefaults, authFetcher: AuthTokenFetcher, keychainManager: KeychainManagerProtocol) {
     self.userDefaults = userDefaults
@@ -59,15 +58,16 @@ extension TokenValidator: TokenValidatorProtocol {
       // Token and expiresAt are cached in-memory.
       return token
     }
-    
+
     // Token and expiresAt are not cached in-memory.
     // Tries to fetch token from keychain and expires at from UserDefaults.
-    if let keychainToken = await findToken(), let expiresAt = getExpiresAt(), expiresAt.compare(Date()) == .orderedDescending {
+    if let keychainToken = await findToken(),
+      let expiresAt = getExpiresAt(), expiresAt.compare(Date()) == .orderedDescending {
       self.accesstoken = keychainToken
       self.expiresAt = expiresAt
       return keychainToken
     }
-    
+
     // Token and expiresAt are not cached nor on Keychain/UserDefaults.
     // Must fetch from API
     let apiToken = try await fetchToken()
@@ -81,12 +81,12 @@ private extension TokenValidator {
   func fetchToken() async throws -> APIToken {
     return try await authFetcher.fetchToken()
   }
-  
+
   func refreshWith(apiToken: APIToken) async throws {
     let expiresAt = apiToken.expiresAt
     let accesstoken = apiToken.bearerAccessToken
-    
-    if let _ = await findToken() {
+
+    if await findToken() != nil {
       try await update(token: accesstoken)
     } else {
       try await save(token: accesstoken)
@@ -114,11 +114,11 @@ private extension TokenValidator {
   func findToken() async -> String? {
     return keychainManager.findKey(server: server, keyClass: kSecClassInternetPassword)
   }
-  
+
   func save(token: String) async throws {
     try keychainManager.save(key: token, server: server, keyClass: kSecClassInternetPassword)
   }
-  
+
   func update(token: String) async throws {
     guard let tokenData = token.data(using: .utf8) else { throw KeychainError.failedToConvertToData }
     let attributes = [kSecValueData: tokenData] as CFDictionary

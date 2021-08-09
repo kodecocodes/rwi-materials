@@ -93,7 +93,7 @@ struct AnimalRow: View {
 
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalRow(animal: CoreDataHelper.getTestAnimal()!)
+    AnimalRow(animal: animalMock)
   }
 }
 

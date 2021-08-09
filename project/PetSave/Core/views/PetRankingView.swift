@@ -33,7 +33,6 @@
 import SwiftUI
 
 struct PetRankingView: View {
-
   @ObservedObject var viewModel: PetRankingViewModel
 
   var body: some View {
@@ -41,11 +40,7 @@ struct PetRankingView: View {
   }
 }
 
-final class PetRankingViewModel: ObservableObject {
-
-
-
-}
+final class PetRankingViewModel: ObservableObject { }
 
 struct PetRankingView_Previews: PreviewProvider {
   static var previews: some View {

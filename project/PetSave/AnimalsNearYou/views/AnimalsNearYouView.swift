@@ -32,12 +32,12 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading, replacing ProgressView
+// Chapter 10: Animation here while data is loading, replacing ProgressView
 
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   @State var settingsIsPresented = false
-  
+
   @FetchRequest(
     sortDescriptors: [
       NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
@@ -45,7 +45,7 @@ struct AnimalsNearYouView: View {
     animation: .default
   )
   var animals: FetchedResults<AnimalEntity>
-  
+
   var body: some View {
     List {
       ForEach(animals) { animal in
@@ -102,7 +102,7 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
       \.managedObjectContext,
       PersistenceController.preview.container.viewContext
     )
-    
+
     NavigationView {
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(

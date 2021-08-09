@@ -33,18 +33,17 @@
 import XCTest
 @testable import PetSave
 
-//TODO: To be filled out, Chapter 3
+// TODO: To be filled out, Chapter 3
 class CoreDataHelperTests: XCTestCase {
-  
   override func setUpWithError() throws {
     CoreDataHelper.clearDatabase()
     print("documents \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])")
   }
-  
+
   override func tearDownWithError() throws {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
-  
+
 //  func testPersistableField() throws {
 //    
 //    //Given
@@ -98,12 +97,12 @@ class CoreDataHelperTests: XCTestCase {
 //        return XCTFail("No results or empty set returned from database")
 //      }
 //  }
-  
+
   func testPerformanceExample() throws {
     // This is an example of a performance test case.
     self.measure {
       // Put the code you want to measure the time of here.
     }
   }
-  
+
 }

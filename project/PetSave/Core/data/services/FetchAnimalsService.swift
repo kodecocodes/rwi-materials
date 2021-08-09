@@ -33,7 +33,7 @@
 final class FetchAnimalsService {
   private let petFinderApi: RequestManagerProtocol
   private var pagination: Pagination?
-  
+
   init(petFinderApi: RequestManagerProtocol = RequestManager()) {
     self.petFinderApi = petFinderApi
   }
@@ -47,9 +47,11 @@ extension FetchAnimalsService: AnimalsFetcher {
       #warning("Handle later on ViewModel")
       return []
     }
-    
+
     do {
-      let animalsContainer: AnimalsContainer = try await petFinderApi.request(with: AnimalsRouter.getAnimalsWith(page: page))
+      let animalsContainer: AnimalsContainer = try await petFinderApi.request(
+        with: AnimalsRouter.getAnimalsWith(page: page)
+      )
       self.pagination = animalsContainer.pagination
       return animalsContainer.animals
     } catch {

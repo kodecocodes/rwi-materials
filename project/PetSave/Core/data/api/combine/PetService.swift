@@ -34,11 +34,10 @@ import Foundation
 import Combine
 
 public struct PetService {
-  
   private var url: URL {
     urlComponents.url!
   }
-  
+
   private var urlComponents: URLComponents {
     var components = URLComponents()
     components.scheme = "https"

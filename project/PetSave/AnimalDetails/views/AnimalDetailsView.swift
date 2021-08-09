@@ -32,9 +32,9 @@
 
 import SwiftUI
 
-//Chapter 10: Animation here while data is loading
-//Chapter 10: Animate image of pet to full screen
-//Chapter 10: Custom control for ranking
+// Chapter 10: Animation here while data is loading
+// Chapter 10: Animate image of pet to full screen
+// Chapter 10: Custom control for ranking
 
 struct AnimalDetailsView: View {
   @State var zoomed = false
@@ -42,20 +42,19 @@ struct AnimalDetailsView: View {
   let animal: AnimalEntity
 
   var animalDescription: String? {
-    animal.description
+    animal.desc
   }
 
   var animalName: String? {
     animal.name
   }
-  
+
   var body: some View {
     GeometryReader { geometry in
       ScrollView {
         ZStack(alignment: .leading) {
-
           LazyVStack(alignment: .leading) {
-            AnimalHeaderView2(animal: animal, zoomed: $zoomed, geometry: geometry)
+            AnimalHeaderView(animal: animal, zoomed: $zoomed, geometry: geometry)
               .onTapGesture { zoomed.toggle() }
             AnimalDetailRow(animal: animal)
               .blur(radius: zoomed ? 20 : 0)
@@ -83,19 +82,17 @@ struct AnimalDetailsView: View {
   }
 }
 
-
 struct AnimalsView_Previews: PreviewProvider {
   static var previews: some View {
-    let animal = CoreDataHelper.getTestAnimal()!
     NavigationView {
-      AnimalDetailsView(animal: animal)
+      AnimalDetailsView(animal: animalMock)
         .previewLayout(.sizeThatFits)
     }
     .previewLayout(.sizeThatFits)
     .previewDisplayName("iPhone SE (2nd generation)")
 
     NavigationView {
-      AnimalDetailsView(animal: animal)
+      AnimalDetailsView(animal: animalMock)
     }
     .previewDevice("iPhone 12 Pro")
     .previewDisplayName("iPhone 12 Pro")

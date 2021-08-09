@@ -13,6 +13,7 @@
 		18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C922AD944400AE281E /* Preview Assets.xcassets */; };
 		18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D775DA22AD963800AE281E /* LaunchScreen.storyboard */; };
 		842F99B126C0E3E100324C79 /* AnimalSearcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F99B026C0E3E100324C79 /* AnimalSearcherService.swift */; };
+		8472150826C1EC33001FD40B /* AnimalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472150726C1EC33001FD40B /* AnimalHeaderView.swift */; };
 		8472DFAB26BF66EF000FEDAF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472DFAA26BF66EF000FEDAF /* LocationManager.swift */; };
 		8472DFCC26BF93B3000FEDAF /* AnimalsNearYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472DFCB26BF93B3000FEDAF /* AnimalsNearYouView.swift */; };
 		8485B72426A4A176001874CB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B72326A4A176001874CB /* SearchViewModel.swift */; };
@@ -30,7 +31,6 @@
 		84B0507026B0E2EB00E0A709 /* AnimalDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0506F26B0E2EB00E0A709 /* AnimalDetailRow.swift */; };
 		84B0507226B0E3C300E0A709 /* AnimalContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507126B0E3C300E0A709 /* AnimalContactsView.swift */; };
 		84B0507426B0E45000E0A709 /* AnimalLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507326B0E45000E0A709 /* AnimalLocationView.swift */; };
-		84B0507626B0E55E00E0A709 /* AnimalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507526B0E55E00E0A709 /* AnimalHeaderView.swift */; };
 		84B0507826B0E8F500E0A709 /* AnimalContactLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507726B0E8F500E0A709 /* AnimalContactLink.swift */; };
 		84B0507C26B0EFA800E0A709 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507B26B0EFA800E0A709 /* LocationFetcher.swift */; };
 		84B0507E26B0F12200E0A709 /* AnimalDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */; };
@@ -128,6 +128,7 @@
 		18D775CE22AD944400AE281E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D775DE22AD96B400AE281E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		842F99B026C0E3E100324C79 /* AnimalSearcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSearcherService.swift; sourceTree = "<group>"; };
+		8472150726C1EC33001FD40B /* AnimalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalHeaderView.swift; sourceTree = "<group>"; };
 		8472DFAA26BF66EF000FEDAF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		8472DFCB26BF93B3000FEDAF /* AnimalsNearYouView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsNearYouView.swift; sourceTree = "<group>"; };
 		8485B72326A4A176001874CB /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -145,7 +146,6 @@
 		84B0506F26B0E2EB00E0A709 /* AnimalDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailRow.swift; sourceTree = "<group>"; };
 		84B0507126B0E3C300E0A709 /* AnimalContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalContactsView.swift; sourceTree = "<group>"; };
 		84B0507326B0E45000E0A709 /* AnimalLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalLocationView.swift; sourceTree = "<group>"; };
-		84B0507526B0E55E00E0A709 /* AnimalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalHeaderView.swift; sourceTree = "<group>"; };
 		84B0507726B0E8F500E0A709 /* AnimalContactLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalContactLink.swift; sourceTree = "<group>"; };
 		84B0507B26B0EFA800E0A709 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
 		84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailCard.swift; sourceTree = "<group>"; };
@@ -334,12 +334,12 @@
 			isa = PBXGroup;
 			children = (
 				AE6A3785269B58350054C842 /* AnimalDetailsView.swift */,
-				84B0507526B0E55E00E0A709 /* AnimalHeaderView.swift */,
 				84B0506F26B0E2EB00E0A709 /* AnimalDetailRow.swift */,
 				84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */,
 				84B0507126B0E3C300E0A709 /* AnimalContactsView.swift */,
 				84B0507726B0E8F500E0A709 /* AnimalContactLink.swift */,
 				84B0507326B0E45000E0A709 /* AnimalLocationView.swift */,
+				8472150726C1EC33001FD40B /* AnimalHeaderView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -842,8 +842,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -877,7 +876,6 @@
 				AE6A3786269B58350054C842 /* AnimalDetailsView.swift in Sources */,
 				AE4B35C926A4F01100ABB892 /* VideoLink+CoreData.swift in Sources */,
 				8485B72426A4A176001874CB /* SearchViewModel.swift in Sources */,
-				84B0507626B0E55E00E0A709 /* AnimalHeaderView.swift in Sources */,
 				84A59F7E269E9BDB00237A83 /* AdoptionStatus.swift in Sources */,
 				AE6A3816269B5DCD0054C842 /* Gender.swift in Sources */,
 				18D775C522AD944300AE281E /* ContentView.swift in Sources */,
@@ -896,6 +894,7 @@
 				AE6A3790269B59110054C842 /* APIToken.swift in Sources */,
 				8FDD2CA126B3119400DBE33F /* AnimalContainer.swift in Sources */,
 				84BCAFA026BB00DA00401AD5 /* KeychainError.swift in Sources */,
+				8472150826C1EC33001FD40B /* AnimalHeaderView.swift in Sources */,
 				AE4B35BB26A4EF5F00ABB892 /* Contact+CoreData.swift in Sources */,
 				8FDD2CA326B311AC00DBE33F /* Pagination.swift in Sources */,
 				8472DFCC26BF93B3000FEDAF /* AnimalsNearYouView.swift in Sources */,

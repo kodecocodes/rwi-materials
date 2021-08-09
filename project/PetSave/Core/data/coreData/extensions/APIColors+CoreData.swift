@@ -34,18 +34,13 @@ import Foundation
 import CoreData
 
 extension APIColors: CoreDataPersistable {
-
-  var keyMap: [PartialKeyPath<APIColors> : String] {
-
-    get {
-      [
-        \.primary : "primary",
-        \.secondary : "secondary",
-        \.tertiary : "tertiary"
-      ]
-    }
+  var keyMap: [PartialKeyPath<APIColors>: String] {
+    [
+      \.primary: "primary",
+      \.secondary: "secondary",
+      \.tertiary: "tertiary"
+    ]
   }
 
   typealias ManagedType = APIColorsEntity
-
 }
