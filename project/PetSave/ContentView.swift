@@ -47,7 +47,7 @@ struct ContentView: View {
         Label("Near you", systemImage: "location")  //Chapter 12 - SF Symbols
       }
       .environmentObject(LocationManager())
-      
+
       NavigationView {
         AnimalsNearYouView2(
           viewModel: AnimalsNearYouViewModel2(

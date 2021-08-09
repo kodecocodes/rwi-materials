@@ -172,6 +172,7 @@ extension Animal: UUIDIdentifiable {
     guard checkForExistingAnimal(id: self.id!, context: context) == false else { return }
 
     let persistedValue = AnimalEntity.init(context: context)
+    persistedValue.timestamp = Date()
     persistedValue.age = self.age
     persistedValue.coat = self.coat ?? .short
     persistedValue.desc = self.description

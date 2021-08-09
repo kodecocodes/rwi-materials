@@ -303,6 +303,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		84419B4826C0A83C00CF3B75 /* AnimalsNearYou */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AnimalsNearYou;
+			sourceTree = "<group>";
+		};
 		8485B72226A4A15A001874CB /* viewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,6 +673,7 @@
 		AE6A3803269B5C050054C842 /* PetSaveUITests */ = {
 			isa = PBXGroup;
 			children = (
+				84419B4826C0A83C00CF3B75 /* AnimalsNearYou */,
 				AE6A3804269B5C050054C842 /* PetSaveUITests.swift */,
 			);
 			path = PetSaveUITests;
@@ -843,7 +851,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 

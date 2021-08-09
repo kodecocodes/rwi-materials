@@ -35,6 +35,7 @@ import CoreData
 
 final class AnimalsNearYouViewModel2: ObservableObject {
   @Published var isLoading: Bool
+  @Published var hasMoreAnimals = true
 
   var page = 1
   
@@ -51,21 +52,30 @@ final class AnimalsNearYouViewModel2: ObservableObject {
     self.context = context
   }
   
-  func fetchAnimals2() async {
+  func fetchAnimals() async {
     let animals = await animalFetcher.fetchAnimals(page: page)
-    await addAnimals2(animals: animals)
+    await addAnimals(animals: animals)
   }
   
-  func fetchMoreAnimals2() {
+  func fetchMoreAnimals() {
     Task {
       page += 1
       let animals = await animalFetcher.fetchAnimals(page: page)
-      await addAnimals2(animals: animals)
+      await addAnimals(animals: animals)
+    }
+  }
+
+  func refresh() {
+    CoreDataHelper.clearDatabase()
+    page = 1
+    Task {
+      await fetchAnimals()
     }
   }
   
   @MainActor
-  func addAnimals2(animals: [Animal]) {
+  func addAnimals(animals: [Animal]) {
+    hasMoreAnimals = !animals.isEmpty
     for var animal in animals {
       animal.toManagedObject(context: context)
     }

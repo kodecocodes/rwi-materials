@@ -40,7 +40,7 @@ struct AnimalsNearYouView2: View {
   
   @FetchRequest(
     sortDescriptors: [
-      NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)
+      NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
     ],
     animation: .default
   )
@@ -49,22 +49,22 @@ struct AnimalsNearYouView2: View {
   var body: some View {
     List {
       ForEach(animals) { animal in
-        NavigationLink(destination: Text("TODO: Add Details View")) {
+        NavigationLink(destination: AnimalDetailsView(animal: Animal(managedObject: animal))) {
           AnimalRow(animal: Animal(managedObject: animal))
         }
       }
-      if !animals.isEmpty {
+      if !animals.isEmpty && viewModel.hasMoreAnimals {
         ProgressView("Finding more animals...")
           .padding()
           .frame(maxWidth: .infinity)
-          .onAppear(perform: viewModel.fetchMoreAnimals2)
+          .onAppear(perform: viewModel.fetchMoreAnimals)
       }
     }
-    .task(viewModel.fetchAnimals2)
+    .task(viewModel.fetchAnimals)
     .listStyle(.plain)
     .navigationTitle("Animals near you")
     .refreshable {
-//      viewModel.refresh()
+      viewModel.refresh()
     }
     .overlay {
       if viewModel.isLoading {

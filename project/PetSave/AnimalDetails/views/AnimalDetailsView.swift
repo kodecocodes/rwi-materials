@@ -37,18 +37,16 @@ import SwiftUI
 //Chapter 10: Custom control for ranking
 
 struct AnimalDetailsView: View {
-
-  let animalDescription: String?
-  let animalName: String?
-
   @State var zoomed = false
 
   let animal: Animal
 
-  init(animal: Animal) {
-    self.animal = animal
-    self.animalDescription = animal.description
-    self.animalName = animal.name
+  var animalDescription: String? {
+    animal.description
+  }
+
+  var animalName: String? {
+    animal.name
   }
   
   var body: some View {
