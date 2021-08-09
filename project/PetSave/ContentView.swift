@@ -33,6 +33,8 @@
 import SwiftUI
 
 struct ContentView: View {
+  let managedObjectContext = PersistenceController.shared.container.viewContext
+  
   var body: some View {
     TabView {
       NavigationView {
@@ -41,18 +43,18 @@ struct ContentView: View {
             animalFetcher: FetchAnimalsService()
           )
         )
-        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
       }
       .tabItem {
         Label("Near you", systemImage: "location")  //Chapter 12 - SF Symbols
       }
       .environmentObject(LocationManager())
+      .environment(\.managedObjectContext, managedObjectContext)
 
       NavigationView {
         AnimalsNearYouView2(
           viewModel: AnimalsNearYouViewModel2(
             animalFetcher: FetchAnimalsService(),
-            context: PersistenceController.shared.container.viewContext
+            context: managedObjectContext
           )
         )
       }
@@ -60,18 +62,22 @@ struct ContentView: View {
         Label("Near you2", systemImage: "location")  //Chapter 12 - SF Symbols
       }
       .environmentObject(LocationManager())
-      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+      .environment(\.managedObjectContext, managedObjectContext)
       
       NavigationView {
         SearchView(
           viewModel: SearchViewModel(
-            animalSearcher: AnimalSearcherMock()
+            animalSearcher: AnimalSearcherService(
+              petFinderAPI: RequestManager()
+            ),
+            context: managedObjectContext
           )
         )
       }
       .tabItem {
         Label("Search", systemImage: "magnifyingglass") //Chapter 12 - SF Symbols
       }
+      .environment(\.managedObjectContext, managedObjectContext)
     }
   }
 }

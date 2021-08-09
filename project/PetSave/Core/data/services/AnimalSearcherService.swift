@@ -30,71 +30,27 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-import CoreData
-
-protocol AnimalSearcher {
-  func searchAnimal(
-    by text: String,
-    age: AnimalSearchAge,
-    type: AnimalSearchType
-  ) async -> [Animal]
+struct AnimalSearcherService {
+  let petFinderAPI: RequestManagerProtocol
 }
 
-final class SearchViewModel: ObservableObject {
-  @Published var searchText = ""
-  @Published var ageSelection = AnimalSearchAge.none
-  @Published var typeSelection = AnimalSearchType.none
-  
-  private let animalSearcher: AnimalSearcher
-  
-  let context: NSManagedObjectContext
-
-  init(animalSearcher: AnimalSearcher, context: NSManagedObjectContext) {
-    self.animalSearcher = animalSearcher
-    self.context = context
-  }
-  
-  func search() {
-    Task {
-      let animals = await animalSearcher.searchAnimal(
-        by: searchText,
-        age: ageSelection,
-        type: typeSelection
-      )
-      await update(animals: animals)
-    }
-  }
-  
-  func selectTypeSuggestion(_ type: AnimalSearchType) {
-    typeSelection = type
-    search()
-  }
-
-  //TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
-  @MainActor
-  func update(animals: [Animal]) {
-    for var animal in animals {
-      animal.toManagedObject(context: context)
-    }
-  }
-}
-
-//#if DEBUG
-#warning("For testing purposes")
-struct AnimalSearcherMock: AnimalSearcher {
+// MARK: - AnimalSearcher
+extension AnimalSearcherService: AnimalSearcher {
   func searchAnimal(
     by text: String,
     age: AnimalSearchAge,
     type: AnimalSearchType
   ) async -> [Animal] {
-    var animals = Animal.mock
-    if age != .none {
-      animals = animals.filter { $0.age.rawValue.lowercased() == age.rawValue.lowercased() }
+    do {
+      #warning("Add age and type filters")
+      let animalsContainer: AnimalsContainer = try await petFinderAPI.request(with: AnimalsRouter.getAnimalBy(name: text))
+      return animalsContainer.animals
+    } catch {
+      #warning("Handle later on ViewModel")
+      print(error.localizedDescription)
+      return []
     }
-    if type != .none {
-      animals = animals.filter { $0.type.lowercased() == type.rawValue.lowercased() }
-    }
-    return animals.filter { $0.name.contains(text) }
   }
 }
+
+

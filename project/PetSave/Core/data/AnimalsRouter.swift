@@ -36,6 +36,7 @@ enum AnimalsRouter: RouterProtocol {
   case getAnimalsWith(page: Int)
   case getAnimalsBy(postCode: String)
   case getAnimalsByLocation(latitude: String, longitude: String)
+  case getAnimalBy(name: String)
   
   var path: String {
     switch self {
@@ -45,6 +46,8 @@ enum AnimalsRouter: RouterProtocol {
       return "/animals?location=\(postCode)"
     case .getAnimalsByLocation(let latitude, let longitude):
       return "/animals?location=\(latitude),\(longitude)"
+    case .getAnimalBy(let name):
+      return "/animals?name=\(name)"
     }
   }
   

@@ -35,57 +35,42 @@ import SwiftUI
 //Chapter 10: Animation here while data is loading
 
 struct SearchView: View {
-  
   let navigationTitle = NSLocalizedString("SEARCH_NAVIGATION_TITLE", comment: "Search View Navigation Title")
   
   @ObservedObject var viewModel: SearchViewModel
-
-  #if !DEBUG
-  @SectionedFetchRequest<String, AnimalEntity>(
-    sectionIdentifier: \.breed,
-    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)],
+  
+  @FetchRequest(
+    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],
     animation: .default
-  ) private var sectionedAnimals : SectionedFetchResults<String, AnimalEntity>
-  #endif
+  )
+  private var animals: FetchedResults<AnimalEntity>
   
-  // For some reason, isSearching only change on subviews.
-  // isSearching is also get only so we can't dismiss the searchbar after hitting submit.
-//  @Environment(\.isSearching) var isSearching: Bool
-  
-  private let columns = [
-    GridItem(.flexible()),
-    GridItem(.flexible())
-  ]
+  var searchAnimalsResults: [AnimalEntity] {
+    if viewModel.searchText.isEmpty {
+      return []
+    } else {
+      return animals.filter { $0.name?.contains(viewModel.searchText) ?? false }
+    }
+  }
   
   var body: some View {
-    ScrollView {
-      if viewModel.animals.isEmpty {
-        SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { suggestion in
-          viewModel.selectTypeSuggestion(suggestion)
-
+    List {
+      ForEach(searchAnimalsResults) { animal in
+        NavigationLink(destination: AnimalDetailsView(animal: Animal(managedObject: animal))) {
+          AnimalRow(animal: Animal(managedObject: animal))
         }
-      } else {
-        #if DEBUG
-        AnimalsGrid(animals: viewModel.animals)
-        #else
-        ForEach(sectionedAnimals) { animals in
-          Section(header: Text(animals.id)) {
-            AnimalsGrid(animalEntities: animals.reversed())
-          }
-        }
-        #endif
       }
     }
+    .overlay {
+      SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { suggestion in
+        viewModel.selectTypeSuggestion(suggestion)
+      }
+    }
+    .listStyle(.plain)
     .navigationTitle("Find your future pet")
     .searchable(text: $viewModel.searchText)
-    .onSubmit(of: .search) {
+    .onChange(of: viewModel.searchText) { _ in
       viewModel.search()
-    }
-    // There's no .onCancel(of: .search) modifier to clear the view if the user canceled the search or cleared the search bar.
-    .onChange(of: viewModel.searchText) { newText in
-      if newText.isEmpty {
-        viewModel.resetSearch()
-      }
     }
     .toolbar {
       ToolbarItem {
@@ -124,69 +109,38 @@ struct SearchView: View {
   }
 }
 
-#if DEBUG
 struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
-    Group {
-      NavigationView {
-        SearchView(
-          viewModel: SearchViewModel(
-            animalSearcher: AnimalSearcherMock()
-          )
+    let context = PersistenceController.preview.container.viewContext
+    NavigationView {
+      SearchView(
+        viewModel: SearchViewModel(
+          animalSearcher: AnimalSearcherMock(),
+          context: context
         )
-      }
-      
-      NavigationView {
-        SearchView(
-          viewModel: SearchViewModel(
-            animalSearcher: AnimalSearcherMock()
-          )
-        )
-      }.environment(\.locale, .init(identifier: "es"))
-        .previewDisplayName("Spanish Locale")
-
-      //Chapter 12 - Dark mode previews
-      NavigationView {
-        SearchView(
-          viewModel: SearchViewModel(
-            animalSearcher: AnimalSearcherMock()
-          )
-        )
-      }.preferredColorScheme(.dark)
+      )
     }
+    
+    NavigationView {
+      SearchView(
+        viewModel: SearchViewModel(
+          animalSearcher: AnimalSearcherMock(),
+          context: context
+        )
+      )
+    }
+    .environment(\.locale, .init(identifier: "es"))
+    .previewDisplayName("Spanish Locale")
+
+    //Chapter 12 - Dark mode previews
+    NavigationView {
+      SearchView(
+        viewModel: SearchViewModel(
+          animalSearcher: AnimalSearcherMock(),
+          context: context
+        )
+      )
+    }
+    .preferredColorScheme(.dark)
   }
 }
-#else
-struct SearchView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      NavigationView {
-        SearchView(
-          viewModel: SearchViewModel(
-            animalSearcher: AnimalSearcherMock()
-          )
-        )
-      }
-
-      NavigationView {
-        SearchView(
-          viewModel: SearchViewModel(
-            animalSearcher: AnimalSearcherMock()
-          )
-        )
-      }.environment(\.locale, .init(identifier: "es"))
-        .previewDisplayName("Spanish Locale")
-
-      //Chapter 12 - Dark mode previews
-      NavigationView {
-        SearchView(
-          viewModel: SearchViewModel(
-            animalSearcher: AnimalSearcherMock()
-          )
-        )
-      }.preferredColorScheme(.dark)
-    }
-  }
-}
-#endif
-

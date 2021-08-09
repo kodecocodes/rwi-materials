@@ -36,6 +36,8 @@ struct SuggestionsGrid: View {
   let suggestions: [AnimalSearchType]
   let action: (AnimalSearchType) -> ()
   
+  @Environment(\.isSearching) var isSearching: Bool
+  
   private let columns = [
     GridItem(.flexible()),
     GridItem(.flexible())
@@ -43,7 +45,6 @@ struct SuggestionsGrid: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      Divider()
       Text("Browse by Type")
         .font(.title2.bold())
       LazyVGrid(columns: columns) {
@@ -56,6 +57,7 @@ struct SuggestionsGrid: View {
       }
     }
     .padding()
+    .opacity(isSearching ? 0 : 1)
   }
 }
 
