@@ -89,7 +89,7 @@ extension CoreDataHelper {
     return nil
   }
 
-  static func getTestAnimal() -> AnimalEntity? {
+  static func getTestAnimalEntity() -> AnimalEntity? {
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
     guard let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
@@ -97,7 +97,7 @@ extension CoreDataHelper {
     return first
   }
 
-  static func getTestAnimals() -> [AnimalEntity]? {
+  static func getTestAnimalEntities() -> [AnimalEntity]? {
     let fetchRequest = AnimalEntity.fetchRequest()
     guard let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest),
       !results.isEmpty else { return nil }

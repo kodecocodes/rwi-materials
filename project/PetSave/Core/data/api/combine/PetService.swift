@@ -35,6 +35,7 @@ import Combine
 
 public struct PetService {
   private var url: URL {
+    // swiftlint:disable:next force_unwrapping
     urlComponents.url!
   }
 

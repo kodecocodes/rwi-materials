@@ -55,4 +55,5 @@ struct Animal: Codable {
   var contact: Contact
   let publishedAt: String?
   let distance: Double?
+  var ranking: Int? = 0
 }

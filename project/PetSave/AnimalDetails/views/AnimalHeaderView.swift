@@ -62,7 +62,7 @@ struct AnimalImage: View {
     AsyncImage(url: animalPicture) { image in
       image
         .resizable()
-        .aspectRatio(contentMode: .fit)
+        .aspectRatio(zoomed ? nil : 1, contentMode: zoomed ? .fit : .fill)
     } placeholder: {
       Image("rw-logo")
         .resizable()

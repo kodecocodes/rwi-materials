@@ -37,6 +37,7 @@ enum Age: String, Codable, CaseIterable {
   case young = "Young"
   case adult = "Adult"
   case senior = "Senior"
+  case unknown = "Unknown"
 }
 
 extension Age {
@@ -50,6 +51,8 @@ extension Age {
       return .green
     case .senior:
       return .blue
+    case .unknown:
+      return .clear
     }
   }
 }

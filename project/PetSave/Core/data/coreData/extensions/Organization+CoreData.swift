@@ -41,10 +41,12 @@ extension Organization: CoreDataPersistable {
     ]
   }
 
-  init(managedObject: OrganizationEntity) {
+  init(managedObject: OrganizationEntity?) {
+    guard let managedObject = managedObject else { return }
     self.id = Int(managedObject.id)
     self.distance = managedObject.distance
-    self.contact = Contact(managedObject: managedObject.contact!)
+    guard let contact = managedObject.contact else { return }
+    self.contact = Contact(managedObject: contact)
   }
 
   mutating func toManagedObject(context: NSManagedObjectContext) -> OrganizationEntity {

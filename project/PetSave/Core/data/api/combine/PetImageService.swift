@@ -40,6 +40,7 @@ public struct PetImageService {
 extension PetImageService: PetServiceDataPublisher {
   public func publisher() -> AnyPublisher<Data, URLError> {
     URLSession.shared
+      // swiftlint:disable:next force_unwrapping
       .dataTaskPublisher(for: URL(string: url)!)
       .map(\.data)
       .eraseToAnyPublisher()

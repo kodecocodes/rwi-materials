@@ -40,7 +40,7 @@ protocol CoreDataPersistable: UUIDIdentifiable {
 
   init()
 
-  init(managedObject: ManagedType)
+  init(managedObject: ManagedType?)
 
   mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType
 
@@ -48,8 +48,9 @@ protocol CoreDataPersistable: UUIDIdentifiable {
 }
 
 extension CoreDataPersistable where ManagedType: NSManagedObject {
-  init(managedObject: ManagedType) {
+  init(managedObject: ManagedType?) {
     self.init()
+    guard let managedObject = managedObject else { return }
     for attribute in managedObject.entity.attributesByName {  // this gets attributes, not relationships
       if let keyP = keyMap.first(where: { $0.value == attribute.key })?.key {
         let value = managedObject.value(forKey: attribute.key)

@@ -37,6 +37,7 @@ class TokenValidatorTests: XCTestCase {
   var tokenValidator: TokenValidator!
 
   override func setUp() {
+    super.setUp()
     tokenValidator = TokenValidator(
       userDefaults: UserDefaults.standard,
       authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateValidToken),
@@ -45,6 +46,7 @@ class TokenValidatorTests: XCTestCase {
   }
 
   override func tearDown() {
+    super.tearDown()
     let server = ApiConstants.baseURLString
     UserDefaults.standard.set(nil, forKey: "expiresAt")
     let deleteQuery = [

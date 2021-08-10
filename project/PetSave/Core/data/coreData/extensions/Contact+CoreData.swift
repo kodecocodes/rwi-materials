@@ -35,11 +35,12 @@ import Foundation
 import CoreData
 
 extension Contact: CoreDataPersistable {
-  init(managedObject: ContactEntity) {
+  init(managedObject: ContactEntity?) {
+    guard let managedObject = managedObject else { return }
     self.id = Int(managedObject.id)
     self.email = managedObject.email
     self.phone = managedObject.phone
-    self.address = Address(managedObject: managedObject.address!)
+    self.address = Address(managedObject: managedObject.address)
   }
 
   var keyMap: [PartialKeyPath<Contact>: String] {

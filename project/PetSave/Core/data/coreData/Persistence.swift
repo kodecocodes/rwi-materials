@@ -59,7 +59,7 @@ struct PersistenceController {
   init(inMemory: Bool = false) {
     container = NSPersistentCloudKitContainer(name: "PetSave")
     if inMemory {
-      container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+      container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
     }
     container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     container.loadPersistentStores { _, error in

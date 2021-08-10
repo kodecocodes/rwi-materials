@@ -37,4 +37,5 @@ enum Coat: String, Codable {
   case wire = "Wire"
   case hairless = "Hairless"
   case curly = "Curly"
+  case unknown = "Unknown"
 }

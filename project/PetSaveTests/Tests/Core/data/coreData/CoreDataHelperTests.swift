@@ -36,11 +36,13 @@ import XCTest
 // TODO: To be filled out, Chapter 3
 class CoreDataHelperTests: XCTestCase {
   override func setUpWithError() throws {
+    try super.setUpWithError()
     CoreDataHelper.clearDatabase()
     print("documents \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])")
   }
 
   override func tearDownWithError() throws {
+    try super.tearDownWithError()
     // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
 
@@ -104,5 +106,4 @@ class CoreDataHelperTests: XCTestCase {
       // Put the code you want to measure the time of here.
     }
   }
-
 }

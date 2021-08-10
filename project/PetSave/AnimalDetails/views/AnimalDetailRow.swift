@@ -79,6 +79,10 @@ struct AnimalDetailCards_Previews: PreviewProvider {
 #warning("Move to Preview content")
 extension PreviewProvider {
   static var animalMock: AnimalEntity {
-    CoreDataHelper.getTestAnimal()!
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      return animal
+    } else {
+      return AnimalEntity()
+    }
   }
 }

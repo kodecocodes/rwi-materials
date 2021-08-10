@@ -62,6 +62,7 @@ struct AnimalContactLink_Previews: PreviewProvider {
     AnimalContactLink(
       title: "(555) 394-2033",
       iconName: "phone.fill",
+      // swiftlint:disable:next force_unwrapping
       url: URL(string: "www.apple.com")!,
       color: .green
     )

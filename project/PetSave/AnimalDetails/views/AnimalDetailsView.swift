@@ -56,17 +56,26 @@ struct AnimalDetailsView: View {
           LazyVStack(alignment: .leading) {
             AnimalHeaderView(animal: animal, zoomed: $zoomed, geometry: geometry)
               .onTapGesture { zoomed.toggle() }
+            Divider()
+              .blur(radius: zoomed ? 20 : 0)
+            PetRankingView(animal: animal)
+              .padding()
+              .blur(radius: zoomed ? 20 : 0)
             AnimalDetailRow(animal: animal)
+              .blur(radius: zoomed ? 20 : 0)
+            Divider()
               .blur(radius: zoomed ? 20 : 0)
             VStack(alignment: .leading, spacing: 24) {
               if let description = animalDescription {
                 VStack(alignment: .leading) {
                   Text("Details")
-                    .font(.title2)
+                    .font(.headline)
                   Text(description)
                 }
               }
               AnimalContactsView(animal: animal)
+              Divider()
+                .blur(radius: zoomed ? 20 : 0)
               AnimalLocationView(animal: animal)
             }
             .blur(radius: zoomed ? 20 : 0)
