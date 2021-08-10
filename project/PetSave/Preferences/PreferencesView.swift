@@ -42,8 +42,7 @@ struct PreferencesView: View {
   """
 
   let locationReason = """
-  PetSave can use your current location to find animals near you.
-  If you don't live in the US, you can turn this feature off and use a mocked location.
+  PetSave can use your current location to find animals that are near you. If you don't live in the US, you can turn this feature off and use a mocked location.
   """
 
   var body: some View {
@@ -51,7 +50,7 @@ struct PreferencesView: View {
       List {
         Section {
           VStack {
-            Toggle("Toggle real location", isOn: $locationManager.useUserLocation)
+            Toggle("Use Real Location", isOn: $locationManager.useUserLocation)
               .disabled(locationManager.locationIsDisabled)
 
             if locationManager.openInSettings {
@@ -64,14 +63,20 @@ struct PreferencesView: View {
             }
 
             if locationManager.shouldRequestForLocation {
-              LocationButton(
-                .currentLocation,
-                action: locationManager.startUpdatingLocation
-              )
-              .cornerRadius(15)
-              .padding()
-              .symbolVariant(.fill)
-              .foregroundColor(.white)
+              VStack {
+                Text("Share your current location to enable real location when searching animals near you.")
+                  .frame(height: 65)
+                  .multilineTextAlignment(.center)
+                  .foregroundColor(.secondary)
+                LocationButton(
+                  .shareCurrentLocation,
+                  action: locationManager.startUpdatingLocation
+                )
+                .cornerRadius(15)
+                .padding()
+                .symbolVariant(.fill)
+                .foregroundColor(.white)
+              }
             }
           }
         } header: {

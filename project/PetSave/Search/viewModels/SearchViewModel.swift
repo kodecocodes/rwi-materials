@@ -50,6 +50,12 @@ final class SearchViewModel: ObservableObject {
 
   let context: NSManagedObjectContext
 
+  var shouldFilter: Bool {
+    !searchText.isEmpty ||
+      ageSelection != .none ||
+      typeSelection != .none
+  }
+
   init(animalSearcher: AnimalSearcher, context: NSManagedObjectContext) {
     self.animalSearcher = animalSearcher
     self.context = context

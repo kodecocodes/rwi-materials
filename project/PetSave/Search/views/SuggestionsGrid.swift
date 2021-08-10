@@ -58,7 +58,7 @@ struct SuggestionsGrid: View {
         }
       }
     }
-    .padding()
+    .padding(.horizontal)
     .opacity(isSearching ? 0 : 1)
   }
 }

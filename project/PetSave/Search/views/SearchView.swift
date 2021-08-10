@@ -34,6 +34,37 @@ import SwiftUI
 
 // Chapter 10: Animation here while data is loading
 
+#warning("Move to it's own file... But where? Inside ViewModels?")
+struct FilterAnimals {
+  let animals: FetchedResults<AnimalEntity>
+  let query: String
+  let age: AnimalSearchAge
+  let type: AnimalSearchType
+
+  func callAsFunction() -> [AnimalEntity] {
+    let ageText = age.rawValue.lowercased()
+    let typeText = type.rawValue.lowercased()
+    return animals.filter {
+      if ageText != "none" {
+        return $0.age.rawValue.lowercased() == ageText
+      }
+      return true
+    }
+    .filter {
+      if typeText != "none" {
+        return $0.type?.lowercased() == typeText
+      }
+      return true
+    }
+    .filter {
+      if query.isEmpty {
+        return true
+      }
+      return $0.name?.contains(query) ?? false
+    }
+  }
+}
+
 struct SearchView: View {
   let navigationTitle = NSLocalizedString("SEARCH_NAVIGATION_TITLE", comment: "Search View Navigation Title")
 
@@ -45,12 +76,20 @@ struct SearchView: View {
   )
   private var animals: FetchedResults<AnimalEntity>
 
+  private var filterAnimals: FilterAnimals {
+    FilterAnimals(
+      animals: animals,
+      query: viewModel.searchText,
+      age: viewModel.ageSelection,
+      type: viewModel.typeSelection
+    )
+  }
+
   var searchAnimalsResults: [AnimalEntity] {
-    if viewModel.searchText.isEmpty {
-      return []
-    } else {
-      return animals.filter { $0.name?.contains(viewModel.searchText) ?? false }
+    if viewModel.shouldFilter {
+      return filterAnimals()
     }
+    return []
   }
 
   var body: some View {
@@ -62,8 +101,24 @@ struct SearchView: View {
       }
     }
     .overlay {
-      SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { suggestion in
-        viewModel.selectTypeSuggestion(suggestion)
+      if searchAnimalsResults.isEmpty {
+        SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { suggestion in
+          viewModel.selectTypeSuggestion(suggestion)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+      }
+    }
+    .overlay {
+      if searchAnimalsResults.isEmpty && !viewModel.searchText.isEmpty {
+        VStack {
+          Image(systemName: "pawprint.circle.fill")
+            .resizable()
+            .frame(width: 64, height: 64)
+            .padding()
+            .foregroundColor(.yellow)
+          Text("Sorry, we couldn't find animals with \(viewModel.searchText)")
+            .foregroundColor(.secondary)
+        }
       }
     }
     .listStyle(.plain)
