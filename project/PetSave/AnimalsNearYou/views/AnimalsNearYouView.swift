@@ -38,6 +38,13 @@ struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   @State var settingsIsPresented = false
 
+  //TODO: Track down why this doesn't work after first launch
+//  @SectionedFetchRequest<String, AnimalEntity>(
+//    sectionIdentifier: \breed,
+//    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.breed, ascending: true), NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],
+//    animation: .default
+//  ) private var sectionedAnimals: SectionedFetchResults<String, AnimalEntity>
+
   @FetchRequest(
     sortDescriptors: [
       NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
@@ -47,7 +54,23 @@ struct AnimalsNearYouView: View {
   var animals: FetchedResults<AnimalEntity>
 
   var body: some View {
+//    let _  = print("sec fetch count \(sectionedAnimals.count)")
     List {
+//      ForEach(sectionedAnimals) { animals in
+//        Section(header: Text(animals.id)) {
+//          ForEach(animals) { animal in
+//            NavigationLink(destination: AnimalDetailsView(animal: animal)) {
+//              AnimalRow(animal: animal)
+//            }
+//          }
+//        }
+//      }
+//      if !sectionedAnimals.isEmpty && viewModel.hasMoreAnimals {
+//        ProgressView("Finding more animals...")
+//          .padding()
+//          .frame(maxWidth: .infinity)
+//          .onAppear(perform: viewModel.fetchMoreAnimals)
+//      }
       ForEach(animals) { animal in
         NavigationLink(destination: AnimalDetailsView(animal: animal)) {
           AnimalRow(animal: animal)

@@ -61,7 +61,6 @@ struct PersistenceController {
     if inMemory {
       container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
     }
-    container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     container.loadPersistentStores { _, error in
       if let error = error as NSError? {
         // Replace this implementation with code to handle the error appropriately.
@@ -78,5 +77,6 @@ struct PersistenceController {
         fatalError("Unresolved error \(error), \(error.userInfo)")
       }
     }
+    container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
   }
 }
