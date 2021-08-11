@@ -66,9 +66,10 @@ struct FilterAnimals {
 }
 
 struct SearchView: View {
-  let navigationTitle = NSLocalizedString("SEARCH_NAVIGATION_TITLE", comment: "Search View Navigation Title")
+  let navigationTitle = LocalizedStringKey("SEARCH_NAVIGATION_TITLE")
 
   @ObservedObject var viewModel: SearchViewModel
+  @State var searchText = ""
 
   @FetchRequest(
     sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],

@@ -55,7 +55,7 @@ struct AnimalTypeSuggestionView: View {
       .frame(height: 96)
       .overlay(gradientOverlay)
       .overlay(alignment: .bottomLeading) {
-        Text(suggestion.rawValue.capitalized)
+        Text(LocalizedStringKey(suggestion.rawValue.capitalized))
           .padding(12)
           .foregroundColor(.white)
           .font(.headline)
@@ -68,6 +68,10 @@ struct AnimalTypeSuggestionView_Previews: PreviewProvider {
   static var previews: some View {
     AnimalTypeSuggestionView(suggestion: AnimalSearchType.cat)
       .previewLayout(.sizeThatFits)
+    AnimalTypeSuggestionView(suggestion: AnimalSearchType.cat)
+      .previewLayout(.sizeThatFits)
+      .environment(\.locale, .init(identifier: "es"))
+      .previewDisplayName("Spanish Locale")
 //    Group {
 //      ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
 //        AnimalTypeSuggestionView(suggestion: suggestion)
