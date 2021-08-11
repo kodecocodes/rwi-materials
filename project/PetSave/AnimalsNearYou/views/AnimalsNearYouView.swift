@@ -38,7 +38,7 @@ struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   @State var settingsIsPresented = false
 
-  //TODO: Track down why this doesn't work after first launch
+  // TODO: Track down why this doesn't work after first launch
 //  @SectionedFetchRequest<String, AnimalEntity>(
 //    sectionIdentifier: \breed,
 //    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.breed, ascending: true), NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],
@@ -83,7 +83,9 @@ struct AnimalsNearYouView: View {
           .onAppear(perform: viewModel.fetchMoreAnimals)
       }
     }
-    .task(viewModel.fetchAnimals)
+    .task {
+      await viewModel.fetchAnimals()
+    }
     .listStyle(.plain)
     .navigationTitle("Animals near you")
     .refreshable {

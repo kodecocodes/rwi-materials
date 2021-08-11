@@ -56,7 +56,6 @@ final class AnimalsNearYouViewModel: ObservableObject {
     self.context = context
   }
 
-  @Sendable
   func fetchAnimals() async {
     let animals = await animalFetcher.fetchAnimals(page: page)
     await addAnimals(animals: animals)
