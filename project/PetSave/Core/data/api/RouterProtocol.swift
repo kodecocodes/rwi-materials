@@ -37,12 +37,13 @@ protocol RouterProtocol {
   var requestType: RequestType { get }
   var headers: [String: String] { get }
   var params: [String: Any] { get }
+  var urlParams: [String: String?] { get }
   var addAuthorizationToken: Bool { get }
 }
 
 extension RouterProtocol {
-  var baseURL: String {
-    ApiConstants.baseURLString + ApiConstants.version
+  var host: String {
+    APIConstants.host
   }
 
   var addAuthorizationToken: Bool {
@@ -53,12 +54,26 @@ extension RouterProtocol {
     [:]
   }
 
+  var urlParams: [String: String?] {
+    [:]
+  }
+
   var headers: [String: String] {
     [:]
   }
 
   func request(authToken: String) async throws -> URLRequest {
-    guard let url = URL(string: baseURL + path) else { throw NSError(domain: "URL string is malformed.", code: -1) }
+    var components = URLComponents()
+    components.scheme = "https"
+    components.host = host
+    components.path = path
+
+    if !urlParams.isEmpty {
+      components.queryItems = urlParams.map { URLQueryItem(name: $0, value: $1) }
+    }
+
+    guard let url = components.url else { throw NSError(domain: "URL string is malformed.", code: -1) }
+
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = requestType.rawValue
 
@@ -75,6 +90,8 @@ extension RouterProtocol {
     if !params.isEmpty {
       urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
     }
+
+    printURLRequest(urlRequest)
 
     return urlRequest
   }

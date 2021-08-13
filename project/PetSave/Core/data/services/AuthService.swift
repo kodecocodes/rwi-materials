@@ -55,14 +55,14 @@ enum AuthTokenRouter: RouterProtocol {
   case auth
 
   var path: String {
-    "/oauth2/token"
+    "/v2/oauth2/token"
   }
 
   var params: [String: Any] {
     [
-      "grant_type": ApiConstants.grantType,
-      "client_id": ApiConstants.clientId,
-      "client_secret": ApiConstants.clientSecret
+      "grant_type": APIConstants.grantType,
+      "client_id": APIConstants.clientId,
+      "client_secret": APIConstants.clientSecret
     ]
   }
 

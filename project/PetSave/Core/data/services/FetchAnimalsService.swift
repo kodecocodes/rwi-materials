@@ -32,27 +32,23 @@
 
 final class FetchAnimalsService {
   private let petFinderApi: RequestManagerProtocol
-  private var pagination: Pagination?
 
   init(petFinderApi: RequestManagerProtocol = RequestManager()) {
     self.petFinderApi = petFinderApi
   }
 }
 
+import CoreLocation
 // MARK: - AnimalsFetcher
 extension FetchAnimalsService: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    // if user has scrolled more than the total pages.
-    if let pagination = pagination, page >= pagination.totalPages {
-      #warning("Handle later on ViewModel")
-      return []
-    }
-
+  func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal] {
+    let router = AnimalsRouter.getAnimalsWith(
+      page: page,
+      latitude: location?.coordinate.latitude,
+      longitude: location?.coordinate.longitude
+    )
     do {
-      let animalsContainer: AnimalsContainer = try await petFinderApi.request(
-        with: AnimalsRouter.getAnimalsWith(page: page)
-      )
-      self.pagination = animalsContainer.pagination
+      let animalsContainer: AnimalsContainer = try await petFinderApi.request(with: router)
       return animalsContainer.animals
     } catch {
       #warning("Handle later on ViewModel")

@@ -68,8 +68,8 @@ struct FilterAnimals {
 struct SearchView: View {
   let navigationTitle = LocalizedStringKey("SEARCH_NAVIGATION_TITLE")
 
-  @ObservedObject var viewModel: SearchViewModel
-  @State var searchText = ""
+  @EnvironmentObject var viewModel: SearchViewModel
+  @State var showFilterPickers = false
 
   @FetchRequest(
     sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],
@@ -103,10 +103,8 @@ struct SearchView: View {
     }
     .overlay {
       if searchAnimalsResults.isEmpty {
-        SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { suggestion in
-          viewModel.selectTypeSuggestion(suggestion)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        SuggestionsGrid(suggestions: AnimalSearchType.suggestions)
+          .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
       }
     }
     .overlay {
@@ -130,37 +128,17 @@ struct SearchView: View {
     }
     .toolbar {
       ToolbarItem {
-        filterMenu
-      }
-    }
-  }
-
-  var filterMenu: some View {
-    Menu {
-      Section {
-        Text("Filter by age")
-        Picker("Age", selection: $viewModel.ageSelection) {
-          ForEach(AnimalSearchAge.allCases, id: \.self) { age in
-            Text(age.rawValue.capitalized)
+        Button {
+          showFilterPickers.toggle()
+        } label: {
+          Label("Filter", systemImage: "slider.horizontal.3")
+        }
+        .sheet(isPresented: $showFilterPickers) {
+          NavigationView {
+            SearchFilterView()
           }
         }
-        .onChange(of: viewModel.ageSelection) { _ in
-          viewModel.search()
-        }
       }
-      Section {
-        Text("Filter by type")
-        Picker("Type", selection: $viewModel.typeSelection) {
-          ForEach(AnimalSearchType.allCases, id: \.self) { type in
-            Text(type.rawValue.capitalized)
-          }
-        }
-        .onChange(of: viewModel.typeSelection) { _ in
-          viewModel.search()
-        }
-      }
-    } label: {
-      Label("Filter", systemImage: "slider.horizontal.3")
     }
   }
 }
@@ -169,34 +147,37 @@ struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
     let context = PersistenceController.preview.container.viewContext
     NavigationView {
-      SearchView(
-        viewModel: SearchViewModel(
-          animalSearcher: AnimalSearcherMock(),
-          context: context
-        )
-      )
+      SearchView()
     }
+    .environmentObject(
+      SearchViewModel(
+        animalSearcher: AnimalSearcherMock(),
+        context: context
+      )
+    )
 
     NavigationView {
-      SearchView(
-        viewModel: SearchViewModel(
-          animalSearcher: AnimalSearcherMock(),
-          context: context
-        )
-      )
+      SearchView()
     }
     .environment(\.locale, .init(identifier: "es"))
     .previewDisplayName("Spanish Locale")
+    .environmentObject(
+      SearchViewModel(
+        animalSearcher: AnimalSearcherMock(),
+        context: context
+      )
+    )
 
     // Chapter 12 - Dark mode previews
     NavigationView {
-      SearchView(
-        viewModel: SearchViewModel(
-          animalSearcher: AnimalSearcherMock(),
-          context: context
-        )
-      )
+      SearchView()
     }
     .preferredColorScheme(.dark)
+    .environmentObject(
+      SearchViewModel(
+        animalSearcher: AnimalSearcherMock(),
+        context: context
+      )
+    )
   }
 }

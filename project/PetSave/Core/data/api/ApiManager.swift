@@ -47,20 +47,28 @@ class APIManager: APIManagerProtocol {
     let (data, response) = try await urlSession.data(for: router.request(authToken: authToken))
     guard let httpResponse = response as? HTTPURLResponse,
       httpResponse.statusCode == 200 else { throw NetworkError.invalidServerResponse }
+    printResponse(httpResponse)
     return data
   }
 }
 
 private extension APIManager {
-  func printResponse(_ response: HTTPURLResponse, data: Data) {
+//  func printResponse(_ response: HTTPURLResponse, data: Data) {
+//    print()
+//    print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
+//    print(response)
+//    print()
+//
+//    print("Response Body:")
+//    if let responseString = String(data: data, encoding: .utf8) {
+//      print(responseString)
+//    }
+//  }
+  
+  func printResponse(_ response: HTTPURLResponse) {
     print()
     print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
     print(response)
     print()
-
-    print("Response Body:")
-    if let responseString = String(data: data, encoding: .utf8) {
-      print(responseString)
-    }
   }
 }

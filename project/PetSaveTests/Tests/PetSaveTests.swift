@@ -49,22 +49,23 @@ class PetSaveTests: XCTestCase {
     // Use XCTAssert and related functions to verify your tests produce the correct results.
   }
 
-  func test_createPetWithSamplePetData() {
+  func test_createPetWithSamplePetData() throws {
     // Given
     guard let url = Bundle.main.url(forResource: "AnimalsMock", withExtension: "json"),
       let data = try? Data(contentsOf: url)
       else { return XCTFail("AnimalsMock file missing or data is corrupted") }
 
-    let pet: Animal
+    let pets: [Animal]
 
     // When
     do {
-      pet = try JSONDecoder().decode(Animal.self, from: data)
+      pets = try JSONDecoder().decode([Animal].self, from: data)
     } catch {
       return XCTFail(error.localizedDescription)
     }
 
     // Then
+    let pet = try XCTUnwrap(pets.first)
     XCTAssert(pet.name == "Kiki", "Mock pet name was expected to be Kiki but was \(pet.name)")
   }
 

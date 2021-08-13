@@ -37,10 +37,10 @@ enum AnimalSearchType: String, CaseIterable {
   case cat
   case dog
   case rabbit
-  case smallAndFurry = "Small & Furry"
+  case smallAndFurry = "small & furry"
   case horse
   case bird
-  case scalesFinsAndOther = "Scales, Fins & Other"
+  case scalesFinsAndOther = "scales, fins & other"
   case barnyard
 }
 

@@ -32,9 +32,10 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 protocol AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
+  func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal]
 }
 
 final class AnimalsNearYouViewModel: ObservableObject {
@@ -45,32 +46,48 @@ final class AnimalsNearYouViewModel: ObservableObject {
 
   private let animalFetcher: AnimalsFetcher
   private let context: NSManagedObjectContext
+  private let locationManager: LocationManager
 
   init(
     isLoading: Bool = true,
     animalFetcher: AnimalsFetcher,
-    context: NSManagedObjectContext
+    context: NSManagedObjectContext,
+    locationManager: LocationManager
   ) {
     self.isLoading = isLoading
     self.animalFetcher = animalFetcher
     self.context = context
+    self.locationManager = locationManager
+  }
+
+  private var userLocation: CLLocation? {
+    let userLocationIsEnabled = locationManager.useUserLocation && !locationManager.locationIsDisabled
+    return userLocationIsEnabled ? locationManager.userLocation : nil
   }
 
   func fetchAnimals() async {
-    let animals = await animalFetcher.fetchAnimals(page: page)
+    let animals = await requestAnimals()
     await addAnimals(animals: animals)
   }
 
   func fetchMoreAnimals() {
     Task {
       page += 1
-      let animals = await animalFetcher.fetchAnimals(page: page)
+      let animals = await requestAnimals()
       await addAnimals(animals: animals)
     }
   }
 
+  func requestAnimals() async -> [Animal] {
+    await animalFetcher.fetchAnimals(
+      page: page,
+      location: userLocation
+    )
+  }
+
   func refresh() {
     CoreDataHelper.clearDatabase()
+    hasMoreAnimals = true
     page = 1
     Task {
       await fetchAnimals()
@@ -94,7 +111,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
 
 #warning("Remove later, only for testing purposes...")
 struct AnimalFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
+  func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal] {
     await Task.sleep(2)
     return Animal.mock
   }

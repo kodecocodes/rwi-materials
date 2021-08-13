@@ -34,8 +34,8 @@ import SwiftUI
 
 struct SuggestionsGrid: View {
   let suggestions: [AnimalSearchType]
-  let action: (AnimalSearchType) -> Void
 
+  @EnvironmentObject var viewModel: SearchViewModel
   @Environment(\.isSearching) var isSearching: Bool
 
   private let columns = [
@@ -50,7 +50,7 @@ struct SuggestionsGrid: View {
       LazyVGrid(columns: columns) {
         ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
           Button {
-            action(suggestion)
+            viewModel.selectTypeSuggestion(suggestion)
           } label: {
             AnimalTypeSuggestionView(suggestion: suggestion)
           }
@@ -67,6 +67,6 @@ struct SuggestionsGrid_Previews: PreviewProvider {
   static var previews: some View {
     SuggestionsGrid(
       suggestions: AnimalSearchType.suggestions
-    ) { _ in }
+    )
   }
 }

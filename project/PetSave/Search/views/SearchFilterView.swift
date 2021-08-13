@@ -30,12 +30,56 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-enum ApiConstants {
-  static let baseURLString = "https://api.petfinder.com"
-  static let version = "/v2"
-  static let grantType = "client_credentials"
-  static let clientId = "rgq4iIBz2ar1Wrqia1p4Jf8voFFKVt3rJ5NlZUWcc4us50hqNE"
-  static let clientSecret = "vj5ZabUDXPZihpVUyCx4bs5Cz64ikomlYRsirdiH"
+struct SearchFilterView: View {
+  @Environment(\.dismiss) private var dismiss
+  @EnvironmentObject var viewModel: SearchViewModel
+  
+  var body: some View {
+    Form {
+      Picker("Age", selection: $viewModel.ageSelection) {
+        ForEach(AnimalSearchAge.allCases, id: \.self) { age in
+          Text(age.rawValue.capitalized)
+        }
+      }
+      .onChange(of: viewModel.ageSelection) { _ in
+        viewModel.search()
+      }
+
+      Picker("Type", selection: $viewModel.typeSelection) {
+        ForEach(AnimalSearchType.allCases, id: \.self) { type in
+          Text(type.rawValue.capitalized)
+        }
+      }
+      .onChange(of: viewModel.typeSelection) { _ in
+        viewModel.search()
+      }
+    }
+    .navigationBarTitle("Filters")
+    .toolbar {
+      ToolbarItem {
+        Button {
+          dismiss()
+        } label: {
+          Label("Close", systemImage: "xmark.circle.fill")
+        }
+      }
+    }
+  }
+}
+
+struct SearchFilterView_Previews: PreviewProvider {
+  static var previews: some View {
+    let context = PersistenceController.preview.container.viewContext
+    NavigationView {
+      SearchFilterView()
+    }
+    .environmentObject(
+      SearchViewModel(
+        animalSearcher: AnimalSearcherMock(),
+        context: context
+      )
+    )
+  }
 }

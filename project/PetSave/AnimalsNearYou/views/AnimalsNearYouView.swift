@@ -35,6 +35,7 @@ import SwiftUI
 // Chapter 10: Animation here while data is loading, replacing ProgressView
 
 struct AnimalsNearYouView: View {
+  @EnvironmentObject var locationManager: LocationManager
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   @State var settingsIsPresented = false
 
@@ -52,6 +53,10 @@ struct AnimalsNearYouView: View {
     animation: .default
   )
   var animals: FetchedResults<AnimalEntity>
+
+  var showLocationIndicator: Bool {
+    !locationManager.locationIsDisabled && locationManager.useUserLocation
+  }
 
   var body: some View {
 //    let _  = print("sec fetch count \(sectionedAnimals.count)")
@@ -86,6 +91,7 @@ struct AnimalsNearYouView: View {
     .task {
       await viewModel.fetchAnimals()
     }
+    .onAppear(perform: locationManager.updateAuthorizationStatus)
     .listStyle(.plain)
     .navigationTitle("Animals near you")
     .refreshable {
@@ -98,50 +104,74 @@ struct AnimalsNearYouView: View {
     }
     .toolbar {
       ToolbarItem(placement: .navigationBarTrailing) {
-        Button {
-          settingsIsPresented.toggle()
-        } label: {
+        Button(action: presentSettings) {
           Label("Settings", systemImage: "gearshape")
         }
         .sheet(isPresented: $settingsIsPresented) {
           PreferencesView()
         }
       }
+
+      ToolbarItem(placement: .navigationBarLeading) {
+        if showLocationIndicator {
+          Menu {
+            Button {
+              locationManager.useUserLocation.toggle()
+            } label: {
+              Label("Disable real location", systemImage: "location.slash.fill")
+            }
+          } label: {
+            Label("User location is enabled", systemImage: "location.fill")
+          }
+        }
+      }
     }
+  }
+
+  func presentSettings() {
+    settingsIsPresented.toggle()
   }
 }
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
+    Group {
+      NavigationView {
+        AnimalsNearYouView(
+          viewModel: AnimalsNearYouViewModel(
+            isLoading: false,
+            animalFetcher: AnimalFetcherMock(),
+            context: PersistenceController.preview.container.viewContext,
+            locationManager: mockLocationAuthorization
+          )
         )
-      )
-    }
-    .environmentObject(LocationManager())
-    .environment(
-      \.managedObjectContext,
-      PersistenceController.preview.container.viewContext
-    )
+      }
 
-    NavigationView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
+      NavigationView {
+        AnimalsNearYouView(
+          viewModel: AnimalsNearYouViewModel(
+            isLoading: false,
+            animalFetcher: AnimalFetcherMock(),
+            context: PersistenceController.preview.container.viewContext,
+            locationManager: mockLocationAuthorization
+          )
         )
-      )
+      }
+      .preferredColorScheme(.dark)
     }
-    .preferredColorScheme(.dark)
-    .environmentObject(LocationManager())
+    .environmentObject(mockLocationAuthorization)
     .environment(
       \.managedObjectContext,
       PersistenceController.preview.container.viewContext
     )
+  }
+}
+
+private extension PreviewProvider {
+  static var mockLocationAuthorization: LocationManager {
+    let locationManager = LocationManager()
+    locationManager.useUserLocation = true
+    locationManager.authorizationStatus = .authorizedWhenInUse
+    return locationManager
   }
 }

@@ -30,29 +30,11 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct AnimalSearcherService {
-  let petFinderAPI: RequestManagerProtocol
-}
+import Foundation
 
-// MARK: - AnimalSearcher
-extension AnimalSearcherService: AnimalSearcher {
-  func searchAnimal(
-    by text: String,
-    age: AnimalSearchAge,
-    type: AnimalSearchType
-  ) async -> [Animal] {
-    let router = AnimalsRouter.getAnimalsBy(
-      name: text,
-      age: age != .none ? age.rawValue : nil,
-      type: type != .none ? type.rawValue : nil
-    )
-    do {
-      let animalsContainer: AnimalsContainer = try await petFinderAPI.request(with: router)
-      return animalsContainer.animals
-    } catch {
-      #warning("Handle later on ViewModel")
-      print(error.localizedDescription)
-      return []
-    }
-  }
+enum APIConstants {
+  static let host = "api.petfinder.com"
+  static let grantType = "client_credentials"
+  static let clientId = "rgq4iIBz2ar1Wrqia1p4Jf8voFFKVt3rJ5NlZUWcc4us50hqNE"
+  static let clientSecret = "vj5ZabUDXPZihpVUyCx4bs5Cz64ikomlYRsirdiH"
 }

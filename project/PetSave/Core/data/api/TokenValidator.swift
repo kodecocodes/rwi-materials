@@ -40,7 +40,7 @@ actor TokenValidator {
   private let userDefaults: UserDefaults
   private let authFetcher: AuthTokenFetcher
   private let keychainManager: KeychainManagerProtocol
-  private let server = ApiConstants.baseURLString
+  private let server = APIConstants.host
   private var accesstoken: String?
   private var expiresAt = Date()
 

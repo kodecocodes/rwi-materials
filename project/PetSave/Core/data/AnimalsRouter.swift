@@ -33,21 +33,40 @@
 import Foundation
 
 enum AnimalsRouter: RouterProtocol {
-  case getAnimalsWith(page: Int)
-  case getAnimalsBy(postCode: String)
-  case getAnimalsByLocation(latitude: String, longitude: String)
-  case getAnimalBy(name: String)
+  case getAnimalsWith(page: Int, latitude: Double?, longitude: Double?)
+  case getAnimalsBy(name: String, age: String?, type: String?)
 
   var path: String {
+    "/v2/animals"
+  }
+
+  var urlParams: [String: String?] {
     switch self {
-    case .getAnimalsWith(let page):
-      return "/animals?page=\(page)"
-    case .getAnimalsBy(let postCode):
-      return "/animals?location=\(postCode)"
-    case .getAnimalsByLocation(let latitude, let longitude):
-      return "/animals?location=\(latitude),\(longitude)"
-    case .getAnimalBy(let name):
-      return "/animals?name=\(name)"
+    case .getAnimalsWith(let page, let latitude, let longitude):
+      var params = ["page": String(page)]
+      if let latitude = latitude {
+        params["latitude"] = String(latitude)
+      }
+
+      if let longitude = longitude {
+        params["longitude"] = String(longitude)
+      }
+
+      return params
+    case .getAnimalsBy(let name, let age, let type):
+      var params: [String: String] = [:]
+      if !name.isEmpty {
+        params["name"] = name
+      }
+
+      if let age = age {
+        params["age"] = age
+      }
+
+      if let type = type {
+        params["type"] = type
+      }
+      return params
     }
   }
 
