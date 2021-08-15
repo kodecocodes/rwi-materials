@@ -30,42 +30,20 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import XCTest
+@testable import PetSave
 
-protocol RequestManagerProtocol {
-  var apiManager: APIManagerProtocol { get }
-  var parser: DataParserProtocol { get }
-  var tokenValidator: TokenValidatorProtocol { get }
-  func request<T: Decodable>(with router: RouterProtocol) async throws -> T
-}
-
-extension RequestManagerProtocol {
+class RequestManagerMock: RequestManagerProtocol {
   
-  var parser: DataParserProtocol {
-    return DataParser()
-  }
+  var apiManager: APIManagerProtocol
   
-  func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
-    let authToken = try await tokenValidator.validateToken()
-    let data = try await apiManager.request(with: router, authToken: authToken)
-    let decoded: T = try parser.parse(data: data)
-    return decoded
-  }
-}
-
-class RequestManager: RequestManagerProtocol {
-  let apiManager: APIManagerProtocol
-  let tokenValidator: TokenValidatorProtocol
-
-  init(
-    apiManager: APIManagerProtocol = APIManager(),
-    tokenValidator: TokenValidatorProtocol = TokenValidator(
-      userDefaults: .standard,
-      authFetcher: AuthService(),
-      keychainManager: KeychainManager()
-    )
-  ) {
+  var tokenValidator: TokenValidatorProtocol
+  
+  public init(apiManager: APIManagerProtocol, tokenValidator: TokenValidatorProtocol) {
     self.apiManager = apiManager
     self.tokenValidator = tokenValidator
   }
+//  func request<T: Decodable>(with router: RouterProtocol) async throws -> T where T {
+//    
+//  }
 }

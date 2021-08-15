@@ -32,40 +32,20 @@
 
 import Foundation
 
-protocol RequestManagerProtocol {
-  var apiManager: APIManagerProtocol { get }
-  var parser: DataParserProtocol { get }
-  var tokenValidator: TokenValidatorProtocol { get }
-  func request<T: Decodable>(with router: RouterProtocol) async throws -> T
+protocol DataParserProtocol {
+  func parse<T: Decodable>(data: Data) throws -> T
 }
 
-extension RequestManagerProtocol {
+class DataParser: DataParserProtocol {
   
-  var parser: DataParserProtocol {
-    return DataParser()
+  private var jsonDecoder: JSONDecoder
+  
+  init(jsonDecoder: JSONDecoder = JSONDecoder()) {
+    self.jsonDecoder = jsonDecoder
+    self.jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
   }
   
-  func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
-    let authToken = try await tokenValidator.validateToken()
-    let data = try await apiManager.request(with: router, authToken: authToken)
-    let decoded: T = try parser.parse(data: data)
-    return decoded
-  }
-}
-
-class RequestManager: RequestManagerProtocol {
-  let apiManager: APIManagerProtocol
-  let tokenValidator: TokenValidatorProtocol
-
-  init(
-    apiManager: APIManagerProtocol = APIManager(),
-    tokenValidator: TokenValidatorProtocol = TokenValidator(
-      userDefaults: .standard,
-      authFetcher: AuthService(),
-      keychainManager: KeychainManager()
-    )
-  ) {
-    self.apiManager = apiManager
-    self.tokenValidator = tokenValidator
+  func parse<T: Decodable>(data: Data) throws -> T {
+    return try jsonDecoder.decode(T.self, from: data)
   }
 }

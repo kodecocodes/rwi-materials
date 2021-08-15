@@ -33,4 +33,17 @@
 import XCTest
 @testable import PetSave
 
-class RequestManagerTests: XCTestCase { }
+class RequestManagerTests: XCTestCase {
+  
+  private var requestManager: RequestManagerProtocol!
+  
+  override func setUp() {
+    super.setUp()
+    requestManager = RequestManagerMock(apiManager: APIManagerMock(), tokenValidator: TokenValidator(
+      userDefaults: UserDefaults.standard,
+      authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateValidToken),
+      keychainManager: KeychainManager()
+    ))
+  }
+  
+}

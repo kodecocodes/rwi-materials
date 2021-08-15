@@ -30,42 +30,17 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import XCTest
+@testable import PetSave
 
-protocol RequestManagerProtocol {
-  var apiManager: APIManagerProtocol { get }
-  var parser: DataParserProtocol { get }
-  var tokenValidator: TokenValidatorProtocol { get }
-  func request<T: Decodable>(with router: RouterProtocol) async throws -> T
-}
-
-extension RequestManagerProtocol {
+class APIManagerMock: APIManagerProtocol {
   
-  var parser: DataParserProtocol {
-    return DataParser()
-  }
-  
-  func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
-    let authToken = try await tokenValidator.validateToken()
-    let data = try await apiManager.request(with: router, authToken: authToken)
-    let decoded: T = try parser.parse(data: data)
-    return decoded
-  }
-}
-
-class RequestManager: RequestManagerProtocol {
-  let apiManager: APIManagerProtocol
-  let tokenValidator: TokenValidatorProtocol
-
-  init(
-    apiManager: APIManagerProtocol = APIManager(),
-    tokenValidator: TokenValidatorProtocol = TokenValidator(
-      userDefaults: .standard,
-      authFetcher: AuthService(),
-      keychainManager: KeychainManager()
-    )
-  ) {
-    self.apiManager = apiManager
-    self.tokenValidator = tokenValidator
+  func request(with apiRouter: RouterProtocol, authToken: String) async throws -> Data {
+    do {
+      let data = try Data(contentsOf: URL(fileURLWithPath: apiRouter.path), options: .mappedIfSafe)
+      return data
+    } catch {
+      throw error
+    }
   }
 }
