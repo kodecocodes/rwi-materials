@@ -31,45 +31,18 @@
 /// THE SOFTWARE.
 
 import Foundation
+@testable import PetSave
 
-protocol AuthTokenFetcher {
-  func fetchToken() async throws -> APIToken
-}
-
-struct AuthService {
-  private let apiManager = APIManager()
-  private let parser = DataParser()
-}
-
-// MARK: - AuthTokenFetcher
-extension AuthService: AuthTokenFetcher {
-  func fetchToken() async throws -> APIToken {
-    let data: Data = try await apiManager.request(with: AuthTokenRouter.auth)
-    let apiToken: APIToken = try parser.parse(data: data)
-    return apiToken
-  }
-}
-
-enum AuthTokenRouter: RouterProtocol {
-  case auth
-
-  var path: String {
-    "/v2/oauth2/token"
-  }
-
-  var params: [String: Any] {
-    [
-      "grant_type": APIConstants.grantType,
-      "client_id": APIConstants.clientId,
-      "client_secret": APIConstants.clientSecret
-    ]
-  }
-
-  var addAuthorizationToken: Bool {
-    false
-  }
-
+enum AnimalsRouterMock: RouterProtocol {
+  
+  case getAnimals
+  
   var requestType: RequestType {
-    .POST
+    return .GET
   }
+  
+  var path: String {
+    return Bundle.main.path(forResource: "AnimalsMock", ofType: "json")!
+  }
+  
 }

@@ -43,7 +43,11 @@ class RequestManagerMock: RequestManagerProtocol {
     self.apiManager = apiManager
     self.tokenValidator = tokenValidator
   }
-//  func request<T: Decodable>(with router: RouterProtocol) async throws -> T where T {
-//    
-//  }
+  
+  func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
+    let authToken = try await tokenValidator.validateToken()
+    let data = try await apiManager.request(with: router, authToken: authToken)
+    let decoded: T = try parser.parse(data: data)
+    return decoded
+  }
 }

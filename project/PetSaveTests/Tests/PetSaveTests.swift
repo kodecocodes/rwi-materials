@@ -56,10 +56,13 @@ class PetSaveTests: XCTestCase {
       else { return XCTFail("AnimalsMock file missing or data is corrupted") }
 
     let pets: [Animal]
-
+    let container: AnimalsContainer
     // When
     do {
-      pets = try JSONDecoder().decode([Animal].self, from: data)
+      let jsonDecoder = JSONDecoder()
+      jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+      container = try jsonDecoder.decode(AnimalsContainer.self, from: data)
+      pets = container.animals
     } catch {
       return XCTFail(error.localizedDescription)
     }

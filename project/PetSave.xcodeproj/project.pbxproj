@@ -55,6 +55,7 @@
 		8FC6977B26C8692E003CBFB0 /* APIManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6977A26C8692E003CBFB0 /* APIManagerMock.swift */; };
 		8FC6977C26C86A2B003CBFB0 /* AnimalsMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 849C44EE26A26F70009899B0 /* AnimalsMock.json */; };
 		8FC6977E26C92E98003CBFB0 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6977D26C92E98003CBFB0 /* DataParser.swift */; };
+		8FC6978026C9389A003CBFB0 /* AnimalsRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6977F26C9389A003CBFB0 /* AnimalsRouterMock.swift */; };
 		8FD3A60F26C0311800881B20 /* RequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A60E26C0311800881B20 /* RequestManagerTests.swift */; };
 		8FDD2C9F26B3056D00DBE33F /* AnimalsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD2C9E26B3056D00DBE33F /* AnimalsRouter.swift */; };
 		8FDD2CA126B3119400DBE33F /* AnimalContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD2CA026B3119400DBE33F /* AnimalContainer.swift */; };
@@ -173,6 +174,7 @@
 		8FC6977826C86418003CBFB0 /* RequestManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerMock.swift; sourceTree = "<group>"; };
 		8FC6977A26C8692E003CBFB0 /* APIManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManagerMock.swift; sourceTree = "<group>"; };
 		8FC6977D26C92E98003CBFB0 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
+		8FC6977F26C9389A003CBFB0 /* AnimalsRouterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsRouterMock.swift; sourceTree = "<group>"; };
 		8FD3A60E26C0311800881B20 /* RequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerTests.swift; sourceTree = "<group>"; };
 		8FDD2C9E26B3056D00DBE33F /* AnimalsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsRouter.swift; sourceTree = "<group>"; };
 		8FDD2CA026B3119400DBE33F /* AnimalContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalContainer.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				8FD3A60E26C0311800881B20 /* RequestManagerTests.swift */,
 				8FC6977826C86418003CBFB0 /* RequestManagerMock.swift */,
 				8FC6977A26C8692E003CBFB0 /* APIManagerMock.swift */,
+				8FC6977F26C9389A003CBFB0 /* AnimalsRouterMock.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -942,6 +945,7 @@
 				AE5EA14326AC9A8B00895E34 /* PetImageServiceTests.swift in Sources */,
 				AE5EA14A26AC9B5200895E34 /* MockPetService.swift in Sources */,
 				8FC6977B26C8692E003CBFB0 /* APIManagerMock.swift in Sources */,
+				8FC6978026C9389A003CBFB0 /* AnimalsRouterMock.swift in Sources */,
 				84BCAFA726BB08E200401AD5 /* TokenTestHelper.swift in Sources */,
 				84D950D926B9E5E900F586F7 /* TokenValidatorTests.swift in Sources */,
 				8FD3A60F26C0311800881B20 /* RequestManagerTests.swift in Sources */,
