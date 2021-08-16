@@ -30,35 +30,33 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
-import PetSaveOnboarding
+import Foundation
 
-@main
-struct AppMain: App {
+protocol AppUserDefaultsProtocol {
+  var isOnboardingPresented: Bool { get }
+  func setOnboardingPresented()
+}
+
+
+final class AppUserDefaults: AppUserDefaultsProtocol {
   
-  @State private var onboardingPresented = AppUserDefaults.shared.isOnboardingPresented
-  private let appDefaults: AppUserDefaultsProtocol = AppUserDefaults.shared
-  var body: some Scene {
-    WindowGroup {
-      if onboardingPresented {
-        ContentView()
-      } else {
-        PetSaveOnboardingView(items: onboarding())
-          .onNext { currentIndex in
-            
-          }.onSkip {
-            self.onboardingPresented = true
-            appDefaults.setOnboardingPresented()
-          }
-      }
-    }
+  private var userDefaults: UserDefaults
+  
+  private struct AppUserDefaultsConstants {
+      static let onboarding = "onboardingPresented"
   }
   
-  func onboarding() -> [OnboardingModel] {
-    return [OnboardingModel(title: "Welcome to\n PetSave", description: "Looking for a Pet?\n Then you're at the right place", image: .bird, nextButtonTitle: "Next", skipButtonTitle: "Skip"),
-            OnboardingModel(title: "Search...", description: "Search from a list of our huge database of animals.", image: .dogBoneStand, nextButtonTitle: "Allow", skipButtonTitle: "Skip"),
-            OnboardingModel(title: "Nearby", description: "Find pets to adopt from nearby your place...", image: .chameleon, nextButtonTitle: "Next", skipButtonTitle: "Skip")
-    ]
+  private init(userDefaults: UserDefaults = .standard) {
+    self.userDefaults = userDefaults
   }
   
+  static let shared = AppUserDefaults()
+  
+  var isOnboardingPresented: Bool {
+    return userDefaults.value(forKey: AppUserDefaultsConstants.onboarding) as? Bool ?? false
+  }
+  
+  func setOnboardingPresented() {
+    userDefaults.set(true, forKey: AppUserDefaultsConstants.onboarding)
+  }
 }
