@@ -32,31 +32,10 @@
 
 import Foundation
 
-protocol AppUserDefaultsProtocol {
-  var isOnboardingPresented: Bool { get }
-  func setOnboardingPresented()
-}
+final class AppUserDefaultsKeys {
+  private init() {}
 
-
-final class AppUserDefaults: AppUserDefaultsProtocol {
+  static let onboarding = "onboarding"
   
-  private var userDefaults: UserDefaults
   
-  private struct AppUserDefaultsConstants {
-      static let onboarding = "onboardingPresented"
-  }
-  
-  private init(userDefaults: UserDefaults = .standard) {
-    self.userDefaults = userDefaults
-  }
-  
-  static let shared = AppUserDefaults()
-  
-  var isOnboardingPresented: Bool {
-    return userDefaults.value(forKey: AppUserDefaultsConstants.onboarding) as? Bool ?? false
-  }
-  
-  func setOnboardingPresented() {
-    userDefaults.set(true, forKey: AppUserDefaultsConstants.onboarding)
-  }
 }

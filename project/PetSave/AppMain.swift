@@ -36,8 +36,8 @@ import PetSaveOnboarding
 @main
 struct AppMain: App {
   
-  @State private var onboardingPresented = AppUserDefaults.shared.isOnboardingPresented
-  private let appDefaults: AppUserDefaultsProtocol = AppUserDefaults.shared
+  @AppStorage(AppUserDefaultsKeys.onboarding) var onboardingPresented: Bool = false
+
   var body: some Scene {
     WindowGroup {
       if onboardingPresented {
@@ -48,7 +48,6 @@ struct AppMain: App {
             
           }.onSkip {
             self.onboardingPresented = true
-            appDefaults.setOnboardingPresented()
           }
       }
     }
