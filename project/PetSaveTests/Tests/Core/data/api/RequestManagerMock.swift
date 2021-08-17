@@ -33,17 +33,10 @@
 import XCTest
 @testable import PetSave
 
-class RequestManagerMock: RequestManagerProtocol {
-  
-  var apiManager: APIManagerProtocol
-  
-  var tokenValidator: TokenValidatorProtocol
-  
-  public init(apiManager: APIManagerProtocol, tokenValidator: TokenValidatorProtocol) {
-    self.apiManager = apiManager
-    self.tokenValidator = tokenValidator
-  }
-  
+struct RequestManagerMock: RequestManagerProtocol {
+  let apiManager: APIManagerProtocol
+  let tokenValidator: TokenValidatorProtocol
+
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
     let authToken = try await tokenValidator.validateToken()
     let data = try await apiManager.request(with: router, authToken: authToken)

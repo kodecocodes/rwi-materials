@@ -84,7 +84,7 @@ extension CoreDataHelper {
     let fetchRequest = AnimalEntity.fetchRequest()
 
     if let results = try? PersistenceController.preview.container.viewContext.fetch(fetchRequest), !results.isEmpty {
-      return results.map { Animal(managedObject: $0) }
+      return results.map(Animal.init(managedObject:))
     }
     return nil
   }

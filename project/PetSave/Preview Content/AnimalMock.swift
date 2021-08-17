@@ -41,6 +41,6 @@ private func loadAnimals() -> [Animal] {
     let data = try? Data(contentsOf: url) else { return [] }
   let decoder = JSONDecoder()
   decoder.keyDecodingStrategy = .convertFromSnakeCase
-  let animals = try? decoder.decode([Animal].self, from: data)
-  return animals ?? []
+  let animalsContainer = try? decoder.decode(AnimalsContainer.self, from: data)
+  return animalsContainer?.animals ?? []
 }

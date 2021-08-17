@@ -34,18 +34,19 @@ import XCTest
 @testable import PetSave
 
 class RequestManagerTests: XCTestCase {
-  
   private var requestManager: RequestManagerProtocol!
-  
+
   override func setUp() {
     super.setUp()
-    requestManager = RequestManagerMock(apiManager: APIManagerMock(),
-                                        tokenValidator: TokenValidator(
-                                          userDefaults: UserDefaults.standard,
-                                          authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateValidToken),
-                                          keychainManager: KeychainManager()))
+    requestManager = RequestManagerMock(
+      apiManager: APIManagerMock(),
+      tokenValidator: TokenValidator(
+      userDefaults: UserDefaults.standard,
+      authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateValidToken),
+      keychainManager: KeychainManager())
+    )
   }
-  
+
   func testRequestAnimals() async throws {
     let container: AnimalsContainer = try await requestManager.request(with: AnimalsRouterMock.getAnimals)
     let animals = container.animals
@@ -63,10 +64,10 @@ class RequestManagerTests: XCTestCase {
     XCTAssertEqual(last?.size.rawValue, "Large")
     XCTAssertEqual(last?.coat, nil)
   }
-  
-  func testRequestInvalidAniamlsData() async throws {
+
+  func testRequestInvalidAniamlsData() async {
     do {
-    let container: [Animal] = try await requestManager.request(with: AnimalsRouterMock.getAnimals)
+      let container: [Animal] = try await requestManager.request(with: AnimalsRouterMock.getAnimals)
     } catch {
       XCTAssertEqual(error.localizedDescription, "The data couldn’t be read because it isn’t in the correct format.")
     }

@@ -33,14 +33,8 @@
 import XCTest
 @testable import PetSave
 
-class APIManagerMock: APIManagerProtocol {
-  
+struct APIManagerMock: APIManagerProtocol {
   func request(with apiRouter: RouterProtocol, authToken: String) async throws -> Data {
-    do {
-      let data = try Data(contentsOf: URL(fileURLWithPath: apiRouter.path), options: .mappedIfSafe)
-      return data
-    } catch {
-      throw error
-    }
+    return try Data(contentsOf: URL(fileURLWithPath: apiRouter.path), options: .mappedIfSafe)
   }
 }

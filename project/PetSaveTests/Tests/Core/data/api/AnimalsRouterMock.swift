@@ -34,15 +34,13 @@ import Foundation
 @testable import PetSave
 
 enum AnimalsRouterMock: RouterProtocol {
-  
   case getAnimals
-  
+
   var requestType: RequestType {
     return .GET
   }
-  
+
   var path: String {
     return Bundle.main.path(forResource: "AnimalsMock", ofType: "json")!
   }
-  
 }
