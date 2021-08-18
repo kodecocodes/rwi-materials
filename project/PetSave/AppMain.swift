@@ -35,9 +35,10 @@ import PetSaveOnboarding
 
 @main
 struct AppMain: App {
-  @AppStorage(AppUserDefaultsKeys.onboarding) var onboardingPresented: Bool = false
+  
+  @AppStorage(AppUserDefaultsKeys.onboarding) var shouldPresentOnboarding: Bool = true
 
-  var onboadingModels: [OnboardingModel] {
+  var onboardingModels: [OnboardingModel] {
     [
       OnboardingModel(title: "Welcome to\n PetSave", description: "Looking for a Pet?\n Then you're at the right place", image: .bird, nextButtonTitle: "Next", skipButtonTitle: "Skip"),
       OnboardingModel(title: "Search...", description: "Search from a list of our huge database of animals.", image: .dogBoneStand, nextButtonTitle: "Allow", skipButtonTitle: "Skip"),
@@ -47,22 +48,28 @@ struct AppMain: App {
 
   var body: some Scene {
     WindowGroup {
-      Group {
-        if !onboardingPresented {
-          PetSaveOnboardingView(items: onboadingModels)
-            .onSkip {
-              onboardingPresented = true
-            }
-
-            .background(
-              Color.white.frame(maxWidth: .infinity, maxHeight: .infinity)
-            )
-            .transition(.opacity)
-        } else {
+//      Group {
+//        if !onboardingPresented {
+//          PetSaveOnboardingView(items: onboadingModels)
+//            .onSkip {
+//              onboardingPresented = true
+//            }
+//
+//            .background(
+//              Color.white.frame(maxWidth: .infinity, maxHeight: .infinity)
+//            )
+//            .transition(.opacity)
+//        } else {
           ContentView()
-        }
-      }
-      .animation(.easeIn, value: onboardingPresented)
+            .fullScreenCover(isPresented: $shouldPresentOnboarding, onDismiss: nil) {
+              PetSaveOnboardingView(items: onboardingModels)
+                .onSkip {
+                  shouldPresentOnboarding = false
+                }
+            }
+//        }
+//      }
+//      .animation(.easeIn, value: onboardingPresented)
     }
   }
 }
