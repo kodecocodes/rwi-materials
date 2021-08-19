@@ -35,13 +35,14 @@ import SwiftUI
 struct ContentView: View {
   let managedObjectContext = PersistenceController.shared.container.viewContext
   let locationManager = LocationManager()
-
+  let animalFetchService: AnimalsFetcher
+  
   var body: some View {
     TabView {
       NavigationView {
         AnimalsNearYouView(
           viewModel: AnimalsNearYouViewModel(
-            animalFetcher: FetchAnimalsService(),
+            animalFetcher: animalFetchService,
             context: managedObjectContext,
             locationManager: locationManager
           )
@@ -73,7 +74,8 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+  static let animalFetcher = AnimalFetcherMock()
   static var previews: some View {
-    ContentView()
+    ContentView(animalFetchService: animalFetcher)
   }
 }

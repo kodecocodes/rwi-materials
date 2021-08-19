@@ -30,30 +30,13 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-final class FetchAnimalsService {
-  private let petFinderApi: RequestManagerProtocol
-
-  init(petFinderApi: RequestManagerProtocol = RequestManager()) {
-    self.petFinderApi = petFinderApi
-  }
-}
-
+import Foundation
 import CoreLocation
-// MARK: - AnimalsFetcher
-extension FetchAnimalsService: AnimalsFetcher {
-  func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal] {
-    let router = AnimalsRouter.getAnimalsWith(
-      page: page,
-      latitude: location?.coordinate.latitude,
-      longitude: location?.coordinate.longitude
-    )
-    do {
-      let animalsContainer: AnimalsContainer = try await petFinderApi.request(with: router)
-      return animalsContainer.animals
-    } catch {
-      #warning("Handle later on ViewModel")
-      print(error.localizedDescription)
-      return []
-    }
-  }
+
+
+protocol Repository {
+  
+  func fetchToken() async throws -> APIToken
+  
+  func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal]
 }

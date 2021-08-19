@@ -30,48 +30,27 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
-import PetSaveOnboarding
+import Foundation
 
-@main
-struct AppMain: App {
+protocol DependencyInjectionProtocol {
   
-  @AppStorage(AppUserDefaultsKeys.onboarding) var shouldPresentOnboarding: Bool = true
+  func getRepository() -> Repository
+  
+  func getAnimalFetchService() -> AnimalsFetcher
+  
+}
 
-  var onboardingModels: [OnboardingModel] {
-    [
-      OnboardingModel(title: "Welcome to\n PetSave", description: "Looking for a Pet?\n Then you're at the right place", image: .bird, nextButtonTitle: "Next", skipButtonTitle: "Skip"),
-      OnboardingModel(title: "Search...", description: "Search from a list of our huge database of animals.", image: .dogBoneStand, nextButtonTitle: "Allow", skipButtonTitle: "Skip"),
-      OnboardingModel(title: "Nearby", description: "Find pets to adopt from nearby your place...", image: .chameleon, nextButtonTitle: "Next", skipButtonTitle: "Skip")
-    ]
+final class DependencyInjectionContainer: DependencyInjectionProtocol {
+  
+  
+  private var repository: Repository = RepositoryImplementation()
+  
+  func getRepository() -> Repository {
+    return repository
   }
   
-  var dependencies = DependencyInjectionContainer()
-
-  var body: some Scene {
-    WindowGroup {
-//      Group {
-//        if !onboardingPresented {
-//          PetSaveOnboardingView(items: onboadingModels)
-//            .onSkip {
-//              onboardingPresented = true
-//            }
-//
-//            .background(
-//              Color.white.frame(maxWidth: .infinity, maxHeight: .infinity)
-//            )
-//            .transition(.opacity)
-//        } else {
-      ContentView(animalFetchService: dependencies.getAnimalFetchService())
-            .fullScreenCover(isPresented: $shouldPresentOnboarding, onDismiss: nil) {
-              PetSaveOnboardingView(items: onboardingModels)
-                .onSkip {
-                  shouldPresentOnboarding = false
-                }
-            }
-//        }
-//      }
-//      .animation(.easeIn, value: onboardingPresented)
-    }
+  func getAnimalFetchService() -> AnimalsFetcher {
+    return AnimalsFetchService(repository: repository)
   }
+  
 }

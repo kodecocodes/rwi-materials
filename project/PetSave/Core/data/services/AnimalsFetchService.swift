@@ -30,45 +30,18 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+final class AnimalsFetchService {
+  private let repository: Repository
 
-protocol APIManagerProtocol {
-  func request(with apiRouter: RouterProtocol, authToken: String) async throws -> Data
-}
-
-class APIManager: APIManagerProtocol {
-  private let urlSession: URLSession
-
-  init(urlSession: URLSession = URLSession.shared) {
-    self.urlSession = urlSession
-  }
-
-  func request(with router: RouterProtocol, authToken: String = "") async throws -> Data {
-    let (data, response) = try await urlSession.data(for: router.request(authToken: authToken))
-    guard let httpResponse = response as? HTTPURLResponse,
-      httpResponse.statusCode == 200 else { throw NetworkError.invalidServerResponse }
-    printResponse(httpResponse)
-    return data
+  init(repository: Repository) {
+    self.repository = repository
   }
 }
 
-private extension APIManager {
-//  func printResponse(_ response: HTTPURLResponse, data: Data) {
-//    print()
-//    print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
-//    print(response)
-//    print()
-//
-//    print("Response Body:")
-//    if let responseString = String(data: data, encoding: .utf8) {
-//      print(responseString)
-//    }
-//  }
-  
-  func printResponse(_ response: HTTPURLResponse) {
-    print()
-    print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
-    print(response)
-    print()
+import CoreLocation
+// MARK: - AnimalsFetcher
+extension AnimalsFetchService: AnimalsFetcher {
+  func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal] {
+    return await repository.fetchAnimals(page: page, location: location)
   }
 }

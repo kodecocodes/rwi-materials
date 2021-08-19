@@ -30,60 +30,40 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
+import Foundation
+import CoreLocation
+import UIKit
 
-class TokenValidatorTests: XCTestCase {
-  var tokenValidator: TokenValidator!
-
-  override func setUp() {
-    super.setUp()
-    tokenValidator = TokenValidator(
-      userDefaults: UserDefaults.standard,
-      authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateValidToken),
-      keychainManager: KeychainManager()
+final class RepositoryImplementation: Repository {
+  
+  private let requestManager: RequestManagerProtocol
+  
+  init(requestManager: RequestManagerProtocol = RequestManager()) {
+    self.requestManager = requestManager
+  }
+  
+  func fetchToken() async throws -> APIToken {
+    let data: Data = try await requestManager.apiManager.request(with: AuthTokenRouter.auth, authToken: "")
+    let apiToken: APIToken = try requestManager.parser.parse(data: data)
+    return apiToken
+  }
+  
+  
+  func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal] {
+    let router = AnimalsRouter.getAnimalsWith(
+      page: page,
+      latitude: location?.coordinate.latitude,
+      longitude: location?.coordinate.longitude
     )
+    do {
+      let animalsContainer: AnimalsContainer = try await requestManager.request(with: router)
+      return animalsContainer.animals
+    } catch {
+#warning("Handle later on ViewModel")
+      print(error.localizedDescription)
+      return []
+    }
   }
-
-  override func tearDown() {
-    super.tearDown()
-    let server = APIConstants.host
-    UserDefaults.standard.set(nil, forKey: "expiresAt")
-    let deleteQuery = [
-      kSecAttrServer: server,
-      kSecClass: kSecClassInternetPassword
-    ] as CFDictionary
-
-    SecItemDelete(deleteQuery)
-  }
-
-  func testRequestToken() async throws {
-    let token = try await tokenValidator.validateToken()
-    XCTAssertFalse(token.isEmpty)
-  }
-
-  func testCachedToken() async throws {
-    let token = try await tokenValidator.validateToken()
-    let sameToken = try await tokenValidator.validateToken()
-    XCTAssertEqual(token, sameToken)
-  }
-
-  func testTokenFromKeychain() async throws {
-    try TokenTestHelper.saveTokenInKeychain(token: "abc")
-    UserDefaults.standard.set(Date().advanced(by: 5000).timeIntervalSince1970, forKey: "expiresAt")
-    let token = try await tokenValidator.validateToken()
-    XCTAssertEqual(token, "abc")
-  }
-
-  func testExpiredToken() async throws {
-    tokenValidator = TokenValidator(
-      userDefaults: UserDefaults.standard,
-      authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateExpiredAuthToken),
-      keychainManager: KeychainManager()
-    )
-
-    let expiredToken = try await tokenValidator.validateToken()
-    let newToken = try await tokenValidator.validateToken()
-    XCTAssertNotEqual(expiredToken, newToken)
-  }
+  
+  
 }

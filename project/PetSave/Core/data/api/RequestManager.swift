@@ -35,8 +35,9 @@ import Foundation
 protocol RequestManagerProtocol {
   var apiManager: APIManagerProtocol { get }
   var parser: DataParserProtocol { get }
-  var tokenValidator: TokenValidatorProtocol { get }
+  var accessTokenManager: AccessTokenManagerProtocol { get }
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T
+  func requestAccessToken() async throws -> String
 }
 
 extension RequestManagerProtocol {
@@ -46,7 +47,7 @@ extension RequestManagerProtocol {
   }
   
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
-    let authToken = try await tokenValidator.validateToken()
+    let authToken = try await requestAccessToken()
     let data = try await apiManager.request(with: router, authToken: authToken)
     let decoded: T = try parser.parse(data: data)
     return decoded
@@ -55,17 +56,26 @@ extension RequestManagerProtocol {
 
 class RequestManager: RequestManagerProtocol {
   let apiManager: APIManagerProtocol
-  let tokenValidator: TokenValidatorProtocol
+  let accessTokenManager: AccessTokenManagerProtocol
 
   init(
     apiManager: APIManagerProtocol = APIManager(),
-    tokenValidator: TokenValidatorProtocol = TokenValidator(
+    accessToken: AccessTokenManagerProtocol = AccessTokenManager(
       userDefaults: .standard,
-      authFetcher: AuthService(),
-      keychainManager: KeychainManager()
-    )
+      keychainManager: KeychainManager())
   ) {
     self.apiManager = apiManager
-    self.tokenValidator = tokenValidator
+    self.accessTokenManager = accessToken
+  }
+  
+  func requestAccessToken() async throws -> String {
+    if accessTokenManager.isTokenValid() {
+      return accessTokenManager.fetchToken()
+    }
+    
+    let data = try await apiManager.request(with: AuthTokenRouter.auth, authToken: "")
+    let token: APIToken = try parser.parse(data: data)
+    try accessTokenManager.refreshWith(apiToken: token)
+    return token.bearerAccessToken
   }
 }

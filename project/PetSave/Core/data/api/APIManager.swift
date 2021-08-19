@@ -30,48 +30,46 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
-import PetSaveOnboarding
+import Foundation
 
-@main
-struct AppMain: App {
+protocol APIManagerProtocol {
+  func request(with apiRouter: RouterProtocol, authToken: String) async throws -> Data
+}
+
+class APIManager: APIManagerProtocol {
   
-  @AppStorage(AppUserDefaultsKeys.onboarding) var shouldPresentOnboarding: Bool = true
+  private let urlSession: URLSession
 
-  var onboardingModels: [OnboardingModel] {
-    [
-      OnboardingModel(title: "Welcome to\n PetSave", description: "Looking for a Pet?\n Then you're at the right place", image: .bird, nextButtonTitle: "Next", skipButtonTitle: "Skip"),
-      OnboardingModel(title: "Search...", description: "Search from a list of our huge database of animals.", image: .dogBoneStand, nextButtonTitle: "Allow", skipButtonTitle: "Skip"),
-      OnboardingModel(title: "Nearby", description: "Find pets to adopt from nearby your place...", image: .chameleon, nextButtonTitle: "Next", skipButtonTitle: "Skip")
-    ]
+  init(urlSession: URLSession = URLSession.shared) {
+    self.urlSession = urlSession
   }
-  
-  var dependencies = DependencyInjectionContainer()
 
-  var body: some Scene {
-    WindowGroup {
-//      Group {
-//        if !onboardingPresented {
-//          PetSaveOnboardingView(items: onboadingModels)
-//            .onSkip {
-//              onboardingPresented = true
-//            }
+  func request(with router: RouterProtocol, authToken: String = "") async throws -> Data {
+    let (data, response) = try await urlSession.data(for: router.request(authToken: authToken))
+    guard let httpResponse = response as? HTTPURLResponse,
+      httpResponse.statusCode == 200 else { throw NetworkError.invalidServerResponse }
+    printResponse(httpResponse)
+    return data
+  }
+}
+
+private extension APIManager {
+//  func printResponse(_ response: HTTPURLResponse, data: Data) {
+//    print()
+//    print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
+//    print(response)
+//    print()
 //
-//            .background(
-//              Color.white.frame(maxWidth: .infinity, maxHeight: .infinity)
-//            )
-//            .transition(.opacity)
-//        } else {
-      ContentView(animalFetchService: dependencies.getAnimalFetchService())
-            .fullScreenCover(isPresented: $shouldPresentOnboarding, onDismiss: nil) {
-              PetSaveOnboardingView(items: onboardingModels)
-                .onSkip {
-                  shouldPresentOnboarding = false
-                }
-            }
-//        }
-//      }
-//      .animation(.easeIn, value: onboardingPresented)
-    }
+//    print("Response Body:")
+//    if let responseString = String(data: data, encoding: .utf8) {
+//      print(responseString)
+//    }
+//  }
+  
+  func printResponse(_ response: HTTPURLResponse) {
+    print()
+    print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
+    print(response)
+    print()
   }
 }

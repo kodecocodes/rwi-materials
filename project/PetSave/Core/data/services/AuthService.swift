@@ -37,15 +37,19 @@ protocol AuthTokenFetcher {
 }
 
 struct AuthService {
-  private let apiManager = APIManager()
-  private let parser = DataParser()
+//  private let apiManager = APIManager()
+//  private let parser = DataParser()
+  private let repository: Repository
+
+  init(repository: Repository = RepositoryImplementation()) {
+    self.repository = repository
+  }
 }
 
 // MARK: - AuthTokenFetcher
 extension AuthService: AuthTokenFetcher {
   func fetchToken() async throws -> APIToken {
-    let data: Data = try await apiManager.request(with: AuthTokenRouter.auth)
-    let apiToken: APIToken = try parser.parse(data: data)
+    let apiToken = try await repository.fetchToken()
     return apiToken
   }
 }
