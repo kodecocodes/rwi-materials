@@ -32,94 +32,82 @@
 
 import Foundation
 
-protocol TokenValidatorProtocol {
-  func validateToken() async throws -> String
+protocol AccessTokenManagerProtocol {
+  func isTokenValid() -> Bool
+  func fetchToken() -> String
+  func refreshWith(apiToken: APIToken) throws
 }
 
-actor TokenValidator {
+class AccessTokenManager {
   private let userDefaults: UserDefaults
-  private let authFetcher: AuthTokenFetcher
   private let keychainManager: KeychainManagerProtocol
   private let server = APIConstants.host
-  private var accesstoken: String?
+  private var accessToken: String?
   private var expiresAt = Date()
 
-  init(userDefaults: UserDefaults, authFetcher: AuthTokenFetcher, keychainManager: KeychainManagerProtocol) {
+  init(userDefaults: UserDefaults = .standard,
+       keychainManager: KeychainManagerProtocol) {
     self.userDefaults = userDefaults
-    self.authFetcher = authFetcher
     self.keychainManager = keychainManager
   }
 }
 
-// MARK: - TokenValidatorProtocol
-extension TokenValidator: TokenValidatorProtocol {
-  func validateToken() async throws -> String {
-    if let token = accesstoken, expiresAt.compare(Date()) == .orderedDescending {
-      // Token and expiresAt are cached in-memory.
-      return token
-    }
+// MARK: - AccessTokenProtocol
+extension AccessTokenManager: AccessTokenManagerProtocol {
 
+  func isTokenValid() -> Bool {
+    accessToken = getToken()
+    expiresAt = getExpiresAt()
+    return accessToken != nil && expiresAt.compare(Date()) == .orderedDescending
+  }
+  
+  func fetchToken() -> String {
     // Token and expiresAt are not cached in-memory.
     // Tries to fetch token from keychain and expires at from UserDefaults.
-    if let keychainToken = await findToken(),
-      let expiresAt = getExpiresAt(), expiresAt.compare(Date()) == .orderedDescending {
-      self.accesstoken = keychainToken
-      self.expiresAt = expiresAt
-      return keychainToken
+    guard let token = accessToken else {
+      return ""
     }
-
-    // Token and expiresAt are not cached nor on Keychain/UserDefaults.
-    // Must fetch from API
-    let apiToken = try await fetchToken()
-    try await refreshWith(apiToken: apiToken)
-    return apiToken.bearerAccessToken
+    return token
   }
-}
-
-// MARK: - Private methods
-private extension TokenValidator {
-  func fetchToken() async throws -> APIToken {
-    return try await authFetcher.fetchToken()
-  }
-
-  func refreshWith(apiToken: APIToken) async throws {
+  
+  func refreshWith(apiToken: APIToken) throws {
     let expiresAt = apiToken.expiresAt
-    let accesstoken = apiToken.bearerAccessToken
+    let token = apiToken.bearerAccessToken
 
-    if await findToken() != nil {
-      try await update(token: accesstoken)
+    if getToken() != nil {
+      try update(token: token)
     } else {
-      try await save(token: accesstoken)
+      try save(token: token)
     }
 
     save(expiresAt: expiresAt)
     self.expiresAt = expiresAt
-    self.accesstoken = accesstoken
+    self.accessToken = token
   }
 }
 
 // MARK: - Token Expiration
-private extension TokenValidator {
+private extension AccessTokenManager {
   func save(expiresAt: Date) {
-    userDefaults.set(expiresAt.timeIntervalSince1970, forKey: "expiresAt")
+    userDefaults.set(expiresAt.timeIntervalSince1970, forKey: AppUserDefaultsKeys.expiresAt)
   }
 
-  func getExpiresAt() -> Date? {
-    Date(timeIntervalSince1970: userDefaults.double(forKey: "expiresAt"))
+  func getExpiresAt() -> Date {
+    Date(timeIntervalSince1970: userDefaults.double(forKey: AppUserDefaultsKeys.expiresAt))
   }
 }
 
 // MARK: - Keychain
-private extension TokenValidator {
-  func findToken() async -> String? {
+private extension AccessTokenManager {
+  func getToken() -> String? {
     return keychainManager.getKey(server: server, keyClass: kSecClassInternetPassword)
   }
 
-  func save(token: String) async throws {
+  func save(token: String) throws {
     try keychainManager.save(key: token, server: server, keyClass: kSecClassInternetPassword)
   }
 
-  func update(token: String) async throws {
+  func update(token: String) throws {
     guard let tokenData = token.data(using: .utf8) else { throw KeychainError.failedToConvertToData }
     let attributes = [kSecValueData: tokenData] as CFDictionary
     return try keychainManager.updateKey(attributes: attributes, server: server, keyClass: kSecClassInternetPassword)

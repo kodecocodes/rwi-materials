@@ -33,13 +33,13 @@
 import Foundation
 
 protocol KeychainManagerProtocol {
-  func findKey(server: String, keyClass: CFString) -> String?
+  func getKey(server: String, keyClass: CFString) -> String?
   func save(key: String, server: String, keyClass: CFString) throws
   func updateKey(attributes: CFDictionary, server: String, keyClass: CFString) throws
 }
 
 struct KeychainManager: KeychainManagerProtocol {
-  func findKey(server: String, keyClass: CFString) -> String? {
+  func getKey(server: String, keyClass: CFString) -> String? {
     let findQuery = [
       kSecAttrServer: server,
       kSecClass: keyClass,

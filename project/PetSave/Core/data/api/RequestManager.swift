@@ -35,37 +35,47 @@ import Foundation
 protocol RequestManagerProtocol {
   var apiManager: APIManagerProtocol { get }
   var parser: DataParserProtocol { get }
-  var tokenValidator: TokenValidatorProtocol { get }
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T
 }
 
-extension RequestManagerProtocol {
+
+class RequestManager: RequestManagerProtocol {
   
-  var parser: DataParserProtocol {
-    return DataParser()
+  let apiManager: APIManagerProtocol
+  let accessTokenManager: AccessTokenManagerProtocol
+
+  init(
+    apiManager: APIManagerProtocol = APIManager(),
+    accessToken: AccessTokenManagerProtocol = AccessTokenManager(
+      userDefaults: .standard,
+      keychainManager: KeychainManager())
+  ) {
+    self.apiManager = apiManager
+    self.accessTokenManager = accessToken
+  }
+  
+  func requestAccessToken() async throws -> String {
+    if accessTokenManager.isTokenValid() {
+      return accessTokenManager.fetchToken()
+    }
+    
+    let data = try await apiManager.request(with: AuthTokenRouter.auth, authToken: "")
+    let token: APIToken = try parser.parse(data: data)
+    try accessTokenManager.refreshWith(apiToken: token)
+    return token.bearerAccessToken
   }
   
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
-    let authToken = try await tokenValidator.validateToken()
+    let authToken = try await requestAccessToken()
     let data = try await apiManager.request(with: router, authToken: authToken)
     let decoded: T = try parser.parse(data: data)
     return decoded
   }
 }
 
-class RequestManager: RequestManagerProtocol {
-  let apiManager: APIManagerProtocol
-  let tokenValidator: TokenValidatorProtocol
-
-  init(
-    apiManager: APIManagerProtocol = APIManager(),
-    tokenValidator: TokenValidatorProtocol = TokenValidator(
-      userDefaults: .standard,
-      authFetcher: AuthService(),
-      keychainManager: KeychainManager()
-    )
-  ) {
-    self.apiManager = apiManager
-    self.tokenValidator = tokenValidator
+extension RequestManagerProtocol {
+  
+  var parser: DataParserProtocol {
+    return DataParser()
   }
 }

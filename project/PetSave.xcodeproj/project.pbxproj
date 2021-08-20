@@ -49,6 +49,7 @@
 		8F19D27026B61BA00064BC63 /* TokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F19D26F26B61BA00064BC63 /* TokenValidator.swift */; };
 		8F19D27326B6CCFD0064BC63 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F19D27126B6CCFD0064BC63 /* RequestManager.swift */; };
 		8F19D27426B6CCFD0064BC63 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F19D27226B6CCFD0064BC63 /* RouterProtocol.swift */; };
+		8F9CF4A526CFDC0400AC3DA8 /* AccessTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9CF4A426CFDC0400AC3DA8 /* AccessTokenManager.swift */; };
 		8FC35C5B26A4643900DDA13F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC35C5A26A4643800DDA13F /* APIManager.swift */; };
 		8FC35C5D26A4801600DDA13F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC35C5C26A4801600DDA13F /* NetworkError.swift */; };
 		8FC372CF26C97C930079291F /* PetSaveOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC372CE26C97C930079291F /* PetSaveOnboarding */; };
@@ -171,6 +172,7 @@
 		8F19D26F26B61BA00064BC63 /* TokenValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenValidator.swift; sourceTree = "<group>"; };
 		8F19D27126B6CCFD0064BC63 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		8F19D27226B6CCFD0064BC63 /* RouterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
+		8F9CF4A426CFDC0400AC3DA8 /* AccessTokenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTokenManager.swift; sourceTree = "<group>"; };
 		8FC35C5A26A4643800DDA13F /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		8FC35C5C26A4801600DDA13F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		8FC372D026CA7AF20079291F /* AppUserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaultsKeys.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				AE5EA13726AC977E00895E34 /* combine */,
 				AE6A378E269B58EA0054C842 /* model */,
 				8F19D26F26B61BA00064BC63 /* TokenValidator.swift */,
+				8F9CF4A426CFDC0400AC3DA8 /* AccessTokenManager.swift */,
 				AE6A378C269B58D30054C842 /* APIConstants.swift */,
 				8FC35C5A26A4643800DDA13F /* APIManager.swift */,
 				8FC35C5C26A4801600DDA13F /* NetworkError.swift */,
@@ -884,6 +887,7 @@
 				849C44EB26A0B7C9009899B0 /* AnimalMock.swift in Sources */,
 				AE477D3526A790170086C768 /* CoreDataPersistable.swift in Sources */,
 				AE6A3825269FC7670054C842 /* User.swift in Sources */,
+				8F9CF4A526CFDC0400AC3DA8 /* AccessTokenManager.swift in Sources */,
 				AE6A3820269B5E0E0054C842 /* Media.swift in Sources */,
 				84B0507E26B0F12200E0A709 /* AnimalDetailCard.swift in Sources */,
 				84B0507826B0E8F500E0A709 /* AnimalContactLink.swift in Sources */,
