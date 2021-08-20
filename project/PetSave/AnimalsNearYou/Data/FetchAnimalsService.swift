@@ -30,25 +30,14 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
 import CoreLocation
-import UIKit
 
-final class RepositoryImplementation: Repository {
-  
-  private let requestManager: RequestManagerProtocol
-  
-  init(requestManager: RequestManagerProtocol = RequestManager()) {
-    self.requestManager = requestManager
-  }
-  
-  func fetchToken() async throws -> APIToken {
-    let data: Data = try await requestManager.apiManager.request(with: AuthTokenRouter.auth, authToken: "")
-    let apiToken: APIToken = try requestManager.parser.parse(data: data)
-    return apiToken
-  }
-  
-  
+struct FetchAnimalsService {
+  let petFinderApi: RequestManagerProtocol
+}
+
+// MARK: - AnimalsFetcher
+extension FetchAnimalsService: AnimalsFetcher {
   func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal] {
     let router = AnimalsRouter.getAnimalsWith(
       page: page,
@@ -56,14 +45,12 @@ final class RepositoryImplementation: Repository {
       longitude: location?.coordinate.longitude
     )
     do {
-      let animalsContainer: AnimalsContainer = try await requestManager.request(with: router)
+      let animalsContainer: AnimalsContainer = try await petFinderApi.request(with: router)
       return animalsContainer.animals
     } catch {
-#warning("Handle later on ViewModel")
+      #warning("Handle later on ViewModel")
       print(error.localizedDescription)
       return []
     }
   }
-  
-  
 }

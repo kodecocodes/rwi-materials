@@ -34,48 +34,38 @@ import Foundation
 
 protocol RequestManagerProtocol {
   var apiManager: APIManagerProtocol { get }
-  var parser: DataParserProtocol { get }
-  var accessTokenManager: AccessTokenManagerProtocol { get }
+  var jsonDecoder: JSONDecoder { get }
+  var tokenValidator: TokenValidatorProtocol { get }
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T
-  func requestAccessToken() async throws -> String
 }
 
 extension RequestManagerProtocol {
-  
-  var parser: DataParserProtocol {
-    return DataParser()
+  var jsonDecoder: JSONDecoder {
+    let jsonDecoder = JSONDecoder()
+    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    return jsonDecoder
   }
-  
+
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
-    let authToken = try await requestAccessToken()
+    let authToken = try await tokenValidator.validateToken()
     let data = try await apiManager.request(with: router, authToken: authToken)
-    let decoded: T = try parser.parse(data: data)
-    return decoded
+    return try jsonDecoder.decode(T.self, from: data)
   }
 }
 
 class RequestManager: RequestManagerProtocol {
   let apiManager: APIManagerProtocol
-  let accessTokenManager: AccessTokenManagerProtocol
+  let tokenValidator: TokenValidatorProtocol
 
   init(
     apiManager: APIManagerProtocol = APIManager(),
-    accessToken: AccessTokenManagerProtocol = AccessTokenManager(
+    tokenValidator: TokenValidatorProtocol = TokenValidator(
       userDefaults: .standard,
-      keychainManager: KeychainManager())
+      authFetcher: AuthService(),
+      keychainManager: KeychainManager()
+    )
   ) {
     self.apiManager = apiManager
-    self.accessTokenManager = accessToken
-  }
-  
-  func requestAccessToken() async throws -> String {
-    if accessTokenManager.isTokenValid() {
-      return accessTokenManager.fetchToken()
-    }
-    
-    let data = try await apiManager.request(with: AuthTokenRouter.auth, authToken: "")
-    let token: APIToken = try parser.parse(data: data)
-    try accessTokenManager.refreshWith(apiToken: token)
-    return token.bearerAccessToken
+    self.tokenValidator = tokenValidator
   }
 }

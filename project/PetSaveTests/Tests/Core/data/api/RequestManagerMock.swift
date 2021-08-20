@@ -35,12 +35,12 @@ import XCTest
 
 struct RequestManagerMock: RequestManagerProtocol {
   let apiManager: APIManagerProtocol
-  let tokenValidator: AccessTokenManagerProtocol
+  let tokenValidator: TokenValidatorProtocol
 
   func request<T: Decodable>(with router: RouterProtocol) async throws -> T {
     let authToken = try await tokenValidator.validateToken()
     let data = try await apiManager.request(with: router, authToken: authToken)
-    let decoded: T = try parser.parse(data: data)
+    let decoded: T = try jsonDecoder.decode(T.self, from: data)
     return decoded
   }
 }

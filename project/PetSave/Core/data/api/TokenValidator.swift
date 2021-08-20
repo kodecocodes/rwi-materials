@@ -32,116 +32,94 @@
 
 import Foundation
 
-protocol AccessTokenManagerProtocol {
-  func fetchToken() -> String
-  func refreshWith(apiToken: APIToken) throws
-  func isTokenValid() -> Bool
+protocol TokenValidatorProtocol {
+  func validateToken() async throws -> String
 }
 
-class AccessTokenManager {
+actor TokenValidator {
   private let userDefaults: UserDefaults
+  private let authFetcher: AuthTokenFetcher
   private let keychainManager: KeychainManagerProtocol
   private let server = APIConstants.host
-  private var accessToken: String?
+  private var accesstoken: String?
   private var expiresAt = Date()
 
-  init(userDefaults: UserDefaults = .standard,
-       keychainManager: KeychainManagerProtocol) {
+  init(userDefaults: UserDefaults, authFetcher: AuthTokenFetcher, keychainManager: KeychainManagerProtocol) {
     self.userDefaults = userDefaults
+    self.authFetcher = authFetcher
     self.keychainManager = keychainManager
   }
 }
 
-// MARK: - AccessTokenProtocol
-extension AccessTokenManager: AccessTokenManagerProtocol {
-  
-  func fetchToken() -> String {
-    // Token and expiresAt are not cached in-memory.
-    // Tries to fetch token from keychain and expires at from UserDefaults.
-    guard let token = accessToken else {
-      return ""
+// MARK: - TokenValidatorProtocol
+extension TokenValidator: TokenValidatorProtocol {
+  func validateToken() async throws -> String {
+    if let token = accesstoken, expiresAt.compare(Date()) == .orderedDescending {
+      // Token and expiresAt are cached in-memory.
+      return token
     }
-    
-//    if expiresAt.compare(Date()) == .orderedDescending {
-//      return ""
-//    }
-//    self.accessToken = keychainToken
-
-    return token
-  }
-  
-  func isTokenValid() -> Bool {
-//    if let token = accessToken, expiresAt.compare(Date()) == .orderedDescending {
-//      // Token and expiresAt are cached in-memory.
-//      return token
-//    }
-    accessToken = getToken()
-    expiresAt = getExpiresAt()
-    return accessToken != nil && expiresAt.compare(Date()) == .orderedDescending
 
     // Token and expiresAt are not cached in-memory.
     // Tries to fetch token from keychain and expires at from UserDefaults.
-//    if let keychainToken = await findToken(),
-//      let expiresAt = getExpiresAt(), expiresAt.compare(Date()) == .orderedDescending {
-//      self.accessToken = keychainToken
-//      self.expiresAt = expiresAt
-//      return keychainToken
-//    }
+    if let keychainToken = await findToken(),
+      let expiresAt = getExpiresAt(), expiresAt.compare(Date()) == .orderedDescending {
+      self.accesstoken = keychainToken
+      self.expiresAt = expiresAt
+      return keychainToken
+    }
 
     // Token and expiresAt are not cached nor on Keychain/UserDefaults.
     // Must fetch from API
-//    let apiToken = try await fetchToken()
-//    try await refreshWith(apiToken: apiToken)
-//    return apiToken.bearerAccessToken
-  }
-  
-  func refreshWith(apiToken: APIToken) throws {
-    let expiresAt = apiToken.expiresAt
-    let token = apiToken.bearerAccessToken
-
-    if getToken() != nil {
-      try update(token: token)
-    } else {
-      try save(token: token)
-    }
-
-    save(expiresAt: expiresAt)
-    self.expiresAt = expiresAt
-    self.accessToken = token
+    let apiToken = try await fetchToken()
+    try await refreshWith(apiToken: apiToken)
+    return apiToken.bearerAccessToken
   }
 }
 
 // MARK: - Private methods
-private extension AccessTokenManager {
-//  func fetchToken() async throws -> APIToken {
-//    return try await authFetcher.fetchToken()
-//  }
+private extension TokenValidator {
+  func fetchToken() async throws -> APIToken {
+    return try await authFetcher.fetchToken()
+  }
 
+  func refreshWith(apiToken: APIToken) async throws {
+    let expiresAt = apiToken.expiresAt
+    let accesstoken = apiToken.bearerAccessToken
 
+    if await findToken() != nil {
+      try await update(token: accesstoken)
+    } else {
+      try await save(token: accesstoken)
+    }
+
+    save(expiresAt: expiresAt)
+    self.expiresAt = expiresAt
+    self.accesstoken = accesstoken
+  }
 }
 
 // MARK: - Token Expiration
-private extension AccessTokenManager {
+private extension TokenValidator {
   func save(expiresAt: Date) {
-    userDefaults.set(expiresAt.timeIntervalSince1970, forKey: AppUserDefaultsKeys.expiresAt)
+    userDefaults.set(expiresAt.timeIntervalSince1970, forKey: "expiresAt")
   }
 
-  func getExpiresAt() -> Date {
-    Date(timeIntervalSince1970: userDefaults.double(forKey: AppUserDefaultsKeys.expiresAt))
+  func getExpiresAt() -> Date? {
+    Date(timeIntervalSince1970: userDefaults.double(forKey: "expiresAt"))
   }
 }
 
 // MARK: - Keychain
-private extension AccessTokenManager {
-  func getToken() -> String? {
+private extension TokenValidator {
+  func findToken() async -> String? {
     return keychainManager.findKey(server: server, keyClass: kSecClassInternetPassword)
   }
 
-  func save(token: String) throws {
+  func save(token: String) async throws {
     try keychainManager.save(key: token, server: server, keyClass: kSecClassInternetPassword)
   }
 
-  func update(token: String) throws {
+  func update(token: String) async throws {
     guard let tokenData = token.data(using: .utf8) else { throw KeychainError.failedToConvertToData }
     let attributes = [kSecValueData: tokenData] as CFDictionary
     return try keychainManager.updateKey(attributes: attributes, server: server, keyClass: kSecClassInternetPassword)

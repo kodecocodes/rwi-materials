@@ -30,21 +30,22 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-import Combine
-import PetSave
+import CoreLocation
+import CoreData
 
-struct MockPetService: PetServiceDataPublisher {
-  let data: Data
-  let error: URLError?
+protocol AnimalsRepositoryProtocol {
+  func saveAnimals(animals: [Animal]) throws
+}
 
-  func publisher() -> AnyPublisher<Data, URLError> {
-    let publisher = CurrentValueSubject<Data, URLError>(data)
+struct AnimalsRepository {
+  let context: NSManagedObjectContext
+}
 
-    if let error = error {
-      publisher.send(completion: .failure(error))
+extension AnimalsRepository: AnimalsRepositoryProtocol {
+  func saveAnimals(animals: [Animal]) throws {
+    for var animal in animals {
+      animal.toManagedObject(context: context)
     }
-
-    return publisher.eraseToAnyPublisher()
+    try context.save()
   }
 }

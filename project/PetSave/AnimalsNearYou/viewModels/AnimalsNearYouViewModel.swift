@@ -45,18 +45,18 @@ final class AnimalsNearYouViewModel: ObservableObject {
   var page = 1
 
   private let animalFetcher: AnimalsFetcher
-  private let context: NSManagedObjectContext
+  private let animalsRepository: AnimalsRepositoryProtocol
   private let locationManager: LocationManager
 
   init(
     isLoading: Bool = true,
     animalFetcher: AnimalsFetcher,
-    context: NSManagedObjectContext,
+    animalsRepository: AnimalsRepositoryProtocol,
     locationManager: LocationManager
   ) {
     self.isLoading = isLoading
     self.animalFetcher = animalFetcher
-    self.context = context
+    self.animalsRepository = animalsRepository
     self.locationManager = locationManager
   }
 
@@ -97,14 +97,12 @@ final class AnimalsNearYouViewModel: ObservableObject {
   @MainActor
   func addAnimals(animals: [Animal]) {
     hasMoreAnimals = !animals.isEmpty
-    for var animal in animals {
-      animal.toManagedObject(context: context)
-    }
     isLoading = false
     do {
-      try context.save()
+      try animalsRepository.saveAnimals(animals: animals)
     } catch {
-      print("Error saving to database \(error)")
+      #warning("Handle later some other way...")
+      print("Error saving animals \(error.localizedDescription)")
     }
   }
 }
@@ -114,5 +112,15 @@ struct AnimalFetcherMock: AnimalsFetcher {
   func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal] {
     await Task.sleep(2)
     return Animal.mock
+  }
+}
+
+struct AnimalsRepositoryMock: AnimalsRepositoryProtocol {
+  func saveAnimals(animals: [Animal]) throws {
+    let context = PersistenceController.preview.container.viewContext
+    for var animal in animals {
+      animal.toManagedObject(context: context)
+    }
+    try? context.save()
   }
 }

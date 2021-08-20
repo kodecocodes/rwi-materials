@@ -47,8 +47,7 @@ final class SearchViewModel: ObservableObject {
   @Published var typeSelection = AnimalSearchType.none
 
   private let animalSearcher: AnimalSearcher
-
-  let context: NSManagedObjectContext
+  private let animalsRepository: AnimalsRepositoryProtocol
 
   var shouldFilter: Bool {
     !searchText.isEmpty ||
@@ -56,9 +55,9 @@ final class SearchViewModel: ObservableObject {
       typeSelection != .none
   }
 
-  init(animalSearcher: AnimalSearcher, context: NSManagedObjectContext) {
+  init(animalSearcher: AnimalSearcher, animalsRepository: AnimalsRepositoryProtocol) {
     self.animalSearcher = animalSearcher
-    self.context = context
+    self.animalsRepository = animalsRepository
   }
 
   func search() {
@@ -80,8 +79,11 @@ final class SearchViewModel: ObservableObject {
   // TODO: Once this is hooked into the DataAPI -> Database -> Fetchrequest scenario described above, we may not need all of this
   @MainActor
   func update(animals: [Animal]) {
-    for var animal in animals {
-      animal.toManagedObject(context: context)
+    do {
+      try animalsRepository.saveAnimals(animals: animals)
+    } catch {
+      #warning("Handle later some other way...")
+      print("Error saving animals \(error.localizedDescription)")
     }
   }
 }

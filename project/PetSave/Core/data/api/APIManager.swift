@@ -36,8 +36,7 @@ protocol APIManagerProtocol {
   func request(with apiRouter: RouterProtocol, authToken: String) async throws -> Data
 }
 
-class APIManager: APIManagerProtocol {
-  
+struct APIManager: APIManagerProtocol {
   private let urlSession: URLSession
 
   init(urlSession: URLSession = URLSession.shared) {
@@ -54,18 +53,6 @@ class APIManager: APIManagerProtocol {
 }
 
 private extension APIManager {
-//  func printResponse(_ response: HTTPURLResponse, data: Data) {
-//    print()
-//    print("↙️↙️↙️ Incoming Response ↙️↙️↙️")
-//    print(response)
-//    print()
-//
-//    print("Response Body:")
-//    if let responseString = String(data: data, encoding: .utf8) {
-//      print(responseString)
-//    }
-//  }
-  
   func printResponse(_ response: HTTPURLResponse) {
     print()
     print("↙️↙️↙️ Incoming Response ↙️↙️↙️")

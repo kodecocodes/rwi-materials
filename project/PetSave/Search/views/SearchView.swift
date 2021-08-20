@@ -152,7 +152,7 @@ struct SearchView_Previews: PreviewProvider {
     .environmentObject(
       SearchViewModel(
         animalSearcher: AnimalSearcherMock(),
-        context: context
+        animalsRepository: AnimalsRepository(context: context)
       )
     )
 
@@ -164,7 +164,7 @@ struct SearchView_Previews: PreviewProvider {
     .environmentObject(
       SearchViewModel(
         animalSearcher: AnimalSearcherMock(),
-        context: context
+        animalsRepository: AnimalsRepository(context: context)
       )
     )
 
@@ -176,7 +176,7 @@ struct SearchView_Previews: PreviewProvider {
     .environmentObject(
       SearchViewModel(
         animalSearcher: AnimalSearcherMock(),
-        context: context
+        animalsRepository: AnimalsRepository(context: context)
       )
     )
   }
