@@ -281,13 +281,13 @@
 			path = parser;
 			sourceTree = "<group>";
 		};
-		8F9CF4A626D1BCB800AC3DA8 /* router */ = {
+		8F9CF4A626D1BCB800AC3DA8 /* request */ = {
 			isa = PBXGroup;
 			children = (
 				847F49F426D310C600B94FB8 /* animals */,
 				8F9CF4A726D1BCDE00AC3DA8 /* auth */,
 			);
-			path = router;
+			path = request;
 			sourceTree = "<group>";
 		};
 		8F9CF4A726D1BCDE00AC3DA8 /* auth */ = {
@@ -454,7 +454,7 @@
 				8F4E8D4D26D3DEF60055D1C4 /* token */,
 				8F4E8D4E26D3DEFE0055D1C4 /* parser */,
 				8F4E8D4C26D3DEF00055D1C4 /* network */,
-				8F9CF4A626D1BCB800AC3DA8 /* router */,
+				8F9CF4A626D1BCB800AC3DA8 /* request */,
 				AE6A378E269B58EA0054C842 /* model */,
 				847F49F526D3403B00B94FB8 /* APIConstants.swift */,
 			);
