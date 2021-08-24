@@ -30,9 +30,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-enum APIConstants {
-  static let host = "api.petfinder.com"
-  static let grantType = "client_credentials"
-  static let clientId = "rgq4iIBz2ar1Wrqia1p4Jf8voFFKVt3rJ5NlZUWcc4us50hqNE"
-  static let clientSecret = "vj5ZabUDXPZihpVUyCx4bs5Cz64ikomlYRsirdiH"
+import Foundation
+
+enum RequestType: String {
+  case GET
+  case POST
 }
