@@ -72,7 +72,7 @@ extension RequestProtocol {
       components.queryItems = urlParams.map { URLQueryItem(name: $0, value: $1) }
     }
 
-    guard let url = components.url else { throw NSError(domain: "URL string is malformed.", code: -1) }
+    guard let url = components.url else { throw  NetworkError.invalidURL }
 
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = requestType.rawValue
