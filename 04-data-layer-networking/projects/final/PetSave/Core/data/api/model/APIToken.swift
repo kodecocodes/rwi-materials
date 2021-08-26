@@ -54,6 +54,6 @@ extension APIToken {
   }
 
   var bearerAccessToken: String {
-    return "Bearer \(accessToken)"
+    "\(tokenType) \(accessToken)"
   }
 }
