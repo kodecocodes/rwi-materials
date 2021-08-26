@@ -65,6 +65,7 @@
 		AE6A3820269B5E0E0054C842 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A381F269B5E0E0054C842 /* Media.swift */; };
 		AE6A3822269B5E1A0054C842 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3821269B5E1A0054C842 /* Organization.swift */; };
 		AE6A3825269FC7670054C842 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3824269FC7670054C842 /* User.swift */; };
+		AE72000826D72B0700E7489D /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72000726D72B0700E7489D /* CoreDataTests.swift */; };
 		AE8550C026D5C56100D21317 /* Address+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550B426D5C56100D21317 /* Address+CoreData.swift */; };
 		AE8550C126D5C56100D21317 /* AnimalAttributes+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550B526D5C56100D21317 /* AnimalAttributes+CoreData.swift */; };
 		AE8550C226D5C56100D21317 /* Organization+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550B626D5C56100D21317 /* Organization+CoreData.swift */; };
@@ -158,6 +159,7 @@
 		AE6A381F269B5E0E0054C842 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		AE6A3821269B5E1A0054C842 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		AE6A3824269FC7670054C842 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AE72000726D72B0700E7489D /* CoreDataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		AE8550B426D5C56100D21317 /* Address+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Address+CoreData.swift"; sourceTree = "<group>"; };
 		AE8550B526D5C56100D21317 /* AnimalAttributes+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnimalAttributes+CoreData.swift"; sourceTree = "<group>"; };
 		AE8550B626D5C56100D21317 /* Organization+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreData.swift"; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 		AE5EA14626AC9B2300895E34 /* coreData */ = {
 			isa = PBXGroup;
 			children = (
+				AE72000726D72B0700E7489D /* CoreDataTests.swift */,
 			);
 			path = coreData;
 			sourceTree = "<group>";
@@ -649,6 +652,7 @@
 					};
 					AE6A37F4269B5B850054C842 = {
 						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
 						TestTargetID = 18D775BC22AD944300AE281E;
 					};
 					AE6A3801269B5C050054C842 = {
@@ -806,6 +810,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE72000826D72B0700E7489D /* CoreDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1094,6 +1099,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3P9488PVA3;
@@ -1108,6 +1114,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.PetSaveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetSave.app/PetSave";
@@ -1141,6 +1148,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3P9488PVA3;
@@ -1155,6 +1163,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.PetSaveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetSave.app/PetSave";
@@ -1165,6 +1174,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3P9488PVA3;

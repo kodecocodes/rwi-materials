@@ -79,6 +79,7 @@
 		AE8550CD26D5C66D00D21317 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550CC26D5C66D00D21317 /* Persistence.swift */; };
 		AE8550CF26D5CF9200D21317 /* Breed+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550CE26D5CF9200D21317 /* Breed+CoreData.swift */; };
 		AE8550D126D5E73100D21317 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D026D5E73100D21317 /* CoreDataHelper.swift */; };
+		AE8550D526D71D8B00D21317 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D426D71D8B00D21317 /* CoreDataTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +175,7 @@
 		AE8550CC26D5C66D00D21317 /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		AE8550CE26D5CF9200D21317 /* Breed+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Breed+CoreData.swift"; sourceTree = "<group>"; };
 		AE8550D026D5E73100D21317 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		AE8550D426D71D8B00D21317 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		AED3FC3326A863A2006D2BEE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -353,6 +355,7 @@
 		AE5EA14626AC9B2300895E34 /* coreData */ = {
 			isa = PBXGroup;
 			children = (
+				AE8550D426D71D8B00D21317 /* CoreDataTests.swift */,
 			);
 			path = coreData;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 					};
 					AE6A37F4269B5B850054C842 = {
 						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
 						TestTargetID = 18D775BC22AD944300AE281E;
 					};
 					AE6A3801269B5C050054C842 = {
@@ -814,6 +818,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE8550D526D71D8B00D21317 /* CoreDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1102,6 +1107,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3P9488PVA3;
@@ -1116,6 +1122,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.PetSaveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetSave.app/PetSave";
@@ -1149,6 +1156,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3P9488PVA3;
@@ -1163,6 +1171,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.PetSaveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetSave.app/PetSave";
@@ -1173,6 +1182,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3P9488PVA3;
