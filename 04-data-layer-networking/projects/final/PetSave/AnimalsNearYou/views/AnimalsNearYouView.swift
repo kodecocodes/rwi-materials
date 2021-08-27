@@ -32,8 +32,6 @@
 
 import SwiftUI
 
-// Chapter 10: Animation here while data is loading, replacing ProgressView
-
 struct AnimalsNearYouView: View {
   
   @State var animals: [Animal] = []
