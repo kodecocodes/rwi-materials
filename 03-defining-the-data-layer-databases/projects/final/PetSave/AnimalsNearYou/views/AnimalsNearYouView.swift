@@ -74,6 +74,7 @@ struct AnimalsNearYouView: View {
       }
       await stopLoading()
     } catch {
+      fatalError("\(#file), \(#function), \(error.localizedDescription)")
     }
   }
 
