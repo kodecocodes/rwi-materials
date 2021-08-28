@@ -329,22 +329,22 @@
 			path = parser;
 			sourceTree = "<group>";
 		};
-		8F78BC8C26DA311700078A62 /* Mock */ = {
+		8F78BC8C26DA311700078A62 /* mock */ = {
 			isa = PBXGroup;
 			children = (
 				8F78BC8D26DA311700078A62 /* AnimalsRequestMock.swift */,
 				8F78BC8E26DA311700078A62 /* APIManagerMock.swift */,
 				8F78BC8F26DA311700078A62 /* RequestManagerMock.swift */,
 			);
-			path = Mock;
+			path = mock;
 			sourceTree = "<group>";
 		};
-		8F78BC9126DA311700078A62 /* Helper */ = {
+		8F78BC9126DA311700078A62 /* helper */ = {
 			isa = PBXGroup;
 			children = (
 				8F78BC9326DA311700078A62 /* AccessTokenTestHelper.swift */,
 			);
-			path = Helper;
+			path = helper;
 			sourceTree = "<group>";
 		};
 		8F9CF4A626D1BCB800AC3DA8 /* request */ = {
@@ -376,8 +376,8 @@
 		AE5EA13E26AC9A4F00895E34 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				8F78BC8C26DA311700078A62 /* Mock */,
-				8F78BC9126DA311700078A62 /* Helper */,
+				8F78BC8C26DA311700078A62 /* mock */,
+				8F78BC9126DA311700078A62 /* helper */,
 				8F78BC9026DA311700078A62 /* RequestManagerTests.swift */,
 				8F78BC9426DA311700078A62 /* AccessTokenManagerTests.swift */,
 			);
