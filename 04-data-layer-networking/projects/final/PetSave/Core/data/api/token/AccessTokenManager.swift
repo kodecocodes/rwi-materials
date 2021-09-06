@@ -57,7 +57,7 @@ extension AccessTokenManager: AccessTokenManagerProtocol {
 
   func isTokenValid() -> Bool {
     accessToken = getToken()
-    expiresAt = getExpiresAt()
+    expiresAt = getExpirationDate()
     return accessToken != nil && expiresAt.compare(Date()) == .orderedDescending
   }
   
@@ -92,7 +92,7 @@ private extension AccessTokenManager {
     userDefaults.set(expiresAt.timeIntervalSince1970, forKey: AppUserDefaultsKeys.expiresAt)
   }
 
-  func getExpiresAt() -> Date {
+  func getExpirationDate() -> Date {
     Date(timeIntervalSince1970: userDefaults.double(forKey: AppUserDefaultsKeys.expiresAt))
   }
 }
