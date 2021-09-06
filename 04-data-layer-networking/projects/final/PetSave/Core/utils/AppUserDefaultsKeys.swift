@@ -35,4 +35,5 @@ import Foundation
 enum AppUserDefaultsKeys {
   static let onboarding = "onboarding"
   static let expiresAt = "expiresAt"
+  static let bearerAccessToken = "bearerAccessToken"
 }

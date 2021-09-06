@@ -40,15 +40,11 @@ protocol AccessTokenManagerProtocol {
 
 class AccessTokenManager {
   private let userDefaults: UserDefaults
-  private let keychainManager: KeychainManagerProtocol
-  private let server = APIConstants.host
   private var accessToken: String?
   private var expiresAt = Date()
 
-  init(userDefaults: UserDefaults = .standard,
-       keychainManager: KeychainManagerProtocol) {
+  init(userDefaults: UserDefaults = .standard) {
     self.userDefaults = userDefaults
-    self.keychainManager = keychainManager
   }
 }
 
@@ -74,13 +70,7 @@ extension AccessTokenManager: AccessTokenManagerProtocol {
     let expiresAt = apiToken.expiresAt
     let token = apiToken.bearerAccessToken
 
-    if getToken() != nil {
-      try update(token: token)
-    } else {
-      try save(token: token)
-    }
-
-    save(expiresAt: expiresAt)
+    save(token: apiToken)
     self.expiresAt = expiresAt
     self.accessToken = token
   }
@@ -88,28 +78,16 @@ extension AccessTokenManager: AccessTokenManagerProtocol {
 
 // MARK: - Token Expiration
 private extension AccessTokenManager {
-  func save(expiresAt: Date) {
-    userDefaults.set(expiresAt.timeIntervalSince1970, forKey: AppUserDefaultsKeys.expiresAt)
+  func save(token: APIToken) {
+    userDefaults.set(token.expiresAt.timeIntervalSince1970, forKey: AppUserDefaultsKeys.expiresAt)
+    userDefaults.set(token.bearerAccessToken, forKey: AppUserDefaultsKeys.bearerAccessToken)
   }
 
   func getExpirationDate() -> Date {
     Date(timeIntervalSince1970: userDefaults.double(forKey: AppUserDefaultsKeys.expiresAt))
   }
-}
-
-// MARK: - Keychain
-private extension AccessTokenManager {
+  
   func getToken() -> String? {
-    return keychainManager.getKey(server: server, keyClass: kSecClassInternetPassword)
-  }
-
-  func save(token: String) throws {
-    try keychainManager.save(key: token, server: server, keyClass: kSecClassInternetPassword)
-  }
-
-  func update(token: String) throws {
-    guard let tokenData = token.data(using: .utf8) else { throw KeychainError.failedToConvertToData }
-    let attributes = [kSecValueData: tokenData] as CFDictionary
-    return try keychainManager.updateKey(attributes: attributes, server: server, keyClass: kSecClassInternetPassword)
+    userDefaults.string(forKey: AppUserDefaultsKeys.bearerAccessToken)
   }
 }

@@ -46,9 +46,7 @@ class RequestManager: RequestManagerProtocol {
 
   init(
     apiManager: APIManagerProtocol = APIManager(),
-    accessToken: AccessTokenManagerProtocol = AccessTokenManager(
-      userDefaults: .standard,
-      keychainManager: KeychainManager())
+    accessToken: AccessTokenManagerProtocol = AccessTokenManager()
   ) {
     self.apiManager = apiManager
     self.accessTokenManager = accessToken

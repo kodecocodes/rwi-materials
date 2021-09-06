@@ -41,7 +41,7 @@ class RequestManagerTests: XCTestCase {
     let userDefaults = UserDefaults(suiteName: #file)!
     userDefaults.removePersistentDomain(forName: #file)
     requestManager = RequestManagerMock(apiManager: APIManagerMock(),
-                                        accessTokenManager: AccessTokenManager(userDefaults: userDefaults, keychainManager: KeychainManager()))
+                                        accessTokenManager: AccessTokenManager(userDefaults: userDefaults))
   }
 
   func testRequestAnimals() async throws {

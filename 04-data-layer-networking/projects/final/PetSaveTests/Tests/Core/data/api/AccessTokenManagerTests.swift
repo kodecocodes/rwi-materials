@@ -35,27 +35,14 @@ import XCTest
 
 class AccessTokenManagerTests: XCTestCase {
   var accessTokenManager: AccessTokenManagerProtocol!
-  var keychainManager: KeychainManagerProtocol!
   var requestManager: RequestManagerMock!
   
   override func setUp() {
     super.setUp()
     let userDefaults = UserDefaults(suiteName: #file)!
     userDefaults.removePersistentDomain(forName: #file)
-    keychainManager = KeychainManager()
-    accessTokenManager = AccessTokenManager(userDefaults: userDefaults, keychainManager: keychainManager)
+    accessTokenManager = AccessTokenManager(userDefaults: userDefaults)
     requestManager = RequestManagerMock(apiManager: APIManagerMock(), accessTokenManager: accessTokenManager)
-  }
-  
-  override func tearDown() {
-    super.tearDown()
-    let server = APIConstants.host
-    let deleteQuery = [
-      kSecAttrServer: server,
-      kSecClass: kSecClassInternetPassword
-    ] as CFDictionary
-    
-    SecItemDelete(deleteQuery)
   }
   
   func testRequestToken() async throws {
