@@ -58,8 +58,6 @@ extension AccessTokenManager: AccessTokenManagerProtocol {
   }
   
   func fetchToken() -> String {
-    // Token and expiresAt are not cached in-memory.
-    // Tries to fetch token from keychain and expires at from UserDefaults.
     guard let token = accessToken else {
       return ""
     }
