@@ -42,5 +42,4 @@ class CoreDataTests: XCTestCase {
   override func tearDownWithError() throws {
     try super.tearDownWithError()
   }
-
 }

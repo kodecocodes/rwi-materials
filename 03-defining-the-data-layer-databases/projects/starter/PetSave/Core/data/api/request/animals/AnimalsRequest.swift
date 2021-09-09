@@ -38,7 +38,7 @@ enum AnimalsRequest: RequestProtocol {
   var path: String {
     "/v2/animals"
   }
-  
+
   var requestType: RequestType {
     .GET
   }

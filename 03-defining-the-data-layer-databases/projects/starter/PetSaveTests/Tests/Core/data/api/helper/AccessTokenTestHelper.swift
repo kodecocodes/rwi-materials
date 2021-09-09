@@ -30,16 +30,26 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-//import Foundation
-//@testable import PetSave
-//
-//struct AuthTokenFetcherMock: AuthTokenFetcher {
-//  let jsonGenerator: (() -> String)
-//  func fetchToken() async throws -> APIToken {
-//    let data = jsonGenerator().data(using: .utf8) ?? Data()
-//    let jsonDecoder = JSONDecoder()
-//    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-//    let apiToken = try jsonDecoder.decode(APIToken.self, from: data)
-//    return apiToken
-//  }
-//}
+import Foundation
+@testable import PetSave
+
+enum AccessTokenTestHelper {
+  static func randomString() -> String {
+    let letters = "abcdefghijklmnopqrstuvwxyz"
+    return String(letters.shuffled().prefix(8))
+  }
+
+  static func randomAPIToken() -> APIToken {
+    return APIToken(tokenType: "Bearer", expiresIn: 10, accessToken: AccessTokenTestHelper.randomString())
+  }
+
+  static func generateValidToken() -> String {
+    """
+    {
+      "token_type": "Bearer",
+      "expires_in": 10,
+      "access_token": \"\(randomString())\"
+    }
+    """
+  }
+}

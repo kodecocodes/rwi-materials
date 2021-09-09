@@ -30,60 +30,33 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-//import XCTest
-//@testable import PetSave
-//
-//class TokenValidatorTests: XCTestCase {
-//  var tokenValidator: TokenValidator!
-//
-//  override func setUp() {
-//    super.setUp()
-//    tokenValidator = TokenValidator(
-//      userDefaults: UserDefaults.standard,
-//      authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateValidToken),
-//      keychainManager: KeychainManager()
-//    )
-//  }
-//
-//  override func tearDown() {
-//    super.tearDown()
-//    let server = APIConstants.host
-//    UserDefaults.standard.set(nil, forKey: "expiresAt")
-//    let deleteQuery = [
-//      kSecAttrServer: server,
-//      kSecClass: kSecClassInternetPassword
-//    ] as CFDictionary
-//
-//    SecItemDelete(deleteQuery)
-//  }
-//
-//  func testRequestToken() async throws {
-//    let token = try await tokenValidator.validateToken()
-//    XCTAssertFalse(token.isEmpty)
-//  }
-//
-//  func testCachedToken() async throws {
-//    let token = try await tokenValidator.validateToken()
-//    let sameToken = try await tokenValidator.validateToken()
-//    XCTAssertEqual(token, sameToken)
-//  }
-//
-//  func testTokenFromKeychain() async throws {
-//    try TokenTestHelper.saveTokenInKeychain(token: "abc")
-//    UserDefaults.standard.set(Date().advanced(by: 5000).timeIntervalSince1970, forKey: "expiresAt")
-//    let token = try await tokenValidator.validateToken()
-//    XCTAssertEqual(token, "abc")
-//  }
-//
-//  func testExpiredToken() async throws {
-//    tokenValidator = TokenValidator(
-//      userDefaults: UserDefaults.standard,
-//      authFetcher: AuthTokenFetcherMock(jsonGenerator: TokenTestHelper.generateExpiredAuthToken),
-//      keychainManager: KeychainManager()
-//    )
-//
-//    let expiredToken = try await tokenValidator.validateToken()
-//    let newToken = try await tokenValidator.validateToken()
-//    XCTAssertNotEqual(expiredToken, newToken)
-//  }
-//}
+import XCTest
+@testable import PetSave
+
+class RequestManagerMock: RequestManagerProtocol {
+  let apiManager: APIManagerProtocol
+  let accessTokenManager: AccessTokenManagerProtocol
+
+  init(apiManager: APIManagerProtocol, accessTokenManager: AccessTokenManagerProtocol) {
+    self.apiManager = apiManager
+    self.accessTokenManager = accessTokenManager
+  }
+
+  func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
+    let authToken = try await requestAccessToken()
+    let data = try await apiManager.initRequest(with: data, authToken: authToken)
+    let decoded: T = try parser.parse(data: data)
+    return decoded
+  }
+
+  func requestAccessToken() async throws -> String {
+    if accessTokenManager.isTokenValid() {
+      return accessTokenManager.fetchToken()
+    }
+
+    let data = AccessTokenTestHelper.generateValidToken().data(using: .utf8)!
+    let token: APIToken = try parser.parse(data: data)
+    try accessTokenManager.refreshWith(apiToken: token)
+    return token.bearerAccessToken
+  }
+}

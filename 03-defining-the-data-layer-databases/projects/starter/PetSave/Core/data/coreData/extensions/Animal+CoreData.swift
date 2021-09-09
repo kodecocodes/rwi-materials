@@ -34,8 +34,7 @@ import Foundation
 import CoreData
 
 extension AnimalEntity {
-
-  //Add the age property here
+  // Add the age property here
 
   var coat: Coat {
     get {

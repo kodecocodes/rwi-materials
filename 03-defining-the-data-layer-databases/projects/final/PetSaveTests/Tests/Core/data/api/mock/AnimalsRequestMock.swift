@@ -33,7 +33,7 @@
 import Foundation
 @testable import PetSave
 
-enum AnimalsRouterMock: RequestProtocol {
+enum AnimalsRequestMock: RequestProtocol {
   case getAnimals
 
   var requestType: RequestType {

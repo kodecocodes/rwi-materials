@@ -40,31 +40,28 @@ protocol RequestManagerProtocol {
 
 
 class RequestManager: RequestManagerProtocol {
-  
   let apiManager: APIManagerProtocol
   let accessTokenManager: AccessTokenManagerProtocol
 
   init(
     apiManager: APIManagerProtocol = APIManager(),
-    accessToken: AccessTokenManagerProtocol = AccessTokenManager(
-      userDefaults: .standard,
-      keychainManager: KeychainManager())
+    accessToken: AccessTokenManagerProtocol = AccessTokenManager()
   ) {
     self.apiManager = apiManager
     self.accessTokenManager = accessToken
   }
-  
+
   func requestAccessToken() async throws -> String {
     if accessTokenManager.isTokenValid() {
       return accessTokenManager.fetchToken()
     }
-    
+
     let data = try await apiManager.initRequest(with: AuthTokenRequest.auth, authToken: "")
     let token: APIToken = try parser.parse(data: data)
     try accessTokenManager.refreshWith(apiToken: token)
     return token.bearerAccessToken
   }
-  
+
   func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
     let authToken = try await requestAccessToken()
     let data = try await apiManager.initRequest(with: data, authToken: authToken)
@@ -74,7 +71,6 @@ class RequestManager: RequestManagerProtocol {
 }
 
 extension RequestManagerProtocol {
-  
   var parser: DataParserProtocol {
     return DataParser()
   }
