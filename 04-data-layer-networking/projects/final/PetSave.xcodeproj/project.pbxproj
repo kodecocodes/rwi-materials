@@ -362,6 +362,34 @@
 			path = auth;
 			sourceTree = "<group>";
 		};
+		8FB90FED26EA0E1700ADA53F /* AnimalsNearYou */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AnimalsNearYou;
+			sourceTree = "<group>";
+		};
+		8FB90FEE26EA0E4B00ADA53F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		8FB90FEF26EA0E7500ADA53F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		8FB90FF026EA0E9100ADA53F /* coreData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = coreData;
+			sourceTree = "<group>";
+		};
 		AE4B35A926A4C15F00ABB892 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,42 +408,14 @@
 			path = api;
 			sourceTree = "<group>";
 		};
-		AE5EA14426AC9AD600895E34 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		AE5EA14526AC9AE300895E34 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				AE5EA14C26ACA2B700895E34 /* AnimalsNearYou */,
+				8FB90FED26EA0E1700ADA53F /* AnimalsNearYou */,
 				AED3FC2E26A85DD6006D2BEE /* Core */,
-				AE5EA14D26ACA2C000895E34 /* Search */,
+				8FB90FEE26EA0E4B00ADA53F /* Search */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		AE5EA14626AC9B2300895E34 /* coreData */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = coreData;
-			sourceTree = "<group>";
-		};
-		AE5EA14C26ACA2B700895E34 /* AnimalsNearYou */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AnimalsNearYou;
-			sourceTree = "<group>";
-		};
-		AE5EA14D26ACA2C000895E34 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Search;
 			sourceTree = "<group>";
 		};
 		AE6A376B269A86560054C842 /* AnimalsNearYou */ = {
@@ -593,7 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				AE5EA14526AC9AE300895E34 /* Tests */,
-				AE5EA14426AC9AD600895E34 /* Services */,
+				8FB90FEF26EA0E7500ADA53F /* Services */,
 			);
 			path = PetSaveTests;
 			sourceTree = "<group>";
@@ -617,7 +617,7 @@
 		AED3FC2C26A85DBF006D2BEE /* data */ = {
 			isa = PBXGroup;
 			children = (
-				AE5EA14626AC9B2300895E34 /* coreData */,
+				8FB90FF026EA0E9100ADA53F /* coreData */,
 				AE5EA13E26AC9A4F00895E34 /* api */,
 			);
 			path = data;
