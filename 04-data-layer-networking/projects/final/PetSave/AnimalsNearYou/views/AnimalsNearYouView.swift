@@ -33,11 +33,10 @@
 import SwiftUI
 
 struct AnimalsNearYouView: View {
-  
   @State var animals: [Animal] = []
-  @State var isLoading: Bool = true
+  @State var isLoading = true
   private let requestManager = RequestManager()
-  
+
   var body: some View {
     NavigationView {
       List {
@@ -57,7 +56,7 @@ struct AnimalsNearYouView: View {
       }
     }
   }
-  
+
   func fetchAnimals() async {
     do {
       let animalsContainer: AnimalsContainer = try await requestManager.initRequest(with: AnimalsRequest.getAnimals)
@@ -65,10 +64,9 @@ struct AnimalsNearYouView: View {
       self.animals = animals
       await stopLoading()
     } catch {
-      
     }
   }
-  
+
   @MainActor
   func stopLoading() {
     self.isLoading = false
@@ -77,7 +75,6 @@ struct AnimalsNearYouView: View {
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
-      AnimalsNearYouView(animals: Animal.mock,
-                         isLoading: false)
+    AnimalsNearYouView(animals: Animal.mock, isLoading: false)
   }
 }

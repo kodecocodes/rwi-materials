@@ -34,14 +34,18 @@ import XCTest
 @testable import PetSave
 
 class RequestManagerTests: XCTestCase {
+  // swiftlint:disable:next implicitly_unwrapped_optional
   private var requestManager: RequestManagerProtocol!
 
   override func setUp() {
     super.setUp()
+    // swiftlint:disable:next force_unwrapping
     let userDefaults = UserDefaults(suiteName: #file)!
     userDefaults.removePersistentDomain(forName: #file)
-    requestManager = RequestManagerMock(apiManager: APIManagerMock(),
-                                        accessTokenManager: AccessTokenManager(userDefaults: userDefaults))
+    requestManager = RequestManagerMock(
+      apiManager: APIManagerMock(),
+      accessTokenManager: AccessTokenManager(userDefaults: userDefaults)
+    )
   }
 
   func testRequestAnimals() async throws {

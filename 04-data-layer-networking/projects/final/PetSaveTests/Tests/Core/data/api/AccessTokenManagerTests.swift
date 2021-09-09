@@ -34,28 +34,30 @@ import XCTest
 @testable import PetSave
 
 class AccessTokenManagerTests: XCTestCase {
+  // swiftlint:disable implicitly_unwrapped_optional
   var accessTokenManager: AccessTokenManagerProtocol!
   var requestManager: RequestManagerMock!
-  
+
   override func setUp() {
     super.setUp()
+    // swiftlint:disable:next force_unwrapping
     let userDefaults = UserDefaults(suiteName: #file)!
     userDefaults.removePersistentDomain(forName: #file)
     accessTokenManager = AccessTokenManager(userDefaults: userDefaults)
     requestManager = RequestManagerMock(apiManager: APIManagerMock(), accessTokenManager: accessTokenManager)
   }
-  
+
   func testRequestToken() async throws {
     let token = try await requestManager.requestAccessToken()
     XCTAssertFalse(token.isEmpty)
   }
-  
+
   func testCachedToken() async throws {
     let token = try await requestManager.requestAccessToken()
     let sameToken = accessTokenManager.fetchToken()
     XCTAssertEqual(token, sameToken)
   }
-  
+
   func testRequestNewToken() async throws {
     let token = try await requestManager.requestAccessToken()
     XCTAssertTrue(accessTokenManager.isTokenValid())
@@ -70,12 +72,11 @@ class AccessTokenManagerTests: XCTestCase {
       XCTFail("Test failed.")
     }
   }
-  
+
   func testRefreshToken() async throws {
     let token = try await requestManager.requestAccessToken()
     let randomToken = AccessTokenTestHelper.randomAPIToken()
     try accessTokenManager.refreshWith(apiToken: randomToken)
-    
     XCTAssertNotEqual(token, accessTokenManager.fetchToken())
     XCTAssertEqual(randomToken.bearerAccessToken, accessTokenManager.fetchToken())
   }

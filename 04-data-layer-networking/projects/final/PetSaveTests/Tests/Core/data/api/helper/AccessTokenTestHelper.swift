@@ -38,7 +38,7 @@ enum AccessTokenTestHelper {
     let letters = "abcdefghijklmnopqrstuvwxyz"
     return String(letters.shuffled().prefix(8))
   }
-  
+
   static func randomAPIToken() -> APIToken {
     return APIToken(tokenType: "Bearer", expiresIn: 10, accessToken: AccessTokenTestHelper.randomString())
   }

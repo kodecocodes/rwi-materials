@@ -47,7 +47,6 @@ class APIManager: APIManagerProtocol {
     let (data, response) = try await urlSession.data(for: data.request(authToken: authToken))
     guard let httpResponse = response as? HTTPURLResponse,
       httpResponse.statusCode == 200 else { throw NetworkError.invalidServerResponse }
-    
     return data
   }
 }

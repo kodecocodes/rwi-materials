@@ -34,15 +34,12 @@ import XCTest
 @testable import PetSave
 
 class RequestManagerMock: RequestManagerProtocol {
-  
   let apiManager: APIManagerProtocol
   let accessTokenManager: AccessTokenManagerProtocol
-  
   init(apiManager: APIManagerProtocol, accessTokenManager: AccessTokenManagerProtocol) {
     self.apiManager = apiManager
     self.accessTokenManager = accessTokenManager
   }
-  
 
   func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
     let authToken = try await requestAccessToken()
@@ -50,12 +47,12 @@ class RequestManagerMock: RequestManagerProtocol {
     let decoded: T = try parser.parse(data: data)
     return decoded
   }
-  
+
   func requestAccessToken() async throws -> String {
     if accessTokenManager.isTokenValid() {
       return accessTokenManager.fetchToken()
     }
-    
+    // swiftlint:disable:next force_unwrapping
     let data = AccessTokenTestHelper.generateValidToken().data(using: .utf8)!
     let token: APIToken = try parser.parse(data: data)
     try accessTokenManager.refreshWith(apiToken: token)

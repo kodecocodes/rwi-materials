@@ -233,33 +233,12 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		847F49F226D310A000B94FB8 /* services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = services;
-			sourceTree = "<group>";
-		};
-		847F49F326D310B200B94FB8 /* services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = services;
-			sourceTree = "<group>";
-		};
 		847F49F426D310C600B94FB8 /* animals */ = {
 			isa = PBXGroup;
 			children = (
 				8F05DF1D26D56D9E001ACE04 /* AnimalsRequest.swift */,
 			);
 			path = animals;
-			sourceTree = "<group>";
-		};
-		8485B72226A4A15A001874CB /* viewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = viewModels;
 			sourceTree = "<group>";
 		};
 		8485B72526A4A398001874CB /* models */ = {
@@ -274,7 +253,6 @@
 		84B0506E26B0E2D600E0A709 /* AnimalDetails */ = {
 			isa = PBXGroup;
 			children = (
-				84B0507A26B0EE1D00E0A709 /* viewModels */,
 				84B0507926B0EE0F00E0A709 /* views */,
 			);
 			path = AnimalDetails;
@@ -292,13 +270,6 @@
 				8472150726C1EC33001FD40B /* AnimalHeaderView.swift */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		84B0507A26B0EE1D00E0A709 /* viewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = viewModels;
 			sourceTree = "<group>";
 		};
 		8F4E8D4C26D3DEF00055D1C4 /* network */ = {
@@ -364,13 +335,6 @@
 			path = auth;
 			sourceTree = "<group>";
 		};
-		AE4B35A926A4C15F00ABB892 /* extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = extensions;
-			sourceTree = "<group>";
-		};
 		AE5EA13E26AC9A4F00895E34 /* api */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,8 +358,6 @@
 		AE6A376B269A86560054C842 /* AnimalsNearYou */ = {
 			isa = PBXGroup;
 			children = (
-				847F49F226D310A000B94FB8 /* services */,
-				AE6A376F269B54AF0054C842 /* viewModels */,
 				AE6A376E269B54A70054C842 /* views */,
 			);
 			path = AnimalsNearYou;
@@ -404,9 +366,7 @@
 		AE6A376C269A866A0054C842 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				847F49F326D310B200B94FB8 /* services */,
 				8485B72526A4A398001874CB /* models */,
-				8485B72226A4A15A001874CB /* viewModels */,
 				AE6A3771269B54BC0054C842 /* views */,
 			);
 			path = Search;
@@ -430,13 +390,6 @@
 				8472DFCB26BF93B3000FEDAF /* AnimalsNearYouView.swift */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		AE6A376F269B54AF0054C842 /* viewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = viewModels;
 			sourceTree = "<group>";
 		};
 		AE6A3771269B54BC0054C842 /* views */ = {
@@ -486,7 +439,6 @@
 		AE6A377A269B563F0054C842 /* coreData */ = {
 			isa = PBXGroup;
 			children = (
-				AE4B35A926A4C15F00ABB892 /* extensions */,
 				AE6A3793269B59C10054C842 /* PetSave.xcdatamodeld */,
 			);
 			path = coreData;

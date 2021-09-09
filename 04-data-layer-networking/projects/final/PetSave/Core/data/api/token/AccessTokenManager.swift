@@ -50,20 +50,19 @@ class AccessTokenManager {
 
 // MARK: - AccessTokenProtocol
 extension AccessTokenManager: AccessTokenManagerProtocol {
-
   func isTokenValid() -> Bool {
     accessToken = getToken()
     expiresAt = getExpirationDate()
     return accessToken != nil && expiresAt.compare(Date()) == .orderedDescending
   }
-  
+
   func fetchToken() -> String {
     guard let token = accessToken else {
       return ""
     }
     return token
   }
-  
+
   func refreshWith(apiToken: APIToken) throws {
     let expiresAt = apiToken.expiresAt
     let token = apiToken.bearerAccessToken
@@ -84,7 +83,7 @@ private extension AccessTokenManager {
   func getExpirationDate() -> Date {
     Date(timeIntervalSince1970: userDefaults.double(forKey: AppUserDefaultsKeys.expiresAt))
   }
-  
+
   func getToken() -> String? {
     userDefaults.string(forKey: AppUserDefaultsKeys.bearerAccessToken)
   }
