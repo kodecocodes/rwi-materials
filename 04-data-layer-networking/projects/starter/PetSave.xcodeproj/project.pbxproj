@@ -209,13 +209,6 @@
 			path = services;
 			sourceTree = "<group>";
 		};
-		847F49F426D310C600B94FB8 /* animals */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = animals;
-			sourceTree = "<group>";
-		};
 		8485B72226A4A15A001874CB /* viewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,50 +253,6 @@
 			children = (
 			);
 			path = viewModels;
-			sourceTree = "<group>";
-		};
-		8F4E8D4C26D3DEF00055D1C4 /* network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = network;
-			sourceTree = "<group>";
-		};
-		8F4E8D4D26D3DEF60055D1C4 /* token */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = token;
-			sourceTree = "<group>";
-		};
-		8F4E8D4E26D3DEFE0055D1C4 /* parser */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = parser;
-			sourceTree = "<group>";
-		};
-		8F9CF4A626D1BCB800AC3DA8 /* request */ = {
-			isa = PBXGroup;
-			children = (
-				847F49F426D310C600B94FB8 /* animals */,
-				8F9CF4A726D1BCDE00AC3DA8 /* auth */,
-			);
-			path = request;
-			sourceTree = "<group>";
-		};
-		8F9CF4A726D1BCDE00AC3DA8 /* auth */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = auth;
-			sourceTree = "<group>";
-		};
-		AE4B35A926A4C15F00ABB892 /* extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = extensions;
 			sourceTree = "<group>";
 		};
 		AE5EA14526AC9AE300895E34 /* Tests */ = {
@@ -407,7 +356,6 @@
 		AE6A377A269B563F0054C842 /* coreData */ = {
 			isa = PBXGroup;
 			children = (
-				AE4B35A926A4C15F00ABB892 /* extensions */,
 				AE6A3793269B59C10054C842 /* PetSave.xcdatamodeld */,
 			);
 			path = coreData;
@@ -416,10 +364,6 @@
 		AE6A377B269B56460054C842 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				8F4E8D4D26D3DEF60055D1C4 /* token */,
-				8F4E8D4E26D3DEFE0055D1C4 /* parser */,
-				8F4E8D4C26D3DEF00055D1C4 /* network */,
-				8F9CF4A626D1BCB800AC3DA8 /* request */,
 				AE6A378E269B58EA0054C842 /* model */,
 				847F49F526D3403B00B94FB8 /* APIConstants.swift */,
 			);
