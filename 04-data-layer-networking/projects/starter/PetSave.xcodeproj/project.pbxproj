@@ -327,42 +327,12 @@
 			path = api;
 			sourceTree = "<group>";
 		};
-		AE5EA14426AC9AD600895E34 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		AE5EA14526AC9AE300895E34 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				AE5EA14C26ACA2B700895E34 /* AnimalsNearYou */,
 				AED3FC2E26A85DD6006D2BEE /* Core */,
-				AE5EA14D26ACA2C000895E34 /* Search */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		AE5EA14626AC9B2300895E34 /* coreData */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = coreData;
-			sourceTree = "<group>";
-		};
-		AE5EA14C26ACA2B700895E34 /* AnimalsNearYou */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AnimalsNearYou;
-			sourceTree = "<group>";
-		};
-		AE5EA14D26ACA2C000895E34 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Search;
 			sourceTree = "<group>";
 		};
 		AE6A376B269A86560054C842 /* AnimalsNearYou */ = {
@@ -536,7 +506,6 @@
 			isa = PBXGroup;
 			children = (
 				AE5EA14526AC9AE300895E34 /* Tests */,
-				AE5EA14426AC9AD600895E34 /* Services */,
 			);
 			path = PetSaveTests;
 			sourceTree = "<group>";
@@ -560,7 +529,6 @@
 		AED3FC2C26A85DBF006D2BEE /* data */ = {
 			isa = PBXGroup;
 			children = (
-				AE5EA14626AC9B2300895E34 /* coreData */,
 				AE5EA13E26AC9A4F00895E34 /* api */,
 			);
 			path = data;
