@@ -74,7 +74,7 @@ extension CoreDataHelper {
   static func getTestAnimal() -> Animal? {
     let fetchRequest = AnimalEntity.fetchRequest()
 
-    if let results = try? preivewContext.fetch(fetchRequest),
+    if let results = try? previewContext.fetch(fetchRequest),
       let first = results.first {
       return Animal(managedObject: first)
     }
@@ -84,7 +84,7 @@ extension CoreDataHelper {
   static func getTestAnimals() -> [Animal]? {
     let fetchRequest = AnimalEntity.fetchRequest()
 
-    if let results = try? preivewContext.fetch(fetchRequest), !results.isEmpty {
+    if let results = try? previewContext.fetch(fetchRequest), !results.isEmpty {
       return results.map(Animal.init(managedObject:))
     }
     return nil
@@ -100,7 +100,7 @@ extension CoreDataHelper {
 
   static func getTestAnimalEntities() -> [AnimalEntity]? {
     let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? preivewContext.fetch(fetchRequest),
+    guard let results = try? previewContext.fetch(fetchRequest),
       !results.isEmpty else { return nil }
     return results
   }

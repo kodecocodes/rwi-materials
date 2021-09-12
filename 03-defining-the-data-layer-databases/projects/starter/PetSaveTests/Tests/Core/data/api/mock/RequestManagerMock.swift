@@ -53,7 +53,7 @@ class RequestManagerMock: RequestManagerProtocol {
     if accessTokenManager.isTokenValid() {
       return accessTokenManager.fetchToken()
     }
-
+    // swiftlint:disable:next force_unwrapping
     let data = AccessTokenTestHelper.generateValidToken().data(using: .utf8)!
     let token: APIToken = try parser.parse(data: data)
     try accessTokenManager.refreshWith(apiToken: token)
