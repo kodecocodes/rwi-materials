@@ -33,15 +33,13 @@
 import SwiftUI
 
 struct AnimalsNearYouView: View {
-//  @FetchRequest(
-//    sortDescriptors: [
-//      NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
-//    ],
-//    animation: .default
-//  )
-//  var animals: FetchedResults<AnimalEntity>
-
-  @State var animals: [AnimalEntity] = []
+  @FetchRequest(
+    sortDescriptors: [
+      NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
+    ],
+    animation: .default
+  )
+  var animals: FetchedResults<AnimalEntity>
 
   @State var isLoading = true
   private let requestManager = RequestManager()
@@ -86,9 +84,7 @@ struct AnimalsNearYouView: View {
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
-    if let testAnimals = CoreDataHelper.getTestAnimalEntities() {
-      AnimalsNearYouView(animals: testAnimals, isLoading: false)
-        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
+    AnimalsNearYouView(isLoading: false)
+      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }
 }
