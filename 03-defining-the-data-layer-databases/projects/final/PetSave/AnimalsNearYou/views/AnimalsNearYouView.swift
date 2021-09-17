@@ -33,13 +33,13 @@
 import SwiftUI
 
 struct AnimalsNearYouView: View {
-  @FetchRequest(
+  @SectionedFetchRequest<String, AnimalEntity>(
+    sectionIdentifier: \AnimalEntity.animalSpecies,
     sortDescriptors: [
       NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
     ],
     animation: .default
-  )
-  var animals: FetchedResults<AnimalEntity>
+  ) private var sectionedAnimals: SectionedFetchResults<String, AnimalEntity>
 
   @State var isLoading = true
   private let requestManager = RequestManager()
@@ -47,8 +47,14 @@ struct AnimalsNearYouView: View {
   var body: some View {
     NavigationView {
       List {
-        ForEach(animals) { animal in
-          AnimalRow(animal: animal)
+        ForEach(sectionedAnimals) { animals in
+          Section(header: Text(animals.id)) {
+            ForEach(animals) { animal in
+              NavigationLink(destination: AnimalDetailsView()) {
+                AnimalRow(animal: animal)
+              }
+            }
+          }
         }
       }
       .task {
@@ -72,7 +78,7 @@ struct AnimalsNearYouView: View {
       }
       await stopLoading()
     } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+      print("Error fetching animals...\(error)")
     }
   }
 
