@@ -34,13 +34,11 @@ import XCTest
 @testable import PetSave
 
 class RequestManagerTests: XCTestCase {
-  // swiftlint:disable:next implicitly_unwrapped_optional
-  private var requestManager: RequestManagerProtocol!
+  private var requestManager: RequestManagerProtocol?
 
   override func setUp() {
     super.setUp()
-    // swiftlint:disable:next force_unwrapping
-    let userDefaults = UserDefaults(suiteName: #file)!
+    guard let userDefaults = UserDefaults(suiteName: #file) else { return }
     userDefaults.removePersistentDomain(forName: #file)
     requestManager = RequestManagerMock(
       apiManager: APIManagerMock(),
@@ -49,8 +47,10 @@ class RequestManagerTests: XCTestCase {
   }
 
   func testRequestAnimals() async throws {
-    let container: AnimalsContainer = try await requestManager.initRequest(with: AnimalsRequestMock.getAnimals)
+    guard let container: AnimalsContainer =
+      try await requestManager?.initRequest(with: AnimalsRequestMock.getAnimals) else { return }
     let animals = container.animals
+
     let first = animals.first
     let last = animals.last
     XCTAssertEqual(first?.name, "Kiki")

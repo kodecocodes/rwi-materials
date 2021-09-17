@@ -67,7 +67,8 @@ struct AnimalRow: View {
 
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    // swiftlint:disable:next force_unwrapping
-    AnimalRow(animal: Animal.mock.first!)
+    if let animal = Animal.mock.first {
+      AnimalRow(animal: animal)
+    }
   }
 }
