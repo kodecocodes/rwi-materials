@@ -30,15 +30,12 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
 struct Organization: Codable {
   var id: Int?
   var contact: Contact?
   var distance: Double?
 }
 
-// TODO use built in classes from AddressBook here?
 struct Contact: Codable {
   var id: Int?
   var email: String?
