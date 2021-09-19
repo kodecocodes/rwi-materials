@@ -36,6 +36,7 @@ struct AnimalsNearYouView: View {
   @SectionedFetchRequest<String, AnimalEntity>(
     sectionIdentifier: \AnimalEntity.animalSpecies,
     sortDescriptors: [
+      NSSortDescriptor(keyPath: \AnimalEntity.species, ascending: true),
       NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
     ],
     animation: .default
