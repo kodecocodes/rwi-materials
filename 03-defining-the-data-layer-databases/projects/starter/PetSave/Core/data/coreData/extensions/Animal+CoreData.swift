@@ -34,7 +34,7 @@ import Foundation
 import CoreData
 
 extension AnimalEntity {
-  // Add the age property here
+  //TODO: Add the age property here
 
   var coat: Coat {
     get {
@@ -115,6 +115,10 @@ extension AnimalEntity {
     ]
     .compactMap { $0 }
     .joined(separator: ", ")
+  }
+
+  @objc var animalSpecies: String {
+    return species ?? "None"
   }
 }
 
