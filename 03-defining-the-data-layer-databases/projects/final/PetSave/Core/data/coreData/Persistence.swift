@@ -34,7 +34,6 @@ import CoreData
 
 struct PersistenceController {
   static let shared = PersistenceController()
-
   static var preview: PersistenceController = {
     let result = PersistenceController(inMemory: true)
     let viewContext = result.container.viewContext
@@ -81,10 +80,7 @@ struct PersistenceController {
 
   static func save() {
     let context = PersistenceController.shared.container.viewContext
-    // 1
     guard context.hasChanges else { return }
-
-    // 2
     do {
       try context.save()
     } catch {

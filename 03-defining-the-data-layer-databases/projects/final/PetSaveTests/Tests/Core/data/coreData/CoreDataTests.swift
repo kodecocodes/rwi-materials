@@ -45,7 +45,6 @@ class CoreDataTests: XCTestCase {
 
   func testToManagedObject() throws {
     let previewContext = PersistenceController.preview.container.viewContext
-
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
     guard let results = try? previewContext.fetch(fetchRequest),
@@ -57,21 +56,16 @@ class CoreDataTests: XCTestCase {
 
   func testDeleteManagedObject() throws {
     let previewContext = PersistenceController.preview.container.viewContext
-
     let fetchRequest = AnimalEntity.fetchRequest()
     guard let results = try? previewContext.fetch(fetchRequest),
       let first = results.first else { return }
-
     previewContext.delete(first)
-
     guard let results = try? previewContext.fetch(fetchRequest) else { return }
-
     XCTAssert(results.count == 9, "The number of results was expected to be 9 after deletion, was \(results.count)")
   }
 
   func testFetchManagedObject() throws {
     let previewContext = PersistenceController.preview.container.viewContext
-
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
     fetchRequest.predicate = NSPredicate(format: "name == %@", "Ellie")

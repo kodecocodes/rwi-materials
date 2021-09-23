@@ -30,4 +30,15 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import CoreData
+
+extension VideoLink: CoreDataPersistable {
+  var keyMap: [PartialKeyPath<VideoLink>: String] {
+    [
+      \.embedded: "embedded",
+      \.id: "id"
+    ]
+  }
+
+  typealias ManagedType = VideoLinkEntity
+}
