@@ -32,6 +32,7 @@
 
 import CoreData
 
+// MARK: - AnimalEntity Properties
 extension AnimalEntity {
   //TODO: Add the age property here
 
@@ -121,6 +122,7 @@ extension AnimalEntity {
   }
 }
 
+// MARK: - UUIDIdentifiable
 extension Animal: UUIDIdentifiable {
   init(managedObject: AnimalEntity) {
     self.age = managedObject.age
