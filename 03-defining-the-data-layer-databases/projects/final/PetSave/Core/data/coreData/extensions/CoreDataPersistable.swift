@@ -46,6 +46,7 @@ protocol CoreDataPersistable: UUIDIdentifiable {
   func save(context: NSManagedObjectContext) throws
 }
 
+// MARK: - Managed Object
 extension CoreDataPersistable where ManagedType: NSManagedObject {
   init(managedObject: ManagedType?) {
     self.init()

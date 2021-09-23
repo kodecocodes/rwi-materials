@@ -30,6 +30,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+// MARK: - CoreDataPersistable
 extension Breed: CoreDataPersistable {
   var keyMap: [PartialKeyPath<Breed>: String] {
     [
