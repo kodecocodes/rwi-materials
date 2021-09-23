@@ -30,8 +30,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
 enum AppUserDefaultsKeys {
   static let expiresAt = "expiresAt"
   static let bearerAccessToken = "bearerAccessToken"

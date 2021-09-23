@@ -30,7 +30,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
 import CoreData
 
 enum CoreDataHelper {
@@ -54,7 +53,7 @@ enum CoreDataHelper {
   }
 }
 
-// Chapter 3 - deleting data
+// MARK: - Deleting Data
 extension Collection where Element == NSManagedObject, Index == Int {
   func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext = CoreDataHelper.context) {
     indices.forEach { index in
