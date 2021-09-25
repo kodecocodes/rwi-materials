@@ -69,6 +69,7 @@ struct AnimalsNearYouView: View {
         }
       }
     }
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 
   func fetchAnimals() async {
