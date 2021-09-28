@@ -66,12 +66,18 @@ struct PersistenceController {
   }
 
   static func save() {
-    let context = PersistenceController.shared.container.viewContext
+    let context =
+    PersistenceController.shared.container.viewContext
     guard context.hasChanges else { return }
+
     do {
       try context.save()
     } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+      fatalError("""
+        \(#file), \
+        \(#function), \
+        \(error.localizedDescription)
+      """)
     }
   }
 }

@@ -62,7 +62,11 @@ extension Collection where Element == NSManagedObject, Index == Int {
     do {
       try viewContext.save()
     } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+      fatalError("""
+        \(#file), \
+        \(#function), \
+        \(error.localizedDescription)
+      """)
     }
   }
 }
