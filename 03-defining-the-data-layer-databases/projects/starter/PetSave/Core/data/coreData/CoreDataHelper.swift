@@ -63,7 +63,11 @@ extension Collection where Element == NSManagedObject, Index == Int {
     do {
       try viewContext.save()
     } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+      fatalError("""
+        \(#file), \
+        \(#function), \
+        \(error.localizedDescription)
+      """)
     }
   }
 }
@@ -74,7 +78,7 @@ extension CoreDataHelper {
     let fetchRequest = AnimalEntity.fetchRequest()
 
     if let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first {
+       let first = results.first {
       return Animal(managedObject: first)
     }
     return nil
@@ -93,14 +97,14 @@ extension CoreDataHelper {
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
     guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return nil }
+          let first = results.first else { return nil }
     return first
   }
 
   static func getTestAnimalEntities() -> [AnimalEntity]? {
     let fetchRequest = AnimalEntity.fetchRequest()
     guard let results = try? previewContext.fetch(fetchRequest),
-      !results.isEmpty else { return nil }
+          !results.isEmpty else { return nil }
     return results
   }
 }
