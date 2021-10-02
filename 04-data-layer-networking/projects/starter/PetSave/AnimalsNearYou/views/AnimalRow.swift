@@ -32,37 +32,44 @@
 
 import SwiftUI
 
-struct AnimalsNearYouView: View {
-  @State var animals: [Animal] = []
-  @State var isLoading = true
+struct AnimalRow: View {
+  let animal: Animal
 
   var body: some View {
-    NavigationView {
-      List {
-        ForEach(animals) { animal in
-          AnimalRow(animal: animal)
-        }
-      }.task {
-        stopLoading()
-      }
-      .listStyle(.plain)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
-    }
-  }
+    HStack {
+      AsyncImage(
+        url: animal.picture,
+        content: { image in image
+          .resizable()
+        }, placeholder: {
+          Image("rw-logo")
+            .resizable()
+            .overlay {
+              if animal.picture != nil {
+                ProgressView()
+                  .frame(maxWidth: .infinity, maxHeight: .infinity)
+                  .background(.gray.opacity(0.4))
+              }
+            }
+        })
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 112, height: 112)
+        .cornerRadius(8)
 
-  @MainActor
-  func stopLoading() {
-    self.isLoading = false
+      VStack(alignment: .leading) {
+        Text(animal.name)
+          .multilineTextAlignment(.center)
+          .font(.title3)
+      }
+      .lineLimit(1)
+    }
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
+struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalsNearYouView(animals: Animal.mock, isLoading: false)
+    if let animal = Animal.mock.first {
+      AnimalRow(animal: animal)
+    }
   }
 }

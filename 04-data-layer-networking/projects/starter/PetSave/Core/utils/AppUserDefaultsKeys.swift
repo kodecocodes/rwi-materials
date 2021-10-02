@@ -30,39 +30,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
-
-struct AnimalsNearYouView: View {
-  @State var animals: [Animal] = []
-  @State var isLoading = true
-
-  var body: some View {
-    NavigationView {
-      List {
-        ForEach(animals) { animal in
-          AnimalRow(animal: animal)
-        }
-      }.task {
-        stopLoading()
-      }
-      .listStyle(.plain)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
-    }
-  }
-
-  @MainActor
-  func stopLoading() {
-    self.isLoading = false
-  }
-}
-
-struct AnimalsNearYouView_Previews: PreviewProvider {
-  static var previews: some View {
-    AnimalsNearYouView(animals: Animal.mock, isLoading: false)
-  }
+enum AppUserDefaultsKeys {
+  static let expiresAt = "expiresAt"
+  static let bearerAccessToken = "bearerAccessToken"
 }

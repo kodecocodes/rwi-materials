@@ -30,39 +30,30 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct AnimalsNearYouView: View {
-  @State var animals: [Animal] = []
-  @State var isLoading = true
+struct APIToken {
+  let tokenType: String
+  let expiresIn: Int
+  let accessToken: String
+  private let requestedAt = Date()
+}
 
-  var body: some View {
-    NavigationView {
-      List {
-        ForEach(animals) { animal in
-          AnimalRow(animal: animal)
-        }
-      }.task {
-        stopLoading()
-      }
-      .listStyle(.plain)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
-    }
-  }
-
-  @MainActor
-  func stopLoading() {
-    self.isLoading = false
+// MARK: - Codable
+extension APIToken: Codable {
+  enum CodingKeys: String, CodingKey {
+    case tokenType
+    case expiresIn
+    case accessToken
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
-  static var previews: some View {
-    AnimalsNearYouView(animals: Animal.mock, isLoading: false)
+extension APIToken {
+  var expiresAt: Date {
+    Calendar.current.date(byAdding: .second, value: expiresIn, to: requestedAt) ?? Date()
+  }
+
+  var bearerAccessToken: String {
+    "\(tokenType) \(accessToken)"
   }
 }

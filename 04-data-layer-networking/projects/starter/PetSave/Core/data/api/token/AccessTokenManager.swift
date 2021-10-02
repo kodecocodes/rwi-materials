@@ -30,39 +30,61 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct AnimalsNearYouView: View {
-  @State var animals: [Animal] = []
-  @State var isLoading = true
+protocol AccessTokenManagerProtocol {
+  func isTokenValid() -> Bool
+  func fetchToken() -> String
+  func refreshWith(apiToken: APIToken) throws
+}
 
-  var body: some View {
-    NavigationView {
-      List {
-        ForEach(animals) { animal in
-          AnimalRow(animal: animal)
-        }
-      }.task {
-        stopLoading()
-      }
-      .listStyle(.plain)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
-    }
-  }
+class AccessTokenManager {
+  private let userDefaults: UserDefaults
+  private var accessToken: String?
+  private var expiresAt = Date()
 
-  @MainActor
-  func stopLoading() {
-    self.isLoading = false
+  init(userDefaults: UserDefaults = .standard) {
+    self.userDefaults = userDefaults
   }
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
-  static var previews: some View {
-    AnimalsNearYouView(animals: Animal.mock, isLoading: false)
+// MARK: - AccessTokenProtocol
+extension AccessTokenManager: AccessTokenManagerProtocol {
+  func isTokenValid() -> Bool {
+    accessToken = getToken()
+    expiresAt = getExpirationDate()
+    return accessToken != nil && expiresAt.compare(Date()) == .orderedDescending
+  }
+
+  func fetchToken() -> String {
+    guard let token = accessToken else {
+      return ""
+    }
+    return token
+  }
+
+  func refreshWith(apiToken: APIToken) throws {
+    let expiresAt = apiToken.expiresAt
+    let token = apiToken.bearerAccessToken
+
+    save(token: apiToken)
+    self.expiresAt = expiresAt
+    self.accessToken = token
+  }
+}
+
+// MARK: - Token Expiration
+private extension AccessTokenManager {
+  func save(token: APIToken) {
+    userDefaults.set(token.expiresAt.timeIntervalSince1970, forKey: AppUserDefaultsKeys.expiresAt)
+    userDefaults.set(token.bearerAccessToken, forKey: AppUserDefaultsKeys.bearerAccessToken)
+  }
+
+  func getExpirationDate() -> Date {
+    Date(timeIntervalSince1970: userDefaults.double(forKey: AppUserDefaultsKeys.expiresAt))
+  }
+
+  func getToken() -> String? {
+    userDefaults.string(forKey: AppUserDefaultsKeys.bearerAccessToken)
   }
 }

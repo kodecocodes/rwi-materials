@@ -30,39 +30,21 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct AnimalsNearYouView: View {
-  @State var animals: [Animal] = []
-  @State var isLoading = true
-
-  var body: some View {
-    NavigationView {
-      List {
-        ForEach(animals) { animal in
-          AnimalRow(animal: animal)
-        }
-      }.task {
-        stopLoading()
-      }
-      .listStyle(.plain)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
-    }
-  }
-
-  @MainActor
-  func stopLoading() {
-    self.isLoading = false
-  }
+protocol DataParserProtocol {
+  func parse<T: Decodable>(data: Data) throws -> T
 }
 
-struct AnimalsNearYouView_Previews: PreviewProvider {
-  static var previews: some View {
-    AnimalsNearYouView(animals: Animal.mock, isLoading: false)
+class DataParser: DataParserProtocol {
+  private var jsonDecoder: JSONDecoder
+
+  init(jsonDecoder: JSONDecoder = JSONDecoder()) {
+    self.jsonDecoder = jsonDecoder
+    self.jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+  }
+
+  func parse<T: Decodable>(data: Data) throws -> T {
+    return try jsonDecoder.decode(T.self, from: data)
   }
 }

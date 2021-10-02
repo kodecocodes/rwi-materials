@@ -30,39 +30,17 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct AnimalsNearYouView: View {
-  @State var animals: [Animal] = []
-  @State var isLoading = true
-
-  var body: some View {
-    NavigationView {
-      List {
-        ForEach(animals) { animal in
-          AnimalRow(animal: animal)
-        }
-      }.task {
-        stopLoading()
-      }
-      .listStyle(.plain)
-      .navigationTitle("Animals near you")
-      .overlay {
-        if isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
+public enum NetworkError: LocalizedError {
+  case invalidServerResponse
+  case invalidURL
+  public var errorDescription: String? {
+    switch self {
+    case .invalidServerResponse:
+      return "The server returned an invalid response."
+    case .invalidURL:
+      return "URL string is malformed."
     }
-  }
-
-  @MainActor
-  func stopLoading() {
-    self.isLoading = false
-  }
-}
-
-struct AnimalsNearYouView_Previews: PreviewProvider {
-  static var previews: some View {
-    AnimalsNearYouView(animals: Animal.mock, isLoading: false)
   }
 }
