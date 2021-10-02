@@ -31,12 +31,32 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import PetSaveOnboarding
 
 @main
 struct AppMain: App {
+  @State private var presentOnboarding = true
+
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      ContentView().fullScreenCover(isPresented: $presentOnboarding, onDismiss: {
+
+      }, content: {
+          PetSaveOnboardingView(items: onboarding()).onNext { currentIndex in
+              print(currentIndex)
+          }.onSkip {
+              withAnimation(Animation.easeOut) {
+                  self.presentOnboarding.toggle()
+              }
+          }
+      })
     }
+  }
+
+  func onboarding() -> [OnboardingModel] {
+      return [OnboardingModel(title: "Welcome to\n PetSave", description: "Looking for a Pet?\n Then you're at the right place", image: .bird, nextButtonTitle: "Next", skipButtonTitle: "Skip"),
+              OnboardingModel(title: "Search...", description: "Search from a list of our huge database of animals.", image: .dogBoneStand, nextButtonTitle: "Allow", skipButtonTitle: "Skip"),
+              OnboardingModel(title: "Nearby", description: "Find pets to adopt from nearby your place...", image: .chameleon, nextButtonTitle: "Next", skipButtonTitle: "Skip")
+      ]
   }
 }
