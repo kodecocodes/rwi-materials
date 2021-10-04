@@ -123,7 +123,7 @@
 		847F49F726D3614E00B94FB8 /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
 		847F49F926D3621C00B94FB8 /* AnimalMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalMock.swift; sourceTree = "<group>"; };
 		8485A44B270AB68B004245CF /* AnimalsNearYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsNearYouViewModel.swift; sourceTree = "<group>"; };
-		8485A44E270AB781004245CF /* FetchAnimalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FetchAnimalsService.swift; path = PetSave/AnimalsNearYou/viewModels/FetchAnimalsService.swift; sourceTree = SOURCE_ROOT; };
+		8485A44E270AB781004245CF /* FetchAnimalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FetchAnimalsService.swift; path = PetSave/AnimalsNearYou/services/FetchAnimalsService.swift; sourceTree = SOURCE_ROOT; };
 		8485A450270AB7FE004245CF /* AnimalsFetcherMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsFetcherMock.swift; sourceTree = "<group>"; };
 		8485A452270AB87B004245CF /* AnimalStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalStoreService.swift; sourceTree = "<group>"; };
 		8485A454270AB9B4004245CF /* AnimalAttributesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalAttributesCard.swift; sourceTree = "<group>"; };
