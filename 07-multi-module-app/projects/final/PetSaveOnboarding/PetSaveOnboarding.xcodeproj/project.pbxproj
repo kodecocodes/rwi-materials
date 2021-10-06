@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		8F93C60227039A87009B5CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F93C5F927039A87009B5CDB /* Assets.xcassets */; };
 		8F93C60327039A87009B5CDB /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F93C5FB27039A87009B5CDB /* OnboardingModel.swift */; };
 		8F93C60427039A87009B5CDB /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F93C5FC27039A87009B5CDB /* Pet.swift */; };
+		8FAE4860270DA3FA005CEB9B /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE485F270DA3FA005CEB9B /* Bundle+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		8F93C5F927039A87009B5CDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F93C5FB27039A87009B5CDB /* OnboardingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		8F93C5FC27039A87009B5CDB /* Pet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		8FAE485F270DA3FA005CEB9B /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				8F93C5F327039A87009B5CDB /* Color+Extension.swift */,
 				8F93C5F427039A87009B5CDB /* Image+Extension.swift */,
+				8FAE485F270DA3FA005CEB9B /* Bundle+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -146,7 +149,7 @@
 				};
 			};
 			buildConfigurationList = 8F93C5E2270395D1009B5CDB /* Build configuration list for PBXProject "PetSaveOnboarding" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -182,6 +185,7 @@
 				8F93C60427039A87009B5CDB /* Pet.swift in Sources */,
 				8F93C60027039A87009B5CDB /* OnboardView.swift in Sources */,
 				8F93C60127039A87009B5CDB /* PetSaveOnboardingView.swift in Sources */,
+				8FAE4860270DA3FA005CEB9B /* Bundle+Extension.swift in Sources */,
 				8F93C60327039A87009B5CDB /* OnboardingModel.swift in Sources */,
 				8F93C5FF27039A87009B5CDB /* OnboardingBackground.swift in Sources */,
 				8F93C5FD27039A87009B5CDB /* Color+Extension.swift in Sources */,
