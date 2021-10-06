@@ -35,7 +35,6 @@ import PetSaveOnboarding
 
 @main
 struct AppMain: App {
-  @State private var presentOnboarding = true
   @AppStorage(AppUserDefaultsKeys.onboarding) var shouldPresentOnboarding = true
 
   var onboardingModels: [OnboardingModel] {
