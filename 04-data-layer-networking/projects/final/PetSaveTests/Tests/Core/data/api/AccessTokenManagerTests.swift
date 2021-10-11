@@ -45,5 +45,4 @@ class AccessTokenManagerTests: XCTestCase {
     guard let accessTokenManager = accessTokenManager else { return }
     requestManager = RequestManagerMock(apiManager: APIManagerMock(), accessTokenManager: accessTokenManager)
   }
-  
 }

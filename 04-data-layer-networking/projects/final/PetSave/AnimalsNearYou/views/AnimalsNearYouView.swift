@@ -54,7 +54,7 @@ struct AnimalsNearYouView: View {
           ProgressView("Finding Animals near you...")
         }
       }
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 
   func fetchAnimals() async {
