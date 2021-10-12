@@ -44,6 +44,7 @@ enum AnimalSearchType: String, CaseIterable {
   case barnyard
 }
 
+// MARK: - Return appropriate animal images
 extension AnimalSearchType {
   var suggestionImage: Image {
     switch self {
@@ -57,6 +58,7 @@ extension AnimalSearchType {
   }
 }
 
+// MARK: - Return suggestions
 extension AnimalSearchType {
   static var suggestions: [AnimalSearchType] {
     var suggestions = AnimalSearchType.allCases
