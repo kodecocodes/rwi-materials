@@ -72,7 +72,7 @@ struct AnimalsNearYouView: View {
 
   @MainActor
   func stopLoading() {
-    self.isLoading = false
+    isLoading = false
   }
 }
 
