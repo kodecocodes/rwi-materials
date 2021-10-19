@@ -44,22 +44,23 @@ struct AnimalImage: View {
   let geometry: GeometryProxy
 
   var body: some View {
-    AsyncImage(url: animalPicture) { image in
-      image
+    AsyncImage(
+      url: animalPicture,
+      content: { image in image
         .resizable()
         .aspectRatio(zoomed ? nil : 1, contentMode: zoomed ? .fit : .fill)
-    } placeholder: {
-      Image("rw-logo")
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .overlay {
-          if animalPicture != nil {
-            ProgressView()
-              .frame(maxWidth: .infinity, maxHeight: .infinity)
-              .background(.gray.opacity(0.4))
+      }, placeholder: {
+        Image("rw-logo")
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .overlay {
+            if animalPicture != nil {
+              ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.gray.opacity(0.4))
+            }
           }
-        }
-    }
+      })
     .clipShape(
       RoundedRectangle(cornerRadius: zoomed ? 0 : 300)
     )

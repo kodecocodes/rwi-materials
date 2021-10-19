@@ -30,8 +30,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
 struct Details {
   var desc: String
   var age: Age
@@ -41,7 +39,5 @@ struct Details {
   var gender: Gender
   var size: Size
   var coat: Coat
-//  var healthDetails: HealthDetails
-//  var habitatAdaptation: HabitatAdaptation
   var organization: Organization
 }

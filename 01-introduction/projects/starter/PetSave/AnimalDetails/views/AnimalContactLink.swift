@@ -59,14 +59,15 @@ struct AnimalContactLink: View {
 
 struct AnimalContactLink_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalContactLink(
-      title: "(555) 394-2033",
-      iconName: "phone.fill",
-      // swiftlint:disable:next force_unwrapping
-      url: URL(string: "www.apple.com")!,
-      color: .green
-    )
-    .padding()
-    .previewLayout(.sizeThatFits)
+    if let url = URL(string: "www.apple.com") {
+      AnimalContactLink(
+        title: "(555) 394-2033",
+        iconName: "phone.fill",
+        url: url,
+        color: .green
+      )
+        .padding()
+        .previewLayout(.sizeThatFits)
+    }
   }
 }
