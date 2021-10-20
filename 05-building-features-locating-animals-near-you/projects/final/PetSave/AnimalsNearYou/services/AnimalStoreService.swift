@@ -40,8 +40,10 @@ actor AnimalStoreService {
 // MARK: - AnimalStore
 extension AnimalStoreService: AnimalStore {
   func save(animals: [Animal]) async throws {
-    for var animal in animals {
-      animal.toManagedObject()
+    DispatchQueue.main.async {
+      for var animal in animals {
+        animal.toManagedObject()
+      }
     }
     try context.save()
   }
