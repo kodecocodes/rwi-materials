@@ -43,7 +43,7 @@ struct ContentView: View {
             requestManager:
               RequestManager()
           ),
-          animalStore: AnimalStoreService(context: managedObjectContext)
+          animalStore: AnimalStoreService()
         )
       )
       .tabItem {

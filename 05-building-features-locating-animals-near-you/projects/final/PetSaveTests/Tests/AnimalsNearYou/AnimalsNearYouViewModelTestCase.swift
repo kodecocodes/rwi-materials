@@ -46,7 +46,7 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
     viewModel = AnimalsNearYouViewModel(
       isLoading: true,
       animalFetcher: AnimalsFetcherMock(),
-      animalStore: AnimalStoreService(context: testContext)
+      animalStore: AnimalStoreService()
     )
   }
 
@@ -66,7 +66,7 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
     viewModel = AnimalsNearYouViewModel(
       isLoading: true,
       animalFetcher: EmptyResponseAnimalsFetcherMock(),
-      animalStore: AnimalStoreService(context: testContext)
+      animalStore: AnimalStoreService()
     )
     await viewModel.fetchAnimals()
     XCTAssertFalse(viewModel.hasMoreAnimals, "hasMoreAnimals should be false with an empty response, but it's true")

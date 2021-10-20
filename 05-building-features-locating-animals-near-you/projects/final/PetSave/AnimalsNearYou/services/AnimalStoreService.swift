@@ -34,11 +34,7 @@ import Foundation
 import CoreData
 
 actor AnimalStoreService {
-  private let context: NSManagedObjectContext
-
-  init(context: NSManagedObjectContext) {
-    self.context = context
-  }
+  private let context: NSManagedObjectContext = PersistenceController.shared.container.newBackgroundContext()
 }
 
 // MARK: - AnimalStore

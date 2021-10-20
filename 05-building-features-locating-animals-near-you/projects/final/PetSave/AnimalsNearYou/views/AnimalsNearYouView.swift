@@ -80,9 +80,7 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
     AnimalsNearYouView(
       viewModel: AnimalsNearYouViewModel(
         animalFetcher: AnimalsFetcherMock(),
-        animalStore: AnimalStoreService(
-          context: PersistenceController.preview.container.viewContext
-        )
+        animalStore: AnimalStoreService()
       )
     )
     .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
