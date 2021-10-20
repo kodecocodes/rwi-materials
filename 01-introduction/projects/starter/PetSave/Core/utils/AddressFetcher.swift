@@ -48,7 +48,8 @@ final class AddressFetcher: ObservableObject {
 
   func search(by address: String) async {
     guard let placemarks = try? await geocoder.geocodeAddressString(address),
-      let location = placemarks.first?.location else { return }
+      let location = placemarks.first?.location
+    else { return }
     coordinates.center = location.coordinate
   }
 }

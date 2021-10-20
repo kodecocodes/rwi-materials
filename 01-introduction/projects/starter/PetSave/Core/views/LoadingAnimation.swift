@@ -52,7 +52,6 @@ struct LoadingAnimation: UIViewRepresentable {
     image.contentMode = .scaleAspectFit
     image.image = animatedFrames
     view.addSubview(image)
-
     return view
   }
 

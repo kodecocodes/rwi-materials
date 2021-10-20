@@ -64,8 +64,8 @@ final class LocationManager: NSObject, ObservableObject {
 extension LocationManager {
   var locationIsDisabled: Bool {
     authorizationStatus == .denied ||
-      authorizationStatus == .notDetermined ||
-      authorizationStatus == .restricted
+    authorizationStatus == .notDetermined ||
+    authorizationStatus == .restricted
   }
 
   var openInSettings: Bool {
