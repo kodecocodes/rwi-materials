@@ -31,7 +31,7 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-
+@MainActor
 struct ContentView: View {
   let managedObjectContext = PersistenceController.shared.container.viewContext
 
