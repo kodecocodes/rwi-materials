@@ -71,4 +71,3 @@ struct AnimalContactLink_Previews: PreviewProvider {
     }
   }
 }
-
