@@ -58,8 +58,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
     self.animalFetcher = animalFetcher
     self.animalStore = animalStore
   }
-
-  // 1
+  
   func fetchAnimals() async {
     let animals = await animalFetcher.fetchAnimals(page: page)
     do {
