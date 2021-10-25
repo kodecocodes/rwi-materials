@@ -60,8 +60,7 @@
 		8F05DF2A26D56F51001ACE04 /* APIToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF2926D56F51001ACE04 /* APIToken.swift */; };
 		8F05DF2E26D56F8C001ACE04 /* AnimalsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */; };
 		8F05DF3226D5703A001ACE04 /* AppUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF3126D5703A001ACE04 /* AppUserDefaultsKeys.swift */; };
-		8F93C6242703B7B8009B5CDB /* PetSaveOnboarding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F93C6222703AE64009B5CDB /* PetSaveOnboarding.framework */; };
-		8F93C6252703B7B8009B5CDB /* PetSaveOnboarding.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F93C6222703AE64009B5CDB /* PetSaveOnboarding.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F50E4CE272700560069DB2F /* PetSaveOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 8F50E4CD272700560069DB2F /* PetSaveOnboarding */; };
 		8FC6977C26C86A2B003CBFB0 /* AnimalsMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 849C44EE26A26F70009899B0 /* AnimalsMock.json */; };
 		8FDD2CA326B311AC00DBE33F /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD2CA226B311AC00DBE33F /* Pagination.swift */; };
 		AE4B2B4526B0DDEF008AEED4 /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */; };
@@ -102,13 +101,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8F93C6212703AE64009B5CDB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F93C61D2703AE64009B5CDB /* PetSaveOnboarding.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8F93C5E8270395D1009B5CDB;
-			remoteInfo = PetSaveOnboarding;
-		};
 		AE6A37F9269B5B860054C842 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 18D775B522AD944300AE281E /* Project object */;
@@ -132,7 +124,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8F93C6252703B7B8009B5CDB /* PetSaveOnboarding.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,7 +186,6 @@
 		8F05DF2926D56F51001ACE04 /* APIToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIToken.swift; sourceTree = "<group>"; };
 		8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsContainer.swift; sourceTree = "<group>"; };
 		8F05DF3126D5703A001ACE04 /* AppUserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaultsKeys.swift; sourceTree = "<group>"; };
-		8F93C61D2703AE64009B5CDB /* PetSaveOnboarding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PetSaveOnboarding.xcodeproj; path = PetSaveOnboarding/PetSaveOnboarding.xcodeproj; sourceTree = "<group>"; };
 		8FDD2CA226B311AC00DBE33F /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
 		AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRankingView.swift; sourceTree = "<group>"; };
@@ -242,7 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F93C6242703B7B8009B5CDB /* PetSaveOnboarding.framework in Frameworks */,
+				8F50E4CE272700560069DB2F /* PetSaveOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +256,6 @@
 		18D775B422AD944300AE281E = {
 			isa = PBXGroup;
 			children = (
-				8F93C61D2703AE64009B5CDB /* PetSaveOnboarding.xcodeproj */,
 				18D775BF22AD944300AE281E /* PetSave */,
 				AE6A37F6269B5B860054C842 /* PetSaveTests */,
 				AE6A3803269B5C050054C842 /* PetSaveUITests */,
@@ -437,14 +426,6 @@
 				8F05DF2726D56F2D001ACE04 /* DataParser.swift */,
 			);
 			path = parser;
-			sourceTree = "<group>";
-		};
-		8F93C61E2703AE64009B5CDB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8F93C6222703AE64009B5CDB /* PetSaveOnboarding.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		8F93C6232703B7B8009B5CDB /* Frameworks */ = {
@@ -768,6 +749,7 @@
 			);
 			name = PetSave;
 			packageProductDependencies = (
+				8F50E4CD272700560069DB2F /* PetSaveOnboarding */,
 			);
 			productName = MyRWTutorial;
 			productReference = 18D775BD22AD944300AE281E /* PetSave.app */;
@@ -844,15 +826,10 @@
 			);
 			mainGroup = 18D775B422AD944300AE281E;
 			packageReferences = (
+				8F50E4CC272700560069DB2F /* XCRemoteSwiftPackageReference "PetSaveOnboarding" */,
 			);
 			productRefGroup = 18D775BE22AD944300AE281E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8F93C61E2703AE64009B5CDB /* Products */;
-					ProjectRef = 8F93C61D2703AE64009B5CDB /* PetSaveOnboarding.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				18D775BC22AD944300AE281E /* PetSave */,
@@ -861,16 +838,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		8F93C6222703AE64009B5CDB /* PetSaveOnboarding.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PetSaveOnboarding.framework;
-			remoteRef = 8F93C6212703AE64009B5CDB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		18D775BB22AD944300AE281E /* Resources */ = {
@@ -1492,6 +1459,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8F50E4CC272700560069DB2F /* XCRemoteSwiftPackageReference "PetSaveOnboarding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raywenderlich/PetSaveOnboarding.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F50E4CD272700560069DB2F /* PetSaveOnboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F50E4CC272700560069DB2F /* XCRemoteSwiftPackageReference "PetSaveOnboarding" */;
+			productName = PetSaveOnboarding;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		AE6A3793269B59C10054C842 /* PetSave.xcdatamodeld */ = {
