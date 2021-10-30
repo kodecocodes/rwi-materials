@@ -60,8 +60,18 @@
 		8F05DF2A26D56F51001ACE04 /* APIToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF2926D56F51001ACE04 /* APIToken.swift */; };
 		8F05DF2E26D56F8C001ACE04 /* AnimalsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */; };
 		8F05DF3226D5703A001ACE04 /* AppUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF3126D5703A001ACE04 /* AppUserDefaultsKeys.swift */; };
-		8F93C6242703B7B8009B5CDB /* PetSaveOnboarding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F93C6222703AE64009B5CDB /* PetSaveOnboarding.framework */; };
-		8F93C6252703B7B8009B5CDB /* PetSaveOnboarding.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F93C6222703AE64009B5CDB /* PetSaveOnboarding.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F3CBCE5272DE6310047542E /* PetSaveOnboarding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3CBCDF272DE6310047542E /* PetSaveOnboarding.framework */; };
+		8F3CBCE6272DE6310047542E /* PetSaveOnboarding.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3CBCDF272DE6310047542E /* PetSaveOnboarding.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F3CBCF7272DE6590047542E /* PetSaveOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCEB272DE6590047542E /* PetSaveOnboardingView.swift */; };
+		8F3CBCF8272DE6590047542E /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCED272DE6590047542E /* Bundle+Extension.swift */; };
+		8F3CBCF9272DE6590047542E /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCEE272DE6590047542E /* Color+Extension.swift */; };
+		8F3CBCFA272DE6590047542E /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCEF272DE6590047542E /* Image+Extension.swift */; };
+		8F3CBCFB272DE6590047542E /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCF1272DE6590047542E /* OnboardingModel.swift */; };
+		8F3CBCFC272DE6590047542E /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCF2272DE6590047542E /* Pet.swift */; };
+		8F3CBCFD272DE6590047542E /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCF3272DE6590047542E /* OnboardView.swift */; };
+		8F3CBCFE272DE6590047542E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3CBCF5272DE6590047542E /* Assets.xcassets */; };
+		8F3CBCFF272DE6590047542E /* OnboardingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCF6272DE6590047542E /* OnboardingBackground.swift */; };
+		8F3CBD01272DE6690047542E /* PetSaveOnboarding.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F3CBD00272DE6690047542E /* PetSaveOnboarding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FC6977C26C86A2B003CBFB0 /* AnimalsMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 849C44EE26A26F70009899B0 /* AnimalsMock.json */; };
 		8FDD2CA326B311AC00DBE33F /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD2CA226B311AC00DBE33F /* Pagination.swift */; };
 		AE4B2B4526B0DDEF008AEED4 /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */; };
@@ -102,11 +112,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8F93C6212703AE64009B5CDB /* PBXContainerItemProxy */ = {
+		8F3CBCE3272DE6310047542E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 8F93C61D2703AE64009B5CDB /* PetSaveOnboarding.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8F93C5E8270395D1009B5CDB;
+			containerPortal = 18D775B522AD944300AE281E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F3CBCDE272DE6310047542E;
 			remoteInfo = PetSaveOnboarding;
 		};
 		AE6A37F9269B5B860054C842 /* PBXContainerItemProxy */ = {
@@ -132,7 +142,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8F93C6252703B7B8009B5CDB /* PetSaveOnboarding.framework in Embed Frameworks */,
+				8F3CBCE6272DE6310047542E /* PetSaveOnboarding.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,7 +205,17 @@
 		8F05DF2926D56F51001ACE04 /* APIToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIToken.swift; sourceTree = "<group>"; };
 		8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsContainer.swift; sourceTree = "<group>"; };
 		8F05DF3126D5703A001ACE04 /* AppUserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaultsKeys.swift; sourceTree = "<group>"; };
-		8F93C61D2703AE64009B5CDB /* PetSaveOnboarding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PetSaveOnboarding.xcodeproj; path = PetSaveOnboarding/PetSaveOnboarding.xcodeproj; sourceTree = "<group>"; };
+		8F3CBCDF272DE6310047542E /* PetSaveOnboarding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PetSaveOnboarding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F3CBCEB272DE6590047542E /* PetSaveOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSaveOnboardingView.swift; sourceTree = "<group>"; };
+		8F3CBCED272DE6590047542E /* Bundle+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		8F3CBCEE272DE6590047542E /* Color+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		8F3CBCEF272DE6590047542E /* Image+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
+		8F3CBCF1272DE6590047542E /* OnboardingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
+		8F3CBCF2272DE6590047542E /* Pet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		8F3CBCF3272DE6590047542E /* OnboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
+		8F3CBCF5272DE6590047542E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8F3CBCF6272DE6590047542E /* OnboardingBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingBackground.swift; sourceTree = "<group>"; };
+		8F3CBD00272DE6690047542E /* PetSaveOnboarding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetSaveOnboarding.h; sourceTree = "<group>"; };
 		8FDD2CA226B311AC00DBE33F /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
 		AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRankingView.swift; sourceTree = "<group>"; };
@@ -242,7 +262,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F93C6242703B7B8009B5CDB /* PetSaveOnboarding.framework in Frameworks */,
+				8F3CBCE5272DE6310047542E /* PetSaveOnboarding.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F3CBCDC272DE6310047542E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,12 +293,11 @@
 		18D775B422AD944300AE281E = {
 			isa = PBXGroup;
 			children = (
-				8F93C61D2703AE64009B5CDB /* PetSaveOnboarding.xcodeproj */,
 				18D775BF22AD944300AE281E /* PetSave */,
 				AE6A37F6269B5B860054C842 /* PetSaveTests */,
 				AE6A3803269B5C050054C842 /* PetSaveUITests */,
+				8F3CBCE0272DE6310047542E /* PetSaveOnboarding */,
 				18D775BE22AD944300AE281E /* Products */,
-				8F93C6232703B7B8009B5CDB /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -283,6 +309,7 @@
 				18D775BD22AD944300AE281E /* PetSave.app */,
 				AE6A37F5269B5B850054C842 /* PetSaveTests.xctest */,
 				AE6A3802269B5C050054C842 /* PetSaveUITests.xctest */,
+				8F3CBCDF272DE6310047542E /* PetSaveOnboarding.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -413,6 +440,47 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		8F3CBCE0272DE6310047542E /* PetSaveOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				8F3CBD00272DE6690047542E /* PetSaveOnboarding.h */,
+				8F3CBCEC272DE6590047542E /* Extensions */,
+				8F3CBCF0272DE6590047542E /* Model */,
+				8F3CBCF6272DE6590047542E /* OnboardingBackground.swift */,
+				8F3CBCF3272DE6590047542E /* OnboardView.swift */,
+				8F3CBCEB272DE6590047542E /* PetSaveOnboardingView.swift */,
+				8F3CBCF4272DE6590047542E /* Resources */,
+			);
+			path = PetSaveOnboarding;
+			sourceTree = "<group>";
+		};
+		8F3CBCEC272DE6590047542E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8F3CBCED272DE6590047542E /* Bundle+Extension.swift */,
+				8F3CBCEE272DE6590047542E /* Color+Extension.swift */,
+				8F3CBCEF272DE6590047542E /* Image+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8F3CBCF0272DE6590047542E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8F3CBCF1272DE6590047542E /* OnboardingModel.swift */,
+				8F3CBCF2272DE6590047542E /* Pet.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8F3CBCF4272DE6590047542E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8F3CBCF5272DE6590047542E /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8F4E8D4C26D3DEF00055D1C4 /* network */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,21 +505,6 @@
 				8F05DF2726D56F2D001ACE04 /* DataParser.swift */,
 			);
 			path = parser;
-			sourceTree = "<group>";
-		};
-		8F93C61E2703AE64009B5CDB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8F93C6222703AE64009B5CDB /* PetSaveOnboarding.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		8F93C6232703B7B8009B5CDB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		8F9CF4A626D1BCB800AC3DA8 /* request */ = {
@@ -751,6 +804,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		8F3CBCDA272DE6310047542E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F3CBD01272DE6690047542E /* PetSaveOnboarding.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		18D775BC22AD944300AE281E /* PetSave */ = {
 			isa = PBXNativeTarget;
@@ -765,6 +829,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				8F3CBCE4272DE6310047542E /* PBXTargetDependency */,
 			);
 			name = PetSave;
 			packageProductDependencies = (
@@ -772,6 +837,24 @@
 			productName = MyRWTutorial;
 			productReference = 18D775BD22AD944300AE281E /* PetSave.app */;
 			productType = "com.apple.product-type.application";
+		};
+		8F3CBCDE272DE6310047542E /* PetSaveOnboarding */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F3CBCE7272DE6310047542E /* Build configuration list for PBXNativeTarget "PetSaveOnboarding" */;
+			buildPhases = (
+				8F3CBCDA272DE6310047542E /* Headers */,
+				8F3CBCDB272DE6310047542E /* Sources */,
+				8F3CBCDC272DE6310047542E /* Frameworks */,
+				8F3CBCDD272DE6310047542E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PetSaveOnboarding;
+			productName = PetSaveOnboarding;
+			productReference = 8F3CBCDF272DE6310047542E /* PetSaveOnboarding.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		AE6A37F4269B5B850054C842 /* PetSaveTests */ = {
 			isa = PBXNativeTarget;
@@ -822,6 +905,10 @@
 					18D775BC22AD944300AE281E = {
 						CreatedOnToolsVersion = 11.0;
 					};
+					8F3CBCDE272DE6310047542E = {
+						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
+					};
 					AE6A37F4269B5B850054C842 = {
 						CreatedOnToolsVersion = 13.0;
 						LastSwiftMigration = 1300;
@@ -847,30 +934,15 @@
 			);
 			productRefGroup = 18D775BE22AD944300AE281E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8F93C61E2703AE64009B5CDB /* Products */;
-					ProjectRef = 8F93C61D2703AE64009B5CDB /* PetSaveOnboarding.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				18D775BC22AD944300AE281E /* PetSave */,
 				AE6A37F4269B5B850054C842 /* PetSaveTests */,
 				AE6A3801269B5C050054C842 /* PetSaveUITests */,
+				8F3CBCDE272DE6310047542E /* PetSaveOnboarding */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		8F93C6222703AE64009B5CDB /* PetSaveOnboarding.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PetSaveOnboarding.framework;
-			remoteRef = 8F93C6212703AE64009B5CDB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		18D775BB22AD944300AE281E /* Resources */ = {
@@ -881,6 +953,14 @@
 				18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */,
 				18D775C722AD944400AE281E /* Assets.xcassets in Resources */,
 				849C44EF26A26F70009899B0 /* AnimalsMock.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F3CBCDD272DE6310047542E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F3CBCFE272DE6590047542E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1087,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F3CBCDB272DE6310047542E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F3CBCFF272DE6590047542E /* OnboardingBackground.swift in Sources */,
+				8F3CBCFD272DE6590047542E /* OnboardView.swift in Sources */,
+				8F3CBCF7272DE6590047542E /* PetSaveOnboardingView.swift in Sources */,
+				8F3CBCFB272DE6590047542E /* OnboardingModel.swift in Sources */,
+				8F3CBCF9272DE6590047542E /* Color+Extension.swift in Sources */,
+				8F3CBCFC272DE6590047542E /* Pet.swift in Sources */,
+				8F3CBCF8272DE6590047542E /* Bundle+Extension.swift in Sources */,
+				8F3CBCFA272DE6590047542E /* Image+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE6A37F1269B5B850054C842 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1032,6 +1127,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8F3CBCE4272DE6310047542E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F3CBCDE272DE6310047542E /* PetSaveOnboarding */;
+			targetProxy = 8F3CBCE3272DE6310047542E /* PBXContainerItemProxy */;
+		};
 		AE6A37FA269B5B860054C842 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 18D775BC22AD944300AE281E /* PetSave */;
@@ -1180,6 +1280,7 @@
 		18D775D222AD944400AE281E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "PetSave/Preview\\ Content";
@@ -1201,6 +1302,7 @@
 		18D775D322AD944400AE281E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "PetSave/Preview\\ Content";
@@ -1216,6 +1318,107 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8F3CBCE8272DE6310047542E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3P9488PVA3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Ray Wenderlich. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.PetSaveOnboarding;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8F3CBCE9272DE6310047542E /* Debug (Core Data) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3P9488PVA3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Ray Wenderlich. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.PetSaveOnboarding;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = "Debug (Core Data)";
+		};
+		8F3CBCEA272DE6310047542E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3P9488PVA3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Ray Wenderlich. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.PetSaveOnboarding;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1284,6 +1487,7 @@
 		AE59C09826BF2F4E00BE528B /* Debug (Core Data) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "PetSave/Preview\\ Content";
@@ -1467,6 +1671,16 @@
 				18D775D222AD944400AE281E /* Debug */,
 				AE59C09826BF2F4E00BE528B /* Debug (Core Data) */,
 				18D775D322AD944400AE281E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F3CBCE7272DE6310047542E /* Build configuration list for PBXNativeTarget "PetSaveOnboarding" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F3CBCE8272DE6310047542E /* Debug */,
+				8F3CBCE9272DE6310047542E /* Debug (Core Data) */,
+				8F3CBCEA272DE6310047542E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
