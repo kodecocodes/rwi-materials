@@ -60,18 +60,9 @@
 		8F05DF2A26D56F51001ACE04 /* APIToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF2926D56F51001ACE04 /* APIToken.swift */; };
 		8F05DF2E26D56F8C001ACE04 /* AnimalsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */; };
 		8F05DF3226D5703A001ACE04 /* AppUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F05DF3126D5703A001ACE04 /* AppUserDefaultsKeys.swift */; };
-		8F3CBCA4272DE1180047542E /* PetSaveOnboarding.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F3CBCA3272DE1180047542E /* PetSaveOnboarding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8F3CBCA7272DE1180047542E /* PetSaveOnboarding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3CBCA1272DE1180047542E /* PetSaveOnboarding.framework */; };
-		8F3CBCA8272DE1180047542E /* PetSaveOnboarding.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3CBCA1272DE1180047542E /* PetSaveOnboarding.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8F3CBCB9272DE49D0047542E /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCAE272DE49D0047542E /* Bundle+Extension.swift */; };
-		8F3CBCBA272DE49D0047542E /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCAF272DE49D0047542E /* Color+Extension.swift */; };
-		8F3CBCBB272DE49D0047542E /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCB0272DE49D0047542E /* Image+Extension.swift */; };
-		8F3CBCBC272DE49D0047542E /* OnboardingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCB1272DE49D0047542E /* OnboardingBackground.swift */; };
-		8F3CBCBD272DE49D0047542E /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCB3272DE49D0047542E /* OnboardingModel.swift */; };
-		8F3CBCBE272DE49D0047542E /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCB4272DE49D0047542E /* Pet.swift */; };
-		8F3CBCBF272DE49D0047542E /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCB5272DE49D0047542E /* OnboardView.swift */; };
-		8F3CBCC0272DE49D0047542E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3CBCB7272DE49D0047542E /* Assets.xcassets */; };
-		8F3CBCC1272DE49D0047542E /* PetSaveOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3CBCB8272DE49D0047542E /* PetSaveOnboardingView.swift */; };
+		8F3CBD0D272DEDF60047542E /* PetSaveOnboarding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3CBD07272DEDF60047542E /* PetSaveOnboarding.framework */; };
+		8F3CBD0E272DEDF60047542E /* PetSaveOnboarding.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3CBD07272DEDF60047542E /* PetSaveOnboarding.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F3CBD14272DEE050047542E /* PetSaveOnboarding.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F3CBD13272DEE050047542E /* PetSaveOnboarding.h */; };
 		8FC6977C26C86A2B003CBFB0 /* AnimalsMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 849C44EE26A26F70009899B0 /* AnimalsMock.json */; };
 		8FDD2CA326B311AC00DBE33F /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD2CA226B311AC00DBE33F /* Pagination.swift */; };
 		AE4B2B4526B0DDEF008AEED4 /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */; };
@@ -112,11 +103,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8F3CBCA5272DE1180047542E /* PBXContainerItemProxy */ = {
+		8F3CBD0B272DEDF60047542E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 18D775B522AD944300AE281E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8F3CBCA0272DE1180047542E;
+			remoteGlobalIDString = 8F3CBD06272DEDF60047542E;
 			remoteInfo = PetSaveOnboarding;
 		};
 		AE6A37F9269B5B860054C842 /* PBXContainerItemProxy */ = {
@@ -142,7 +133,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8F3CBCA8272DE1180047542E /* PetSaveOnboarding.framework in Embed Frameworks */,
+				8F3CBD0E272DEDF60047542E /* PetSaveOnboarding.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,17 +196,8 @@
 		8F05DF2926D56F51001ACE04 /* APIToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIToken.swift; sourceTree = "<group>"; };
 		8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsContainer.swift; sourceTree = "<group>"; };
 		8F05DF3126D5703A001ACE04 /* AppUserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaultsKeys.swift; sourceTree = "<group>"; };
-		8F3CBCA1272DE1180047542E /* PetSaveOnboarding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PetSaveOnboarding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F3CBCA3272DE1180047542E /* PetSaveOnboarding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PetSaveOnboarding.h; sourceTree = "<group>"; };
-		8F3CBCAE272DE49D0047542E /* Bundle+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
-		8F3CBCAF272DE49D0047542E /* Color+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
-		8F3CBCB0272DE49D0047542E /* Image+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
-		8F3CBCB1272DE49D0047542E /* OnboardingBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingBackground.swift; sourceTree = "<group>"; };
-		8F3CBCB3272DE49D0047542E /* OnboardingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
-		8F3CBCB4272DE49D0047542E /* Pet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
-		8F3CBCB5272DE49D0047542E /* OnboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
-		8F3CBCB7272DE49D0047542E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8F3CBCB8272DE49D0047542E /* PetSaveOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSaveOnboardingView.swift; sourceTree = "<group>"; };
+		8F3CBD07272DEDF60047542E /* PetSaveOnboarding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PetSaveOnboarding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F3CBD13272DEE050047542E /* PetSaveOnboarding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetSaveOnboarding.h; sourceTree = "<group>"; };
 		8FDD2CA226B311AC00DBE33F /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
 		AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRankingView.swift; sourceTree = "<group>"; };
@@ -262,11 +244,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3CBCA7272DE1180047542E /* PetSaveOnboarding.framework in Frameworks */,
+				8F3CBD0D272DEDF60047542E /* PetSaveOnboarding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8F3CBC9E272DE1180047542E /* Frameworks */ = {
+		8F3CBD04272DEDF60047542E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -296,7 +278,7 @@
 				18D775BF22AD944300AE281E /* PetSave */,
 				AE6A37F6269B5B860054C842 /* PetSaveTests */,
 				AE6A3803269B5C050054C842 /* PetSaveUITests */,
-				8F3CBCA2272DE1180047542E /* PetSaveOnboarding */,
+				8F3CBD08272DEDF60047542E /* PetSaveOnboarding */,
 				18D775BE22AD944300AE281E /* Products */,
 			);
 			indentWidth = 2;
@@ -309,7 +291,7 @@
 				18D775BD22AD944300AE281E /* PetSave.app */,
 				AE6A37F5269B5B850054C842 /* PetSaveTests.xctest */,
 				AE6A3802269B5C050054C842 /* PetSaveUITests.xctest */,
-				8F3CBCA1272DE1180047542E /* PetSaveOnboarding.framework */,
+				8F3CBD07272DEDF60047542E /* PetSaveOnboarding.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -440,45 +422,12 @@
 			path = views;
 			sourceTree = "<group>";
 		};
-		8F3CBCA2272DE1180047542E /* PetSaveOnboarding */ = {
+		8F3CBD08272DEDF60047542E /* PetSaveOnboarding */ = {
 			isa = PBXGroup;
 			children = (
-				8F3CBCAD272DE49D0047542E /* Extensions */,
-				8F3CBCB2272DE49D0047542E /* Model */,
-				8F3CBCB1272DE49D0047542E /* OnboardingBackground.swift */,
-				8F3CBCB5272DE49D0047542E /* OnboardView.swift */,
-				8F3CBCB8272DE49D0047542E /* PetSaveOnboardingView.swift */,
-				8F3CBCB6272DE49D0047542E /* Resources */,
-				8F3CBCA3272DE1180047542E /* PetSaveOnboarding.h */,
+				8F3CBD13272DEE050047542E /* PetSaveOnboarding.h */,
 			);
 			path = PetSaveOnboarding;
-			sourceTree = "<group>";
-		};
-		8F3CBCAD272DE49D0047542E /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				8F3CBCAE272DE49D0047542E /* Bundle+Extension.swift */,
-				8F3CBCAF272DE49D0047542E /* Color+Extension.swift */,
-				8F3CBCB0272DE49D0047542E /* Image+Extension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		8F3CBCB2272DE49D0047542E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8F3CBCB3272DE49D0047542E /* OnboardingModel.swift */,
-				8F3CBCB4272DE49D0047542E /* Pet.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		8F3CBCB6272DE49D0047542E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8F3CBCB7272DE49D0047542E /* Assets.xcassets */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		8F4E8D4C26D3DEF00055D1C4 /* network */ = {
@@ -805,11 +754,11 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		8F3CBC9C272DE1180047542E /* Headers */ = {
+		8F3CBD02272DEDF60047542E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3CBCA4272DE1180047542E /* PetSaveOnboarding.h in Headers */,
+				8F3CBD14272DEE050047542E /* PetSaveOnboarding.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,7 +778,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				8F3CBCA6272DE1180047542E /* PBXTargetDependency */,
+				8F3CBD0C272DEDF60047542E /* PBXTargetDependency */,
 			);
 			name = PetSave;
 			packageProductDependencies = (
@@ -838,14 +787,14 @@
 			productReference = 18D775BD22AD944300AE281E /* PetSave.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8F3CBCA0272DE1180047542E /* PetSaveOnboarding */ = {
+		8F3CBD06272DEDF60047542E /* PetSaveOnboarding */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8F3CBCA9272DE1180047542E /* Build configuration list for PBXNativeTarget "PetSaveOnboarding" */;
+			buildConfigurationList = 8F3CBD0F272DEDF60047542E /* Build configuration list for PBXNativeTarget "PetSaveOnboarding" */;
 			buildPhases = (
-				8F3CBC9C272DE1180047542E /* Headers */,
-				8F3CBC9D272DE1180047542E /* Sources */,
-				8F3CBC9E272DE1180047542E /* Frameworks */,
-				8F3CBC9F272DE1180047542E /* Resources */,
+				8F3CBD02272DEDF60047542E /* Headers */,
+				8F3CBD03272DEDF60047542E /* Sources */,
+				8F3CBD04272DEDF60047542E /* Frameworks */,
+				8F3CBD05272DEDF60047542E /* Resources */,
 			);
 			buildRules = (
 			);
@@ -853,7 +802,7 @@
 			);
 			name = PetSaveOnboarding;
 			productName = PetSaveOnboarding;
-			productReference = 8F3CBCA1272DE1180047542E /* PetSaveOnboarding.framework */;
+			productReference = 8F3CBD07272DEDF60047542E /* PetSaveOnboarding.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AE6A37F4269B5B850054C842 /* PetSaveTests */ = {
@@ -905,9 +854,8 @@
 					18D775BC22AD944300AE281E = {
 						CreatedOnToolsVersion = 11.0;
 					};
-					8F3CBCA0272DE1180047542E = {
+					8F3CBD06272DEDF60047542E = {
 						CreatedOnToolsVersion = 13.1;
-						LastSwiftMigration = 1310;
 					};
 					AE6A37F4269B5B850054C842 = {
 						CreatedOnToolsVersion = 13.0;
@@ -939,7 +887,7 @@
 				18D775BC22AD944300AE281E /* PetSave */,
 				AE6A37F4269B5B850054C842 /* PetSaveTests */,
 				AE6A3801269B5C050054C842 /* PetSaveUITests */,
-				8F3CBCA0272DE1180047542E /* PetSaveOnboarding */,
+				8F3CBD06272DEDF60047542E /* PetSaveOnboarding */,
 			);
 		};
 /* End PBXProject section */
@@ -956,11 +904,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8F3CBC9F272DE1180047542E /* Resources */ = {
+		8F3CBD05272DEDF60047542E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3CBCC0272DE49D0047542E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1087,18 +1034,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8F3CBC9D272DE1180047542E /* Sources */ = {
+		8F3CBD03272DEDF60047542E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3CBCBF272DE49D0047542E /* OnboardView.swift in Sources */,
-				8F3CBCBC272DE49D0047542E /* OnboardingBackground.swift in Sources */,
-				8F3CBCBD272DE49D0047542E /* OnboardingModel.swift in Sources */,
-				8F3CBCB9272DE49D0047542E /* Bundle+Extension.swift in Sources */,
-				8F3CBCC1272DE49D0047542E /* PetSaveOnboardingView.swift in Sources */,
-				8F3CBCBE272DE49D0047542E /* Pet.swift in Sources */,
-				8F3CBCBA272DE49D0047542E /* Color+Extension.swift in Sources */,
-				8F3CBCBB272DE49D0047542E /* Image+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,10 +1066,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8F3CBCA6272DE1180047542E /* PBXTargetDependency */ = {
+		8F3CBD0C272DEDF60047542E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8F3CBCA0272DE1180047542E /* PetSaveOnboarding */;
-			targetProxy = 8F3CBCA5272DE1180047542E /* PBXContainerItemProxy */;
+			target = 8F3CBD06272DEDF60047542E /* PetSaveOnboarding */;
+			targetProxy = 8F3CBD0B272DEDF60047542E /* PBXContainerItemProxy */;
 		};
 		AE6A37FA269B5B860054C842 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1280,7 +1219,6 @@
 		18D775D222AD944400AE281E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "PetSave/Preview\\ Content";
@@ -1302,7 +1240,6 @@
 		18D775D322AD944400AE281E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "PetSave/Preview\\ Content";
@@ -1321,11 +1258,10 @@
 			};
 			name = Release;
 		};
-		8F3CBCAA272DE1180047542E /* Debug */ = {
+		8F3CBD10272DEDF60047542E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1347,7 +1283,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1355,11 +1290,10 @@
 			};
 			name = Debug;
 		};
-		8F3CBCAB272DE1180047542E /* Debug (Core Data) */ = {
+		8F3CBD11272DEDF60047542E /* Debug (Core Data) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1381,7 +1315,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1389,11 +1322,10 @@
 			};
 			name = "Debug (Core Data)";
 		};
-		8F3CBCAC272DE1180047542E /* Release */ = {
+		8F3CBD12272DEDF60047542E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1487,7 +1419,6 @@
 		AE59C09826BF2F4E00BE528B /* Debug (Core Data) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "PetSave/Preview\\ Content";
@@ -1675,12 +1606,12 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8F3CBCA9272DE1180047542E /* Build configuration list for PBXNativeTarget "PetSaveOnboarding" */ = {
+		8F3CBD0F272DEDF60047542E /* Build configuration list for PBXNativeTarget "PetSaveOnboarding" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8F3CBCAA272DE1180047542E /* Debug */,
-				8F3CBCAB272DE1180047542E /* Debug (Core Data) */,
-				8F3CBCAC272DE1180047542E /* Release */,
+				8F3CBD10272DEDF60047542E /* Debug */,
+				8F3CBD11272DEDF60047542E /* Debug (Core Data) */,
+				8F3CBD12272DEDF60047542E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
