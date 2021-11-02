@@ -125,23 +125,18 @@ fileprivate extension PreviewProvider {
             OnboardingModel(
                 title: "Welcome to\n PetSave",
                 description: "Looking for a Pet?\n Then you're at the right place",
-                image: .bird,
-                nextButtonTitle: "Next",
-                skipButtonTitle: "Skip"
+                image: .bird
             ),
             OnboardingModel(
                 title: "Search...",
                 description: "Search from a list of our huge database of animals.",
                 image: .dogBoneStand,
-                nextButtonTitle: "Allow",
-                skipButtonTitle: "Skip"
+                nextButtonTitle: "Allow"
             ),
             OnboardingModel(
                 title: "Nearby",
                 description: "Find pets to adopt from nearby your place...",
-                image: .chameleon,
-                nextButtonTitle: "Next",
-                skipButtonTitle: "Skip"
+                image: .chameleon
             )
         ]
     }
