@@ -1,15 +1,15 @@
 /// Copyright (c) 2021 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -32,54 +32,36 @@
 
 import XCTest
 @testable import PetSave
-import CoreData
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+class RequestManagerTests: XCTestCase {
+  private var requestManager: RequestManagerProtocol?
+
+  override func setUp() {
+    super.setUp()
+    guard let userDefaults = UserDefaults(suiteName: #file) else { return }
+    userDefaults.removePersistentDomain(forName: #file)
+    requestManager = RequestManagerMock(
+      apiManager: APIManagerMock(),
+      accessTokenManager: AccessTokenManager(userDefaults: userDefaults)
+    )
   }
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
-  }
+  func testRequestAnimals() async throws {
+    guard let container: AnimalsContainer =
+      try await requestManager?.initRequest(with: AnimalsRequestMock.getAnimals) else { return }
+    let animals = container.animals
+    let first = animals.first
+    let last = animals.last
+    XCTAssertEqual(first?.name, "Kiki")
+    XCTAssertEqual(first?.age.rawValue, "Adult")
+    XCTAssertEqual(first?.gender.rawValue, "Female")
+    XCTAssertEqual(first?.size.rawValue, "Medium")
+    XCTAssertEqual(first?.coat?.rawValue, "Short")
 
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
-  }
-
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
-
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+    XCTAssertEqual(last?.name, "Midnight")
+    XCTAssertEqual(last?.age.rawValue, "Adult")
+    XCTAssertEqual(last?.gender.rawValue, "Female")
+    XCTAssertEqual(last?.size.rawValue, "Large")
+    XCTAssertEqual(last?.coat, nil)
   }
 }

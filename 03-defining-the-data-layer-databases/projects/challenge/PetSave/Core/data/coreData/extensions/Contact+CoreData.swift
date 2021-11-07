@@ -29,57 +29,37 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
+///
 
-import XCTest
-@testable import PetSave
 import CoreData
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+// MARK: - CoreDataPersistable
+extension Contact: CoreDataPersistable {
+  init(managedObject: ContactEntity?) {
+    guard let managedObject = managedObject else { return }
+    self.id = Int(managedObject.id)
+    self.email = managedObject.email
+    self.phone = managedObject.phone
+    self.address = Address(managedObject: managedObject.address)
   }
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
+  var keyMap: [PartialKeyPath<Contact>: String] {
+    [
+      \.email: "email",
+      \.phone: "phone",
+      \.address: "address"
+    ]
   }
 
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
+  typealias ManagedType = ContactEntity
 
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
-  }
-
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
-
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+  mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType {
+    let persistedValue = ContactEntity.init(context: context)
+    persistedValue.email = self.email
+    persistedValue.phone = self.phone
+    if var address = self.address {
+      persistedValue.address = address.toManagedObject(context: context)
+    }
+    return persistedValue
   }
 }

@@ -30,56 +30,54 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
 import CoreData
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+struct PersistenceController {
+  static let shared = PersistenceController()
+  static var preview: PersistenceController = {
+    let result = PersistenceController(inMemory: true)
+    let viewContext = result.container.viewContext
+    for i in 0..<10 {
+      var animal = Animal.mock[i]
+      animal.toManagedObject(context: viewContext)
+    }
+    do {
+      try viewContext.save()
+    } catch {
+      let nsError = error as NSError
+      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    }
+    return result
+  }()
+
+  let container: NSPersistentContainer
+
+  init(inMemory: Bool = false) {
+    container = NSPersistentContainer(name: "PetSave")
+    if inMemory {
+      container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+    }
+    container.loadPersistentStores { _, error in
+      if let error = error as NSError? {
+        fatalError("Unresolved error \(error), \(error.userInfo)")
+      }
+    }
+    container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
   }
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
-  }
+  static func save() {
+    let context =
+    PersistenceController.shared.container.viewContext
+    guard context.hasChanges else { return }
 
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
+    do {
+      try context.save()
+    } catch {
+      fatalError("""
+        \(#file), \
+        \(#function), \
+        \(error.localizedDescription)
       """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
-  }
-
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
-
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+    }
   }
 }

@@ -30,56 +30,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
-import CoreData
-
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
-  }
-
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
-  }
-
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
-  }
-
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
-
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
-  }
+enum APIConstants {
+  static let host = "api.petfinder.com"
+  static let grantType = "client_credentials"
+  static let clientId = "rgq4iIBz2ar1Wrqia1p4Jf8voFFKVt3rJ5NlZUWcc4us50hqNE"
+  static let clientSecret = "vj5ZabUDXPZihpVUyCx4bs5Cz64ikomlYRsirdiH"
 }

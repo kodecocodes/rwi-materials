@@ -30,56 +30,49 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
-import CoreData
+import SwiftUI
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+struct PetRankingView: View {
+  var body: some View {
+    Text("TODO: Pet Ranking View")
+  }
+}
+
+struct PetRankImage: View {
+  let index: Int
+  @State var opacity: Double = 0.4
+  @State var tapped = false
+  @Binding var recentIndex: Int
+
+  var body: some View {
+    Image("creature_dog-and-bone")
+      .resizable()
+      .aspectRatio(contentMode: .fit)
+      .opacity(opacity)
+      .frame(width: 50, height: 50)
+      .onTapGesture {
+        opacity = tapped ? 0.4 : 1.0
+        tapped.toggle()
+        recentIndex = index
+      }
+      .onChange(of: recentIndex) { value in
+        checkOpacity(value: value)
+      }
+      .onAppear {
+        checkOpacity(value: recentIndex)
+      }
   }
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
+  func checkOpacity(value: Int) {
+    opacity = value >= index ? 1.0 : 0.4
+    tapped.toggle()
   }
+}
 
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
-  }
-
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
-
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+struct PetRankingView_Previews: PreviewProvider {
+  static var previews: some View {
+    PetRankingView()
+      .padding()
+      .previewLayout(.sizeThatFits)
   }
 }

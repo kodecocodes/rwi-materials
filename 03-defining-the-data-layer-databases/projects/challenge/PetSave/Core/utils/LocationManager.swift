@@ -30,56 +30,64 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
-import CoreData
+import CoreLocation
+import SwiftUI
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+final class LocationManager: NSObject, ObservableObject {
+  @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
+
+  @Published var userLocation = CLLocation(
+    latitude: 37.3320003,
+    longitude: -122.0307812
+  )
+
+  @AppStorage("useUserLocation") var useUserLocation = false
+
+  private lazy var cllLocationManager: CLLocationManager = {
+    let manager = CLLocationManager()
+    manager.delegate = self
+    return manager
+  }()
+
+  func startUpdatingLocation() {
+    #warning("LocationButton is not working as it should. Probably a Beta bug. We'll try to remove this line later...")
+    cllLocationManager.requestWhenInUseAuthorization()
+    cllLocationManager.startUpdatingLocation()
   }
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
+  func updateAuthorizationStatus() {
+    authorizationStatus = cllLocationManager.authorizationStatus
+  }
+}
+
+// MARK: - Location status
+extension LocationManager {
+  var locationIsDisabled: Bool {
+    authorizationStatus == .denied ||
+      authorizationStatus == .notDetermined ||
+      authorizationStatus == .restricted
   }
 
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
+  var openInSettings: Bool {
+    authorizationStatus == .denied || authorizationStatus == .restricted
   }
 
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
+  var shouldRequestForLocation: Bool {
+    authorizationStatus == .notDetermined
+  }
+}
 
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
+// MARK: - CLLocationManagerDelegate
+extension LocationManager: CLLocationManagerDelegate {
+  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    updateAuthorizationStatus()
+  }
 
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+  func locationManager(
+    _ manager: CLLocationManager,
+    didUpdateLocations locations: [CLLocation]
+  ) {
+    guard let userLocation = locations.first else { return }
+    self.userLocation = userLocation
   }
 }

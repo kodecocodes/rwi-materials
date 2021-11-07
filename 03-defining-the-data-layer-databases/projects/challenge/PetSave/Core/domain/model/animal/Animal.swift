@@ -30,56 +30,38 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
-import CoreData
+import Foundation
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+struct Animal: Codable {
+  var id: Int?
+  let organizationId: String?
+  let url: URL?
+  let type: String
+  let species: String?
+  var breeds: Breed
+  var colors: APIColors
+  let age: Age
+  let gender: Gender
+  let size: Size
+  let coat: Coat?
+  let name: String
+  let description: String?
+  let photos: [PhotoSizes]
+  let videos: [VideoLink]
+  let status: AdoptionStatus
+  var attributes: AnimalAttributes
+  var environment: AnimalEnvironment?
+  let tags: [String]
+  var contact: Contact
+  let publishedAt: String?
+  let distance: Double?
+  var ranking: Int? = 0
+
+  var picture: URL? {
+    photos.first?.medium ?? photos.first?.large
   }
+}
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
-  }
-
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
-  }
-
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
-
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
-  }
+// MARK: - Identifiable
+extension Animal: Identifiable {
 }

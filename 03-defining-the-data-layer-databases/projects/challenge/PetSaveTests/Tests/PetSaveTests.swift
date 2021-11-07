@@ -32,54 +32,50 @@
 
 import XCTest
 @testable import PetSave
-import CoreData
 
-class CoreDataTests: XCTestCase {
+class PetSaveTests: XCTestCase {
   override func setUpWithError() throws {
     try super.setUpWithError()
+    // Put setup code here. This method is called before the invocation of each test method in the class.
   }
 
   override func tearDownWithError() throws {
     try super.tearDownWithError()
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
 
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
+  func testExample() throws {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
   }
 
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
+  func test_createPetWithSamplePetData() throws {
+    // Given
+    guard let url = Bundle.main.url(forResource: "AnimalsMock", withExtension: "json"),
+      let data = try? Data(contentsOf: url)
+      else { return XCTFail("AnimalsMock file missing or data is corrupted") }
 
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
+    let pets: [Animal]
+    let container: AnimalsContainer
+    // When
+    do {
+      let jsonDecoder = JSONDecoder()
+      jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+      container = try jsonDecoder.decode(AnimalsContainer.self, from: data)
+      pets = container.animals
+    } catch {
+      return XCTFail(error.localizedDescription)
+    }
 
-    previewContext.delete(first)
+    // Then
+    let pet = try XCTUnwrap(pets.first)
+    XCTAssert(pet.name == "Kiki", "Mock pet name was expected to be Kiki but was \(pet.name)")
+  }
 
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+  func testPerformanceExample() throws {
+    // This is an example of a performance test case.
+    measure {
+      // Put the code you want to measure the time of here.
+    }
   }
 }

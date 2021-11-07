@@ -30,56 +30,44 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
-import CoreData
+import SwiftUI
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+struct AnimalContactLink: View {
+  let title: String
+  let iconName: String
+  let url: URL
+  let color: Color
+
+  var body: some View {
+    Link(destination: url) {
+      VStack(spacing: 4) {
+        Image(systemName: iconName)
+          .imageScale(.large)
+        Text(title)
+          .font(.callout)
+      }
+      .foregroundColor(color)
+      .lineLimit(1)
+      .minimumScaleFactor(0.1)
+    }
+    .padding(.vertical)
+    .frame(maxWidth: .infinity)
+    .background(color.opacity(0.1))
+    .cornerRadius(8)
   }
+}
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
-  }
-
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
-  }
-
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
-
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+struct AnimalContactLink_Previews: PreviewProvider {
+  static var previews: some View {
+    if let url = URL(string: "www.apple.com") {
+      AnimalContactLink(
+        title: "(555) 394-2033",
+        iconName: "phone.fill",
+        url: url,
+        color: .green
+      )
+        .padding()
+        .previewLayout(.sizeThatFits)
+    }
   }
 }

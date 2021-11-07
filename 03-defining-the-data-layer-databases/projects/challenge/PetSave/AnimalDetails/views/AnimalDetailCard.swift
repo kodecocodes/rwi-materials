@@ -30,56 +30,41 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
-import CoreData
+import SwiftUI
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+struct AnimalDetailCard: View {
+  let title: String
+  let value: String
+  let color: Color
+
+  var body: some View {
+    VStack {
+      Text(title)
+        .font(.subheadline)
+      Text(value)
+        .font(.headline)
+    }
+    .padding(.vertical)
+    .frame(width: 96)
+    .background(color.opacity(0.2))
+    .foregroundColor(color)
+    .cornerRadius(8)
   }
+}
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
-  }
-
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
-  }
-
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
-
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+struct AnimalDetailCard_Previews: PreviewProvider {
+  static var previews: some View {
+    HStack {
+      AnimalDetailCard(
+        title: "Age",
+        value: "Adult",
+        color: .green
+      )
+      AnimalDetailCard(
+        title: "Age",
+        value: "Baby",
+        color: .blue
+      )
+    }
   }
 }

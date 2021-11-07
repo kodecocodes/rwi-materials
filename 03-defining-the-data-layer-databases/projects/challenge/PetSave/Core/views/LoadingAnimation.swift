@@ -30,56 +30,47 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
-import CoreData
+import SwiftUI
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+struct LoadingAnimation: UIViewRepresentable {
+  let animatedFrames: UIImage
+
+  init() {
+    var images: [UIImage] = []
+    for i in 1...127 {
+      guard let image = UIImage(named: "dog_\(String(format: "%03d", i))") else { continue }
+      images.append(image)
+    }
+    animatedFrames = UIImage.animatedImage(with: images, duration: 4) ?? UIImage()
   }
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
+  func makeUIView(context: Context) -> UIView {
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    image.clipsToBounds = true
+    image.autoresizesSubviews = true
+    image.contentMode = .scaleAspectFit
+    image.image = animatedFrames
+    view.addSubview(image)
+
+    return view
   }
 
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
+  func updateUIView(_ uiView: UIViewType, context: Context) {
+    // no code here; just for protocol
   }
+}
 
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
+struct LoadingAnimationView: View {
+  var body: some View {
+    VStack {
+      LoadingAnimation()
+    }
+  }
+}
 
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+struct LoadingAnimationView_Previews: PreviewProvider {
+  static var previews: some View {
+    LoadingAnimationView()
   }
 }

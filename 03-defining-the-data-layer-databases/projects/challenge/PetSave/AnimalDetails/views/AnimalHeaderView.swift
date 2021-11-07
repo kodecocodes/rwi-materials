@@ -30,56 +30,69 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
-import CoreData
+import SwiftUI
 
-class CoreDataTests: XCTestCase {
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+struct AnimalHeaderView: View {
+  var body: some View {
+    Text("TODO: Animal Header View")
   }
+}
 
-  override func tearDownWithError() throws {
-    try super.tearDownWithError()
+struct AnimalImage: View {
+  let animalPicture: URL?
+  @Binding var zoomed: Bool
+  let geometry: GeometryProxy
+
+  var body: some View {
+    AsyncImage(
+      url: animalPicture,
+      content: { image in image
+        .resizable()
+        .aspectRatio(zoomed ? nil : 1, contentMode: zoomed ? .fit : .fill)
+      },
+      placeholder: {
+        Image("rw-logo")
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .overlay {
+            if animalPicture != nil {
+              ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.gray.opacity(0.4))
+            }
+          }
+      })
+      .clipShape(
+        RoundedRectangle(cornerRadius: zoomed ? 0 : 300)
+      )
+      .frame(
+        width: zoomed ? geometry.frame(in: .local).width : 100,
+        height: zoomed ? geometry.frame(in: .global).midX : 100
+      )
+      .position(
+        x: zoomed ? geometry.frame(in: .local).midX : 50,
+        y: zoomed ? geometry.frame(in: .global).midX : 50
+      )
+      .scaleEffect((zoomed ? 5 : 3) / 3)
+      .shadow(radius: zoomed ? 10 : 1)
+      .animation(.spring(), value: zoomed)
   }
+}
 
-  func testToManagedObject() throws {
-    let previewContext = PersistenceController.preview.container.viewContext
-    let fetchRequest = AnimalEntity.fetchRequest()
-    fetchRequest.fetchLimit = 1
-    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-      XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Dog", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
+struct HeaderTitle: View {
+  var body: some View {
+    Text("TODO: Header Title")
   }
+}
 
-  func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
+struct HeaderTitle_Previews: PreviewProvider {
+  static var previews: some View {
+    HeaderTitle()
+  }
+}
 
-    let fetchRequest = AnimalEntity.fetchRequest()
-    guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return }
-
-    previewContext.delete(first)
-
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
-
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+struct AnimalHeaderView_Previews: PreviewProvider {
+  static var previews: some View {
+    AnimalHeaderView()
   }
 }
