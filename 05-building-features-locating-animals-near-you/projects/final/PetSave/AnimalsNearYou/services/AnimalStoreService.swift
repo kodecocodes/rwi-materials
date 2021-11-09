@@ -34,16 +34,18 @@ import Foundation
 import CoreData
 
 actor AnimalStoreService {
-  private let context: NSManagedObjectContext = PersistenceController.shared.container.newBackgroundContext()
+  private let context: NSManagedObjectContext
+
+  init(context: NSManagedObjectContext) {
+    self.context = context
+  }
 }
 
 // MARK: - AnimalStore
 extension AnimalStoreService: AnimalStore {
   func save(animals: [Animal]) async throws {
-    DispatchQueue.main.async {
-      for var animal in animals {
-        animal.toManagedObject()
-      }
+    for var animal in animals {
+      animal.toManagedObject(context: context)
     }
     try context.save()
   }

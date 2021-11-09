@@ -30,66 +30,44 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-import XCTest
-@testable import PetSave
+import SwiftUI
 
-@MainActor
-final class AnimalsNearYouViewModelTestCase: XCTestCase {
-  let testContext = PersistenceController.preview.container.viewContext
-  // swiftlint:disable:next implicitly_unwrapped_optional
-  var viewModel: AnimalsNearYouViewModel!
+struct AnimalTypeSuggestionView: View {
+  let suggestion: AnimalSearchType
 
-  @MainActor
-  override func setUp() {
-    super.setUp()
-    viewModel = AnimalsNearYouViewModel(
-      isLoading: true,
-      animalFetcher: AnimalsFetcherMock(),
-      animalStore: AnimalStoreService(context: testContext)
-    )
+  private var gradientColors: [Color] {
+    [Color.clear, Color.black]
   }
 
-  func testFetchAnimalsLoadingState() async {
-    XCTAssertTrue(viewModel.isLoading, "The view model should be loading, but it isn't")
-    await viewModel.fetchAnimals()
-    XCTAssertFalse(viewModel.isLoading, "The view model shouldn't be loading, but it is")
+  @ViewBuilder private var gradientOverlay: some View {
+    LinearGradient(colors: gradientColors, startPoint: .top, endPoint: .bottom)
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .opacity(0.3)
   }
 
-  func testUpdatePageOnFetchMoreAnimals() async {
-    XCTAssertEqual(
-      viewModel.page,
-      1,
-      "the view model's page property should be 1 before fetching, but it's \(viewModel.page)"
-    )
-    await viewModel.fetchMoreAnimals()
-    XCTAssertEqual(
-      viewModel.page,
-      2,
-      "the view model's page property should be 2 after fetching, but it's \(viewModel.page)"
-    )
-  }
-
-  func testFetchAnimalsEmptyResponse() async {
-    viewModel = AnimalsNearYouViewModel(
-      isLoading: true,
-      animalFetcher: EmptyResponseAnimalsFetcherMock(),
-      animalStore: AnimalStoreService(context: testContext)
-    )
-    await viewModel.fetchAnimals()
-    XCTAssertFalse(
-      viewModel.hasMoreAnimals,
-      "hasMoreAnimals should be false with an empty response, but it's true"
-    )
-    XCTAssertFalse(
-      viewModel.isLoading,
-      "the view model shouldn't be loading after receivng an empty response, but it is"
-    )
+  var body: some View {
+    suggestion.suggestionImage
+      .resizable()
+      .aspectRatio(1, contentMode: .fill)
+      .frame(height: 96)
+      .overlay(gradientOverlay)
+      .overlay(alignment: .bottomLeading) {
+        Text(LocalizedStringKey(suggestion.rawValue.capitalized))
+          .padding(12)
+          .foregroundColor(.white)
+          .font(.headline)
+      }
+      .cornerRadius(16)
   }
 }
 
-struct EmptyResponseAnimalsFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    return []
+struct AnimalTypeSuggestionView_Previews: PreviewProvider {
+  static var previews: some View {
+    AnimalTypeSuggestionView(suggestion: AnimalSearchType.cat)
+      .previewLayout(.sizeThatFits)
+    AnimalTypeSuggestionView(suggestion: AnimalSearchType.cat)
+      .previewLayout(.sizeThatFits)
+      .environment(\.locale, .init(identifier: "es"))
+      .previewDisplayName("Spanish Locale")
   }
 }

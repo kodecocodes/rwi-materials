@@ -30,66 +30,41 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-import XCTest
-@testable import PetSave
+import SwiftUI
 
-@MainActor
-final class AnimalsNearYouViewModelTestCase: XCTestCase {
-  let testContext = PersistenceController.preview.container.viewContext
-  // swiftlint:disable:next implicitly_unwrapped_optional
-  var viewModel: AnimalsNearYouViewModel!
+struct SuggestionsGrid: View {
+  @Environment(\.isSearching) var isSearching: Bool
 
-  @MainActor
-  override func setUp() {
-    super.setUp()
-    viewModel = AnimalsNearYouViewModel(
-      isLoading: true,
-      animalFetcher: AnimalsFetcherMock(),
-      animalStore: AnimalStoreService(context: testContext)
-    )
-  }
+  let suggestions: [AnimalSearchType]
+  var action: (AnimalSearchType) -> Void
 
-  func testFetchAnimalsLoadingState() async {
-    XCTAssertTrue(viewModel.isLoading, "The view model should be loading, but it isn't")
-    await viewModel.fetchAnimals()
-    XCTAssertFalse(viewModel.isLoading, "The view model shouldn't be loading, but it is")
-  }
+  private let columns = [
+    GridItem(.flexible()),
+    GridItem(.flexible())
+  ]
 
-  func testUpdatePageOnFetchMoreAnimals() async {
-    XCTAssertEqual(
-      viewModel.page,
-      1,
-      "the view model's page property should be 1 before fetching, but it's \(viewModel.page)"
-    )
-    await viewModel.fetchMoreAnimals()
-    XCTAssertEqual(
-      viewModel.page,
-      2,
-      "the view model's page property should be 2 after fetching, but it's \(viewModel.page)"
-    )
-  }
-
-  func testFetchAnimalsEmptyResponse() async {
-    viewModel = AnimalsNearYouViewModel(
-      isLoading: true,
-      animalFetcher: EmptyResponseAnimalsFetcherMock(),
-      animalStore: AnimalStoreService(context: testContext)
-    )
-    await viewModel.fetchAnimals()
-    XCTAssertFalse(
-      viewModel.hasMoreAnimals,
-      "hasMoreAnimals should be false with an empty response, but it's true"
-    )
-    XCTAssertFalse(
-      viewModel.isLoading,
-      "the view model shouldn't be loading after receivng an empty response, but it is"
-    )
+  var body: some View {
+    VStack(alignment: .leading) {
+      Text("Browse by Type")
+        .font(.title2.bold())
+      LazyVGrid(columns: columns) {
+        ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
+          Button {
+            action(suggestion)
+          } label: {
+            AnimalTypeSuggestionView(suggestion: suggestion)
+          }
+          .buttonStyle(.plain)
+        }
+      }
+    }
+    .padding(.horizontal)
+    .opacity(isSearching ? 0 : 1)
   }
 }
 
-struct EmptyResponseAnimalsFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    return []
+struct SuggestionsGrid_Previews: PreviewProvider {
+  static var previews: some View {
+    SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { _ in }
   }
 }
