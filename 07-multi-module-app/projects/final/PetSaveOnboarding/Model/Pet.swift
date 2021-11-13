@@ -34,6 +34,7 @@ import SwiftUI
 
 struct Pet: Identifiable {
   let id = UUID()
+
   let petImage: Image
   let position: CGPoint
 }
