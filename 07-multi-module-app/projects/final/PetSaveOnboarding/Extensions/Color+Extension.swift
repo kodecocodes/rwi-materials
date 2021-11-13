@@ -29,16 +29,15 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
-// swiftlint:disable all
 
 import SwiftUI
 
 extension Color {
-    static var rwGreen: Color {
-        Color("rw-green", bundle: .module)
-    }
-    
-    static var rwDark: Color {
-        Color("rw-dark", bundle: .module)
-    }
+  static var rwGreen: Color {
+    Color("rw-green", bundle: .module)
+  }
+
+  static var rwDark: Color {
+    Color("rw-dark", bundle: .module)
+  }
 }
