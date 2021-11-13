@@ -36,6 +36,7 @@ import SwiftUI
 struct LoadingAnimation: UIViewRepresentable {
   let animatedFrames: UIImage
   let image: UIImageView
+  let squareDimension: CGFloat = 125
 
   init() {
     var images: [UIImage] = []
@@ -44,11 +45,11 @@ struct LoadingAnimation: UIViewRepresentable {
       images.append(image)
     }
     animatedFrames = UIImage.animatedImage(with: images, duration: 4) ?? UIImage()
-    image = UIImageView(frame: CGRect(x: 0, y: 0, width: 125, height: 125))
+    image = UIImageView(frame: CGRect(x: 0, y: 0, width: squareDimension, height: squareDimension))
   }
 
   func makeUIView(context: Context) -> UIView {
-    let view = UIView(frame: CGRect(x: 0, y: 0, width: 125, height: 125))
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: squareDimension, height: squareDimension))
 
     image.clipsToBounds = true
     image.autoresizesSubviews = true
