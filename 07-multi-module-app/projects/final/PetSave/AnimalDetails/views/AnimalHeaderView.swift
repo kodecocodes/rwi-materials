@@ -44,11 +44,11 @@ struct AnimalImage: View {
   let geometry: GeometryProxy
 
   var body: some View {
-    AsyncImage(url: animalPicture) { image in
+    AsyncImage(url: animalPicture, content: { image in
       image
         .resizable()
         .aspectRatio(zoomed ? nil : 1, contentMode: zoomed ? .fit : .fill)
-    } placeholder: {
+    }, placeholder: {
       Image("rw-logo")
         .resizable()
         .aspectRatio(contentMode: .fit)
@@ -59,7 +59,7 @@ struct AnimalImage: View {
               .background(.gray.opacity(0.4))
           }
         }
-    }
+    })
     .clipShape(
       RoundedRectangle(cornerRadius: zoomed ? 0 : 300)
     )

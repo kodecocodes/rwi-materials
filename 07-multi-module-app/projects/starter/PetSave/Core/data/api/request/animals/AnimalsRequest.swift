@@ -40,7 +40,7 @@ enum AnimalsRequest: RequestProtocol {
 
   var urlParams: [String: String?] {
     switch self {
-    case .getAnimalsWith(let page, let latitude, let longitude):
+    case let .getAnimalsWith(page, latitude, longitude):
       var params = ["page": String(page)]
       if let latitude = latitude {
         params["latitude"] = String(latitude)
@@ -51,7 +51,7 @@ enum AnimalsRequest: RequestProtocol {
       }
 
       return params
-    case .getAnimalsBy(let name, let age, let type):
+    case let .getAnimalsBy(name, age, type):
       var params: [String: String] = [:]
       if !name.isEmpty {
         params["name"] = name

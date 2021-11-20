@@ -49,10 +49,10 @@ struct AnimalRow: View {
 
   var body: some View {
     HStack {
-      AsyncImage(url: animal.picture) { image in
+      AsyncImage(url: animal.picture, content: { image in
         image
           .resizable()
-      } placeholder: {
+      }, placeholder: {
         Image("rw-logo")
           .resizable()
           .overlay {
@@ -62,7 +62,7 @@ struct AnimalRow: View {
                 .background(.gray.opacity(0.4))
             }
           }
-      }
+      })
       .aspectRatio(contentMode: .fit)
       .frame(width: 112, height: 112)
       .cornerRadius(8)

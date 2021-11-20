@@ -59,11 +59,13 @@ struct SearchFilterView: View {
     .navigationBarTitle("Filters")
     .toolbar {
       ToolbarItem {
+        // swiftlint:disable multiple_closures_with_trailing_closure
         Button {
           dismiss()
         } label: {
           Label("Close", systemImage: "xmark.circle.fill")
         }
+        // swiftlint:enable multiple_closures_with_trailing_closure
       }
     }
   }
