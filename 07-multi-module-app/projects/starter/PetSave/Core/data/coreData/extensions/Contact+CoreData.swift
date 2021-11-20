@@ -31,7 +31,6 @@
 /// THE SOFTWARE.
 ///
 
-import Foundation
 import CoreData
 
 extension Contact: CoreDataPersistable {
