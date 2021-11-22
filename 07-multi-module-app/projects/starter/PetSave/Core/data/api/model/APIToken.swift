@@ -48,6 +48,7 @@ extension APIToken: Codable {
   }
 }
 
+// MARK: - Tokens and expiry
 extension APIToken {
   var expiresAt: Date {
     Calendar.current.date(byAdding: .second, value: expiresIn, to: requestedAt) ?? Date()

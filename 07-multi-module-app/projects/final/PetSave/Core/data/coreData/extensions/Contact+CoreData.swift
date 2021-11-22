@@ -33,6 +33,7 @@
 
 import CoreData
 
+// MARK: - CoreDataPersistable
 extension Contact: CoreDataPersistable {
   init(managedObject: ContactEntity?) {
     guard let managedObject = managedObject else { return }

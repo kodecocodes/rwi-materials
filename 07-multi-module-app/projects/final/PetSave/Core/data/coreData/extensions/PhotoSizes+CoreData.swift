@@ -32,6 +32,7 @@
 
 import CoreData
 
+// MARK: - CoreDataPersistable
 extension PhotoSizes: CoreDataPersistable {
   var keyMap: [PartialKeyPath<PhotoSizes>: String] {
     [

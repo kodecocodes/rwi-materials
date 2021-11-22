@@ -32,6 +32,7 @@
 
 import SwiftUI
 
+// MARK: - Get test animal entities
 extension PreviewProvider {
   static var animalMock: AnimalEntity {
     if let animal = CoreDataHelper.getTestAnimalEntity() {
