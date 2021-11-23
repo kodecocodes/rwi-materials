@@ -38,7 +38,7 @@ struct OnboardingView: View {
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 12, style: .circular)
-        .fill(Color.white)
+        .fill(.white)
         .shadow(radius: 12)
         .padding(.horizontal, 20)
       VStack(alignment: .center) {

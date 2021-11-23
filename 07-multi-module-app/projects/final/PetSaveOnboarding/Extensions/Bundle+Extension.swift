@@ -30,8 +30,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+// MARK: - Returns default bundle property.
 extension Bundle {
-  public static var module: Bundle? {
+  static var module: Bundle? {
     Bundle(
       identifier: "com.raywenderlich.PetSaveOnboarding"
     )

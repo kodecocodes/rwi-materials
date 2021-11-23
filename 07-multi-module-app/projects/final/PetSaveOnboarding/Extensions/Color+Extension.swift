@@ -32,6 +32,7 @@
 
 import SwiftUI
 
+// MARK: - Returns default project colors.
 extension Color {
   static var rwGreen: Color {
     Color("rw-green", bundle: .module)

@@ -37,8 +37,8 @@ struct AnimalTypeSuggestionView: View {
 
   private var gradientColors: [Color] {
     [
-      Color.clear,
-      Color.black
+      .clear,
+      .black
     ]
   }
 

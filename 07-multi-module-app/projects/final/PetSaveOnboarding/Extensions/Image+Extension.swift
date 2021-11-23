@@ -32,6 +32,7 @@
 
 import SwiftUI
 
+// MARK: - Returns pet images.
 public extension Image {
   static var bird: Image {
     Image("creature-bird-blue-fly", bundle: .module)

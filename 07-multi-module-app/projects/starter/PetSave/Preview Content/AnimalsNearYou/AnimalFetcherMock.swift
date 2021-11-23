@@ -34,7 +34,7 @@ import CoreLocation
 
 struct AnimalFetcherMock: AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
-    await Task.sleep(2)
+//    await Task.sleep(2) //removed by Pinal.
     return Animal.mock
   }
 }
