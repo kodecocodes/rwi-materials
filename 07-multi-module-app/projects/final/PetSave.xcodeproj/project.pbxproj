@@ -108,6 +108,8 @@
 		AE8550CF26D5CF9200D21317 /* Breed+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550CE26D5CF9200D21317 /* Breed+CoreData.swift */; };
 		AE8550D126D5E73100D21317 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D026D5E73100D21317 /* CoreDataHelper.swift */; };
 		AE8550D526D71D8B00D21317 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D426D71D8B00D21317 /* CoreDataTests.swift */; };
+		DA776DB6274F5B3F007FF80C /* PetSaveOnboarding.docc in Sources */ = {isa = PBXBuildFile; fileRef = DA776DB5274F5B3E007FF80C /* PetSaveOnboarding.docc */; };
+		DA776DB8274F5B5F007FF80C /* PetSaveOnboardingTests in Resources */ = {isa = PBXBuildFile; fileRef = DA776DB7274F5B5F007FF80C /* PetSaveOnboardingTests */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,6 +255,8 @@
 		AE8550D026D5E73100D21317 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		AE8550D426D71D8B00D21317 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		AED3FC3326A863A2006D2BEE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		DA776DB5274F5B3E007FF80C /* PetSaveOnboarding.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = PetSaveOnboarding.docc; sourceTree = "<group>"; };
+		DA776DB7274F5B5F007FF80C /* PetSaveOnboardingTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PetSaveOnboardingTests; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +295,7 @@
 		18D775B422AD944300AE281E = {
 			isa = PBXGroup;
 			children = (
+				DA776DB7274F5B5F007FF80C /* PetSaveOnboardingTests */,
 				18D775BF22AD944300AE281E /* PetSave */,
 				AE6A37F6269B5B860054C842 /* PetSaveTests */,
 				AE6A3803269B5C050054C842 /* PetSaveUITests */,
@@ -441,6 +446,7 @@
 		8F3CBCE0272DE6310047542E /* PetSaveOnboarding */ = {
 			isa = PBXGroup;
 			children = (
+				DA776DB5274F5B3E007FF80C /* PetSaveOnboarding.docc */,
 				8F3CBD00272DE6690047542E /* PetSaveOnboarding.h */,
 				8F3CBCEC272DE6590047542E /* Extensions */,
 				8F3CBCF0272DE6590047542E /* Model */,
@@ -957,6 +963,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA776DB8274F5B5F007FF80C /* PetSaveOnboardingTests in Resources */,
 				8F3CBCFE272DE6590047542E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1093,6 +1100,7 @@
 				8F3CBCFB272DE6590047542E /* OnboardingModel.swift in Sources */,
 				8F3CBCF9272DE6590047542E /* Color+Extension.swift in Sources */,
 				8F3CBCFC272DE6590047542E /* Pet.swift in Sources */,
+				DA776DB6274F5B3F007FF80C /* PetSaveOnboarding.docc in Sources */,
 				8F3CBCF8272DE6590047542E /* Bundle+Extension.swift in Sources */,
 				8F3CBCFA272DE6590047542E /* Image+Extension.swift in Sources */,
 			);
