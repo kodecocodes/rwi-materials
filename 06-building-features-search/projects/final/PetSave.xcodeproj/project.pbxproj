@@ -15,7 +15,7 @@
 		8450A302272847C100DD2B6A /* EmptyResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450A301272847C100DD2B6A /* EmptyResultsView.swift */; };
 		8450A3042728482200DD2B6A /* AnimalTypeSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450A3032728482200DD2B6A /* AnimalTypeSuggestionView.swift */; };
 		8450A3062728484100DD2B6A /* SuggestionsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450A3052728484100DD2B6A /* SuggestionsGrid.swift */; };
-		8450A318272DC55800DD2B6A /* AnimalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450A317272DC55800DD2B6A /* AnimalList.swift */; };
+		8450A318272DC55800DD2B6A /* AnimalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450A317272DC55800DD2B6A /* AnimalListView.swift */; };
 		8450A31B272DCDE000DD2B6A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450A31A272DCDE000DD2B6A /* SearchViewModel.swift */; };
 		8450A31E272DCE6600DD2B6A /* AnimalSearcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450A31D272DCE6600DD2B6A /* AnimalSearcherService.swift */; };
 		8450A320272DD6B800DD2B6A /* AnimalSearcherMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450A31F272DD6B800DD2B6A /* AnimalSearcherMock.swift */; };
@@ -129,7 +129,7 @@
 		8450A301272847C100DD2B6A /* EmptyResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResultsView.swift; sourceTree = "<group>"; };
 		8450A3032728482200DD2B6A /* AnimalTypeSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalTypeSuggestionView.swift; sourceTree = "<group>"; };
 		8450A3052728484100DD2B6A /* SuggestionsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsGrid.swift; sourceTree = "<group>"; };
-		8450A317272DC55800DD2B6A /* AnimalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalList.swift; sourceTree = "<group>"; };
+		8450A317272DC55800DD2B6A /* AnimalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalListView.swift; sourceTree = "<group>"; };
 		8450A31A272DCDE000DD2B6A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		8450A31D272DCE6600DD2B6A /* AnimalSearcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSearcherService.swift; sourceTree = "<group>"; };
 		8450A31F272DD6B800DD2B6A /* AnimalSearcherMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSearcherMock.swift; sourceTree = "<group>"; };
@@ -532,7 +532,7 @@
 			children = (
 				AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */,
 				AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */,
-				8450A317272DC55800DD2B6A /* AnimalList.swift */,
+				8450A317272DC55800DD2B6A /* AnimalListView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -910,7 +910,7 @@
 				8485A455270AB9B4004245CF /* AnimalAttributesCard.swift in Sources */,
 				AE8550C026D5C56100D21317 /* Address+CoreData.swift in Sources */,
 				AE8550C526D5C56100D21317 /* PhotoSizes+CoreData.swift in Sources */,
-				8450A318272DC55800DD2B6A /* AnimalList.swift in Sources */,
+				8450A318272DC55800DD2B6A /* AnimalListView.swift in Sources */,
 				8F05DF2626D56F16001ACE04 /* AccessTokenManager.swift in Sources */,
 				8450A320272DD6B800DD2B6A /* AnimalSearcherMock.swift in Sources */,
 				8F05DF3A26D5797D001ACE04 /* AnimalRow.swift in Sources */,
