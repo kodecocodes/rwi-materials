@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19197" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AddressEntity" representedClassName="AddressEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="address1" optional="YES" attributeType="String"/>
+        <attribute name="address2" optional="YES" attributeType="String"/>
+        <attribute name="city" attributeType="String"/>
+        <attribute name="country" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="postcode" attributeType="String"/>
+        <attribute name="state" attributeType="String"/>
+        <relationship name="contact" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="address" inverseEntity="ContactEntity"/>
+    </entity>
+    <entity name="AnimalAttributesEntity" representedClassName="AnimalAttributesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="declawed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="houseTrained" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="shotsCurrent" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="spayedNeutered" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="specialNeeds" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="animal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="attributes" inverseEntity="AnimalEntity"/>
+    </entity>
+    <entity name="AnimalEntity" representedClassName="AnimalEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="ageValue" attributeType="String"/>
+        <attribute name="coatValue" optional="YES" attributeType="String"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="genderValue" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="organizationId" optional="YES" attributeType="String"/>
+        <attribute name="publishedAt" attributeType="String"/>
+        <attribute name="ranking" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sizeValue" attributeType="String"/>
+        <attribute name="species" attributeType="String"/>
+        <attribute name="statusValue" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="type" attributeType="String"/>
+        <attribute name="url" attributeType="URI"/>
+        <relationship name="attributes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalAttributesEntity" inverseName="animal" inverseEntity="AnimalAttributesEntity"/>
+        <relationship name="breeds" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BreedEntity" inverseName="animal" inverseEntity="BreedEntity"/>
+        <relationship name="colors" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="APIColorsEntity" inverseName="animal" inverseEntity="APIColorsEntity"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="animal" inverseEntity="ContactEntity"/>
+        <relationship name="environment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEnvironmentEntity" inverseName="animal" inverseEntity="AnimalEnvironmentEntity"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PhotoSizesEntity" inverseName="animal" inverseEntity="PhotoSizesEntity"/>
+        <relationship name="videos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoLinkEntity" inverseName="animal" inverseEntity="VideoLinkEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="AnimalEnvironmentEntity" representedClassName="AnimalEnvironmentEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="cats" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="children" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="dogs" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="animal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="environment" inverseEntity="AnimalEntity"/>
+    </entity>
+    <entity name="APIColorsEntity" representedClassName="APIColorsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="primary" optional="YES" attributeType="String"/>
+        <attribute name="secondary" optional="YES" attributeType="String"/>
+        <attribute name="tertiary" optional="YES" attributeType="String"/>
+        <relationship name="animal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="colors" inverseEntity="AnimalEntity"/>
+    </entity>
+    <entity name="BreedEntity" representedClassName="BreedEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mixed" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="primary" optional="YES" attributeType="String"/>
+        <attribute name="secondary" optional="YES" attributeType="String"/>
+        <attribute name="unknown" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="animal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="breeds" inverseEntity="AnimalEntity"/>
+    </entity>
+    <entity name="ContactEntity" representedClassName="ContactEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String"/>
+        <relationship name="address" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AddressEntity" inverseName="contact" inverseEntity="AddressEntity"/>
+        <relationship name="animal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="contact" inverseEntity="AnimalEntity"/>
+        <relationship name="organization" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrganizationEntity" inverseName="contact" inverseEntity="OrganizationEntity"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="OrganizationEntity" representedClassName="OrganizationEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="organization" inverseEntity="ContactEntity"/>
+    </entity>
+    <entity name="PhotoSizesEntity" representedClassName="PhotoSizesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="full" optional="YES" attributeType="URI"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="large" optional="YES" attributeType="URI"/>
+        <attribute name="medium" optional="YES" attributeType="URI"/>
+        <attribute name="small" optional="YES" attributeType="URI"/>
+        <relationship name="animal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="photos" inverseEntity="AnimalEntity"/>
+    </entity>
+    <entity name="TagEntity" representedClassName="TagEntity" syncable="YES" codeGenerationType="class"/>
+    <entity name="UserEntity" representedClassName="UserEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="extra" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="password" attributeType="String"/>
+    </entity>
+    <entity name="VideoLinkEntity" representedClassName="VideoLinkEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="embedded" optional="YES" attributeType="URI"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="animal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimalEntity" inverseName="videos" inverseEntity="AnimalEntity"/>
+    </entity>
+    <elements>
+        <element name="AddressEntity" positionX="27" positionY="180" width="128" height="149"/>
+        <element name="AnimalAttributesEntity" positionX="36" positionY="81" width="128" height="134"/>
+        <element name="AnimalEntity" positionX="18" positionY="63" width="128" height="374"/>
+        <element name="AnimalEnvironmentEntity" positionX="-9" positionY="36" width="128" height="104"/>
+        <element name="APIColorsEntity" positionX="0" positionY="45" width="128" height="104"/>
+        <element name="BreedEntity" positionX="9" positionY="54" width="128" height="119"/>
+        <element name="ContactEntity" positionX="18" positionY="171" width="128" height="119"/>
+        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="OrganizationEntity" positionX="0" positionY="45" width="128" height="74"/>
+        <element name="PhotoSizesEntity" positionX="27" positionY="72" width="128" height="119"/>
+        <element name="TagEntity" positionX="-18" positionY="27" width="128" height="29"/>
+        <element name="UserEntity" positionX="9" positionY="54" width="128" height="74"/>
+        <element name="VideoLinkEntity" positionX="-36" positionY="9" width="128" height="74"/>
+    </elements>
+</model>
