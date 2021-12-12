@@ -35,16 +35,30 @@ import SwiftUI
 struct AnimalRow: View {
   let animal: AnimalEntity
 
-  var animalName: String {
-    animal.name ?? ""
-  }
+  var animalName: String
+//  {
+//    animal.name ?? ""
+//  }
 
-  var animalType: String {
-    animal.type ?? ""
-  }
+  var animalType: String
+//  {
+//    animal.type ?? ""
+//  }
+
+  var animalDescription: String
+//  {
+//    animal.desc ?? ""
+//  }
 
   var animalBreedAndType: String {
     "\(animal.breed) \(animalType)"
+  }
+
+  init(animal: AnimalEntity) {
+    self.animal = animal
+    animalName = animal.name ?? ""
+    animalType = animal.type ?? ""
+    animalDescription = animal.desc ?? ""
   }
 
   var body: some View {
@@ -52,12 +66,16 @@ struct AnimalRow: View {
       AsyncImage(url: animal.picture) { image in
         image
           .resizable()
+          .accessibilityLabel("Image of Pet")
       } placeholder: {
         Image("rw-logo")
           .resizable()
+          .accessibilityLabel("Placeholder Logo")
           .overlay {
             if animal.picture != nil {
               ProgressView()
+                .accessibilityLabel("Image loading indicator")
+                .accessibilityHidden(true)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.gray.opacity(0.4))
             }
@@ -71,33 +89,42 @@ struct AnimalRow: View {
         Text(animalName)
           .multilineTextAlignment(.center)
           .font(.title3)
-          .accessibility(label: Text("The pet's name: " + animalName))
+          .accessibilityLabel(animalName)
         Text(animalBreedAndType)
           .font(.callout)
-          .accessibility(label: Text("The pet's breed: " + animalBreedAndType))
+          .accessibilityLabel(animalBreedAndType)
+          .accessibilityHidden(true)
         if let description = animal.desc {
           Text(description)
             .lineLimit(2)
             .font(.footnote)
-            .accessibility(label: Text("The pet's description: " + description))
+            .accessibilityLabel(description)
+            .accessibilityHidden(true)
         }
 
         HStack {
           Text(animal.age.rawValue)
             .modifier(AnimalAttributesCard(color: animal.age.color))
-            .accessibility(label: Text("The pet's age: " + animal.age.rawValue))
+            .accessibilityLabel(animal.age.rawValue)
+            .accessibilityHidden(true)
           Text(animal.gender.rawValue)
             .modifier(AnimalAttributesCard(color: .pink))
-            .accessibility(label: Text("The pet's gender: " + animal.gender.rawValue))
+            .accessibilityLabel(animal.gender.rawValue)
         }
       }
       .lineLimit(1)
     }
+    .accessibilityElement(children: .combine)
+    .accessibilityCustomContent("Age", animal.age.rawValue, importance: .high)
+    .accessibilityCustomContent("Breed", animal.breed)
+    .accessibilityCustomContent("Type", animalType)
+    .accessibilityCustomContent("Description", animalDescription)
   }
 }
 
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
     AnimalRow(animal: animalMock)
+      .previewLayout(.sizeThatFits)
   }
 }
