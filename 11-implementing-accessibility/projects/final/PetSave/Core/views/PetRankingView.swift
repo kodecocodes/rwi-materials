@@ -106,15 +106,18 @@ struct PetRankingView_Previews: PreviewProvider {
           .padding()
           .previewLayout(.sizeThatFits)
           .environment(\.sizeCategory, .extraSmall)
+          .previewDisplayName("Extra-Small")
 
         PetRankingView(animal: animal)
           .padding()
           .previewLayout(.sizeThatFits)
+          .previewDisplayName("Regular")
 
         PetRankingView(animal: animal)
           .padding()
           .previewLayout(.sizeThatFits)
-          .environment(\.sizeCategory, .extraExtraLarge)
+          .environment(\.sizeCategory, .extraLarge)
+          .previewDisplayName("Extra-Large")
       }
     }
   }
