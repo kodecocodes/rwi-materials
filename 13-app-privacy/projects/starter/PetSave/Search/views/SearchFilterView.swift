@@ -60,10 +60,11 @@ struct SearchFilterView: View {
         .onChange(of: viewModel.typeSelection) { _ in
           viewModel.search()
         }
-      } footer: {
+      } // swiftlint:disable multiple_closures_with_trailing_closure
+      footer: {
         Text("You can mix both, age and type, to make a more accurate search.")
       }
-
+      // swiftlint:enable multiple_closures_with_trailing_closure
       // 5
       Button("Clear", role: .destructive, action: viewModel.clearFilters)
       Button("Done") {
@@ -74,11 +75,13 @@ struct SearchFilterView: View {
     .toolbar {
       // 6
       ToolbarItem {
+        // swiftlint:disable multiple_closures_with_trailing_closure
         Button {
           dismiss()
         } label: {
           Label("Close", systemImage: "xmark.circle.fill")
         }
+        // swiftlint:enable multiple_closures_with_trailing_closure
       }
     }
   }

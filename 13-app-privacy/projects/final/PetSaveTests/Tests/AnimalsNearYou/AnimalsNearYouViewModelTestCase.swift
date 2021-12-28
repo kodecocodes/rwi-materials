@@ -44,7 +44,6 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
   override func setUp() {
     super.setUp()
     viewModel = AnimalsNearYouViewModel(
-//      isLoading: true,
       animalFetcher: AnimalsFetcherMock(),
       animalStore: AnimalStoreService(context: testContext),
       locationManager: LocationManager()
@@ -73,17 +72,12 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
 
   func testFetchAnimalsEmptyResponse() async {
     viewModel = AnimalsNearYouViewModel(
-//      isLoading: true,
       animalFetcher: EmptyResponseAnimalsFetcherMock(),
       animalStore: AnimalStoreService(context: testContext),
       locationManager: LocationManager()
     )
     await viewModel.fetchAnimals()
     XCTAssertFalse(viewModel.hasMoreAnimals, "hasMoreAnimals should be false with an empty response, but it's true")
-//    XCTAssertFalse(
-//      viewModel.isLoading,
-//      "the view model shouldn't be loading after receivng an empty response, but it is"
-//    )
   }
 }
 
