@@ -41,7 +41,7 @@ final class LocationManager: NSObject, ObservableObject {
     longitude: -122.0307812
   )
 
-  @AppStorage("useUserLocation") var useUserLocation = false
+//  @AppStorage("useUserLocation") var useUserLocation = false
 
   private lazy var cllLocationManager: CLLocationManager = {
     let manager = CLLocationManager()
