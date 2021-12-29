@@ -64,6 +64,6 @@ struct RequestLocationView: View {
 
 struct RequestLocationView_Previews: PreviewProvider {
   static var previews: some View {
-    RequestLocationView()
+    RequestLocationView().environmentObject(LocationManager())
   }
 }
