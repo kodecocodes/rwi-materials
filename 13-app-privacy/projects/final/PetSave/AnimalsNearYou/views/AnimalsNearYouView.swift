@@ -31,7 +31,7 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import CoreLocationUI
+//import CoreLocationUI
 
 struct AnimalsNearYouView: View {
   @FetchRequest(

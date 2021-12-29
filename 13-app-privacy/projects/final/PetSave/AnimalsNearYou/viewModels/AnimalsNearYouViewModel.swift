@@ -31,7 +31,7 @@
 /// THE SOFTWARE.
 
 import Foundation
-import CoreLocation
+//import CoreLocation
 
 protocol AnimalsFetcher {
   func fetchAnimals(page: Int, latitude: Double?, longitude: Double?) async -> [Animal]
