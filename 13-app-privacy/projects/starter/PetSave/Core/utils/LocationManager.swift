@@ -34,7 +34,7 @@ import CoreLocation
 import SwiftUI
 
 final class LocationManager: NSObject, ObservableObject {
-  @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
+  @Published var authorizationStatus: CLAuthorizationStatus
 
   @Published var userLocation = CLLocation(
     latitude: 37.3320003,
@@ -48,6 +48,10 @@ final class LocationManager: NSObject, ObservableObject {
     manager.delegate = self
     return manager
   }()
+
+  init(authorizationStatus: CLAuthorizationStatus = .notDetermined) {
+    self.authorizationStatus = authorizationStatus
+  }
 
   func startUpdatingLocation() {
     cllLocationManager.startUpdatingLocation()
