@@ -57,6 +57,10 @@ final class LocationManager: NSObject, ObservableObject {
     cllLocationManager.startUpdatingLocation()
   }
 
+  func stopUpdatingLocation() {
+    cllLocationManager.stopUpdatingLocation()
+  }
+
   func updateAuthorizationStatus() {
     authorizationStatus = cllLocationManager.authorizationStatus
   }
@@ -89,6 +93,8 @@ extension LocationManager: CLLocationManagerDelegate {
     _ manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]
   ) {
+    stopUpdatingLocation()
+    manager.delegate = nil
     guard let userLocation = locations.first else { return }
     self.userLocation = userLocation
   }
