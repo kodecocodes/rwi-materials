@@ -41,11 +41,10 @@ final class LocationManager: NSObject, ObservableObject {
     longitude: -122.0307812
   )
 
-//  @AppStorage("useUserLocation") var useUserLocation = false
-
   private lazy var cllLocationManager: CLLocationManager = {
     let manager = CLLocationManager()
     manager.delegate = self
+//    manager.desiredAccuracy
     return manager
   }()
 
@@ -58,8 +57,13 @@ final class LocationManager: NSObject, ObservableObject {
     cllLocationManager.startUpdatingLocation()
   }
 
+  func stopUpdatingLocation() {
+    cllLocationManager.stopUpdatingLocation()
+  }
+
   func updateAuthorizationStatus() {
     authorizationStatus = cllLocationManager.authorizationStatus
+    print("Authorization status updated: \(authorizationStatus.rawValue)")
   }
 }
 
@@ -90,7 +94,16 @@ extension LocationManager: CLLocationManagerDelegate {
     _ manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]
   ) {
-    guard let userLocation = locations.first else { return }
+    stopUpdatingLocation()
+    manager.delegate = nil //is important for it to run once.
+    guard let userLocation = locations.first
+    else {
+      return
+    }
     self.userLocation = userLocation
+  }
+
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print("Location Failed")
   }
 }
