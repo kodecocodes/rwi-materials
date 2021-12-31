@@ -32,26 +32,22 @@
 
 import Foundation
 
-// 1
 struct AnimalSearcherService {
   let requestManager: RequestManagerProtocol
 }
 
 // MARK: - AnimalSearcher
-// 2
 extension AnimalSearcherService: AnimalSearcher {
   func searchAnimal(
     by text: String,
     age: AnimalSearchAge,
     type: AnimalSearchType
   ) async -> [Animal] {
-    // 3
     let requestData = AnimalsRequest.getAnimalsBy(
       name: text,
       age: age != .none ? age.rawValue : nil,
       type: type != .none ? type.rawValue : nil
     )
-    // 4
     do {
       let animalsContainer: AnimalsContainer = try await requestManager
         .initRequest(
@@ -59,7 +55,6 @@ extension AnimalSearcherService: AnimalSearcher {
         )
       return animalsContainer.animals
     } catch {
-      // 5
       print(error.localizedDescription)
       return []
     }

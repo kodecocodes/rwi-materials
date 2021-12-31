@@ -39,24 +39,20 @@ struct SearchFilterView: View {
   var body: some View {
     Form {
       Section {
-        // 1
         Picker("Age", selection: $viewModel.ageSelection) {
           ForEach(AnimalSearchAge.allCases, id: \.self) { age in
             Text(age.rawValue.capitalized)
           }
         }
-        // 2
         .onChange(of: viewModel.ageSelection) { _ in
           viewModel.search()
         }
 
-        // 3
         Picker("Type", selection: $viewModel.typeSelection) {
           ForEach(AnimalSearchType.allCases, id: \.self) { type in
             Text(type.rawValue.capitalized)
           }
         }
-        // 4
         .onChange(of: viewModel.typeSelection) { _ in
           viewModel.search()
         }
@@ -65,7 +61,6 @@ struct SearchFilterView: View {
         Text("You can mix both, age and type, to make a more accurate search.")
       }
       // swiftlint:enable multiple_closures_with_trailing_closure
-      // 5
       Button("Clear", role: .destructive, action: viewModel.clearFilters)
       Button("Done") {
         dismiss()
@@ -73,7 +68,6 @@ struct SearchFilterView: View {
     }
     .navigationBarTitle("Filters")
     .toolbar {
-      // 6
       ToolbarItem {
         // swiftlint:disable multiple_closures_with_trailing_closure
         Button {

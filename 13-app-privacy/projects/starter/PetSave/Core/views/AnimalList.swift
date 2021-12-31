@@ -32,23 +32,18 @@
 
 import SwiftUI
 
-// 1
 struct AnimalListView<Content, Data>: View
   where Content: View,
   Data: RandomAccessCollection,
   Data.Element: AnimalEntity {
   let animals: Data
-
-  // 2
   let footer: Content
 
-  // 3
   init(animals: Data, @ViewBuilder footer: () -> Content) {
     self.animals = animals
     self.footer = footer()
   }
 
-  // 4
   init(animals: Data) where Content == EmptyView {
     self.init(animals: animals) {
       EmptyView()
@@ -56,7 +51,6 @@ struct AnimalListView<Content, Data>: View
   }
 
   var body: some View {
-    // 5
     List {
       ForEach(animals) { animal in
         NavigationLink(destination: AnimalDetailsView()) {
@@ -64,7 +58,6 @@ struct AnimalListView<Content, Data>: View
         }
       }
 
-      // 6
       footer
     }
     .listStyle(.plain)

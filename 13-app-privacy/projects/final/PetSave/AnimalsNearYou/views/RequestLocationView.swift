@@ -37,14 +37,11 @@ struct RequestLocationView: View {
   @EnvironmentObject var locationManager: LocationManager
   var body: some View {
     VStack {
-      // 1
       Image("creature_dog-and-bone")
         .resizable()
         .frame(width: 240, height: 240)
-      // 2
       Text("To find pets near you, first, you have to share your current location.")
         .multilineTextAlignment(.center)
-      // 3
       LocationButton(action: startUpdatingLocation)
         .symbolVariant(.fill)
         .foregroundColor(.white)
@@ -52,7 +49,6 @@ struct RequestLocationView: View {
     }
     .padding()
     .onAppear {
-      // 4
       locationManager.updateAuthorizationStatus()
     }
   }

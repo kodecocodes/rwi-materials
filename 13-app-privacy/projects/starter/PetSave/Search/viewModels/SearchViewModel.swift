@@ -61,14 +61,12 @@ final class SearchViewModel: ObservableObject {
 
   func search() {
     Task {
-      // 1
       let animals = await animalSearcher.searchAnimal(
         by: searchText,
         age: ageSelection,
         type: typeSelection
       )
 
-      // 2
       do {
         try await animalStore.save(animals: animals)
       } catch {
