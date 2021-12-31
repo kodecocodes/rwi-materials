@@ -36,8 +36,7 @@ import XCTest
 
 final class SearchViewModelTestCase: XCTestCase {
   let testContext = PersistenceController.preview.container.viewContext
-  // swiftlint:disable:next implicitly_unwrapped_optional
-  var viewModel: SearchViewModel!
+  var viewModel: SearchViewModel?
 
   override func setUp() {
     super.setUp()
@@ -48,67 +47,65 @@ final class SearchViewModelTestCase: XCTestCase {
   }
 
   func testShouldFilterIsFalseForEmptyFilters() {
-    XCTAssertTrue(viewModel.searchText.isEmpty)
-    XCTAssertEqual(viewModel.ageSelection, .none)
-    XCTAssertEqual(viewModel.typeSelection, .none)
-    XCTAssertFalse(viewModel.shouldFilter)
+    XCTAssertTrue(((viewModel?.searchText.isEmpty) != nil))
+    XCTAssertEqual(viewModel?.ageSelection, AnimalSearchAge.none)
+    XCTAssertEqual(viewModel?.typeSelection, AnimalSearchType.none)
+    XCTAssertFalse(((viewModel?.shouldFilter) == nil))
   }
 
   func testShouldFilterIsTrueForSearchText() {
-    viewModel.searchText = "Kiki"
-    XCTAssertFalse(viewModel.searchText.isEmpty)
-    XCTAssertEqual(viewModel.ageSelection, .none)
-    XCTAssertEqual(viewModel.typeSelection, .none)
-    XCTAssertTrue(viewModel.shouldFilter)
+    viewModel?.searchText = "Kiki"
+    XCTAssertFalse(((viewModel?.searchText.isEmpty) == nil))
+    XCTAssertEqual(viewModel?.ageSelection, AnimalSearchAge.none)
+    XCTAssertEqual(viewModel?.typeSelection, AnimalSearchType.none)
+    XCTAssertTrue(((viewModel?.shouldFilter) != nil))
   }
 
   func testShouldFilterIsTrueForAgeFilter() {
-    viewModel.ageSelection = .baby
-    XCTAssertTrue(viewModel.searchText.isEmpty)
-    XCTAssertEqual(viewModel.ageSelection, .baby)
-    XCTAssertEqual(viewModel.typeSelection, .none)
-    XCTAssertTrue(viewModel.shouldFilter)
+    viewModel?.ageSelection = .baby
+    XCTAssertTrue(((viewModel?.searchText.isEmpty) != nil))
+    XCTAssertEqual(viewModel?.ageSelection, .baby)
+    XCTAssertEqual(viewModel?.typeSelection, AnimalSearchType.none)
+    XCTAssertTrue(((viewModel?.shouldFilter) != nil))
   }
 
   func testShouldFilterIsTrueForTypeFilter() {
-    viewModel.typeSelection = .cat
-    XCTAssertTrue(viewModel.searchText.isEmpty)
-    XCTAssertEqual(viewModel.ageSelection, .none)
-    XCTAssertEqual(viewModel.typeSelection, .cat)
-    XCTAssertTrue(viewModel.shouldFilter)
+    viewModel?.typeSelection = .cat
+    XCTAssertTrue(((viewModel?.searchText.isEmpty) != nil))
+    XCTAssertEqual(viewModel?.ageSelection, AnimalSearchAge.none)
+    XCTAssertEqual(viewModel?.typeSelection, .cat)
+    XCTAssertTrue(((viewModel?.shouldFilter) != nil))
   }
 
   func testClearFiltersSearchTextIsNotEmpty() {
-    viewModel.typeSelection = .cat
-    viewModel.ageSelection = .baby
-    viewModel.searchText = "Kiki"
+    viewModel?.typeSelection = .cat
+    viewModel?.ageSelection = .baby
+    viewModel?.searchText = "Kiki"
+    viewModel?.clearFilters()
 
-    viewModel.clearFilters()
-
-    XCTAssertFalse(viewModel.searchText.isEmpty)
-    XCTAssertEqual(viewModel.ageSelection, .none)
-    XCTAssertEqual(viewModel.typeSelection, .none)
-    XCTAssertTrue(viewModel.shouldFilter)
+    XCTAssertFalse(((viewModel?.searchText.isEmpty) == nil))
+    XCTAssertEqual(viewModel?.ageSelection, AnimalSearchAge.none)
+    XCTAssertEqual(viewModel?.typeSelection, AnimalSearchType.none)
+    XCTAssertTrue(((viewModel?.shouldFilter) != nil))
   }
 
   func testClearFiltersSearchTextIsEmpty() {
-    viewModel.typeSelection = .cat
-    viewModel.ageSelection = .baby
+    viewModel?.typeSelection = .cat
+    viewModel?.ageSelection = .baby
+    viewModel?.clearFilters()
 
-    viewModel.clearFilters()
-
-    XCTAssertTrue(viewModel.searchText.isEmpty)
-    XCTAssertEqual(viewModel.ageSelection, .none)
-    XCTAssertEqual(viewModel.typeSelection, .none)
-    XCTAssertFalse(viewModel.shouldFilter)
+    XCTAssertTrue(((viewModel?.searchText.isEmpty) != nil))
+    XCTAssertEqual(viewModel?.ageSelection, AnimalSearchAge.none)
+    XCTAssertEqual(viewModel?.typeSelection, AnimalSearchType.none)
+    XCTAssertFalse(((viewModel?.shouldFilter) == nil))
   }
 
   func testSelectTypeSuggestion() {
-    viewModel.selectTypeSuggestion(.cat)
+    viewModel?.selectTypeSuggestion(.cat)
 
-    XCTAssertTrue(viewModel.searchText.isEmpty)
-    XCTAssertEqual(viewModel.ageSelection, .none)
-    XCTAssertEqual(viewModel.typeSelection, .cat)
-    XCTAssertTrue(viewModel.shouldFilter)
+    XCTAssertTrue(((viewModel?.searchText.isEmpty) != nil))
+    XCTAssertEqual(viewModel?.ageSelection, AnimalSearchAge.none)
+    XCTAssertEqual(viewModel?.typeSelection, .cat)
+    XCTAssertTrue(((viewModel?.shouldFilter) != nil))
   }
 }
