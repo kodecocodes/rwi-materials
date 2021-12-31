@@ -37,8 +37,7 @@ import XCTest
 @MainActor
 final class AnimalsNearYouViewModelTestCase: XCTestCase {
   let testContext = PersistenceController.preview.container.viewContext
-  // swiftlint:disable:next implicitly_unwrapped_optional
-  var viewModel: AnimalsNearYouViewModel!
+  var viewModel: AnimalsNearYouViewModel?
 
   @MainActor
   override func setUp() {
@@ -51,15 +50,15 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
 
   func testUpdatePageOnFetchMoreAnimals() async {
     XCTAssertEqual(
-      viewModel.page,
+      viewModel?.page,
       1,
-      "the view model's page property should be 1 before fetching, but it's \(viewModel.page)"
+      "the view model's page property should be 1 before fetching, but it's \(String(describing: viewModel?.page))"
     )
-    await viewModel.fetchMoreAnimals()
+    await viewModel?.fetchMoreAnimals()
     XCTAssertEqual(
-      viewModel.page,
+      viewModel?.page,
       2,
-      "the view model's page property should be 2 after fetching, but it's \(viewModel.page)"
+      "the view model's page property should be 2 after fetching, but it's \(String(describing: viewModel?.page))"
     )
   }
 
@@ -68,8 +67,11 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
       animalFetcher: EmptyResponseAnimalsFetcherMock(),
       animalStore: AnimalStoreService(context: testContext)
     )
-    await viewModel.fetchAnimals()
-    XCTAssertFalse(viewModel.hasMoreAnimals, "hasMoreAnimals should be false with an empty response, but it's true")
+    await viewModel?.fetchAnimals()
+    XCTAssertFalse(
+      ((viewModel?.hasMoreAnimals) == nil),
+      "hasMoreAnimals should be false with an empty response, but it's true"
+    )
   }
 }
 
