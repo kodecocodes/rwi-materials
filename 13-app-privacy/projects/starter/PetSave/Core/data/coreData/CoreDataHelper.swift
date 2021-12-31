@@ -53,6 +53,7 @@ enum CoreDataHelper {
   }
 }
 
+// MARK: - Delete item
 extension Collection where Element == NSManagedObject, Index == Int {
   func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext = CoreDataHelper.context) {
     indices.forEach { index in

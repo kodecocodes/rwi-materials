@@ -31,7 +31,6 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-//import CoreLocationUI
 
 struct AnimalsNearYouView: View {
   @FetchRequest(
@@ -74,6 +73,7 @@ struct AnimalsNearYouView: View {
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
+// TODO
 //    AnimalsNearYouView(
 //      viewModel: AnimalsNearYouViewModel(
 //        animalFetcher: AnimalsFetcherMock(),

@@ -57,7 +57,6 @@ class RequestManagerTests: XCTestCase {
     XCTAssertEqual(first?.gender.rawValue, "Female")
     XCTAssertEqual(first?.size.rawValue, "Medium")
     XCTAssertEqual(first?.coat?.rawValue, "Short")
-
     XCTAssertEqual(last?.name, "Midnight")
     XCTAssertEqual(last?.age.rawValue, "Adult")
     XCTAssertEqual(last?.gender.rawValue, "Female")
