@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,38 +30,23 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import UIKit
 import SwiftUI
-struct AnimalDetailsRouter: NavigationRouter {
-  typealias Data = AnimalEntity
 
-  func navigate<T: View>(data: AnimalEntity, view: (() -> T)?) -> AnyView {
-    return AnyView(
-      NavigationLink(
-        destination: AnimalDetailsViewRepresentable(name: data.name ?? "")
-      ) {
-        view?()
-      }
-    )
-  }
-}
-
-struct AnimalDetailsView: View {
+struct AnimalDetailsViewRepresentable: UIViewControllerRepresentable {
   var name: String
   @EnvironmentObject var navigationState: NavigationState
-  var body: some View {
-    Text(name)
-    Button(navigationState.isNavigatingDisabled ? "Enable Navigation" : "Disable Navigation") {
+  typealias UIViewControllerType = AnimalDetailsViewController
+  
+  func updateUIViewController(_ uiViewController: AnimalDetailsViewController, context: Context) {
+    uiViewController.set(name, status: navigationState.isNavigatingDisabled)
+    uiViewController.didSelectNavigation = {
       navigationState.isNavigatingDisabled.toggle()
     }
   }
-}
-
-struct AnimalsView_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      AnimalDetailsView(name: "Snow")
-    }
-    .previewDevice("iPhone 12 Pro")
-    .previewDisplayName("iPhone 12 Pro")
+  
+  func makeUIViewController(context: Context) -> AnimalDetailsViewController {
+    let detailViewController = AnimalDetailsViewController(nibName: "AnimalDetailsViewController", bundle: .main)
+    return detailViewController
   }
 }

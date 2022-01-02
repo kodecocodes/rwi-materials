@@ -36,7 +36,7 @@ import PetSaveOnboarding
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   @State var settingsIsPresented = false
-
+  @StateObject var navigationState = NavigationState()
   @FetchRequest(
     sortDescriptors: [
       NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
@@ -44,14 +44,19 @@ struct AnimalsNearYouView: View {
     animation: .default
   )
   var animals: FetchedResults<AnimalEntity>
+  var router = AnimalDetailsRouter()
 
   var body: some View {
     NavigationView {
       List {
+        Button(navigationState.isNavigatingDisabled ? "Enable Navigation" : "Disable Navigation") {
+          navigationState.isNavigatingDisabled.toggle()
+        }
         ForEach(animals) { animal in
-          NavigationLink(destination: AnimalDetailsView()) {
+          router.navigate(data: animal) {
             AnimalRow(animal: animal)
           }
+          .disabled(navigationState.isNavigatingDisabled)
         }
         if !animals.isEmpty && viewModel.hasMoreAnimals {
           ProgressView("Finding more animals...")
@@ -74,11 +79,15 @@ struct AnimalsNearYouView: View {
         }
       }
     }.navigationViewStyle(StackNavigationViewStyle())
+      .environmentObject(navigationState)
   }
 
   func presentSettings() {
     settingsIsPresented.toggle()
   }
+}
+class NavigationState: ObservableObject {
+  @Published var isNavigatingDisabled = false
 }
 
 struct AnimalsNearYouView_Previews: PreviewProvider {

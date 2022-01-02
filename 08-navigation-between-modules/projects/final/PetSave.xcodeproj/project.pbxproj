@@ -99,6 +99,10 @@
 		AE8550D126D5E73100D21317 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D026D5E73100D21317 /* CoreDataHelper.swift */; };
 		AE8550D526D71D8B00D21317 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D426D71D8B00D21317 /* CoreDataTests.swift */; };
 		E634F8F32764FC6500B90A00 /* PetSaveOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = E634F8F22764FC6500B90A00 /* PetSaveOnboarding */; };
+		E6C4A8B82781FB7B00C145D5 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8B72781FB7B00C145D5 /* NavigationRouter.swift */; };
+		E6C4A8BF2782109000C145D5 /* AnimalDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8BD2782109000C145D5 /* AnimalDetailsViewController.swift */; };
+		E6C4A8C02782109000C145D5 /* AnimalDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C4A8BE2782109000C145D5 /* AnimalDetailsViewController.xib */; };
+		E6C4A8C22782116B00C145D5 /* AnimalDetailsViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8C12782116B00C145D5 /* AnimalDetailsViewRepresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +238,10 @@
 		AE8550D026D5E73100D21317 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		AE8550D426D71D8B00D21317 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		AED3FC3326A863A2006D2BEE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		E6C4A8B72781FB7B00C145D5 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		E6C4A8BD2782109000C145D5 /* AnimalDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsViewController.swift; sourceTree = "<group>"; };
+		E6C4A8BE2782109000C145D5 /* AnimalDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalDetailsViewController.xib; sourceTree = "<group>"; };
+		E6C4A8C12782116B00C145D5 /* AnimalDetailsViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsViewRepresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,6 +423,9 @@
 				84B0507726B0E8F500E0A709 /* AnimalContactLink.swift */,
 				84B0507326B0E45000E0A709 /* AnimalLocationView.swift */,
 				8472150726C1EC33001FD40B /* AnimalHeaderView.swift */,
+				E6C4A8BD2782109000C145D5 /* AnimalDetailsViewController.swift */,
+				E6C4A8BE2782109000C145D5 /* AnimalDetailsViewController.xib */,
+				E6C4A8C12782116B00C145D5 /* AnimalDetailsViewRepresentable.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -577,6 +588,7 @@
 				84B0507B26B0EFA800E0A709 /* AddressFetcher.swift */,
 				8472DFAA26BF66EF000FEDAF /* LocationManager.swift */,
 				8F05DF3126D5703A001ACE04 /* AppUserDefaultsKeys.swift */,
+				E6C4A8B72781FB7B00C145D5 /* NavigationRouter.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -887,6 +899,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6C4A8C02782109000C145D5 /* AnimalDetailsViewController.xib in Resources */,
 				18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */,
 				18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */,
 				18D775C722AD944400AE281E /* Assets.xcassets in Resources */,
@@ -981,6 +994,8 @@
 				AE8550D126D5E73100D21317 /* CoreDataHelper.swift in Sources */,
 				84190AA226F3C53C00200262 /* AnimalSearcherMock.swift in Sources */,
 				84190A9226F3C42C00200262 /* AnimalTypeSuggestionView.swift in Sources */,
+				E6C4A8BF2782109000C145D5 /* AnimalDetailsViewController.swift in Sources */,
+				E6C4A8C22782116B00C145D5 /* AnimalDetailsViewRepresentable.swift in Sources */,
 				AE6A3816269B5DCD0054C842 /* Gender.swift in Sources */,
 				18D775C522AD944300AE281E /* ContentView.swift in Sources */,
 				8472DFAB26BF66EF000FEDAF /* LocationManager.swift in Sources */,
@@ -1015,6 +1030,7 @@
 				AE8550CD26D5C66D00D21317 /* Persistence.swift in Sources */,
 				8F05DF1826D56B2B001ACE04 /* RequestProtocol.swift in Sources */,
 				AE6A3814269B5DC20054C842 /* Details.swift in Sources */,
+				E6C4A8B82781FB7B00C145D5 /* NavigationRouter.swift in Sources */,
 				84190A9426F3C42C00200262 /* SearchFilterView.swift in Sources */,
 				84B0507026B0E2EB00E0A709 /* AnimalDetailRow.swift in Sources */,
 				84190AA826F3CABA00200262 /* PreviewProvider+Animal.swift in Sources */,

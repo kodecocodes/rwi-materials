@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,38 +30,25 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
-struct AnimalDetailsRouter: NavigationRouter {
-  typealias Data = AnimalEntity
+import UIKit
 
-  func navigate<T: View>(data: AnimalEntity, view: (() -> T)?) -> AnyView {
-    return AnyView(
-      NavigationLink(
-        destination: AnimalDetailsViewRepresentable(name: data.name ?? "")
-      ) {
-        view?()
-      }
+class AnimalDetailsViewController: UIViewController {
+  @IBOutlet private weak var nameLabel: UILabel!
+  @IBOutlet private weak var navigationButton: UIButton!
+  var didSelectNavigation: (() -> Void)?
+
+  func set(
+    _ name: String,
+    status: Bool
+  ) {
+    nameLabel.text = name
+    navigationButton.setTitle(
+      status ? "Enable Navigation" : "Disable Navigation"
+      , for: .normal
     )
   }
-}
 
-struct AnimalDetailsView: View {
-  var name: String
-  @EnvironmentObject var navigationState: NavigationState
-  var body: some View {
-    Text(name)
-    Button(navigationState.isNavigatingDisabled ? "Enable Navigation" : "Disable Navigation") {
-      navigationState.isNavigatingDisabled.toggle()
-    }
-  }
-}
-
-struct AnimalsView_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      AnimalDetailsView(name: "Snow")
-    }
-    .previewDevice("iPhone 12 Pro")
-    .previewDisplayName("iPhone 12 Pro")
+  @IBAction private func didSelectNavigationAction(_ sender: UIButton) {
+    didSelectNavigation?()
   }
 }
