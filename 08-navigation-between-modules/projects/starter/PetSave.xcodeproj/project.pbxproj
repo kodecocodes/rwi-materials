@@ -99,6 +99,8 @@
 		AE8550D126D5E73100D21317 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D026D5E73100D21317 /* CoreDataHelper.swift */; };
 		AE8550D526D71D8B00D21317 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D426D71D8B00D21317 /* CoreDataTests.swift */; };
 		E634F8F32764FC6500B90A00 /* PetSaveOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = E634F8F22764FC6500B90A00 /* PetSaveOnboarding */; };
+		E6C4A8C527821F7000C145D5 /* AnimalDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C4A8C327821F7000C145D5 /* AnimalDetailsViewController.xib */; };
+		E6C4A8C627821F7000C145D5 /* AnimalDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8C427821F7000C145D5 /* AnimalDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +236,8 @@
 		AE8550D026D5E73100D21317 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		AE8550D426D71D8B00D21317 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		AED3FC3326A863A2006D2BEE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		E6C4A8C327821F7000C145D5 /* AnimalDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimalDetailsViewController.xib; sourceTree = "<group>"; };
+		E6C4A8C427821F7000C145D5 /* AnimalDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,6 +412,8 @@
 		84B0507926B0EE0F00E0A709 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				E6C4A8C427821F7000C145D5 /* AnimalDetailsViewController.swift */,
+				E6C4A8C327821F7000C145D5 /* AnimalDetailsViewController.xib */,
 				AE6A3785269B58350054C842 /* AnimalDetailsView.swift */,
 				84B0506F26B0E2EB00E0A709 /* AnimalDetailRow.swift */,
 				84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */,
@@ -887,6 +893,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6C4A8C527821F7000C145D5 /* AnimalDetailsViewController.xib in Resources */,
 				18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */,
 				18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */,
 				18D775C722AD944400AE281E /* Assets.xcassets in Resources */,
@@ -1014,6 +1021,7 @@
 				84B0507426B0E45000E0A709 /* AnimalLocationView.swift in Sources */,
 				AE8550CD26D5C66D00D21317 /* Persistence.swift in Sources */,
 				8F05DF1826D56B2B001ACE04 /* RequestProtocol.swift in Sources */,
+				E6C4A8C627821F7000C145D5 /* AnimalDetailsViewController.swift in Sources */,
 				AE6A3814269B5DC20054C842 /* Details.swift in Sources */,
 				84190A9426F3C42C00200262 /* SearchFilterView.swift in Sources */,
 				84B0507026B0E2EB00E0A709 /* AnimalDetailRow.swift in Sources */,

@@ -31,22 +31,24 @@
 /// THE SOFTWARE.
 
 import UIKit
-import SwiftUI
 
-struct AnimalDetailsViewRepresentable: UIViewControllerRepresentable {
-  var name: String
-  @EnvironmentObject var navigationState: NavigationState
-  typealias UIViewControllerType = AnimalDetailsViewController
+class AnimalDetailsViewController: UIViewController {
+  @IBOutlet private weak var nameLabel: UILabel!
+  @IBOutlet private weak var navigationButton: UIButton!
+  var didSelectNavigation: (() -> Void)?
 
-  func updateUIViewController(_ uiViewController: AnimalDetailsViewController, context: Context) {
-    uiViewController.set(name, status: navigationState.isNavigatingDisabled)
-    uiViewController.didSelectNavigation = {
-      navigationState.isNavigatingDisabled.toggle()
-    }
+  func set(
+    _ name: String,
+    status: Bool
+  ) {
+    nameLabel.text = name
+    navigationButton.setTitle(
+      status ? "Enable Navigation" : "Disable Navigation"
+      , for: .normal
+    )
   }
 
-  func makeUIViewController(context: Context) -> AnimalDetailsViewController {
-    let detailViewController = AnimalDetailsViewController(nibName: "AnimalDetailsViewController", bundle: .main)
-    return detailViewController
+  @IBAction private func didSelectNavigationAction(_ sender: UIButton) {
+    didSelectNavigation?()
   }
 }
