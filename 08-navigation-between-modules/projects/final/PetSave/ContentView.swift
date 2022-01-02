@@ -66,6 +66,9 @@ struct ContentView: View {
           Label("Search", systemImage: "magnifyingglass")
         }
         .environment(\.managedObjectContext, managedObjectContext)
+    }.onOpenURL { url in
+      let type = PetSaveTabType.deepLinkType(url: url)
+      self.tabNavigator.switchTab(to: type)
     }
   }
 }
