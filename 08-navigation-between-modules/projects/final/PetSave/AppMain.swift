@@ -60,7 +60,7 @@ struct AppMain: App {
   var body: some Scene {
     WindowGroup {
       ContentView()
-        .fullScreenCover(isPresented: $shouldPresentOnboarding, onDismiss: nil) {
+        .sheet(isPresented: $shouldPresentOnboarding, onDismiss: nil) {
           PetSaveOnboardingView(items: onboardingModels)
             .onSkip {
               shouldPresentOnboarding = false
