@@ -74,13 +74,13 @@ extension LocationManager {
       authorizationStatus == .restricted
   }
 
-  var openInSettings: Bool {
-    authorizationStatus == .denied || authorizationStatus == .restricted
-  }
-
-  var shouldRequestForLocation: Bool {
-    authorizationStatus == .notDetermined
-  }
+//  var openInSettings: Bool {
+//    authorizationStatus == .denied || authorizationStatus == .restricted
+//  }
+//
+//  var shouldRequestForLocation: Bool {
+//    authorizationStatus == .notDetermined
+//  }
 }
 
 // MARK: - CLLocationManagerDelegate

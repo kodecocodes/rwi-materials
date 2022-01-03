@@ -40,7 +40,7 @@ struct RequestLocationView: View {
       Image("creature_dog-and-bone")
         .resizable()
         .frame(width: 240, height: 240)
-      Text("To find pets near you, first, you have to share your current location.")
+      Text("To find pets near you, first, you need to share your current location.")
         .multilineTextAlignment(.center)
       LocationButton(action: startUpdatingLocation)
         .symbolVariant(.fill)
