@@ -104,6 +104,6 @@ extension LocationManager: CLLocationManagerDelegate {
   }
 
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    print("Location Failed")
+    print("Location update failed due to: \(error.localizedDescription)")
   }
 }
