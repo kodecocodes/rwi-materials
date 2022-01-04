@@ -96,6 +96,6 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
       )
     )
     .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    .environmentObject(LocationManager())
+    .environmentObject(LocationManager(authorizationStatus: .authorizedWhenInUse))
   }
 }
