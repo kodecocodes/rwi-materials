@@ -44,7 +44,6 @@ final class LocationManager: NSObject, ObservableObject {
   private lazy var cllLocationManager: CLLocationManager = {
     let manager = CLLocationManager()
     manager.delegate = self
-//    manager.desiredAccuracy
     return manager
   }()
 
@@ -63,7 +62,6 @@ final class LocationManager: NSObject, ObservableObject {
 
   func updateAuthorizationStatus() {
     authorizationStatus = cllLocationManager.authorizationStatus
-    print("Authorization status updated: \(authorizationStatus.rawValue)")
   }
 }
 
@@ -74,14 +72,6 @@ extension LocationManager {
       authorizationStatus == .notDetermined ||
       authorizationStatus == .restricted
   }
-
-//  var openInSettings: Bool {
-//    authorizationStatus == .denied || authorizationStatus == .restricted
-//  }
-//
-//  var shouldRequestForLocation: Bool {
-//    authorizationStatus == .notDetermined
-//  }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -95,7 +85,7 @@ extension LocationManager: CLLocationManagerDelegate {
     didUpdateLocations locations: [CLLocation]
   ) {
     stopUpdatingLocation()
-    manager.delegate = nil //is important for it to run once.
+    manager.delegate = nil
     guard let userLocation = locations.first
     else {
       return
@@ -104,6 +94,6 @@ extension LocationManager: CLLocationManagerDelegate {
   }
 
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    print("Location update failed due to: \(error.localizedDescription)")
+    print("Location retrieving failed due to: \(error.localizedDescription)")
   }
 }

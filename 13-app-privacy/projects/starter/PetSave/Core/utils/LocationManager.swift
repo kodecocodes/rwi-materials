@@ -41,8 +41,6 @@ final class LocationManager: NSObject, ObservableObject {
     longitude: -122.0307812
   )
 
-//  @AppStorage("useUserLocation") var useUserLocation = false
-
   private lazy var cllLocationManager: CLLocationManager = {
     let manager = CLLocationManager()
     manager.delegate = self
@@ -73,14 +71,6 @@ extension LocationManager {
       authorizationStatus == .notDetermined ||
       authorizationStatus == .restricted
   }
-
-//  var openInSettings: Bool {
-//    authorizationStatus == .denied || authorizationStatus == .restricted
-//  }
-//
-//  var shouldRequestForLocation: Bool {
-//    authorizationStatus == .notDetermined
-//  }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -100,6 +90,6 @@ extension LocationManager: CLLocationManagerDelegate {
   }
 
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    print("Location update failed due to: \(error.localizedDescription)")
+    print("Location retrieving failed due to: \(error.localizedDescription)")
   }
 }

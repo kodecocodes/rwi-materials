@@ -73,19 +73,6 @@ struct AnimalsNearYouView: View {
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
-// TODO
-//    AnimalsNearYouView(
-//      viewModel: AnimalsNearYouViewModel(
-//        animalFetcher: AnimalsFetcherMock(),
-//        animalStore: AnimalStoreService(
-//          context: PersistenceController.preview.container.viewContext
-//        ),
-//        locationManager: LocationManager(authorizationStatus: .authorizedWhenInUse)
-//      )
-//    )
-//    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-//    .environmentObject(LocationManager(authorizationStatus: .authorizedWhenInUse))
-
     AnimalsNearYouView(
       viewModel: AnimalsNearYouViewModel(
         animalFetcher: AnimalsFetcherMock(),
