@@ -32,17 +32,152 @@
 
 import SwiftUI
 
+// Chapter 10: Animation here while data is loading
+
+#warning("Move to it's own file... But where? Inside ViewModels?")
+struct FilterAnimals {
+  let animals: FetchedResults<AnimalEntity>
+  let query: String
+  let age: AnimalSearchAge
+  let type: AnimalSearchType
+
+  func callAsFunction() -> [AnimalEntity] {
+    let ageText = age.rawValue.lowercased()
+    let typeText = type.rawValue.lowercased()
+    return animals.filter {
+      if ageText != "none" {
+        return $0.age.rawValue.lowercased() == ageText
+      }
+      return true
+    }
+    .filter {
+      if typeText != "none" {
+        return $0.type?.lowercased() == typeText
+      }
+      return true
+    }
+    .filter {
+      if query.isEmpty {
+        return true
+      }
+      return $0.name?.contains(query) ?? false
+    }
+  }
+}
+
 struct SearchView: View {
+  let navigationTitle = LocalizedStringKey("SEARCH_NAVIGATION_TITLE")
+
+  @EnvironmentObject var viewModel: SearchViewModel
+  @State var showFilterPickers = false
+
+  @FetchRequest(
+    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],
+    animation: .default
+  )
+  private var animals: FetchedResults<AnimalEntity>
+
+  private var filterAnimals: FilterAnimals {
+    FilterAnimals(
+      animals: animals,
+      query: viewModel.searchText,
+      age: viewModel.ageSelection,
+      type: viewModel.typeSelection
+    )
+  }
+
+  var searchAnimalsResults: [AnimalEntity] {
+    if viewModel.shouldFilter {
+      return filterAnimals()
+    }
+    return []
+  }
+
   var body: some View {
-    NavigationView {
-      Text("TODO: Search View")
-        .navigationTitle("Find your future pet")
+    List {
+      ForEach(searchAnimalsResults) { animal in
+        NavigationLink(destination: AnimalDetailsView(animal: animal)) {
+          AnimalRow(animal: animal)
+        }
+      }
+    }
+    .overlay {
+      if searchAnimalsResults.isEmpty {
+        SuggestionsGrid(suggestions: AnimalSearchType.suggestions)
+          .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+      }
+    }
+    .overlay {
+      if searchAnimalsResults.isEmpty && !viewModel.searchText.isEmpty {
+        VStack {
+          Image(systemName: "pawprint.circle.fill")
+            .resizable()
+            .frame(width: 64, height: 64)
+            .padding()
+            .foregroundColor(.yellow)
+          Text("Sorry, we couldn't find animals with \(viewModel.searchText)")
+            .foregroundColor(.secondary)
+        }
+      }
+    }
+    .listStyle(.plain)
+    .navigationTitle("Find your future pet")
+    .searchable(text: $viewModel.searchText)
+    .onChange(of: viewModel.searchText) { _ in
+      viewModel.search()
+    }
+    .toolbar {
+      ToolbarItem {
+        Button {
+          showFilterPickers.toggle()
+        } label: {
+          Label("Filter", systemImage: "slider.horizontal.3")
+        }
+        .sheet(isPresented: $showFilterPickers) {
+          NavigationView {
+            SearchFilterView()
+          }
+        }
+      }
     }
   }
 }
 
 struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
-    SearchView()
+    let context = PersistenceController.preview.container.viewContext
+    NavigationView {
+      SearchView()
+    }
+    .environmentObject(
+      SearchViewModel(
+        animalSearcher: AnimalSearcherMock(),
+        context: context
+      )
+    )
+
+    NavigationView {
+      SearchView()
+    }
+    .environment(\.locale, .init(identifier: "es"))
+    .previewDisplayName("Spanish Locale")
+    .environmentObject(
+      SearchViewModel(
+        animalSearcher: AnimalSearcherMock(),
+        context: context
+      )
+    )
+
+    // Chapter 12 - Dark mode previews
+    NavigationView {
+      SearchView()
+    }
+    .preferredColorScheme(.dark)
+    .environmentObject(
+      SearchViewModel(
+        animalSearcher: AnimalSearcherMock(),
+        context: context
+      )
+    )
   }
 }

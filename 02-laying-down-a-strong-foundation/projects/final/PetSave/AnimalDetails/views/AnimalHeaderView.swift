@@ -33,8 +33,23 @@
 import SwiftUI
 
 struct AnimalHeaderView: View {
+  let animal: AnimalEntity
+
+  @Binding var zoomed: Bool
+  let geometry: GeometryProxy
+
   var body: some View {
-    Text("TODO: Animal Header View")
+    if zoomed {
+      LazyVStack {
+        AnimalImage(animalPicture: animal.picture, zoomed: $zoomed, geometry: geometry)
+        HeaderTitle(animal: animal, zoomed: $zoomed, geometry: geometry)
+      }
+    } else {
+      LazyHStack {
+        AnimalImage(animalPicture: animal.picture, zoomed: $zoomed, geometry: geometry)
+        HeaderTitle(animal: animal, zoomed: $zoomed, geometry: geometry)
+      }
+    }
   }
 }
 
@@ -78,19 +93,68 @@ struct AnimalImage: View {
 }
 
 struct HeaderTitle: View {
+  @Binding var zoomed: Bool
+  var geometry: GeometryProxy
+  let animalName: String?
+  let animalType: String?
+
+  let animal: AnimalEntity
+
+  init(animal: AnimalEntity, zoomed: Binding<Bool>, geometry: GeometryProxy) {
+    self.animal = animal
+    self.animalType = animal.type
+    self.animalName = animal.name
+    self._zoomed = zoomed
+    self.geometry = geometry
+  }
+
   var body: some View {
-    Text("TODO: Header Title")
+    VStack(alignment: .leading) {
+      Text(animalName ?? "Default Name")
+        .font(.largeTitle)
+        .frame(maxWidth: .infinity, alignment: zoomed ? .center : .leading)
+      Text("\(animal.breed) \(animalType ?? "")")
+        .font(.title3)
+        .frame(maxWidth: .infinity, alignment: zoomed ? .center : .leading)
+    }
+    .position(
+      x: zoomed ? geometry.frame(in: .global).midX : 100, // geometry.frame(in: .global).midX : 100,
+      y: zoomed ? geometry.frame(in: .local).midY /*+ geometry.frame(in: .global).midX*/ : 50
+    )
+    .animation(.spring(), value: zoomed)
   }
 }
 
 struct HeaderTitle_Previews: PreviewProvider {
   static var previews: some View {
-    HeaderTitle()
+    Group {
+      GeometryReader { geometry in
+        HeaderTitle(animal: animalMock, zoomed: .constant(true), geometry: geometry)
+      }
+      .frame(width: 200, height: 100)
+
+      GeometryReader { geometry in
+        HeaderTitle(animal: animalMock, zoomed: .constant(false), geometry: geometry)
+      }
+      .frame(width: 200, height: 100)
+    }
+    .previewLayout(.sizeThatFits)
   }
 }
 
 struct AnimalHeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalHeaderView()
+    Group {
+      GeometryReader { geometry in
+        AnimalHeaderView(animal: animalMock, zoomed: .constant(true), geometry: geometry)
+      }
+      .frame(width: 500, height: 700)
+
+      GeometryReader { geometry in
+        AnimalHeaderView(animal: animalMock, zoomed: .constant(false), geometry: geometry)
+      }
+      .frame(width: 500, height: 100)
+    }
+    .previewLayout(.sizeThatFits)
   }
 }
