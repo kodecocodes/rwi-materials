@@ -60,18 +60,20 @@ final class AnimalsNearYouViewModel: ObservableObject {
   }
 
   func fetchAnimals() async {
-    let userLocation = locationManager.userLocation.coordinate
-    let animals = await animalFetcher.fetchAnimals(
-      page: page,
-      latitude: userLocation.latitude,
-      longitude: userLocation.longitude
-    )
     do {
+      let userLocation = try await locationManager.shareLocation()
+
+      let animals = await animalFetcher.fetchAnimals(
+        page: page,
+        latitude: userLocation.coordinate.latitude,
+        longitude: userLocation.coordinate.longitude
+      )
+
       try await animalStore.save(animals: animals)
+      hasMoreAnimals = !animals.isEmpty
     } catch {
-      print("Error storing animals... \(error.localizedDescription)")
+      print("Erro fetching animals... \(error.localizedDescription)")
     }
-    hasMoreAnimals = !animals.isEmpty
   }
 
   func fetchMoreAnimals() async {

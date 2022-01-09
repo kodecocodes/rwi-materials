@@ -45,7 +45,7 @@ struct RequestLocationView: View {
         share your current location.
         """)
         .multilineTextAlignment(.center)
-      LocationButton(action: startUpdatingLocation)
+      LocationButton(action: requestWhenInUseAuthorization)
         .symbolVariant(.fill)
         .foregroundColor(.white)
         .cornerRadius(8)
@@ -56,8 +56,8 @@ struct RequestLocationView: View {
     }
   }
 
-  func startUpdatingLocation() {
-    locationManager.startUpdatingLocation()
+  func requestWhenInUseAuthorization() {
+    locationManager.requestWhenInUseAuthorization()
   }
 }
 

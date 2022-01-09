@@ -49,7 +49,6 @@ struct SuggestionsGrid: View {
         .font(.title2.bold())
       LazyVGrid(columns: columns) {
         ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
-          // swiftlint:disable multiple_closures_with_trailing_closure
           Button {
             action(suggestion)
           } label: {

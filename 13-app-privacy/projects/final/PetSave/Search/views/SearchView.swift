@@ -82,7 +82,6 @@ struct SearchView: View {
         }
         .toolbar {
           ToolbarItem {
-            // swiftlint:disable multiple_closures_with_trailing_closure
             Button {
               filterPickerIsPresented.toggle()
             } label: {

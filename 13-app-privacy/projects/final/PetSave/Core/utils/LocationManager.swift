@@ -36,10 +36,8 @@ import SwiftUI
 final class LocationManager: NSObject, ObservableObject {
   @Published var authorizationStatus: CLAuthorizationStatus
 
-  @Published var userLocation = CLLocation(
-    latitude: 37.3320003,
-    longitude: -122.0307812
-  )
+  typealias LocationContinuation = CheckedContinuation<CLLocation, Error>
+  private var continuation: LocationContinuation?
 
   private lazy var cllLocationManager: CLLocationManager = {
     let manager = CLLocationManager()
@@ -51,17 +49,19 @@ final class LocationManager: NSObject, ObservableObject {
     self.authorizationStatus = authorizationStatus
   }
 
-  func startUpdatingLocation() {
+  func requestWhenInUseAuthorization() {
     cllLocationManager.requestWhenInUseAuthorization()
-    cllLocationManager.startUpdatingLocation()
-  }
-
-  func stopUpdatingLocation() {
-    cllLocationManager.stopUpdatingLocation()
   }
 
   func updateAuthorizationStatus() {
     authorizationStatus = cllLocationManager.authorizationStatus
+  }
+
+  func shareLocation() async throws -> CLLocation {
+    return try await withCheckedThrowingContinuation { [weak self] continuation in
+      self?.continuation = continuation
+      self?.cllLocationManager.startUpdatingLocation()
+    }
   }
 }
 
@@ -84,16 +84,18 @@ extension LocationManager: CLLocationManagerDelegate {
     _ manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]
   ) {
-    stopUpdatingLocation()
-    manager.delegate = nil
-    guard let userLocation = locations.first
-    else {
-      return
-    }
-    self.userLocation = userLocation
+    guard let location = locations.first else { return }
+    continuation?.resume(returning: location)
+    continuation = nil
+    cllLocationManager.stopUpdatingLocation()
   }
 
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    print("Location retrieving failed due to: \(error.localizedDescription)")
+  func locationManager(
+    _ manager: CLLocationManager,
+    didFailWithError error: Error
+  ) {
+    continuation?.resume(throwing: error)
+    continuation = nil
+    cllLocationManager.stopUpdatingLocation()
   }
 }
