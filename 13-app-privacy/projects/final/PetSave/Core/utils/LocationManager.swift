@@ -55,6 +55,17 @@ final class LocationManager: NSObject, ObservableObject {
 
   func updateAuthorizationStatus() {
     authorizationStatus = cllLocationManager.authorizationStatus
+    switch authorizationStatus {
+    case .notDetermined:
+      break
+    case .authorizedAlways, .authorizedWhenInUse:
+      cllLocationManager.startUpdatingLocation()
+    default:
+      continuation?.resume(
+        throwing: NSError(domain: "The app isn't authorized to use location data", code: -1)
+      )
+      continuation = nil
+    }
   }
 
   func shareLocation() async throws -> CLLocation {

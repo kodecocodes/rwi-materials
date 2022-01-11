@@ -41,7 +41,15 @@ struct AnimalsNearYouView: View {
   )
   private var animals: FetchedResults<AnimalEntity>
 
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
+  @StateObject var viewModel = AnimalsNearYouViewModel(
+    animalFetcher: FetchAnimalsService(
+      requestManager: RequestManager()
+    ),
+    animalStore: AnimalStoreService(
+      context: PersistenceController.shared.container
+        .newBackgroundContext()
+    )
+  )
 
   @EnvironmentObject var locationManager: LocationManager
 
@@ -57,17 +65,27 @@ struct AnimalsNearYouView: View {
               .padding()
               .frame(maxWidth: .infinity)
               .task {
-                await viewModel.fetchMoreAnimals()
+                do {
+                  let location = try await locationManager.shareLocation()
+                  await viewModel.fetchMoreAnimals(location: location)
+                } catch {
+                  print("Failed to get location")
+                }
               }
           }
         }
         .task {
-          await viewModel.fetchAnimals()
+          do {
+            let location = try await locationManager.shareLocation()
+            await viewModel.fetchAnimals(location: location)
+          } catch {
+            print("Failed to get location")
+          }
         }
         .listStyle(.plain)
         .navigationTitle("Animals near you")
       }
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }
   }
 }
 
@@ -78,8 +96,7 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
         animalFetcher: AnimalsFetcherMock(),
         animalStore: AnimalStoreService(
           context: PersistenceController.preview.container.viewContext
-        ),
-        locationManager: LocationManager(authorizationStatus: .authorizedWhenInUse)
+        )
       )
     )
     .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)

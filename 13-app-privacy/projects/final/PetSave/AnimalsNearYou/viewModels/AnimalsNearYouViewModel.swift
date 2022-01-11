@@ -31,6 +31,7 @@
 /// THE SOFTWARE.
 
 import Foundation
+import CoreLocation
 
 protocol AnimalsFetcher {
   func fetchAnimals(page: Int, latitude: Double?, longitude: Double?) async -> [Animal]
@@ -45,28 +46,23 @@ final class AnimalsNearYouViewModel: ObservableObject {
   @Published var hasMoreAnimals = true
   private let animalFetcher: AnimalsFetcher
   private let animalStore: AnimalStore
-  private let locationManager: LocationManager
 
   private(set) var page = 1
 
   init(
     animalFetcher: AnimalsFetcher,
-    animalStore: AnimalStore,
-    locationManager: LocationManager
+    animalStore: AnimalStore
   ) {
     self.animalFetcher = animalFetcher
     self.animalStore = animalStore
-    self.locationManager = locationManager
   }
 
-  func fetchAnimals() async {
+  func fetchAnimals(location: CLLocation) async {
     do {
-      let userLocation = try await locationManager.shareLocation()
-
       let animals = await animalFetcher.fetchAnimals(
         page: page,
-        latitude: userLocation.coordinate.latitude,
-        longitude: userLocation.coordinate.longitude
+        latitude: location.coordinate.latitude,
+        longitude: location.coordinate.longitude
       )
 
       try await animalStore.save(animals: animals)
@@ -76,8 +72,8 @@ final class AnimalsNearYouViewModel: ObservableObject {
     }
   }
 
-  func fetchMoreAnimals() async {
+  func fetchMoreAnimals(location: CLLocation) async {
     page += 1
-    await fetchAnimals()
+    await fetchAnimals(location: location)
   }
 }
