@@ -43,8 +43,7 @@ class AnimalDetailsViewController: UIViewController {
   ) {
     nameLabel.text = name
     navigationButton.setTitle(
-      status ? "Enable Navigation" : "Disable Navigation"
-      , for: .normal
+      status ? "Enable Navigation" : "Disable Navigation", for: .normal
     )
   }
 
