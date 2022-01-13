@@ -57,12 +57,12 @@ final class AnimalsNearYouViewModel: ObservableObject {
     self.animalStore = animalStore
   }
 
-  func fetchAnimals(location: CLLocation) async {
+  func fetchAnimals(location: CLLocation?) async {
     do {
       let animals = await animalFetcher.fetchAnimals(
         page: page,
-        latitude: location.coordinate.latitude,
-        longitude: location.coordinate.longitude
+        latitude: location?.coordinate.latitude,
+        longitude: location?.coordinate.longitude
       )
 
       try await animalStore.save(animals: animals)
@@ -72,7 +72,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
     }
   }
 
-  func fetchMoreAnimals(location: CLLocation) async {
+  func fetchMoreAnimals(location: CLLocation?) async {
     page += 1
     await fetchAnimals(location: location)
   }

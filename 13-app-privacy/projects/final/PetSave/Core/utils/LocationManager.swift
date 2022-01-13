@@ -35,18 +35,17 @@ import SwiftUI
 
 final class LocationManager: NSObject, ObservableObject {
   @Published var authorizationStatus: CLAuthorizationStatus
+  @Published var lastSeenLocation: CLLocation?
 
-  typealias LocationContinuation = CheckedContinuation<CLLocation, Error>
-  private var continuation: LocationContinuation?
-
-  private lazy var cllLocationManager: CLLocationManager = {
-    let manager = CLLocationManager()
-    manager.delegate = self
-    return manager
-  }()
+  private let cllLocationManager: CLLocationManager
 
   init(authorizationStatus: CLAuthorizationStatus = .notDetermined) {
     self.authorizationStatus = authorizationStatus
+    self.cllLocationManager = CLLocationManager()
+    super.init()
+    cllLocationManager.delegate = self
+    self.authorizationStatus = cllLocationManager.authorizationStatus
+    cllLocationManager.startUpdatingLocation()
   }
 
   func requestWhenInUseAuthorization() {
@@ -55,24 +54,6 @@ final class LocationManager: NSObject, ObservableObject {
 
   func updateAuthorizationStatus() {
     authorizationStatus = cllLocationManager.authorizationStatus
-    switch authorizationStatus {
-    case .notDetermined:
-      break
-    case .authorizedAlways, .authorizedWhenInUse:
-      cllLocationManager.startUpdatingLocation()
-    default:
-      continuation?.resume(
-        throwing: NSError(domain: "The app isn't authorized to use location data", code: -1)
-      )
-      continuation = nil
-    }
-  }
-
-  func shareLocation() async throws -> CLLocation {
-    return try await withCheckedThrowingContinuation { [weak self] continuation in
-      self?.continuation = continuation
-      self?.cllLocationManager.startUpdatingLocation()
-    }
   }
 }
 
@@ -96,17 +77,13 @@ extension LocationManager: CLLocationManagerDelegate {
     didUpdateLocations locations: [CLLocation]
   ) {
     guard let location = locations.first else { return }
-    continuation?.resume(returning: location)
-    continuation = nil
-    cllLocationManager.stopUpdatingLocation()
+    lastSeenLocation = location
   }
 
   func locationManager(
     _ manager: CLLocationManager,
     didFailWithError error: Error
   ) {
-    continuation?.resume(throwing: error)
-    continuation = nil
-    cllLocationManager.stopUpdatingLocation()
+    print("Location retrieving failed due to: \(error.localizedDescription)")
   }
 }

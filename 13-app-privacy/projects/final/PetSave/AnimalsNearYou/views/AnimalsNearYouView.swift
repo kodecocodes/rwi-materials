@@ -65,22 +65,14 @@ struct AnimalsNearYouView: View {
               .padding()
               .frame(maxWidth: .infinity)
               .task {
-                do {
-                  let location = try await locationManager.shareLocation()
-                  await viewModel.fetchMoreAnimals(location: location)
-                } catch {
-                  print("Failed to get location")
-                }
+                let location = locationManager.lastSeenLocation
+                await viewModel.fetchMoreAnimals(location: location)
               }
           }
         }
         .task {
-          do {
-            let location = try await locationManager.shareLocation()
-            await viewModel.fetchAnimals(location: location)
-          } catch {
-            print("Failed to get location")
-          }
+          let location = locationManager.lastSeenLocation
+          await viewModel.fetchAnimals(location: location)
         }
         .listStyle(.plain)
         .navigationTitle("Animals near you")
