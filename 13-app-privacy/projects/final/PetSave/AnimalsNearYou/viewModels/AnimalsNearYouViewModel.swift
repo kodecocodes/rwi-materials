@@ -68,7 +68,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
       try await animalStore.save(animals: animals)
       hasMoreAnimals = !animals.isEmpty
     } catch {
-      print("Erro fetching animals... \(error.localizedDescription)")
+      print("Error fetching animals... \(error.localizedDescription)")
     }
   }
 
