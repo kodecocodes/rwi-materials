@@ -43,8 +43,7 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
     super.setUp()
     viewModel = AnimalsNearYouViewModel(
       animalFetcher: AnimalsFetcherMock(),
-      animalStore: AnimalStoreService(context: testContext),
-      locationManager: LocationManager()
+      animalStore: AnimalStoreService(context: testContext)
     )
   }
 
@@ -54,7 +53,7 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
       1,
       "the view model's page property should be 1 before fetching, but it's \(String(describing: viewModel?.page))"
     )
-    await viewModel?.fetchMoreAnimals()
+    await viewModel?.fetchMoreAnimals(location: nil)
     XCTAssertEqual(
       viewModel?.page,
       2,
@@ -65,10 +64,9 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
   func testFetchAnimalsEmptyResponse() async {
     viewModel = AnimalsNearYouViewModel(
       animalFetcher: EmptyResponseAnimalsFetcherMock(),
-      animalStore: AnimalStoreService(context: testContext),
-      locationManager: LocationManager()
+      animalStore: AnimalStoreService(context: testContext)
     )
-    await viewModel?.fetchAnimals()
+    await viewModel?.fetchAnimals(location: nil)
     XCTAssertFalse(
       ((viewModel?.hasMoreAnimals) == nil),
       "hasMoreAnimals should be false with an empty response, but it's true"
