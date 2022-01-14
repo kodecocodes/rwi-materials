@@ -53,7 +53,6 @@ final class LocationManager: NSObject, ObservableObject {
     authorizationStatus = cllLocationManager.authorizationStatus
   }
 
-  // Pinal: added this in starter.
   func startUpdatingLocation() {
     cllLocationManager.startUpdatingLocation()
   }

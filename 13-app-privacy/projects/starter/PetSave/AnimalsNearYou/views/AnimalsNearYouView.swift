@@ -41,8 +41,6 @@ struct AnimalsNearYouView: View {
   )
   private var animals: FetchedResults<AnimalEntity>
 
-// Pinal: Updated this in starter
-//  @ObservedObject var viewModel: AnimalsNearYouViewModel
   @StateObject var viewModel: AnimalsNearYouViewModel
 
   var body: some View {
