@@ -75,7 +75,7 @@ struct AnimalsNearYouView: View {
         .listStyle(.plain)
         .navigationTitle("Animals near you")
       }
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
