@@ -1,15 +1,15 @@
 /// Copyright (c) 2022 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -35,28 +35,21 @@ import SwiftUI
 
 final class LocationManager: NSObject, ObservableObject {
   @Published var authorizationStatus: CLAuthorizationStatus
+  @Published var lastSeenLocation: CLLocation?
 
-  @Published var userLocation = CLLocation(
-    latitude: 37.3320003,
-    longitude: -122.0307812
-  )
-
-  private lazy var cllLocationManager: CLLocationManager = {
-    let manager = CLLocationManager()
-    manager.delegate = self
-    return manager
-  }()
+  private let cllLocationManager: CLLocationManager
 
   init(authorizationStatus: CLAuthorizationStatus = .notDetermined) {
     self.authorizationStatus = authorizationStatus
-  }
-
-  func startUpdatingLocation() {
+    self.cllLocationManager = CLLocationManager()
+    super.init()
+    cllLocationManager.delegate = self
+    self.authorizationStatus = cllLocationManager.authorizationStatus
     cllLocationManager.startUpdatingLocation()
   }
-
-  func stopUpdatingLocation() {
-    cllLocationManager.stopUpdatingLocation()
+  
+  func requestWhenInUseAuthorization() {
+    cllLocationManager.requestWhenInUseAuthorization()
   }
 
   func updateAuthorizationStatus() {
@@ -83,13 +76,14 @@ extension LocationManager: CLLocationManagerDelegate {
     _ manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]
   ) {
-    stopUpdatingLocation()
-    manager.delegate = nil
-    guard let userLocation = locations.first else { return }
-    self.userLocation = userLocation
+    guard let location = locations.first else { return }
+    lastSeenLocation = location
   }
 
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+  func locationManager(
+    _ manager: CLLocationManager,
+    didFailWithError error: Error
+  ) {
     print("Location retrieving failed due to: \(error.localizedDescription)")
   }
 }

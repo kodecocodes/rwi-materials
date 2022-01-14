@@ -75,7 +75,11 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
 }
 
 struct EmptyResponseAnimalsFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int, latitude: Double?, longitude: Double?) async -> [Animal] {
+  func fetchAnimals(
+    page: Int,
+    latitude: Double?,
+    longitude: Double?
+  ) async -> [Animal] {
     return []
   }
 }
