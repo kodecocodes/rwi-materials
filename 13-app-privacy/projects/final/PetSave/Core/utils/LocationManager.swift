@@ -48,6 +48,10 @@ final class LocationManager: NSObject, ObservableObject {
     cllLocationManager.startUpdatingLocation()
   }
 
+  func startUpdatingLocation() {
+    cllLocationManager.startUpdatingLocation()
+  }
+
   func requestWhenInUseAuthorization() {
     cllLocationManager.requestWhenInUseAuthorization()
   }
