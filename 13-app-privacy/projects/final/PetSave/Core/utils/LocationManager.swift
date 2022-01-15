@@ -46,7 +46,6 @@ final class LocationManager: NSObject, ObservableObject {
     cllLocationManager.delegate = self
     cllLocationManager.desiredAccuracy = kCLLocationAccuracyReduced
     self.authorizationStatus = cllLocationManager.authorizationStatus
-
     cllLocationManager.startUpdatingLocation()
   }
 
