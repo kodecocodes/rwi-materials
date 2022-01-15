@@ -41,7 +41,5 @@ struct Details {
   var gender: Gender
   var size: Size
   var coat: Coat
-//  var healthDetails: HealthDetails
-//  var habitatAdaptation: HabitatAdaptation
   var organization: Organization
 }

@@ -35,8 +35,6 @@
 		84B0507E26B0F12200E0A709 /* AnimalDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */; };
 		8FC6977C26C86A2B003CBFB0 /* AnimalsMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 849C44EE26A26F70009899B0 /* AnimalsMock.json */; };
 		8FDD2CA326B311AC00DBE33F /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD2CA226B311AC00DBE33F /* Pagination.swift */; };
-		AE4B2B4526B0DDEF008AEED4 /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */; };
-		AE4B2B4726B0E9B8008AEED4 /* PetRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */; };
 		AE6A3782269B57940054C842 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3781269B57940054C842 /* SearchView.swift */; };
 		AE6A3786269B58350054C842 /* AnimalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3785269B58350054C842 /* AnimalDetailsView.swift */; };
 		AE6A3795269B59C20054C842 /* PetSave.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3793269B59C10054C842 /* PetSave.xcdatamodeld */; };
@@ -47,7 +45,6 @@
 		AE6A3814269B5DC20054C842 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3813269B5DC20054C842 /* Details.swift */; };
 		AE6A3816269B5DCD0054C842 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3815269B5DCD0054C842 /* Gender.swift */; };
 		AE6A381C269B5DF20054C842 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A381B269B5DF20054C842 /* Size.swift */; };
-		AE6A3820269B5E0E0054C842 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A381F269B5E0E0054C842 /* Media.swift */; };
 		AE6A3822269B5E1A0054C842 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3821269B5E1A0054C842 /* Organization.swift */; };
 		AE6A3825269FC7670054C842 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3824269FC7670054C842 /* User.swift */; };
 /* End PBXBuildFile section */
@@ -99,8 +96,6 @@
 		84B0507B26B0EFA800E0A709 /* AddressFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressFetcher.swift; sourceTree = "<group>"; };
 		84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailCard.swift; sourceTree = "<group>"; };
 		8FDD2CA226B311AC00DBE33F /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
-		AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
-		AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRankingView.swift; sourceTree = "<group>"; };
 		AE6A3781269B57940054C842 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		AE6A3785269B58350054C842 /* AnimalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsView.swift; sourceTree = "<group>"; };
 		AE6A3794269B59C10054C842 /* PetSave.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PetSave.xcdatamodel; sourceTree = "<group>"; };
@@ -113,7 +108,6 @@
 		AE6A3813269B5DC20054C842 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 		AE6A3815269B5DCD0054C842 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		AE6A381B269B5DF20054C842 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
-		AE6A381F269B5E0E0054C842 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		AE6A3821269B5E1A0054C842 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		AE6A3824269FC7670054C842 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AED3FC3326A863A2006D2BEE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -327,8 +321,6 @@
 		AE6A3777269B56180054C842 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */,
-				AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -392,7 +384,6 @@
 				84A59F79269E920300237A83 /* AnimalEnvironment.swift */,
 				84A59F7B269E92F800237A83 /* APIColors.swift */,
 				84A59F7D269E9BDA00237A83 /* AdoptionStatus.swift */,
-				AE6A381F269B5E0E0054C842 /* Media.swift */,
 				8FDD2CA226B311AC00DBE33F /* Pagination.swift */,
 			);
 			path = animal;
@@ -601,7 +592,6 @@
 				AE6A3810269B5DB10054C842 /* Coat.swift in Sources */,
 				AE6A3825269FC7670054C842 /* User.swift in Sources */,
 				847F4A0026D750BE00B94FB8 /* Persistence.swift in Sources */,
-				AE6A3820269B5E0E0054C842 /* Media.swift in Sources */,
 				84B0507E26B0F12200E0A709 /* AnimalDetailCard.swift in Sources */,
 				84B0507826B0E8F500E0A709 /* AnimalContactLink.swift in Sources */,
 				84B0507C26B0EFA800E0A709 /* AddressFetcher.swift in Sources */,
@@ -612,13 +602,11 @@
 				AE6A3816269B5DCD0054C842 /* Gender.swift in Sources */,
 				18D775C522AD944300AE281E /* ContentView.swift in Sources */,
 				8472DFAB26BF66EF000FEDAF /* LocationManager.swift in Sources */,
-				AE4B2B4526B0DDEF008AEED4 /* LoadingAnimation.swift in Sources */,
 				AE6A3822269B5E1A0054C842 /* Organization.swift in Sources */,
 				84A59F7A269E920300237A83 /* AnimalEnvironment.swift in Sources */,
 				8472150826C1EC33001FD40B /* AnimalHeaderView.swift in Sources */,
 				8FDD2CA326B311AC00DBE33F /* Pagination.swift in Sources */,
 				8472DFCC26BF93B3000FEDAF /* AnimalsNearYouView.swift in Sources */,
-				AE4B2B4726B0E9B8008AEED4 /* PetRankingView.swift in Sources */,
 				84A59F7C269E92F800237A83 /* APIColors.swift in Sources */,
 				AE6A380E269B5DA90054C842 /* Breed.swift in Sources */,
 				84A59F76269E8DF000237A83 /* VideoLink.swift in Sources */,
