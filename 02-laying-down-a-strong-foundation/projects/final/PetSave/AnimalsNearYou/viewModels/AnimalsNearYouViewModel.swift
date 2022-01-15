@@ -112,7 +112,6 @@ final class AnimalsNearYouViewModel: ObservableObject {
 #warning("Remove later, only for testing purposes...")
 struct AnimalFetcherMock: AnimalsFetcher {
   func fetchAnimals(page: Int, location: CLLocation?) async -> [Animal] {
-    await Task.sleep(2)
     return Animal.mock
   }
 }
