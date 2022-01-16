@@ -63,7 +63,7 @@ struct AnimalsNearYouView: View {
       let animalsContainer: AnimalsContainer = try await requestManager.initRequest(with: AnimalsRequest.getAnimals)
       let animals = animalsContainer.animals
       self.animals = animals
-      await stopLoading()
+      stopLoading()
     } catch {
     }
   }

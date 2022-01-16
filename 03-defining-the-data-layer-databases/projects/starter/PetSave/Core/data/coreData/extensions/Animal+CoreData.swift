@@ -34,7 +34,7 @@ import CoreData
 
 // MARK: - AnimalEntity Properties
 extension AnimalEntity {
-  //TODO: Add the age property here
+  // TODO: Add the age property here
 
   var coat: Coat {
     get {
