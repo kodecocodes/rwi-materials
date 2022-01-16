@@ -40,6 +40,7 @@ enum Age: String, Codable, CaseIterable {
   case unknown = "Unknown"
 }
 
+// MARK: - Agewise Color
 extension Age {
   var color: Color {
     switch self {
