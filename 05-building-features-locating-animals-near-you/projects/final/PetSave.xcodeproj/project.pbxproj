@@ -272,8 +272,6 @@
 			children = (
 				18D775C922AD944400AE281E /* Preview Assets.xcassets */,
 				849C44EE26A26F70009899B0 /* AnimalsMock.json */,
-				847F49F926D3621C00B94FB8 /* AnimalMock.swift */,
-				8485A450270AB7FE004245CF /* AnimalsFetcherMock.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -299,6 +297,7 @@
 			children = (
 				8485A44E270AB781004245CF /* FetchAnimalsService.swift */,
 				8485A452270AB87B004245CF /* AnimalStoreService.swift */,
+				8485A450270AB7FE004245CF /* AnimalsFetcherMock.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -561,6 +560,7 @@
 				84A59F7D269E9BDA00237A83 /* AdoptionStatus.swift */,
 				8FDD2CA226B311AC00DBE33F /* Pagination.swift */,
 				847F49F726D3614E00B94FB8 /* Animal.swift */,
+				847F49F926D3621C00B94FB8 /* AnimalMock.swift */,
 				8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */,
 			);
 			path = animal;
