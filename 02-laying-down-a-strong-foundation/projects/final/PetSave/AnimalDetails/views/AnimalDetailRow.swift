@@ -33,56 +33,14 @@
 import SwiftUI
 
 struct AnimalDetailRow: View {
-  let animal: AnimalEntity
-
   var body: some View {
-    ScrollView(.horizontal, showsIndicators: false) {
-      HStack {
-        AnimalDetailCard(
-          title: "Age",
-          value: animal.age.rawValue,
-          color: animal.age.color
-        )
-
-        AnimalDetailCard(
-          title: "Gender",
-          value: animal.gender.rawValue,
-          color: .pink
-        )
-
-        AnimalDetailCard(
-          title: "Size",
-          value: animal.size.rawValue,
-          color: .mint
-        )
-
-        if let coat = animal.coat {
-          AnimalDetailCard(
-            title: "Coat",
-            value: coat.rawValue,
-            color: .brown
-          )
-        }
-      }
-      .padding(.horizontal)
-    }
+    Text("TODO: Animal Details Row")
   }
 }
 
 struct AnimalDetailCards_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalDetailRow(animal: animalMock)
+    AnimalDetailRow()
       .previewLayout(.sizeThatFits)
-  }
-}
-
-#warning("Move to Preview content")
-extension PreviewProvider {
-  static var animalMock: AnimalEntity {
-    if let animal = CoreDataHelper.getTestAnimalEntity() {
-      return animal
-    } else {
-      return AnimalEntity()
-    }
   }
 }

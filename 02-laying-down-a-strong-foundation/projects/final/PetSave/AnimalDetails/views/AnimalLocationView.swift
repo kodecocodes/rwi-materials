@@ -31,43 +31,16 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import MapKit
 
 struct AnimalLocationView: View {
-  let animal: AnimalEntity
-
-  @StateObject var locationFetcher = LocationFetcher()
-
   var body: some View {
-    VStack(alignment: .leading, spacing: 4) {
-      Text("Location")
-        .font(.headline)
-      Text(animal.address)
-        .font(.subheadline)
-        .textSelection(.enabled)
-
-      Button(action: openAddressInMaps) {
-        Map(coordinateRegion: $locationFetcher.coordinates, interactionModes: [])
-      }
-      .buttonStyle(.plain)
-      .frame(height: 200)
-      .cornerRadius(16)
-      .task {
-        await locationFetcher.search(by: animal.address)
-      }
-    }
-  }
-
-  func openAddressInMaps() {
-    let placemark = MKPlacemark(coordinate: locationFetcher.coordinates.center)
-    let mapItem = MKMapItem(placemark: placemark)
-    mapItem.openInMaps(launchOptions: nil)
+    Text("TODO: Animal Location View")
   }
 }
 
 struct AnimalLocationView_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalLocationView(animal: animalMock)
+    AnimalLocationView()
       .padding()
       .previewLayout(.sizeThatFits)
   }

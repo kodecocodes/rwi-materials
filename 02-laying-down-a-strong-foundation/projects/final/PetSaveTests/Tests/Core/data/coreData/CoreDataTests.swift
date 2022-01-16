@@ -30,29 +30,16 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct AnimalSearcherService {
-  let petFinderAPI: RequestManagerProtocol
-}
+import XCTest
+@testable import PetSave
+import CoreData
 
-// MARK: - AnimalSearcher
-extension AnimalSearcherService: AnimalSearcher {
-  func searchAnimal(
-    by text: String,
-    age: AnimalSearchAge,
-    type: AnimalSearchType
-  ) async -> [Animal] {
-    let router = AnimalsRouter.getAnimalsBy(
-      name: text,
-      age: age != .none ? age.rawValue : nil,
-      type: type != .none ? type.rawValue : nil
-    )
-    do {
-      let animalsContainer: AnimalsContainer = try await petFinderAPI.request(with: router)
-      return animalsContainer.animals
-    } catch {
-      #warning("Handle later on ViewModel")
-      print(error.localizedDescription)
-      return []
-    }
+class CoreDataTests: XCTestCase {
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+  }
+
+  override func tearDownWithError() throws {
+    try super.tearDownWithError()
   }
 }
