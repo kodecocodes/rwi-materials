@@ -22,11 +22,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem title="Near you" id="H9B-Sd-76D">
+                                    <tabBarItem title="" id="H9B-Sd-76D">
                                         <imageReference key="image" image="location" catalog="system" symbolScale="default"/>
                                         <imageReference key="selectedImage" image="location" catalog="system" symbolScale="default"/>
                                     </tabBarItem>
-                                    <tabBarItem systemItem="search" id="ZMh-Mo-mLU"/>
+                                    <tabBarItem image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="ZMh-Mo-mLU"/>
                                 </items>
                             </tabBar>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5V9-ra-Avu">
@@ -87,6 +87,7 @@
     </scenes>
     <resources>
         <image name="location" catalog="system" width="128" height="118"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="rw-logo" width="512" height="512"/>
         <image name="rwdevcon-bg" width="1104" height="1104"/>
         <systemColor name="systemBackgroundColor">
