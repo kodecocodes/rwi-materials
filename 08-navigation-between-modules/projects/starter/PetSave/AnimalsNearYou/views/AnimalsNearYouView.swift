@@ -81,6 +81,10 @@ struct AnimalsNearYouView: View {
   }
 }
 
+class NavigationState: ObservableObject {
+  @Published var isNavigatingDisabled = false
+}
+
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
