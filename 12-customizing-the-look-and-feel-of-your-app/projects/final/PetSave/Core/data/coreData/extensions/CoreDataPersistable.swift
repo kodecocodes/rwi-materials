@@ -92,9 +92,7 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
 
   // 1
   mutating func toManagedObject(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> ManagedType {
-    // 2
     let persistedValue: ManagedType
-    // 3
     if let id = self.id {
       let fetchRequest = ManagedType.fetchRequest()
       fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
@@ -105,12 +103,15 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
         persistedValue = ManagedType.init(context: context)
         self.id = persistedValue.value(forKey: "id") as? Int
       }
-    } else { // 4
+    } else {
       persistedValue = ManagedType.init(context: context)
       self.id = persistedValue.value(forKey: "id") as? Int
     }
 
-    // 5
+    return setValuesFromMirror(persistedValue: persistedValue)
+  }
+
+  private func setValuesFromMirror(persistedValue: ManagedType) -> ManagedType {
     let mirror = Mirror(reflecting: self)
     for case let (label?, value) in mirror.children {
       let value2 = Mirror(reflecting: value)
