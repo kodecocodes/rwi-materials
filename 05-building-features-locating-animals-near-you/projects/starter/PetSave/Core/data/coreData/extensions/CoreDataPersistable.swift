@@ -92,6 +92,10 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
       self.id = persistedValue.value(forKey: "id") as? Int
     }
 
+    return setValuesFromMirror(persistedValue: persistedValue)
+  }
+
+  private func setValuesFromMirror(persistedValue: ManagedType) -> ManagedType {
     let mirror = Mirror(reflecting: self)
     for case let (label?, value) in mirror.children {
       let value2 = Mirror(reflecting: value)
@@ -102,6 +106,7 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
 
     return persistedValue
   }
+
 
   func save(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) throws {
     try context.save()
