@@ -53,10 +53,11 @@ struct AnimalsNearYouView: View {
           navigationState.isNavigatingDisabled.toggle()
         }
         ForEach(animals) { animal in
-          router.navigate(data: animal) {
+          NavigationLink(
+            destination: AnimalDetailsView(name: animal.name ?? "")
+          ) {
             AnimalRow(animal: animal)
-          }
-          .disabled(navigationState.isNavigatingDisabled)
+          }.disabled(navigationState.isNavigatingDisabled)
         }
         if !animals.isEmpty && viewModel.hasMoreAnimals {
           ProgressView("Finding more animals...")
@@ -92,16 +93,16 @@ class NavigationState: ObservableObject {
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
-        )
+    AnimalsNearYouView(
+      viewModel: AnimalsNearYouViewModel(
+        isLoading: false,
+        animalFetcher: AnimalFetcherMock(),
+        context: PersistenceController.preview.container.viewContext
       )
-    .environment(
-      \.managedObjectContext,
-      PersistenceController.preview.container.viewContext
     )
+      .environment(
+        \.managedObjectContext,
+        PersistenceController.preview.container.viewContext
+      )
   }
 }

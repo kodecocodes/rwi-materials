@@ -62,7 +62,7 @@ struct SearchView: View {
     NavigationView {
       List {
         ForEach(searchAnimalsResults) { animal in
-          NavigationLink(destination: AnimalDetailsView(name: animal.name ?? "")) {
+          NavigationLink(destination: AnimalDetailsView(name: "Snow")) {
             AnimalRow(animal: animal)
           }
         }
