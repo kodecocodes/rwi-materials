@@ -92,7 +92,6 @@ class NavigationState: ObservableObject {
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
-    Group {
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
           isLoading: false,
@@ -100,16 +99,6 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
           context: PersistenceController.preview.container.viewContext
         )
       )
-
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
-        )
-      )
-      .preferredColorScheme(.dark)
-    }
     .environment(
       \.managedObjectContext,
       PersistenceController.preview.container.viewContext
