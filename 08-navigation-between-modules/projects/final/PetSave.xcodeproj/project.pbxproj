@@ -103,7 +103,7 @@
 		E6C4A8BF2782109000C145D5 /* AnimalDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8BD2782109000C145D5 /* AnimalDetailsViewController.swift */; };
 		E6C4A8C02782109000C145D5 /* AnimalDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C4A8BE2782109000C145D5 /* AnimalDetailsViewController.xib */; };
 		E6C4A8C22782116B00C145D5 /* AnimalDetailsViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8C12782116B00C145D5 /* AnimalDetailsViewRepresentable.swift */; };
-		E6C4A8C8278255C800C145D5 /* PetSaveTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8C7278255C800C145D5 /* PetSaveTab.swift */; };
+		E6C4A8C8278255C800C145D5 /* PetSaveTabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8C7278255C800C145D5 /* PetSaveTabType.swift */; };
 		E6C4A8CA2782560000C145D5 /* PetSaveTabNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8C92782560000C145D5 /* PetSaveTabNavigator.swift */; };
 /* End PBXBuildFile section */
 
@@ -244,7 +244,7 @@
 		E6C4A8BD2782109000C145D5 /* AnimalDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsViewController.swift; sourceTree = "<group>"; };
 		E6C4A8BE2782109000C145D5 /* AnimalDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalDetailsViewController.xib; sourceTree = "<group>"; };
 		E6C4A8C12782116B00C145D5 /* AnimalDetailsViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsViewRepresentable.swift; sourceTree = "<group>"; };
-		E6C4A8C7278255C800C145D5 /* PetSaveTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSaveTab.swift; sourceTree = "<group>"; };
+		E6C4A8C7278255C800C145D5 /* PetSaveTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSaveTabType.swift; sourceTree = "<group>"; };
 		E6C4A8C92782560000C145D5 /* PetSaveTabNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSaveTabNavigator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -582,7 +582,7 @@
 			children = (
 				AE4B2B4426B0DDEF008AEED4 /* LoadingAnimation.swift */,
 				AE4B2B4626B0E9B8008AEED4 /* PetRankingView.swift */,
-				E6C4A8C7278255C800C145D5 /* PetSaveTab.swift */,
+				E6C4A8C7278255C800C145D5 /* PetSaveTabType.swift */,
 				E6C4A8C92782560000C145D5 /* PetSaveTabNavigator.swift */,
 			);
 			path = views;
@@ -989,7 +989,7 @@
 				8F05DF2826D56F2D001ACE04 /* DataParser.swift in Sources */,
 				84190AA426F3C56900200262 /* FilterAnimals.swift in Sources */,
 				84190A8626F3C3EA00200262 /* AnimalsNearYouView.swift in Sources */,
-				E6C4A8C8278255C800C145D5 /* PetSaveTab.swift in Sources */,
+				E6C4A8C8278255C800C145D5 /* PetSaveTabType.swift in Sources */,
 				84B0507C26B0EFA800E0A709 /* AddressFetcher.swift in Sources */,
 				E6C4A8CA2782560000C145D5 /* PetSaveTabNavigator.swift in Sources */,
 				8F05DF2026D56EAE001ACE04 /* NetworkError.swift in Sources */,
