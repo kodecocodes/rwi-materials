@@ -31,18 +31,20 @@
 /// THE SOFTWARE.
 
 import Foundation
-import CoreData
 
-extension PhotoSizes: CoreDataPersistable {
-  var keyMap: [PartialKeyPath<PhotoSizes>: String] {
-    [
-      \.small: "small",
-      \.medium: "medium",
-      \.large: "large",
-      \.full: "full",
-      \.id: "id"
-    ]
+struct AnimalSearcherMock: AnimalSearcher {
+  func searchAnimal(
+    by text: String,
+    age: AnimalSearchAge,
+    type: AnimalSearchType
+  ) async -> [Animal] {
+    var animals = Animal.mock
+    if age != .none {
+      animals = animals.filter { $0.age.rawValue.lowercased() == age.rawValue.lowercased() }
+    }
+    if type != .none {
+      animals = animals.filter { $0.type.lowercased() == type.rawValue.lowercased() }
+    }
+    return animals.filter { $0.name.contains(text) }
   }
-
-  typealias ManagedType = PhotoSizesEntity
 }

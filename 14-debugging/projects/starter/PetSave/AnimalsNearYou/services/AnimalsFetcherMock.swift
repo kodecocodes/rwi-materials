@@ -30,8 +30,15 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Foundation
+import CoreLocation
+
 struct AnimalsFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int, latitude: Double?, longitude: Double?) async -> [Animal] {
-    Animal.mock
+  func fetchAnimals(
+    page: Int,
+    latitude: Double?,
+    longitude: Double?
+  ) async -> [Animal] {
+    return Animal.mock
   }
 }

@@ -41,7 +41,6 @@ protocol RequestProtocol {
   var addAuthorizationToken: Bool { get }
 }
 
-// MARK: - RequestProtocol properties and method
 extension RequestProtocol {
   var host: String {
     APIConstants.host
