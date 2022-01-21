@@ -295,12 +295,8 @@
 		18D775C822AD944400AE281E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				84190AA526F3CAA700200262 /* PreviewProvider+Animal */,
-				84190AA026F3C52F00200262 /* Search */,
-				84190A9D26F3C4F800200262 /* AnimalsNearYou */,
 				18D775C922AD944400AE281E /* Preview Assets.xcassets */,
 				849C44EE26A26F70009899B0 /* AnimalsMock.json */,
-				847F49F926D3621C00B94FB8 /* AnimalMock.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -316,6 +312,7 @@
 		84190A8A26F3C41000200262 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				84190A9E26F3C50300200262 /* AnimalFetcherMock.swift */,
 				84190A8B26F3C41000200262 /* FetchAnimalsService.swift */,
 			);
 			path = services;
@@ -325,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				84190A9826F3C43300200262 /* AnimalSearcherService.swift */,
+				84190AA126F3C53C00200262 /* AnimalSearcherMock.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -336,30 +334,6 @@
 				84190AA326F3C56900200262 /* FilterAnimals.swift */,
 			);
 			path = viewModels;
-			sourceTree = "<group>";
-		};
-		84190A9D26F3C4F800200262 /* AnimalsNearYou */ = {
-			isa = PBXGroup;
-			children = (
-				84190A9E26F3C50300200262 /* AnimalFetcherMock.swift */,
-			);
-			path = AnimalsNearYou;
-			sourceTree = "<group>";
-		};
-		84190AA026F3C52F00200262 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				84190AA126F3C53C00200262 /* AnimalSearcherMock.swift */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		84190AA526F3CAA700200262 /* PreviewProvider+Animal */ = {
-			isa = PBXGroup;
-			children = (
-				84190AA726F3CABA00200262 /* PreviewProvider+Animal.swift */,
-			);
-			path = "PreviewProvider+Animal";
 			sourceTree = "<group>";
 		};
 		847F49F426D310C600B94FB8 /* animals */ = {
@@ -631,6 +605,8 @@
 				8FDD2CA226B311AC00DBE33F /* Pagination.swift */,
 				847F49F726D3614E00B94FB8 /* Animal.swift */,
 				8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */,
+				84190AA726F3CABA00200262 /* PreviewProvider+Animal.swift */,
+				847F49F926D3621C00B94FB8 /* AnimalMock.swift */,
 			);
 			path = animal;
 			sourceTree = "<group>";
