@@ -30,6 +30,8 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Foundation
+
 struct AnimalSearcherMock: AnimalSearcher {
   func searchAnimal(
     by text: String,
@@ -38,14 +40,10 @@ struct AnimalSearcherMock: AnimalSearcher {
   ) async -> [Animal] {
     var animals = Animal.mock
     if age != .none {
-      animals = animals.filter {
-        $0.age.rawValue.lowercased() == age.rawValue.lowercased()
-      }
+      animals = animals.filter { $0.age.rawValue.lowercased() == age.rawValue.lowercased() }
     }
     if type != .none {
-      animals = animals.filter {
-        $0.type.lowercased() == type.rawValue.lowercased()
-      }
+      animals = animals.filter { $0.type.lowercased() == type.rawValue.lowercased() }
     }
     return animals.filter { $0.name.contains(text) }
   }

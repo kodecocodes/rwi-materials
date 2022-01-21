@@ -37,20 +37,33 @@ protocol UUIDIdentifiable: Identifiable {
 }
 
 protocol CoreDataPersistable: UUIDIdentifiable {
+  // 1
   associatedtype ManagedType
+
+  // 2
   init()
+
+  // 3
   init(managedObject: ManagedType?)
+
+  // 4
   var keyMap: [PartialKeyPath<Self>: String] { get }
+
+  // 5
   mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType
 
+  // 6
   func save(context: NSManagedObjectContext) throws
 }
 
-// MARK: - Managed Object
+// 1
 extension CoreDataPersistable where ManagedType: NSManagedObject {
+  // 2
   init(managedObject: ManagedType?) {
     self.init()
+    // 3
     guard let managedObject = managedObject else { return }
+    // 4
     for attribute in managedObject.entity.attributesByName {  // this gets attributes, not relationships
       if let keyP = keyMap.first(where: { $0.value == attribute.key })?.key {
         let value = managedObject.value(forKey: attribute.key)
@@ -59,7 +72,8 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
     }
   }
 
-  private mutating func storeValue(_ value: Any?, toKeyPath partial: AnyKeyPath) {
+  // 5
+  private mutating func storeValue(_ value: Any?, toKeyPath partial: AnyKeyPath) { // }-> WritableKeyPath<Self, Any?>? {
     switch partial {
     case let keyPath as WritableKeyPath<Self, URL?>:
       self[keyPath: keyPath] = value as? URL
@@ -75,6 +89,7 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
     }
   }
 
+  // 1
   mutating func toManagedObject(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> ManagedType {
     let persistedValue: ManagedType
     if let id = self.id {
@@ -92,6 +107,10 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
       self.id = persistedValue.value(forKey: "id") as? Int
     }
 
+    return setValuesFromMirror(persistedValue: persistedValue)
+  }
+
+  private func setValuesFromMirror(persistedValue: ManagedType) -> ManagedType {
     let mirror = Mirror(reflecting: self)
     for case let (label?, value) in mirror.children {
       let value2 = Mirror(reflecting: value)

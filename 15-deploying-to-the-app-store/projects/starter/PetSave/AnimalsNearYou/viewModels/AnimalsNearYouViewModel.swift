@@ -31,9 +31,14 @@
 /// THE SOFTWARE.
 
 import Foundation
+import CoreLocation
 
 protocol AnimalsFetcher {
-  func fetchAnimals(page: Int, latitude: Double?, longitude: Double?) async -> [Animal]
+  func fetchAnimals(
+    page: Int,
+    latitude: Double?,
+    longitude: Double?
+  ) async -> [Animal]
 }
 
 protocol AnimalStore {
@@ -45,37 +50,39 @@ final class AnimalsNearYouViewModel: ObservableObject {
   @Published var hasMoreAnimals = true
   private let animalFetcher: AnimalsFetcher
   private let animalStore: AnimalStore
-  private let locationManager: LocationManager
 
   private(set) var page = 1
 
   init(
     animalFetcher: AnimalsFetcher,
-    animalStore: AnimalStore,
-    locationManager: LocationManager
+    animalStore: AnimalStore
   ) {
     self.animalFetcher = animalFetcher
     self.animalStore = animalStore
-    self.locationManager = locationManager
   }
 
-  func fetchAnimals() async {
-    let userLocation = locationManager.userLocation.coordinate
-    let animals = await animalFetcher.fetchAnimals(
-      page: page,
-      latitude: userLocation.latitude,
-      longitude: userLocation.longitude
-    )
+  func fetchAnimals(location: CLLocation?) async {
     do {
+      // 1
+      let animals = await animalFetcher.fetchAnimals(
+        page: page,
+        latitude: location?.coordinate.latitude,
+        longitude: location?.coordinate.longitude
+      )
+
+      // 2
       try await animalStore.save(animals: animals)
+
+      // 3
+      hasMoreAnimals = !animals.isEmpty
     } catch {
-      print("Error storing animals... \(error.localizedDescription)")
+      // 4
+      print("Error fetching animals... \(error.localizedDescription)")
     }
-    hasMoreAnimals = !animals.isEmpty
   }
 
-  func fetchMoreAnimals() async {
+  func fetchMoreAnimals(location: CLLocation?) async {
     page += 1
-    await fetchAnimals()
+    await fetchAnimals(location: location)
   }
 }

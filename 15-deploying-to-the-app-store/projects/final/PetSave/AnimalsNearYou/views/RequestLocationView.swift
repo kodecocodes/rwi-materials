@@ -35,23 +35,32 @@ import CoreLocationUI
 
 struct RequestLocationView: View {
   @EnvironmentObject var locationManager: LocationManager
+
   var body: some View {
     VStack {
+      // 1
       Image("creature_dog-and-bone")
         .resizable()
         .frame(width: 240, height: 240)
-      Text("""
+      // 2
+      Text(
+        """
         To find pets near you, first, you need to
         share your current location.
-        """)
+        """
+      )
         .multilineTextAlignment(.center)
-      LocationButton(action: startUpdatingLocation)
-        .symbolVariant(.fill)
-        .foregroundColor(.white)
-        .cornerRadius(8)
+      // 3
+      LocationButton {
+        locationManager.requestWhenInUseAuthorization()
+      }
+      .symbolVariant(.fill)
+      .foregroundColor(.white)
+      .cornerRadius(8)
     }
     .padding()
     .onAppear {
+      // 4
       locationManager.updateAuthorizationStatus()
     }
   }
@@ -63,6 +72,7 @@ struct RequestLocationView: View {
 
 struct RequestLocationView_Previews: PreviewProvider {
   static var previews: some View {
-    RequestLocationView().environmentObject(LocationManager())
+    RequestLocationView()
+      .environmentObject(LocationManager())
   }
 }

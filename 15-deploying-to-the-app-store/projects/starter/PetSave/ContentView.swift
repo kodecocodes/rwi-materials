@@ -38,22 +38,11 @@ struct ContentView: View {
 
   var body: some View {
     TabView {
-      AnimalsNearYouView(
-        viewModel: AnimalsNearYouViewModel(
-          animalFetcher: FetchAnimalsService(
-            requestManager:
-              RequestManager()
-          ),
-          animalStore: AnimalStoreService(
-            context: PersistenceController.shared.container.newBackgroundContext()
-          ),
-          locationManager: locationManager
-        )
-      )
-      .tabItem {
-        Label("Near you", systemImage: "location")
-      }
-      .environment(\.managedObjectContext, managedObjectContext)
+      AnimalsNearYouView()
+        .tabItem {
+          Label("Near you", systemImage: "location")
+        }
+        .environment(\.managedObjectContext, managedObjectContext)
 
       SearchView()
         .tabItem {
@@ -67,6 +56,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView().environmentObject(LocationManager())
+    ContentView()
+      .environmentObject(LocationManager())
   }
 }

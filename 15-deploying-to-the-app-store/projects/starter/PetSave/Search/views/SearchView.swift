@@ -103,7 +103,7 @@ struct SearchView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
           }
         }
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }
   }
 }
 

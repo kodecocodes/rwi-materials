@@ -41,7 +41,7 @@ enum AnimalsRequestMock: RequestProtocol {
   }
 
   var path: String {
-    guard let path = Bundle.main.path(forResource: "AnimalsMock", ofType: "json") else { return "" }
-    return path
+    // swiftlint:disable:next force_unwrapping
+    return Bundle.main.path(forResource: "AnimalsMock", ofType: "json")!
   }
 }

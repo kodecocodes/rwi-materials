@@ -54,7 +54,6 @@ struct SuggestionsGrid: View {
           } label: {
             AnimalTypeSuggestionView(suggestion: suggestion)
           }
-          // swiftlint:enable multiple_closures_with_trailing_closure
           .buttonStyle(.plain)
         }
       }
