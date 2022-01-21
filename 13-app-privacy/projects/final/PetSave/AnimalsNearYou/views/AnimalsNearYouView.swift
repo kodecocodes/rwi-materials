@@ -6,10 +6,10 @@
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
+/// 
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -31,6 +31,7 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import PetSaveOnboarding
 
 struct AnimalsNearYouView: View {
   @FetchRequest(
@@ -40,6 +41,8 @@ struct AnimalsNearYouView: View {
     animation: .default
   )
   private var animals: FetchedResults<AnimalEntity>
+
+  @EnvironmentObject var locationManager: LocationManager
 
   @StateObject var viewModel = AnimalsNearYouViewModel(
     animalFetcher: FetchAnimalsService(
@@ -51,22 +54,23 @@ struct AnimalsNearYouView: View {
     )
   )
 
-  @EnvironmentObject var locationManager: LocationManager
-
   var body: some View {
     NavigationView {
       if locationManager.locationIsDisabled {
         RequestLocationView()
           .navigationTitle("Animals near you")
       } else {
+        // 2
         AnimalListView(animals: animals) {
           if !animals.isEmpty && viewModel.hasMoreAnimals {
-            ProgressView("Finding more animals...")
-              .padding()
-              .frame(maxWidth: .infinity)
-              .task {
-                await viewModel.fetchMoreAnimals(location: locationManager.lastSeenLocation)
-              }
+            HStack(alignment: .center) {
+              LoadingAnimation()
+                .frame(maxWidth: 125, minHeight: 125)
+              Text("Loading more animals...")
+            }
+            .task {
+              await viewModel.fetchMoreAnimals(location: locationManager.lastSeenLocation)
+            }
           }
         }
         .task {
@@ -75,21 +79,36 @@ struct AnimalsNearYouView: View {
         .listStyle(.plain)
         .navigationTitle("Animals near you")
       }
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }
   }
 }
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalsNearYouView(
-      viewModel: AnimalsNearYouViewModel(
-        animalFetcher: AnimalsFetcherMock(),
-        animalStore: AnimalStoreService(
-          context: PersistenceController.preview.container.viewContext
+    Group {
+      AnimalsNearYouView(
+        viewModel: AnimalsNearYouViewModel(
+          animalFetcher: AnimalsFetcherMock(),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.preview.container.viewContext
+          )
         )
       )
+
+      AnimalsNearYouView(
+        viewModel: AnimalsNearYouViewModel(
+          animalFetcher: AnimalsFetcherMock(),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.preview.container.viewContext
+          )
+        )
+      )
+      .preferredColorScheme(.dark)
+    }
+    .environment(
+      \.managedObjectContext,
+      PersistenceController.preview.container.viewContext
     )
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     .environmentObject(LocationManager())
   }
 }

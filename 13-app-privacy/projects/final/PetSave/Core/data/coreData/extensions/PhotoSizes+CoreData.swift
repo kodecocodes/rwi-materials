@@ -30,9 +30,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Foundation
 import CoreData
 
-// MARK: - CoreDataPersistable
 extension PhotoSizes: CoreDataPersistable {
   var keyMap: [PartialKeyPath<PhotoSizes>: String] {
     [

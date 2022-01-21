@@ -32,7 +32,6 @@
 
 import CoreData
 
-// MARK: - CoreDataPersistable
 extension APIColors: CoreDataPersistable {
   var keyMap: [PartialKeyPath<APIColors>: String] {
     [

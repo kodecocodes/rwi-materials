@@ -49,8 +49,8 @@ enum AnimalsRequest: RequestProtocol {
       if let longitude = longitude {
         params["longitude"] = String(longitude)
       }
+      params["sort"] = "random"
       return params
-
     case let .getAnimalsBy(name, age, type):
       var params: [String: String] = [:]
       if !name.isEmpty {

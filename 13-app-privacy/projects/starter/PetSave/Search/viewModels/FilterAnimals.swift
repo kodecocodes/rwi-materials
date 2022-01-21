@@ -41,7 +41,6 @@ struct FilterAnimals {
   func callAsFunction() -> [AnimalEntity] {
     let ageText = age.rawValue.lowercased()
     let typeText = type.rawValue.lowercased()
-
     return animals.filter {
       if ageText != "none" {
         return $0.age.rawValue.lowercased() == ageText

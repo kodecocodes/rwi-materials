@@ -57,7 +57,6 @@ struct SearchFilterView: View {
           viewModel.search()
         }
       }
-      // swiftlint:disable multiple_closures_with_trailing_closure
       footer: {
         Text("You can mix both, age and type, to make a more accurate search.")
       }
@@ -70,13 +69,11 @@ struct SearchFilterView: View {
     .navigationBarTitle("Filters")
     .toolbar {
       ToolbarItem {
-        // swiftlint:disable multiple_closures_with_trailing_closure
         Button {
           dismiss()
         } label: {
           Label("Close", systemImage: "xmark.circle.fill")
         }
-        // swiftlint:enable multiple_closures_with_trailing_closure
       }
     }
   }

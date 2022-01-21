@@ -30,14 +30,11 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
 struct AnimalSearcherService {
   let requestManager: RequestManagerProtocol
 }
 
 // MARK: - AnimalSearcher
-// 2
 extension AnimalSearcherService: AnimalSearcher {
   func searchAnimal(
     by text: String,

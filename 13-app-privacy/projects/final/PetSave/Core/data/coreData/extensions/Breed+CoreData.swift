@@ -30,8 +30,11 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-// MARK: - CoreDataPersistable
+import Foundation
+
+// 1
 extension Breed: CoreDataPersistable {
+  // 2
   var keyMap: [PartialKeyPath<Breed>: String] {
     [
       \.primary: "primary",
@@ -42,5 +45,6 @@ extension Breed: CoreDataPersistable {
     ]
   }
 
+  // 3
   typealias ManagedType = BreedEntity
 }

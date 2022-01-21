@@ -34,67 +34,85 @@ import SwiftUI
 
 struct AnimalRow: View {
   let animal: AnimalEntity
-
-  var animalType: String {
-    animal.type ?? ""
-  }
+  var animalName: String
+  var animalType: String
+  var animalDescription: String
 
   var animalBreedAndType: String {
     "\(animal.breed) \(animalType)"
   }
 
+  init(animal: AnimalEntity) {
+    self.animal = animal
+    animalName = animal.name ?? ""
+    animalType = animal.type ?? ""
+    animalDescription = animal.desc ?? ""
+  }
+
   var body: some View {
     HStack {
-      AsyncImage(
-        url: animal.picture,
-        content: { image in image
+      AsyncImage(url: animal.picture) { image in
+        image
           .resizable()
-        },
-        placeholder: {
-          Image("rw-logo")
-            .resizable()
-            .overlay {
-              if animal.picture != nil {
-                ProgressView()
-                  .frame(maxWidth: .infinity, maxHeight: .infinity)
-                  .background(.gray.opacity(0.4))
-              }
+          .accessibilityLabel("Image of Pet")
+      } placeholder: {
+        Image("rw-logo")
+          .resizable()
+          .accessibilityLabel("Placeholder Logo")
+          .overlay {
+            if animal.picture != nil {
+              ProgressView()
+                .accessibilityLabel("Image loading indicator")
+                .accessibilityHidden(true)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.gray.opacity(0.4))
             }
-        })
+          }
+      }
       .aspectRatio(contentMode: .fit)
       .frame(width: 112, height: 112)
       .cornerRadius(8)
 
       VStack(alignment: .leading) {
-        Text(animal.name ?? "No Name Available")
+        Text(animalName)
           .multilineTextAlignment(.center)
-          .font(.title3)
-
+          .font(Font.custom("CatCafe", size: 18, relativeTo: .title3))
+          .accessibilityLabel(animalName)
         Text(animalBreedAndType)
-          .font(.callout)
-
+          .font(Font.custom("CatCafe", size: 15, relativeTo: .callout))
+          .accessibilityLabel(animalBreedAndType)
+          .accessibilityHidden(true)
         if let description = animal.desc {
           Text(description)
             .lineLimit(2)
             .font(.footnote)
+            .accessibilityLabel(description)
+            .accessibilityHidden(true)
         }
 
         HStack {
-          Text(animal.age.rawValue)
+          Text(NSLocalizedString(animal.age.rawValue, comment: ""))
             .modifier(AnimalAttributesCard(color: animal.age.color))
-          Text(animal.gender.rawValue)
+            .accessibilityLabel(animal.age.rawValue)
+            .accessibilityHidden(true)
+          Text(NSLocalizedString(animal.gender.rawValue, comment: ""))
             .modifier(AnimalAttributesCard(color: .pink))
+            .accessibilityLabel(animal.gender.rawValue)
         }
       }
       .lineLimit(1)
     }
+    .accessibilityElement(children: .combine)
+    .accessibilityCustomContent("Age", animal.age.rawValue, importance: .high)
+    .accessibilityCustomContent("Breed", animal.breed)
+    .accessibilityCustomContent("Type", animalType)
+    .accessibilityCustomContent("Description", animalDescription)
   }
 }
 
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    if let animal = CoreDataHelper.getTestAnimalEntity() {
-      AnimalRow(animal: animal)
-    }
+    AnimalRow(animal: animalMock)
+      .previewLayout(.sizeThatFits)
   }
 }

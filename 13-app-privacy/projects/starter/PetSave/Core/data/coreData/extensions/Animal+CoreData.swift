@@ -1,5 +1,5 @@
 /// Copyright (c) 2022 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
@@ -32,15 +32,16 @@
 
 import CoreData
 
-// MARK: - AnimalEntity Properties
 extension AnimalEntity {
   var age: Age {
+    // 1
     get {
       guard let ageValue = ageValue, let age = Age(rawValue: ageValue) else {
         return Age.unknown
       }
       return age
     }
+    // 2
     set {
       self.ageValue = newValue.rawValue
     }
@@ -126,13 +127,8 @@ extension AnimalEntity {
     .compactMap { $0 }
     .joined(separator: ", ")
   }
-
-  @objc var animalSpecies: String {
-    return species ?? "None"
-  }
 }
 
-// MARK: - UUIDIdentifiable
 extension Animal: UUIDIdentifiable {
   init(managedObject: AnimalEntity) {
     self.age = managedObject.age

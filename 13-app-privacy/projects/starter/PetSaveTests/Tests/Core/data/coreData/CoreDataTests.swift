@@ -45,28 +45,18 @@ class CoreDataTests: XCTestCase {
 
   func testToManagedObject() throws {
     let previewContext = PersistenceController.preview.container.viewContext
+
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
     guard let results = try? previewContext.fetch(fetchRequest),
       let first = results.first else { return }
-
-      XCTAssert(first.name == "Kiki", """
-        Pet name did not match, was expecting Kiki, got
-        \(String(describing: first.name))
-      """)
-      XCTAssert(first.type == "Cat", """
-        Pet type did not match, was expecting Cat, got
-        \(String(describing: first.type))
-      """)
-      XCTAssert(first.coat.rawValue == "Short", """
-        Pet coat did not match, was expecting Short, got
-        \(first.coat.rawValue)
-      """)
+    XCTAssert(first.name == "Kiki", "Pet name did not match, was expecting Kiki, got \(String(describing: first.name))")
+    XCTAssert(first.type == "Cat", "Pet type did not match, was expecting Cat, got \(String(describing: first.type))")
+    XCTAssert(first.coat.rawValue == "Short", "Pet coat did not match, was expecting Short, got \(first.coat.rawValue)")
   }
 
   func testDeleteManagedObject() throws {
-    let previewContext =
-      PersistenceController.preview.container.viewContext
+    let previewContext = PersistenceController.preview.container.viewContext
 
     let fetchRequest = AnimalEntity.fetchRequest()
     guard let results = try? previewContext.fetch(fetchRequest),
@@ -74,24 +64,19 @@ class CoreDataTests: XCTestCase {
 
     previewContext.delete(first)
 
-    guard let results = try? previewContext.fetch(fetchRequest)
-      else { return }
+    guard let results = try? previewContext.fetch(fetchRequest) else { return }
 
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
-    """)
+    XCTAssert(results.count == 9, "The number of results was expected to be 9 after deletion, was \(results.count)")
   }
 
   func testFetchManagedObject() throws {
     let previewContext = PersistenceController.preview.container.viewContext
+
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
     fetchRequest.predicate = NSPredicate(format: "name == %@", "Ellie")
     guard let results = try? previewContext.fetch(fetchRequest),
       let first = results.first else { return }
-    XCTAssert(first.name == "Ellie", """
-      Pet name did not match, expecting Ellie, got
-      \(String(describing: first.name))
-    """)
+    XCTAssert(first.name == "Ellie", "Pet name did not match, expecting Ellie, got \(String(describing: first.name))")
   }
 }

@@ -32,7 +32,6 @@
 
 import CoreData
 
-// MARK: - CoreDataPersistable
 extension Address: CoreDataPersistable {
   var keyMap: [PartialKeyPath<Address>: String] {
     [

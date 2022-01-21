@@ -68,7 +68,6 @@ class RequestManager: RequestManagerProtocol {
   }
 }
 
-// MARK: - Parse Data
 extension RequestManagerProtocol {
   var parser: DataParserProtocol {
     return DataParser()

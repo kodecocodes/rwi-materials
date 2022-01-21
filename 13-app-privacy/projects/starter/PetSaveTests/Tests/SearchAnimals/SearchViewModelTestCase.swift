@@ -108,3 +108,4 @@ final class SearchViewModelTestCase: XCTestCase {
     XCTAssertTrue(((viewModel?.shouldFilter) != nil))
   }
 }
+

@@ -30,23 +30,21 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct AnimalSearcherMock: AnimalSearcher {
-  func searchAnimal(
-    by text: String,
-    age: AnimalSearchAge,
-    type: AnimalSearchType
-  ) async -> [Animal] {
-    var animals = Animal.mock
-    if age != .none {
-      animals = animals.filter {
-        $0.age.rawValue.lowercased() == age.rawValue.lowercased()
-      }
-    }
-    if type != .none {
-      animals = animals.filter {
-        $0.type.lowercased() == type.rawValue.lowercased()
-      }
-    }
-    return animals.filter { $0.name.contains(text) }
-  }
+import Foundation
+
+extension Animal {
+  static let mock = loadAnimals()
+}
+
+private struct AnimalsMock: Codable {
+  let animals: [Animal]
+}
+
+private func loadAnimals() -> [Animal] {
+  guard let url = Bundle.main.url(forResource: "AnimalsMock", withExtension: "json"),
+    let data = try? Data(contentsOf: url) else { return [] }
+  let decoder = JSONDecoder()
+  decoder.keyDecodingStrategy = .convertFromSnakeCase
+  let jsonMock = try? decoder.decode(AnimalsMock.self, from: data)
+  return jsonMock?.animals ?? []
 }

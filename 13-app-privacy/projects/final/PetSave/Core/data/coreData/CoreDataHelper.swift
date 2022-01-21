@@ -53,7 +53,6 @@ enum CoreDataHelper {
   }
 }
 
-// MARK: - Delete item
 extension Collection where Element == NSManagedObject, Index == Int {
   func delete(at indices: IndexSet, inViewContext viewContext: NSManagedObjectContext = CoreDataHelper.context) {
     indices.forEach { index in
@@ -63,11 +62,7 @@ extension Collection where Element == NSManagedObject, Index == Int {
     do {
       try viewContext.save()
     } catch {
-      fatalError("""
-        \(#file), \
-        \(#function), \
-        \(error.localizedDescription)
-      """)
+      fatalError("\(#file), \(#function), \(error.localizedDescription)")
     }
   }
 }

@@ -32,7 +32,6 @@
 
 import CoreData
 
-// MARK: - CoreDataPersistable
 extension User: CoreDataPersistable {
   var keyMap: [PartialKeyPath<User>: String] {
     [
