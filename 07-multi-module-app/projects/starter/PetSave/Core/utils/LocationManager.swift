@@ -34,29 +34,31 @@ import CoreLocation
 import SwiftUI
 
 final class LocationManager: NSObject, ObservableObject {
-  @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
+  @Published var authorizationStatus: CLAuthorizationStatus
+  @Published var lastSeenLocation: CLLocation?
 
-  @Published var userLocation = CLLocation(
-    latitude: 37.3320003,
-    longitude: -122.0307812
-  )
+  private let cllLocationManager: CLLocationManager
 
-  @AppStorage("useUserLocation") var useUserLocation = false
-
-  private lazy var cllLocationManager: CLLocationManager = {
-    let manager = CLLocationManager()
-    manager.delegate = self
-    return manager
-  }()
-
-  func startUpdatingLocation() {
-    #warning("LocationButton is not working as it should. Probably a Beta bug. We'll try to remove this line later...")
-    cllLocationManager.requestWhenInUseAuthorization()
+  init(authorizationStatus: CLAuthorizationStatus = .notDetermined) {
+    self.authorizationStatus = authorizationStatus
+    self.cllLocationManager = CLLocationManager()
+    super.init()
+    cllLocationManager.delegate = self
+    cllLocationManager.desiredAccuracy = kCLLocationAccuracyReduced
+    self.authorizationStatus = cllLocationManager.authorizationStatus
     cllLocationManager.startUpdatingLocation()
   }
 
   func updateAuthorizationStatus() {
     authorizationStatus = cllLocationManager.authorizationStatus
+  }
+
+  func requestWhenInUseAuthorization() {
+    cllLocationManager.requestWhenInUseAuthorization()
+  }
+
+  func startUpdatingLocation() {
+    cllLocationManager.startUpdatingLocation()
   }
 }
 
@@ -66,14 +68,6 @@ extension LocationManager {
     authorizationStatus == .denied ||
       authorizationStatus == .notDetermined ||
       authorizationStatus == .restricted
-  }
-
-  var openInSettings: Bool {
-    authorizationStatus == .denied || authorizationStatus == .restricted
-  }
-
-  var shouldRequestForLocation: Bool {
-    authorizationStatus == .notDetermined
   }
 }
 
@@ -87,7 +81,14 @@ extension LocationManager: CLLocationManagerDelegate {
     _ manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]
   ) {
-    guard let userLocation = locations.first else { return }
-    self.userLocation = userLocation
+    guard let location = locations.first else { return }
+    lastSeenLocation = location
+  }
+
+  func locationManager(
+    _ manager: CLLocationManager,
+    didFailWithError error: Error
+  ) {
+    print("Location retrieving failed due to: \(error.localizedDescription)")
   }
 }
