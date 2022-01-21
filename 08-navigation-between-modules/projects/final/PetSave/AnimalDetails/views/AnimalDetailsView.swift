@@ -59,7 +59,7 @@ struct AnimalDetailsView: View {
 struct AnimalsView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      AnimalDetailsView(name: "Snow")
+      AnimalDetailsView(name: "Snow").environmentObject(NavigationState())
     }
     .previewDevice("iPhone 12 Pro")
     .previewDisplayName("iPhone 12 Pro")
