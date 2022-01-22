@@ -47,17 +47,14 @@ struct AnimalsNearYouView: View {
 
   var body: some View {
     NavigationView {
-      List {
-        ForEach(animals) { animal in
-          NavigationLink(destination: AnimalDetailsView()) {
-            AnimalRow(animal: animal)
-          }
-        }
+      AnimalListView(animals: animals) {
         if !animals.isEmpty && viewModel.hasMoreAnimals {
           ProgressView("Finding more animals...")
             .padding()
             .frame(maxWidth: .infinity)
-            .onAppear(perform: viewModel.fetchMoreAnimals)
+            .task {
+              await viewModel.fetchMoreAnimals()
+            }
         }
       }
       .task {
@@ -65,15 +62,13 @@ struct AnimalsNearYouView: View {
       }
       .listStyle(.plain)
       .navigationTitle("Animals near you")
-      .refreshable {
-        viewModel.refresh()
-      }
       .overlay {
-        if viewModel.isLoading {
+        if viewModel.isLoading && animals.isEmpty {
           ProgressView("Finding Animals near you...")
         }
       }
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 
   func presentSettings() {
@@ -86,17 +81,19 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
     Group {
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
+          animalFetcher: AnimalsFetcherMock(),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.preview.container.viewContext
+          )
         )
       )
 
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
+          animalFetcher: AnimalsFetcherMock(),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.preview.container.viewContext
+          )
         )
       )
       .preferredColorScheme(.dark)

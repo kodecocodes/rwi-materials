@@ -30,7 +30,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import CoreData
+import Foundation
 
 protocol AnimalSearcher {
   func searchAnimal(
@@ -45,41 +45,45 @@ final class SearchViewModel: ObservableObject {
   @Published var ageSelection = AnimalSearchAge.none
   @Published var typeSelection = AnimalSearchType.none
 
-  private let animalSearcher: AnimalSearcher
-
-  let context: NSManagedObjectContext
-
   var shouldFilter: Bool {
     !searchText.isEmpty ||
       ageSelection != .none ||
       typeSelection != .none
   }
 
-  init(animalSearcher: AnimalSearcher, context: NSManagedObjectContext) {
+  private let animalSearcher: AnimalSearcher
+  private let animalStore: AnimalStore
+
+  init(animalSearcher: AnimalSearcher, animalStore: AnimalStore) {
     self.animalSearcher = animalSearcher
-    self.context = context
+    self.animalStore = animalStore
   }
 
   func search() {
     Task {
+      // 1
       let animals = await animalSearcher.searchAnimal(
         by: searchText,
         age: ageSelection,
         type: typeSelection
       )
-      await update(animals: animals)
+
+      // 2
+      do {
+        try await animalStore.save(animals: animals)
+      } catch {
+        print("Error storing animals... \(error.localizedDescription)")
+      }
     }
+  }
+
+  func clearFilters() {
+    typeSelection = .none
+    ageSelection = .none
   }
 
   func selectTypeSuggestion(_ type: AnimalSearchType) {
     typeSelection = type
     search()
-  }
-
-  @MainActor
-  func update(animals: [Animal]) {
-    for var animal in animals {
-      animal.toManagedObject(context: context)
-    }
   }
 }

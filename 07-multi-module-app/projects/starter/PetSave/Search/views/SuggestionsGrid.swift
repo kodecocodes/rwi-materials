@@ -33,10 +33,10 @@
 import SwiftUI
 
 struct SuggestionsGrid: View {
-  let suggestions: [AnimalSearchType]
-
-  @ObservedObject var viewModel: SearchViewModel
   @Environment(\.isSearching) var isSearching: Bool
+
+  let suggestions: [AnimalSearchType]
+  var action: (AnimalSearchType) -> Void
 
   private let columns = [
     GridItem(.flexible()),
@@ -48,16 +48,14 @@ struct SuggestionsGrid: View {
       Text("Browse by Type")
         .font(.title2.bold())
       LazyVGrid(columns: columns) {
-        // swiftlint:disable multiple_closures_with_trailing_closure
         ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
           Button {
-            viewModel.selectTypeSuggestion(suggestion)
+            action(suggestion)
           } label: {
             AnimalTypeSuggestionView(suggestion: suggestion)
           }
           .buttonStyle(.plain)
         }
-        // swiftlint:enable multiple_closures_with_trailing_closure
       }
     }
     .padding(.horizontal)
@@ -66,14 +64,7 @@ struct SuggestionsGrid: View {
 }
 
 struct SuggestionsGrid_Previews: PreviewProvider {
-  static let context = PersistenceController.preview.container.viewContext
   static var previews: some View {
-    SuggestionsGrid(
-      suggestions: AnimalSearchType.suggestions,
-      viewModel: SearchViewModel(
-        animalSearcher: AnimalSearcherMock(),
-        context: context
-      )
-    )
+    SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { _ in }
   }
 }

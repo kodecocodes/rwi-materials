@@ -30,9 +30,10 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-enum APIConstants {
-  static let host = "api.petfinder.com"
-  static let grantType = "client_credentials"
-  static let clientId = "aNrgKiEtD2RlILjTvovFn1Oy69am6M9awb3f0qg0jVh1LVKeqK"
-  static let clientSecret = "xdTMtsJ8k2ohcSyEJ8glEYzu0ZmjBDeHxBwE8GVq"
+import CoreLocation
+
+struct AnimalsFetcherMock: AnimalsFetcher {
+  func fetchAnimals(page: Int) async -> [Animal] {
+    Animal.mock
+  }
 }

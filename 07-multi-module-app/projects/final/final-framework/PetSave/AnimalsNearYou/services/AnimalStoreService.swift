@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,9 +30,23 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-enum APIConstants {
-  static let host = "api.petfinder.com"
-  static let grantType = "client_credentials"
-  static let clientId = "aNrgKiEtD2RlILjTvovFn1Oy69am6M9awb3f0qg0jVh1LVKeqK"
-  static let clientSecret = "xdTMtsJ8k2ohcSyEJ8glEYzu0ZmjBDeHxBwE8GVq"
+import Foundation
+import CoreData
+
+actor AnimalStoreService {
+  private let context: NSManagedObjectContext
+
+  init(context: NSManagedObjectContext) {
+    self.context = context
+  }
+}
+
+// MARK: - AnimalStore
+extension AnimalStoreService: AnimalStore {
+  func save(animals: [Animal]) async throws {
+    for var animal in animals {
+      animal.toManagedObject(context: context)
+    }
+    try context.save()
+  }
 }
