@@ -41,7 +41,7 @@ struct AnimalsNearYouView: View {
   )
   private var animals: FetchedResults<AnimalEntity>
 
-  @StateObject var viewModel: AnimalsNearYouViewModel
+  @ObservedObject var viewModel: AnimalsNearYouViewModel
 
   var body: some View {
     NavigationView {
