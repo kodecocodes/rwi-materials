@@ -43,15 +43,7 @@ struct AnimalsNearYouView: View {
 
   @EnvironmentObject var locationManager: LocationManager
 
-  @StateObject var viewModel = AnimalsNearYouViewModel(
-    animalFetcher: FetchAnimalsService(
-      requestManager: RequestManager()
-    ),
-    animalStore: AnimalStoreService(
-      context: PersistenceController.shared.container
-        .newBackgroundContext()
-    )
-  )
+  @ObservedObject var viewModel: AnimalsNearYouViewModel
 
   var body: some View {
     NavigationView {
