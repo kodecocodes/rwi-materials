@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,11 +30,57 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-import CoreLocation
+import SwiftUI
 
-struct AnimalFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    Animal.mock
+// 1
+struct AnimalListView<Content, Data>: View
+  where Content: View,
+  Data: RandomAccessCollection,
+  Data.Element: AnimalEntity {
+  let animals: Data
+
+  // 2
+  let footer: Content
+
+  // 3
+  init(animals: Data, @ViewBuilder footer: () -> Content) {
+    self.animals = animals
+    self.footer = footer()
+  }
+
+  // 4
+  init(animals: Data) where Content == EmptyView {
+    self.init(animals: animals) {
+      EmptyView()
+    }
+  }
+
+  var body: some View {
+    // 5
+    List {
+      ForEach(animals) { animal in
+        NavigationLink(destination: AnimalDetailsView(animal: animal)) {
+          AnimalRow(animal: animal)
+        }
+      }
+
+      // 6
+      footer
+    }
+    .listStyle(.plain)
+  }
+}
+
+struct AnimalListView_Previews: PreviewProvider {
+  static var previews: some View {
+    NavigationView {
+      AnimalListView(animals: CoreDataHelper.getTestAnimalEntities() ?? [])
+    }
+
+    NavigationView {
+      AnimalListView(animals: []) {
+        Text("This is a footer")
+      }
+    }
   }
 }

@@ -34,9 +34,6 @@ import SwiftUI
 import PetSaveOnboarding
 
 struct AnimalsNearYouView: View {
-  @ObservedObject var viewModel: AnimalsNearYouViewModel
-  @State var settingsIsPresented = false
-
   @FetchRequest(
     sortDescriptors: [
       NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
@@ -45,19 +42,18 @@ struct AnimalsNearYouView: View {
   )
   var animals: FetchedResults<AnimalEntity>
 
+  @ObservedObject var viewModel: AnimalsNearYouViewModel
+
   var body: some View {
     NavigationView {
-      List {
-        ForEach(animals) { animal in
-          NavigationLink(destination: AnimalDetailsView(animal: animal)) {
-            AnimalRow(animal: animal)
-          }
-        }
+      AnimalListView(animals: animals) {
         if !animals.isEmpty && viewModel.hasMoreAnimals {
           ProgressView("Finding more animals...")
             .padding()
             .frame(maxWidth: .infinity)
-            .onAppear(perform: viewModel.fetchMoreAnimals)
+            .task {
+              await viewModel.fetchMoreAnimals()
+            }
         }
       }
       .task {
@@ -65,19 +61,7 @@ struct AnimalsNearYouView: View {
       }
       .listStyle(.plain)
       .navigationTitle("Animals near you")
-      .refreshable {
-        viewModel.refresh()
-      }
-      .overlay {
-        if viewModel.isLoading {
-          ProgressView("Finding Animals near you...")
-        }
-      }
     }
-  }
-
-  func presentSettings() {
-    settingsIsPresented.toggle()
   }
 }
 
@@ -86,17 +70,19 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
     Group {
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
+          animalFetcher: AnimalsFetcherMock(),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.preview.container.viewContext
+          )
         )
       )
 
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
+          animalFetcher: AnimalsFetcherMock(),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.preview.container.viewContext
+          )
         )
       )
       .preferredColorScheme(.dark)

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +31,22 @@
 /// THE SOFTWARE.
 
 import Foundation
-import CoreLocation
+import CoreData
 
-struct AnimalFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    Animal.mock
+actor AnimalStoreService {
+  private let context: NSManagedObjectContext
+
+  init(context: NSManagedObjectContext) {
+    self.context = context
+  }
+}
+
+// MARK: - AnimalStore
+extension AnimalStoreService: AnimalStore {
+  func save(animals: [Animal]) async throws {
+    for var animal in animals {
+      animal.toManagedObject(context: context)
+    }
+    try context.save()
   }
 }
