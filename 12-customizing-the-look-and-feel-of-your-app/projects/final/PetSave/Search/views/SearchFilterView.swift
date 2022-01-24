@@ -38,22 +38,31 @@ struct SearchFilterView: View {
 
   var body: some View {
     Form {
-      Picker("Age", selection: $viewModel.ageSelection) {
-        ForEach(AnimalSearchAge.allCases, id: \.self) { age in
-          Text(age.rawValue.capitalized)
+      Section {
+        Picker("Age", selection: $viewModel.ageSelection) {
+          ForEach(AnimalSearchAge.allCases, id: \.self) { age in
+            Text(age.rawValue.capitalized)
+          }
         }
-      }
-      .onChange(of: viewModel.ageSelection) { _ in
-        viewModel.search()
+        .onChange(of: viewModel.ageSelection) { _ in
+          viewModel.search()
+        }
+
+        Picker("Type", selection: $viewModel.typeSelection) {
+          ForEach(AnimalSearchType.allCases, id: \.self) { type in
+            Text(type.rawValue.capitalized)
+          }
+        }
+        .onChange(of: viewModel.typeSelection) { _ in
+          viewModel.search()
+        }
+      } footer: {
+        Text("You can mix both, age and type, to make a more accurate search.")
       }
 
-      Picker("Type", selection: $viewModel.typeSelection) {
-        ForEach(AnimalSearchType.allCases, id: \.self) { type in
-          Text(type.rawValue.capitalized)
-        }
-      }
-      .onChange(of: viewModel.typeSelection) { _ in
-        viewModel.search()
+      Button("Clear", role: .destructive, action: viewModel.clearFilters)
+      Button("Done") {
+        dismiss()
       }
     }
     .navigationBarTitle("Filters")
@@ -70,13 +79,13 @@ struct SearchFilterView: View {
 }
 
 struct SearchFilterView_Previews: PreviewProvider {
-  static let context = PersistenceController.preview.container.viewContext
   static var previews: some View {
+    let context = PersistenceController.preview.container.viewContext
     NavigationView {
       SearchFilterView(
         viewModel: SearchViewModel(
           animalSearcher: AnimalSearcherMock(),
-          context: context
+          animalStore: AnimalStoreService(context: context)
         )
       )
     }

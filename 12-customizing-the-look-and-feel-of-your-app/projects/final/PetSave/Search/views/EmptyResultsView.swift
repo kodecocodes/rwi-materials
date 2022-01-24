@@ -43,6 +43,7 @@ struct EmptyResultsView: View {
         .foregroundColor(.yellow)
       Text("Sorry, we couldn't find animals for \"\(query)\"")
         .foregroundColor(.secondary)
+        .multilineTextAlignment(.center)
     }
   }
 }

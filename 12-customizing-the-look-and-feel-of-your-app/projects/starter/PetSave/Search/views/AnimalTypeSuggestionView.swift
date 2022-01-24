@@ -36,13 +36,10 @@ struct AnimalTypeSuggestionView: View {
   let suggestion: AnimalSearchType
 
   private var gradientColors: [Color] {
-    [
-      Color.clear,
-      Color.black
-    ]
+    [.clear, .black]
   }
 
-  private var gradientOverlay: some View {
+  @ViewBuilder private var gradientOverlay: some View {
     LinearGradient(colors: gradientColors, startPoint: .top, endPoint: .bottom)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .opacity(0.3)
