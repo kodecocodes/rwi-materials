@@ -35,7 +35,6 @@ import PetSaveOnboarding
 
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
-  @State var settingsIsPresented = false
 
   @FetchRequest(
     sortDescriptors: [
@@ -47,19 +46,16 @@ struct AnimalsNearYouView: View {
 
   var body: some View {
     NavigationView {
-      List {
-        ForEach(animals) { animal in
-          NavigationLink(destination: AnimalDetailsView(animal: animal)) {
-            AnimalRow(animal: animal)
-          }
-        }
+      AnimalListView(animals: animals) {
         if !animals.isEmpty && viewModel.hasMoreAnimals {
           HStack(alignment: .center) {
             LoadingAnimation()
               .frame(maxWidth: 125, minHeight: 125)
             Text("Loading more animals...")
           }
-          .onAppear(perform: viewModel.fetchMoreAnimals)
+          .task {
+            await viewModel.fetchMoreAnimals()
+          }
         }
       }
       .task {
@@ -67,14 +63,7 @@ struct AnimalsNearYouView: View {
       }
       .listStyle(.plain)
       .navigationTitle("Animals near you")
-      .refreshable {
-        viewModel.refresh()
-      }
     }
-  }
-
-  func presentSettings() {
-    settingsIsPresented.toggle()
   }
 }
 
@@ -83,17 +72,19 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
     Group {
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
+          animalFetcher: AnimalsFetcherMock(),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.preview.container.viewContext
+          )
         )
       )
 
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
-          isLoading: false,
-          animalFetcher: AnimalFetcherMock(),
-          context: PersistenceController.preview.container.viewContext
+          animalFetcher: AnimalsFetcherMock(),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.preview.container.viewContext
+          )
         )
       )
       .preferredColorScheme(.dark)

@@ -33,7 +33,7 @@
 import Foundation
 import CoreLocation
 
-struct AnimalFetcherMock: AnimalsFetcher {
+struct AnimalsFetcherMock: AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
     Animal.mock
   }

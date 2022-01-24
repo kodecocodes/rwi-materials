@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,44 +30,57 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-protocol AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
-}
+// 1
+struct AnimalListView<Content, Data>: View
+  where Content: View,
+  Data: RandomAccessCollection,
+  Data.Element: AnimalEntity {
+  let animals: Data
 
-protocol AnimalStore {
-  func save(animals: [Animal]) async throws
-}
+  // 2
+  let footer: Content
 
-@MainActor
-final class AnimalsNearYouViewModel: ObservableObject {
-  @Published var hasMoreAnimals = true
-  private let animalFetcher: AnimalsFetcher
-  private let animalStore: AnimalStore
-
-  private(set) var page = 1
-
-  init(
-    animalFetcher: AnimalsFetcher,
-    animalStore: AnimalStore
-  ) {
-    self.animalFetcher = animalFetcher
-    self.animalStore = animalStore
+  // 3
+  init(animals: Data, @ViewBuilder footer: () -> Content) {
+    self.animals = animals
+    self.footer = footer()
   }
 
-  func fetchAnimals() async {
-    let animals = await animalFetcher.fetchAnimals(page: page)
-    do {
-      try await animalStore.save(animals: animals)
-    } catch {
-      print("Error storing animals... \(error.localizedDescription)")
+  // 4
+  init(animals: Data) where Content == EmptyView {
+    self.init(animals: animals) {
+      EmptyView()
     }
-    hasMoreAnimals = !animals.isEmpty
   }
 
-  func fetchMoreAnimals() async {
-    page += 1
-    await fetchAnimals()
+  var body: some View {
+    // 5
+    List {
+      ForEach(animals) { animal in
+        NavigationLink(destination: AnimalDetailsView(animal: animal)) {
+          AnimalRow(animal: animal)
+        }
+      }
+
+      // 6
+      footer
+    }
+    .listStyle(.plain)
+  }
+}
+
+struct AnimalListView_Previews: PreviewProvider {
+  static var previews: some View {
+    NavigationView {
+      AnimalListView(animals: CoreDataHelper.getTestAnimalEntities() ?? [])
+    }
+
+    NavigationView {
+      AnimalListView(animals: []) {
+        Text("This is a footer")
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -31,43 +31,22 @@
 /// THE SOFTWARE.
 
 import Foundation
+import CoreData
 
-protocol AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
-}
+actor AnimalStoreService {
+  private let context: NSManagedObjectContext
 
-protocol AnimalStore {
-  func save(animals: [Animal]) async throws
-}
-
-@MainActor
-final class AnimalsNearYouViewModel: ObservableObject {
-  @Published var hasMoreAnimals = true
-  private let animalFetcher: AnimalsFetcher
-  private let animalStore: AnimalStore
-
-  private(set) var page = 1
-
-  init(
-    animalFetcher: AnimalsFetcher,
-    animalStore: AnimalStore
-  ) {
-    self.animalFetcher = animalFetcher
-    self.animalStore = animalStore
+  init(context: NSManagedObjectContext) {
+    self.context = context
   }
+}
 
-  func fetchAnimals() async {
-    let animals = await animalFetcher.fetchAnimals(page: page)
-    do {
-      try await animalStore.save(animals: animals)
-    } catch {
-      print("Error storing animals... \(error.localizedDescription)")
+// MARK: - AnimalStore
+extension AnimalStoreService: AnimalStore {
+  func save(animals: [Animal]) async throws {
+    for var animal in animals {
+      animal.toManagedObject(context: context)
     }
-    hasMoreAnimals = !animals.isEmpty
-  }
-
-  func fetchMoreAnimals() async {
-    page += 1
-    await fetchAnimals()
+    try context.save()
   }
 }
