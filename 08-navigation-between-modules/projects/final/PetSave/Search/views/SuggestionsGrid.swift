@@ -48,7 +48,6 @@ struct SuggestionsGrid: View {
       Text("Browse by Type")
         .font(.title2.bold())
       LazyVGrid(columns: columns) {
-        // swiftlint:disable multiple_closures_with_trailing_closure
         ForEach(AnimalSearchType.suggestions, id: \.self) { suggestion in
           Button {
             viewModel.selectTypeSuggestion(suggestion)
@@ -57,7 +56,6 @@ struct SuggestionsGrid: View {
           }
           .buttonStyle(.plain)
         }
-        // swiftlint:enable multiple_closures_with_trailing_closure
       }
     }
     .padding(.horizontal)

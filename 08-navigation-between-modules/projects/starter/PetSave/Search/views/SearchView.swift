@@ -89,7 +89,6 @@ struct SearchView: View {
       }
       .toolbar {
         ToolbarItem {
-          // swiftlint:disable multiple_closures_with_trailing_closure
           Button {
             showFilterPickers.toggle()
           } label: {
@@ -100,7 +99,6 @@ struct SearchView: View {
               SearchFilterView(viewModel: viewModel)
             }
           }
-          // swiftlint:enable multiple_closures_with_trailing_closure
         }
       }
     }.navigationViewStyle(StackNavigationViewStyle())
