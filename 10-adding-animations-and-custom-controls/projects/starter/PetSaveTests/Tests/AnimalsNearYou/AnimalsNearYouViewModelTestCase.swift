@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -31,48 +31,65 @@
 /// THE SOFTWARE.
 
 import Foundation
-
-protocol AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal]
-}
-
-protocol AnimalStore {
-  func save(animals: [Animal]) async throws
-}
+import XCTest
+@testable import PetSave
 
 @MainActor
-final class AnimalsNearYouViewModel: ObservableObject {
-  @Published var isLoading: Bool
-  @Published var hasMoreAnimals = true
-  private let animalFetcher: AnimalsFetcher
-  private let animalStore: AnimalStore
+final class AnimalsNearYouViewModelTestCase: XCTestCase {
+  let testContext = PersistenceController.preview.container.viewContext
+  // swiftlint:disable:next implicitly_unwrapped_optional
+  var viewModel: AnimalsNearYouViewModel!
 
-  private(set) var page = 1
-
-  init(
-    isLoading: Bool = true,
-    animalFetcher: AnimalsFetcher,
-    animalStore: AnimalStore
-  ) {
-    self.isLoading = isLoading
-    self.animalFetcher = animalFetcher
-    self.animalStore = animalStore
+  @MainActor
+  override func setUp() {
+    super.setUp()
+    viewModel = AnimalsNearYouViewModel(
+      isLoading: true,
+      animalFetcher: AnimalsFetcherMock(),
+      animalStore: AnimalStoreService(context: testContext)
+    )
   }
 
-  func fetchAnimals() async {
-    isLoading = true
-    let animals = await animalFetcher.fetchAnimals(page: page)
-    do {
-      try await animalStore.save(animals: animals)
-    } catch {
-      print("Error storing animals... \(error.localizedDescription)")
-    }
-    isLoading = false
-    hasMoreAnimals = !animals.isEmpty
+  func testFetchAnimalsLoadingState() async {
+    XCTAssertTrue(viewModel.isLoading, "The view model should be loading, but it isn't")
+    await viewModel.fetchAnimals()
+    XCTAssertFalse(viewModel.isLoading, "The view model shouldn't be loading, but it is")
   }
 
-  func fetchMoreAnimals() async {
-    page += 1
-    await fetchAnimals()
+  func testUpdatePageOnFetchMoreAnimals() async {
+    XCTAssertEqual(
+      viewModel.page,
+      1,
+      "the view model's page property should be 1 before fetching, but it's \(viewModel.page)"
+    )
+    await viewModel.fetchMoreAnimals()
+    XCTAssertEqual(
+      viewModel.page,
+      2,
+      "the view model's page property should be 2 after fetching, but it's \(viewModel.page)"
+    )
+  }
+
+  func testFetchAnimalsEmptyResponse() async {
+    viewModel = AnimalsNearYouViewModel(
+      isLoading: true,
+      animalFetcher: EmptyResponseAnimalsFetcherMock(),
+      animalStore: AnimalStoreService(context: testContext)
+    )
+    await viewModel.fetchAnimals()
+    XCTAssertFalse(
+      viewModel.hasMoreAnimals,
+      "hasMoreAnimals should be false with an empty response, but it's true"
+    )
+    XCTAssertFalse(
+      viewModel.isLoading,
+      "the view model shouldn't be loading after receivng an empty response, but it is"
+    )
+  }
+}
+
+struct EmptyResponseAnimalsFetcherMock: AnimalsFetcher {
+  func fetchAnimals(page: Int) async -> [Animal] {
+    return []
   }
 }

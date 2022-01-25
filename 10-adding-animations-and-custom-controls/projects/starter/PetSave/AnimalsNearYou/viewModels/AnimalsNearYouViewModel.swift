@@ -60,6 +60,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
   }
 
   func fetchAnimals() async {
+    isLoading = true
     let animals = await animalFetcher.fetchAnimals(page: page)
     do {
       try await animalStore.save(animals: animals)
