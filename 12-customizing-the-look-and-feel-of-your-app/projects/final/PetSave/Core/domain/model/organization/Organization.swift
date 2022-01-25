@@ -38,7 +38,6 @@ struct Organization: Codable {
   var distance: Double?
 }
 
-// TODO use built in classes from AddressBook here?
 struct Contact: Codable {
   var id: Int?
   var email: String?
