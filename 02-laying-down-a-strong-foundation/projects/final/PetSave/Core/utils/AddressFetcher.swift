@@ -47,6 +47,7 @@ final class AddressFetcher: ObservableObject {
 
   private let geocoder = CLGeocoder()
 
+  @MainActor
   func search(by address: String) async {
     guard let placemarks = try? await geocoder.geocodeAddressString(address),
       let location = placemarks.first?.location else { return }
