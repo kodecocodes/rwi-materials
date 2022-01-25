@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -56,12 +56,4 @@ struct Animal: Codable {
   let publishedAt: String?
   let distance: Double?
   var ranking: Int? = 0
-
-  var picture: URL? {
-    photos.first?.medium ?? photos.first?.large
-  }
-}
-
-// MARK: - Identifiable
-extension Animal: Identifiable {
 }
