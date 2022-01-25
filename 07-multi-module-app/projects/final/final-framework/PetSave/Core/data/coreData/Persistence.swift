@@ -34,7 +34,6 @@ import CoreData
 
 struct PersistenceController {
   static let shared = PersistenceController()
-
   static var preview: PersistenceController = {
     let result = PersistenceController(inMemory: true)
     let viewContext = result.container.viewContext
@@ -68,12 +67,18 @@ struct PersistenceController {
   }
 
   static func save() {
-    let context = PersistenceController.shared.container.viewContext
+    let context =
+    PersistenceController.shared.container.viewContext
     guard context.hasChanges else { return }
+
     do {
       try context.save()
     } catch {
-      fatalError("\(#file), \(#function), \(error.localizedDescription)")
+      fatalError("""
+        \(#file), \
+        \(#function), \
+        \(error.localizedDescription)
+      """)
     }
   }
 }
