@@ -37,7 +37,7 @@ struct AnimalsNearYouView: View {
     NavigationView {
       Text("TODO: Animals Near You View")
         .navigationTitle("Animals near you")
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
