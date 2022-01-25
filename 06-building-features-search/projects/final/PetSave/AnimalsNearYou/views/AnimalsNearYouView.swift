@@ -66,7 +66,6 @@ struct AnimalsNearYouView: View {
         }
       }
     }
-    .navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
