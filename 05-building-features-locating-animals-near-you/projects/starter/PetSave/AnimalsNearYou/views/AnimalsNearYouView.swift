@@ -80,7 +80,7 @@ struct AnimalsNearYouView: View {
       for var animal in animalsContainer.animals {
         animal.toManagedObject()
       }
-      stopLoading()
+      await stopLoading()
     } catch {
       print("Error fetching animals...\(error)")
     }
