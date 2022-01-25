@@ -63,6 +63,11 @@ struct AnimalsNearYouView: View {
       }
       .listStyle(.plain)
       .navigationTitle("Animals near you")
+      .overlay {
+        if viewModel.isLoading && animals.isEmpty {
+          ProgressView("Finding Animals near you...")
+        }
+      }
     }
   }
 }

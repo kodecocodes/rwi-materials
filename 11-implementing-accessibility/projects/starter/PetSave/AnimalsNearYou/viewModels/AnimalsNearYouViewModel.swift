@@ -42,6 +42,7 @@ protocol AnimalStore {
 
 @MainActor
 final class AnimalsNearYouViewModel: ObservableObject {
+  @Published var isLoading: Bool
   @Published var hasMoreAnimals = true
   private let animalFetcher: AnimalsFetcher
   private let animalStore: AnimalStore
@@ -49,14 +50,17 @@ final class AnimalsNearYouViewModel: ObservableObject {
   private(set) var page = 1
 
   init(
+    isLoading: Bool = true,
     animalFetcher: AnimalsFetcher,
     animalStore: AnimalStore
   ) {
+    self.isLoading = isLoading
     self.animalFetcher = animalFetcher
     self.animalStore = animalStore
   }
 
   func fetchAnimals() async {
+    isLoading = true
     let animals = await animalFetcher.fetchAnimals(page: page)
     do {
       try await animalStore.save(animals: animals)
@@ -64,6 +68,7 @@ final class AnimalsNearYouViewModel: ObservableObject {
       print("Error storing animals... \(error.localizedDescription)")
     }
     hasMoreAnimals = !animals.isEmpty
+    isLoading = false
   }
 
   func fetchMoreAnimals() async {
