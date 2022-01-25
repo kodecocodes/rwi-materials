@@ -44,15 +44,7 @@ struct AnimalsNearYouView: View {
 
   @EnvironmentObject var locationManager: LocationManager
 
-  @StateObject var viewModel = AnimalsNearYouViewModel(
-    animalFetcher: FetchAnimalsService(
-      requestManager: RequestManager()
-    ),
-    animalStore: AnimalStoreService(
-      context: PersistenceController.shared.container
-        .newBackgroundContext()
-    )
-  )
+  @ObservedObject var viewModel: AnimalsNearYouViewModel
 
   var body: some View {
     NavigationView {
@@ -78,6 +70,11 @@ struct AnimalsNearYouView: View {
         }
         .listStyle(.plain)
         .navigationTitle("Animals near you")
+        .overlay {
+          if viewModel.isLoading && animals.isEmpty {
+            ProgressView("Finding Animals near you...")
+          }
+        }
       }
     }
   }
