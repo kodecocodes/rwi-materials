@@ -76,7 +76,6 @@ extension Collection where Element == NSManagedObject, Index == Int {
 extension CoreDataHelper {
   static func getTestAnimal() -> Animal? {
     let fetchRequest = AnimalEntity.fetchRequest()
-
     if let results = try? previewContext.fetch(fetchRequest),
       let first = results.first {
       return Animal(managedObject: first)
@@ -97,7 +96,7 @@ extension CoreDataHelper {
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
     guard let results = try? previewContext.fetch(fetchRequest),
-      let first = results.first else { return nil }
+    let first = results.first else { return nil }
     return first
   }
 
