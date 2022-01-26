@@ -44,10 +44,11 @@ struct AnimalImage: View {
   let geometry: GeometryProxy
 
   var body: some View {
-    AsyncImage(url: animalPicture, content: { image in image
-      .resizable()
-      .aspectRatio(zoomed ? nil : 1, contentMode: zoomed ? .fit : .fill)
-    }, placeholder: {
+    AsyncImage(url: animalPicture) { image in
+      image
+        .resizable()
+        .aspectRatio(zoomed ? nil : 1, contentMode: zoomed ? .fit : .fill)
+    } placeholder: {
       Image("rw-logo")
         .resizable()
         .aspectRatio(contentMode: .fit)
@@ -58,21 +59,21 @@ struct AnimalImage: View {
               .background(.gray.opacity(0.4))
           }
         }
-    })
-      .clipShape(
-        RoundedRectangle(cornerRadius: zoomed ? 0 : 300)
-      )
-      .frame(
-        width: zoomed ? geometry.frame(in: .local).width : 100,
-        height: zoomed ? geometry.frame(in: .global).midX : 100
-      )
-      .position(
-        x: zoomed ? geometry.frame(in: .local).midX : 50,
-        y: zoomed ? geometry.frame(in: .global).midX : 50
-      )
-      .scaleEffect((zoomed ? 5 : 3) / 3)
-      .shadow(radius: zoomed ? 10 : 1)
-      .animation(.spring(), value: zoomed)
+    }
+    .clipShape(
+      RoundedRectangle(cornerRadius: zoomed ? 0 : 300)
+    )
+    .frame(
+      width: zoomed ? geometry.frame(in: .local).width : 100,
+      height: zoomed ? geometry.frame(in: .global).midX : 100
+    )
+    .position(
+      x: zoomed ? geometry.frame(in: .local).midX : 50,
+      y: zoomed ? geometry.frame(in: .global).midX : 50
+    )
+    .scaleEffect((zoomed ? 5 : 3) / 3)
+    .shadow(radius: zoomed ? 10 : 1)
+    .animation(.spring(), value: zoomed)
   }
 }
 

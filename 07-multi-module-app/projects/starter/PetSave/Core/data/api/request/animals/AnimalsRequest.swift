@@ -51,6 +51,7 @@ enum AnimalsRequest: RequestProtocol {
       }
       params["sort"] = "random"
       return params
+
     case let .getAnimalsBy(name, age, type):
       var params: [String: String] = [:]
       if !name.isEmpty {

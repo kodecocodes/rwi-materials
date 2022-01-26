@@ -34,11 +34,12 @@ import SwiftUI
 
 struct SearchView: View {
   @FetchRequest(
-    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],
+    sortDescriptors: [
+      NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
+    ],
     animation: .default
   )
   private var animals: FetchedResults<AnimalEntity>
-
 
   @StateObject var viewModel = SearchViewModel(
     animalSearcher: AnimalSearcherService(requestManager: RequestManager()),
@@ -46,6 +47,11 @@ struct SearchView: View {
       context: PersistenceController.shared.container.newBackgroundContext()
     )
   )
+
+  var filteredAnimals: [AnimalEntity] {
+    guard viewModel.shouldFilter else { return [] }
+    return filterAnimals()
+  }
 
   @State var filterPickerIsPresented = false
 
@@ -56,11 +62,6 @@ struct SearchView: View {
       age: viewModel.ageSelection,
       type: viewModel.typeSelection
     )
-  }
-
-  var filteredAnimals: [AnimalEntity] {
-    guard viewModel.shouldFilter else { return [] }
-    return filterAnimals()
   }
 
   var body: some View {
