@@ -32,6 +32,7 @@
 
 import CoreData
 
+// MARK: - CoreDataPersistable
 extension VideoLink: CoreDataPersistable {
   var keyMap: [PartialKeyPath<VideoLink>: String] {
     [
