@@ -77,7 +77,10 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
       animalStore: AnimalStoreService(context: testContext)
     )
     await viewModel.fetchAnimals()
-    XCTAssertFalse(viewModel.hasMoreAnimals, "hasMoreAnimals should be false with an empty response, but it's true")
+    XCTAssertFalse(
+      viewModel.hasMoreAnimals,
+      "hasMoreAnimals should be false with an empty response, but it's true"
+    )
     XCTAssertFalse(
       viewModel.isLoading,
       "the view model shouldn't be loading after receivng an empty response, but it is"

@@ -30,8 +30,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
 protocol RequestManagerProtocol {
   var apiManager: APIManagerProtocol { get }
   var parser: DataParserProtocol { get }
@@ -70,7 +68,7 @@ class RequestManager: RequestManagerProtocol {
   }
 }
 
-// MARK: - Parse Data
+// MARK: - Returns Data Parser
 extension RequestManagerProtocol {
   var parser: DataParserProtocol {
     return DataParser()

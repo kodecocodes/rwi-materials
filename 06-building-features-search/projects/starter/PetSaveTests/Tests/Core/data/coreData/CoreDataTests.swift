@@ -47,14 +47,15 @@ class CoreDataTests: XCTestCase {
     let previewContext = PersistenceController.preview.container.viewContext
     let fetchRequest = AnimalEntity.fetchRequest()
     fetchRequest.fetchLimit = 1
+    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \AnimalEntity.name, ascending: true)]
     guard let results = try? previewContext.fetch(fetchRequest),
       let first = results.first else { return }
 
-      XCTAssert(first.name == "Kiki", """
+      XCTAssert(first.name == "CHARLA", """
         Pet name did not match, was expecting Kiki, got
         \(String(describing: first.name))
       """)
-      XCTAssert(first.type == "Cat", """
+      XCTAssert(first.type == "Dog", """
         Pet type did not match, was expecting Cat, got
         \(String(describing: first.type))
       """)
@@ -77,8 +78,8 @@ class CoreDataTests: XCTestCase {
     guard let results = try? previewContext.fetch(fetchRequest)
       else { return }
 
-    XCTAssert(results.count == 11, """
-      The number of results was expected to be 11 after deletion, was \(results.count)
+    XCTAssert(results.count == 9, """
+      The number of results was expected to be 9 after deletion, was \(results.count)
     """)
   }
 

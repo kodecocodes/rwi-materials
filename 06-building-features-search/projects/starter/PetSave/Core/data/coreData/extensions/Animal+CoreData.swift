@@ -132,6 +132,7 @@ extension AnimalEntity {
   }
 }
 
+// MARK: - UUIDIdentifiable
 extension Animal: UUIDIdentifiable {
   init(managedObject: AnimalEntity) {
     self.age = managedObject.age
