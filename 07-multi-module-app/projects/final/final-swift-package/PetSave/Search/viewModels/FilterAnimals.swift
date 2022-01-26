@@ -30,17 +30,23 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Foundation
+
 import SwiftUI
 
+// 1
 struct FilterAnimals {
+  // 2
   let animals: FetchedResults<AnimalEntity>
   let query: String
   let age: AnimalSearchAge
   let type: AnimalSearchType
 
+  // 3
   func callAsFunction() -> [AnimalEntity] {
     let ageText = age.rawValue.lowercased()
     let typeText = type.rawValue.lowercased()
+    // 4
     return animals.filter {
       if ageText != "none" {
         return $0.age.rawValue.lowercased() == ageText
