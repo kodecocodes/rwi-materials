@@ -67,7 +67,7 @@ struct AnimalsNearYouView: View {
           ProgressView("Finding Animals near you...")
         }
       }
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
