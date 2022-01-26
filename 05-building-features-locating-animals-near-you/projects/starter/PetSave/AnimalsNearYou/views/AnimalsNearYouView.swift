@@ -87,7 +87,7 @@ struct AnimalsNearYouView: View {
   }
 
   @MainActor
-  func stopLoading() {
+  func stopLoading() async {
     self.isLoading = false
   }
 }
