@@ -33,7 +33,7 @@
 import SwiftUI
 
 struct AnimalRow: View {
-  let animal: AnimalEntity
+  let animal: Animal
 
   var body: some View {
     HStack {
@@ -53,9 +53,9 @@ struct AnimalRow: View {
               }
             }
         })
-      .aspectRatio(contentMode: .fit)
-      .frame(width: 112, height: 112)
-      .cornerRadius(8)
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 112, height: 112)
+        .cornerRadius(8)
 
       VStack(alignment: .leading) {
         Text(animal.name ?? "No Name Available")

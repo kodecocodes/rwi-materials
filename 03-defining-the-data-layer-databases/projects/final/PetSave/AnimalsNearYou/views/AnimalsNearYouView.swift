@@ -74,11 +74,14 @@ struct AnimalsNearYouView: View {
 
   func fetchAnimals() async {
     do {
-      let animalsContainer: AnimalsContainer = try await requestManager.initRequest(with: AnimalsRequest.getAnimals)
+      let animalsContainer: AnimalsContainer = try await requestManager.initRequest(with: AnimalsRequest.getAnimalsWith(
+        page: 1,
+        latitude: nil,
+        longitude: nil))
       for var animal in animalsContainer.animals {
         animal.toManagedObject()
       }
-      stopLoading()
+      await stopLoading()
     } catch {
       print("Error fetching animals...\(error)")
     }

@@ -55,6 +55,7 @@ struct AnimalRow: View {
         .aspectRatio(contentMode: .fit)
         .frame(width: 112, height: 112)
         .cornerRadius(8)
+
       VStack(alignment: .leading) {
         Text(animal.name)
           .multilineTextAlignment(.center)
