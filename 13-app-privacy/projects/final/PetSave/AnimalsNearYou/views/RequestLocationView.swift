@@ -38,11 +38,9 @@ struct RequestLocationView: View {
 
   var body: some View {
     VStack {
-      // 1
       Image("creature_dog-and-bone")
         .resizable()
         .frame(width: 240, height: 240)
-      // 2
       Text(
         """
         To find pets near you, first, you need to
@@ -50,7 +48,6 @@ struct RequestLocationView: View {
         """
       )
         .multilineTextAlignment(.center)
-      // 3
       LocationButton {
         locationManager.requestWhenInUseAuthorization()
       }
@@ -60,7 +57,6 @@ struct RequestLocationView: View {
     }
     .padding()
     .onAppear {
-      // 4
       locationManager.updateAuthorizationStatus()
     }
   }
