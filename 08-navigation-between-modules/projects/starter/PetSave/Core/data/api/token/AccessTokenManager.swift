@@ -48,7 +48,7 @@ class AccessTokenManager {
   }
 }
 
-// MARK: - AccessTokenProtocol
+// MARK: - AccessTokenManagerProtocol
 extension AccessTokenManager: AccessTokenManagerProtocol {
   func isTokenValid() -> Bool {
     accessToken = getToken()

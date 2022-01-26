@@ -43,6 +43,12 @@ struct AnimalsView_Previews: PreviewProvider {
     NavigationView {
       AnimalDetailsView()
     }
+    .previewLayout(.sizeThatFits)
+    .previewDisplayName("iPhone SE (2nd generation)")
+
+    NavigationView {
+      AnimalDetailsView()
+    }
     .previewDevice("iPhone 12 Pro")
     .previewDisplayName("iPhone 12 Pro")
   }

@@ -30,10 +30,23 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import CoreLocation
+import Foundation
+import CoreData
 
-struct AnimalFetcherMock: AnimalsFetcher {
-  func fetchAnimals(page: Int) async -> [Animal] {
-    return Animal.mock
+actor AnimalStoreService {
+  private let context: NSManagedObjectContext
+
+  init(context: NSManagedObjectContext) {
+    self.context = context
+  }
+}
+
+// MARK: - AnimalStore
+extension AnimalStoreService: AnimalStore {
+  func save(animals: [Animal]) async throws {
+    for var animal in animals {
+      animal.toManagedObject(context: context)
+    }
+    try context.save()
   }
 }

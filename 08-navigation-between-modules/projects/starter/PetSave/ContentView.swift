@@ -34,34 +34,30 @@ import SwiftUI
 
 struct ContentView: View {
   let managedObjectContext = PersistenceController.shared.container.viewContext
-  let locationManager = LocationManager()
 
   var body: some View {
     TabView {
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
-          animalFetcher: FetchAnimalsService(),
-          context: managedObjectContext
+          animalFetcher: FetchAnimalsService(
+            requestManager:
+              RequestManager()
+          ),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.shared.container.newBackgroundContext()
+          )
         )
       )
       .tabItem {
         Label("Near you", systemImage: "location")
       }
-      .environmentObject(locationManager)
       .environment(\.managedObjectContext, managedObjectContext)
 
-      SearchView(
-        viewModel: SearchViewModel(
-          animalSearcher: AnimalSearcherService(
-            requestManager: RequestManager()
-          ),
-          context: managedObjectContext
-        )
-      )
-      .tabItem {
-        Label("Search", systemImage: "magnifyingglass")
-      }
-      .environment(\.managedObjectContext, managedObjectContext)
+      SearchView()
+        .tabItem {
+          Label("Search", systemImage: "magnifyingglass")
+        }
+        .environment(\.managedObjectContext, managedObjectContext)
     }
   }
 }

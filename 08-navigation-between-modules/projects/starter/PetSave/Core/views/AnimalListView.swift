@@ -32,45 +32,55 @@
 
 import SwiftUI
 
-struct LoadingAnimation: UIViewRepresentable {
-  let animatedFrames: UIImage
+// 1
+struct AnimalListView<Content, Data>: View
+  where Content: View,
+  Data: RandomAccessCollection,
+  Data.Element: AnimalEntity {
+  let animals: Data
 
-  init() {
-    var images: [UIImage] = []
-    for i in 1...127 {
-      guard let image = UIImage(named: "dog_\(String(format: "%03d", i))") else { continue }
-      images.append(image)
+  // 2
+  let footer: Content
+
+  // 3
+  init(animals: Data, @ViewBuilder footer: () -> Content) {
+    self.animals = animals
+    self.footer = footer()
+  }
+
+  // 4
+  init(animals: Data) where Content == EmptyView {
+    self.init(animals: animals) {
+      EmptyView()
     }
-    animatedFrames = UIImage.animatedImage(with: images, duration: 4) ?? UIImage()
   }
 
-  func makeUIView(context: Context) -> UIView {
-    let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-    let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-    image.clipsToBounds = true
-    image.autoresizesSubviews = true
-    image.contentMode = .scaleAspectFit
-    image.image = animatedFrames
-    view.addSubview(image)
-
-    return view
-  }
-
-  func updateUIView(_ uiView: UIViewType, context: Context) {
-    // no code here; just for protocol
-  }
-}
-
-struct LoadingAnimationView: View {
   var body: some View {
-    VStack {
-      LoadingAnimation()
+    // 5
+    List {
+      ForEach(animals) { animal in
+        NavigationLink(destination: AnimalDetailsView()) {
+          AnimalRow(animal: animal)
+        }
+      }
+
+      // 6
+      footer
     }
+    .listStyle(.plain)
   }
 }
 
-struct LoadingAnimationView_Previews: PreviewProvider {
+struct AnimalListView_Previews: PreviewProvider {
   static var previews: some View {
-    LoadingAnimationView()
+    NavigationView {
+      AnimalListView(animals: CoreDataHelper.getTestAnimalEntities() ?? [])
+    }
+
+    NavigationView {
+      AnimalListView(animals: []) {
+        Text("This is a footer")
+      }
+    }
   }
 }
