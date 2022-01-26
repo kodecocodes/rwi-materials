@@ -60,7 +60,6 @@ struct SearchFilterView: View {
       footer: {
         Text("You can mix both, age and type, to make a more accurate search.")
       }
-      // swiftlint:enable multiple_closures_with_trailing_closure
       Button("Clear", role: .destructive, action: viewModel.clearFilters)
       Button("Done") {
         dismiss()
