@@ -33,11 +33,19 @@
 import SwiftUI
 
 struct AnimalsNearYouView: View {
+  @State var animals: [Animal] = []
+  @State var isLoading = true
+  
   var body: some View {
     NavigationView {
       Text("TODO: Animals Near You View")
         .navigationTitle("Animals near you")
     }.navigationViewStyle(StackNavigationViewStyle())
+  }
+
+  @MainActor
+  func stopLoading() async {
+    isLoading = false
   }
 }
 
