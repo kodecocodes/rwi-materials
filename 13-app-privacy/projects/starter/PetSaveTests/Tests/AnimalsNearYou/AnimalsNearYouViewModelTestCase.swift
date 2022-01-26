@@ -83,7 +83,7 @@ final class AnimalsNearYouViewModelTestCase: XCTestCase {
     )
     XCTAssertFalse(
       viewModel.isLoading,
-      "the view model shouldn't be loading after receivng an empty response, but it is"
+      "the view model shouldn't be loading after receiving an empty response, but it is"
     )
   }
 }
