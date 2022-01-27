@@ -42,6 +42,7 @@ protocol CoreDataPersistable: UUIDIdentifiable {
   init(managedObject: ManagedType?)
   var keyMap: [PartialKeyPath<Self>: String] { get }
   mutating func toManagedObject(context: NSManagedObjectContext) -> ManagedType
+
   func save(context: NSManagedObjectContext) throws
 }
 
@@ -91,6 +92,10 @@ extension CoreDataPersistable where ManagedType: NSManagedObject {
       self.id = persistedValue.value(forKey: "id") as? Int
     }
 
+    return setValuesFromMirror(persistedValue: persistedValue)
+  }
+
+  private func setValuesFromMirror(persistedValue: ManagedType) -> ManagedType {
     let mirror = Mirror(reflecting: self)
     for case let (label?, value) in mirror.children {
       let value2 = Mirror(reflecting: value)

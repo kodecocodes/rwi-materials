@@ -30,70 +30,49 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import CoreData
+import Foundation
 
 protocol AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal]
 }
 
+protocol AnimalStore {
+  func save(animals: [Animal]) async throws
+}
+
+@MainActor
 final class AnimalsNearYouViewModel: ObservableObject {
   @Published var isLoading: Bool
   @Published var hasMoreAnimals = true
-
-  var page = 1
-
   private let animalFetcher: AnimalsFetcher
-  private let context: NSManagedObjectContext
+  private let animalStore: AnimalStore
+
+  private(set) var page = 1
 
   init(
     isLoading: Bool = true,
     animalFetcher: AnimalsFetcher,
-    context: NSManagedObjectContext
+    animalStore: AnimalStore
   ) {
     self.isLoading = isLoading
     self.animalFetcher = animalFetcher
-    self.context = context
+    self.animalStore = animalStore
   }
 
   func fetchAnimals() async {
-    let animals = await requestAnimals()
-    await addAnimals(animals: animals)
-  }
-
-  func fetchMoreAnimals() {
-    Task {
-      page += 1
-      let animals = await requestAnimals()
-      await addAnimals(animals: animals)
-    }
-  }
-
-  func requestAnimals() async -> [Animal] {
-    await animalFetcher.fetchAnimals(
-      page: page
-    )
-  }
-
-  func refresh() {
-    CoreDataHelper.clearDatabase()
-    hasMoreAnimals = true
-    page = 1
-    Task {
-      await fetchAnimals()
-    }
-  }
-
-  @MainActor
-  func addAnimals(animals: [Animal]) {
-    hasMoreAnimals = !animals.isEmpty
-    for var animal in animals {
-      animal.toManagedObject(context: context)
+    isLoading = true
+    let animals = await animalFetcher.fetchAnimals(page: page)
+    do {
+      try await animalStore.save(animals: animals)
+    } catch {
+      print("Error storing animals... \(error.localizedDescription)")
     }
     isLoading = false
-    do {
-      try context.save()
-    } catch {
-      print("Error saving to database \(error)")
-    }
+    hasMoreAnimals = !animals.isEmpty
+  }
+
+  func fetchMoreAnimals() async {
+    page += 1
+    await fetchAnimals()
   }
 }

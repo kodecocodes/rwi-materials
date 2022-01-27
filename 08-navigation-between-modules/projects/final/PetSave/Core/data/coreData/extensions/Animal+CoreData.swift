@@ -126,6 +126,10 @@ extension AnimalEntity {
     .compactMap { $0 }
     .joined(separator: ", ")
   }
+
+  @objc var animalSpecies: String {
+    return species ?? "None"
+  }
 }
 
 // MARK: - UUIDIdentifiable

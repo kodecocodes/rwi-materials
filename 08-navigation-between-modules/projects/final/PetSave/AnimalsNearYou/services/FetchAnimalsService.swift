@@ -30,25 +30,27 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-final class FetchAnimalsService {
+import Foundation
+
+actor FetchAnimalsService {
   private let requestManager: RequestManagerProtocol
 
-  init(requestManager: RequestManagerProtocol = RequestManager()) {
+  init(requestManager: RequestManagerProtocol) {
     self.requestManager = requestManager
   }
 }
 
-import CoreLocation
-// MARK: - AnimalsFetcher
+// MARK: - AnimalFetcher
 extension FetchAnimalsService: AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
     let requestData = AnimalsRequest.getAnimalsWith(
       page: page,
-      latitude: 0,
-      longitude: 0
+      latitude: nil,
+      longitude: nil
     )
     do {
-      let animalsContainer: AnimalsContainer = try await requestManager.initRequest(with: requestData)
+      let animalsContainer: AnimalsContainer = try await
+        requestManager.initRequest(with: requestData)
       return animalsContainer.animals
     } catch {
       print(error.localizedDescription)

@@ -41,5 +41,6 @@ extension Breed: CoreDataPersistable {
       \.id: "id"
     ]
   }
+
   typealias ManagedType = BreedEntity
 }

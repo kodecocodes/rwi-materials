@@ -41,8 +41,13 @@ struct ContentView: View {
     TabView(selection: $tabNavigator.currentTab) {
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
-          animalFetcher: FetchAnimalsService(),
-          context: managedObjectContext
+          animalFetcher: FetchAnimalsService(
+            requestManager:
+              RequestManager()
+          ),
+          animalStore: AnimalStoreService(
+            context: PersistenceController.shared.container.newBackgroundContext()
+          )
         )
       )
         .badge(2)
@@ -53,14 +58,7 @@ struct ContentView: View {
         .environmentObject(locationManager)
         .environment(\.managedObjectContext, managedObjectContext)
 
-      SearchView(
-        viewModel: SearchViewModel(
-          animalSearcher: AnimalSearcherService(
-            requestManager: RequestManager()
-          ),
-          context: managedObjectContext
-        )
-      )
+      SearchView()
         .tag(PetSaveTabType.search)
         .tabItem {
           Label("Search", systemImage: "magnifyingglass")

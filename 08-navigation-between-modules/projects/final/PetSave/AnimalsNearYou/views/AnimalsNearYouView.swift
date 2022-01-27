@@ -1,15 +1,15 @@
 /// Copyright (c) 2021 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -36,7 +36,7 @@ import PetSaveOnboarding
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
   @State var settingsIsPresented = false
-  @StateObject var navigationState = NavigationState()
+
   @FetchRequest(
     sortDescriptors: [
       NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
@@ -44,26 +44,17 @@ struct AnimalsNearYouView: View {
     animation: .default
   )
   var animals: FetchedResults<AnimalEntity>
-  var router = AnimalDetailsRouter()
 
   var body: some View {
     NavigationView {
-      List {
-        Button(navigationState.isNavigatingDisabled ? "Enable Navigation" : "Disable Navigation") {
-          navigationState.isNavigatingDisabled.toggle()
-        }
-        ForEach(animals) { animal in
-          NavigationLink(
-            destination: AnimalDetailsView(name: animal.name ?? "")
-          ) {
-            AnimalRow(animal: animal)
-          }.disabled(navigationState.isNavigatingDisabled)
-        }
+      AnimalListView(animals: animals) {
         if !animals.isEmpty && viewModel.hasMoreAnimals {
           ProgressView("Finding more animals...")
             .padding()
             .frame(maxWidth: .infinity)
-            .onAppear(perform: viewModel.fetchMoreAnimals)
+            .task {
+              await viewModel.fetchMoreAnimals()
+            }
         }
       }
       .task {
@@ -71,16 +62,12 @@ struct AnimalsNearYouView: View {
       }
       .listStyle(.plain)
       .navigationTitle("Animals near you")
-      .refreshable {
-        viewModel.refresh()
-      }
       .overlay {
-        if viewModel.isLoading {
+        if viewModel.isLoading && animals.isEmpty {
           ProgressView("Finding Animals near you...")
         }
       }
     }.navigationViewStyle(StackNavigationViewStyle())
-      .environmentObject(navigationState)
   }
 
   func presentSettings() {
@@ -95,14 +82,12 @@ struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
     AnimalsNearYouView(
       viewModel: AnimalsNearYouViewModel(
-        isLoading: false,
-        animalFetcher: AnimalFetcherMock(),
-        context: PersistenceController.preview.container.viewContext
+        animalFetcher: AnimalsFetcherMock(),
+        animalStore: AnimalStoreService(
+          context: PersistenceController.preview.container.viewContext
+        )
       )
     )
-      .environment(
-        \.managedObjectContext,
-        PersistenceController.preview.container.viewContext
-      )
+    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }
 }

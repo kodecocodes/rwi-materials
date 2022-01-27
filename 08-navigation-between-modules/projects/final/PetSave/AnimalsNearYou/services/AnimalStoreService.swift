@@ -31,21 +31,22 @@
 /// THE SOFTWARE.
 
 import Foundation
+import CoreData
 
-// MARK: - Load animals
-extension Animal {
-  static let mock = loadAnimals()
+actor AnimalStoreService {
+  private let context: NSManagedObjectContext
+
+  init(context: NSManagedObjectContext) {
+    self.context = context
+  }
 }
 
-private struct AnimalsMock: Codable {
-  let animals: [Animal]
-}
-
-private func loadAnimals() -> [Animal] {
-  guard let url = Bundle.main.url(forResource: "AnimalsMock", withExtension: "json"),
-    let data = try? Data(contentsOf: url) else { return [] }
-  let decoder = JSONDecoder()
-  decoder.keyDecodingStrategy = .convertFromSnakeCase
-  let jsonMock = try? decoder.decode(AnimalsMock.self, from: data)
-  return jsonMock?.animals ?? []
+// MARK: - AnimalStore
+extension AnimalStoreService: AnimalStore {
+  func save(animals: [Animal]) async throws {
+    for var animal in animals {
+      animal.toManagedObject(context: context)
+    }
+    try context.save()
+  }
 }

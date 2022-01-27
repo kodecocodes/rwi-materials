@@ -30,47 +30,22 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct LoadingAnimation: UIViewRepresentable {
-  let animatedFrames: UIImage
-
-  init() {
-    var images: [UIImage] = []
-    for i in 1...127 {
-      guard let image = UIImage(named: "dog_\(String(format: "%03d", i))") else { continue }
-      images.append(image)
-    }
-    animatedFrames = UIImage.animatedImage(with: images, duration: 4) ?? UIImage()
-  }
-
-  func makeUIView(context: Context) -> UIView {
-    let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-    let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-    image.clipsToBounds = true
-    image.autoresizesSubviews = true
-    image.contentMode = .scaleAspectFit
-    image.image = animatedFrames
-    view.addSubview(image)
-
-    return view
-  }
-
-  func updateUIView(_ uiView: UIViewType, context: Context) {
-    // no code here; just for protocol
-  }
+// MARK: - Mock data
+extension Animal {
+  static let mock = loadAnimals()
 }
 
-struct LoadingAnimationView: View {
-  var body: some View {
-    VStack {
-      LoadingAnimation()
-    }
-  }
+private struct AnimalsMock: Codable {
+  let animals: [Animal]
 }
 
-struct LoadingAnimationView_Previews: PreviewProvider {
-  static var previews: some View {
-    LoadingAnimationView()
-  }
+private func loadAnimals() -> [Animal] {
+  guard let url = Bundle.main.url(forResource: "AnimalsMock", withExtension: "json"),
+    let data = try? Data(contentsOf: url) else { return [] }
+  let decoder = JSONDecoder()
+  decoder.keyDecodingStrategy = .convertFromSnakeCase
+  let jsonMock = try? decoder.decode(AnimalsMock.self, from: data)
+  return jsonMock?.animals ?? []
 }

@@ -33,14 +33,27 @@
 import SwiftUI
 
 struct SearchView: View {
-  @ObservedObject var viewModel: SearchViewModel
-  @State var showFilterPickers = false
-
   @FetchRequest(
-    sortDescriptors: [NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)],
+    sortDescriptors: [
+      NSSortDescriptor(keyPath: \AnimalEntity.timestamp, ascending: true)
+    ],
     animation: .default
   )
   private var animals: FetchedResults<AnimalEntity>
+
+  @StateObject var viewModel = SearchViewModel(
+    animalSearcher: AnimalSearcherService(requestManager: RequestManager()),
+    animalStore: AnimalStoreService(
+      context: PersistenceController.shared.container.newBackgroundContext()
+    )
+  )
+
+  var filteredAnimals: [AnimalEntity] {
+    guard viewModel.shouldFilter else { return [] }
+    return filterAnimals()
+  }
+
+  @State var filterPickerIsPresented = false
 
   private var filterAnimals: FilterAnimals {
     FilterAnimals(
@@ -51,69 +64,61 @@ struct SearchView: View {
     )
   }
 
-  var searchAnimalsResults: [AnimalEntity] {
-    if viewModel.shouldFilter {
-      return filterAnimals()
-    }
-    return []
-  }
-
   var body: some View {
     NavigationView {
-      List {
-        ForEach(searchAnimalsResults) { animal in
-          NavigationLink(destination: AnimalDetailsView(name: "Snow")) {
-            AnimalRow(animal: animal)
+      AnimalListView(animals: filteredAnimals)
+        .navigationTitle("Find your future pet")
+        .searchable(
+          text: $viewModel.searchText,
+          placement: .navigationBarDrawer(displayMode: .always)
+        )
+        .onChange(of: viewModel.searchText) { _ in
+          viewModel.search()
+        }
+        .overlay {
+          if filteredAnimals.isEmpty && !viewModel.searchText.isEmpty {
+            EmptyResultsView(query: viewModel.searchText)
           }
         }
-      }
-      .overlay {
-        if searchAnimalsResults.isEmpty {
-          SuggestionsGrid(
-            suggestions: AnimalSearchType.suggestions,
-            viewModel: viewModel
-          )
-          .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        }
-      }
-      .overlay {
-        if searchAnimalsResults.isEmpty && !viewModel.searchText.isEmpty {
-          EmptyResultsView(query: "Kiki")
-        }
-      }
-      .listStyle(.plain)
-      .navigationTitle("Find your future pet")
-      .searchable(text: $viewModel.searchText)
-      .onChange(of: viewModel.searchText) { _ in
-        viewModel.search()
-      }
-      .toolbar {
-        ToolbarItem {
-          Button {
-            showFilterPickers.toggle()
-          } label: {
-            Label("Filter", systemImage: "slider.horizontal.3")
-          }
-          .sheet(isPresented: $showFilterPickers) {
-            NavigationView {
-              SearchFilterView(viewModel: viewModel)
+        .toolbar {
+          ToolbarItem {
+            Button {
+              filterPickerIsPresented.toggle()
+            } label: {
+              Label("Filter", systemImage: "slider.horizontal.3")
+            }
+            .sheet(isPresented: $filterPickerIsPresented) {
+              NavigationView {
+                SearchFilterView(viewModel: viewModel)
+              }
             }
           }
         }
-      }
-    }.navigationViewStyle(StackNavigationViewStyle())
+        .overlay {
+          if filteredAnimals.isEmpty && viewModel.searchText.isEmpty {
+            SuggestionsGrid(suggestions: AnimalSearchType.suggestions) { suggestion in
+              viewModel.selectTypeSuggestion(suggestion)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+          }
+        }
+    }
   }
 }
 
 struct SearchView_Previews: PreviewProvider {
-  static let context = PersistenceController.preview.container.viewContext
-
-  static let viewModel = SearchViewModel(
-    animalSearcher: AnimalSearcherMock(),
-    context: context
-  )
-
   static var previews: some View {
-    SearchView(viewModel: viewModel)
+    SearchView(
+      viewModel: SearchViewModel(
+        animalSearcher: AnimalSearcherMock(),
+        animalStore: AnimalStoreService(
+          context: PersistenceController.preview.container.viewContext
+        )
+      )
+    )
+    .environment(
+      \.managedObjectContext,
+      PersistenceController.preview.container.viewContext
+    )
   }
 }
