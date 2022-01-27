@@ -461,7 +461,7 @@
 		AE5EA14526AC9AE300895E34 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				E6B5E26E27A2011000178A6D /* Search */,
+				E6B5E26E27A2011000178A6D /* SearchAnimals */,
 				E6B5E26B27A200EC00178A6D /* AnimalsNearYou */,
 				AED3FC2E26A85DD6006D2BEE /* Core */,
 			);
@@ -732,12 +732,12 @@
 			path = AnimalsNearYou;
 			sourceTree = "<group>";
 		};
-		E6B5E26E27A2011000178A6D /* Search */ = {
+		E6B5E26E27A2011000178A6D /* SearchAnimals */ = {
 			isa = PBXGroup;
 			children = (
 				E6B5E26F27A2013200178A6D /* SearchViewModelTestCase.swift */,
 			);
-			path = Search;
+			path = SearchAnimals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
