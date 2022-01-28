@@ -98,6 +98,8 @@
 		AE8550D526D71D8B00D21317 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8550D426D71D8B00D21317 /* CoreDataTests.swift */; };
 		E634F8F32764FC6500B90A00 /* PetSaveOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = E634F8F22764FC6500B90A00 /* PetSaveOnboarding */; };
 		E6B5E27927A30FDB00178A6D /* AnimalStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5E27827A30FDB00178A6D /* AnimalStoreService.swift */; };
+		E6B5E27F27A3FB3600178A6D /* SearchViewModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5E27E27A3FB3600178A6D /* SearchViewModelTestCase.swift */; };
+		E6B5E28227A3FB7900178A6D /* AnimalsNearYouViewModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5E28127A3FB7900178A6D /* AnimalsNearYouViewModelTestCase.swift */; };
 		E6C4A8B82781FB7B00C145D5 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8B72781FB7B00C145D5 /* NavigationRouter.swift */; };
 		E6C4A8BF2782109000C145D5 /* AnimalDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C4A8BD2782109000C145D5 /* AnimalDetailsViewController.swift */; };
 		E6C4A8C02782109000C145D5 /* AnimalDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C4A8BE2782109000C145D5 /* AnimalDetailsViewController.xib */; };
@@ -238,6 +240,8 @@
 		AE8550D426D71D8B00D21317 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		AED3FC3326A863A2006D2BEE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E6B5E27827A30FDB00178A6D /* AnimalStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalStoreService.swift; sourceTree = "<group>"; };
+		E6B5E27E27A3FB3600178A6D /* SearchViewModelTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModelTestCase.swift; sourceTree = "<group>"; };
+		E6B5E28127A3FB7900178A6D /* AnimalsNearYouViewModelTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimalsNearYouViewModelTestCase.swift; path = PetSaveTests/Tests/AnimalsNearYou/AnimalsNearYouViewModelTestCase.swift; sourceTree = SOURCE_ROOT; };
 		E6C4A8B72781FB7B00C145D5 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		E6C4A8BD2782109000C145D5 /* AnimalDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsViewController.swift; sourceTree = "<group>"; };
 		E6C4A8BE2782109000C145D5 /* AnimalDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalDetailsViewController.xib; sourceTree = "<group>"; };
@@ -466,7 +470,8 @@
 		AE5EA14526AC9AE300895E34 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				E6B5E27A27A315E400178A6D /* New Group */,
+				E6B5E28027A3FB6700178A6D /* AnimalsNearYou */,
+				E6B5E27D27A3FB2800178A6D /* SearchAnimals */,
 				AED3FC2E26A85DD6006D2BEE /* Core */,
 			);
 			path = Tests;
@@ -731,11 +736,20 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		E6B5E27A27A315E400178A6D /* New Group */ = {
+		E6B5E27D27A3FB2800178A6D /* SearchAnimals */ = {
 			isa = PBXGroup;
 			children = (
+				E6B5E27E27A3FB3600178A6D /* SearchViewModelTestCase.swift */,
 			);
-			path = "New Group";
+			path = SearchAnimals;
+			sourceTree = "<group>";
+		};
+		E6B5E28027A3FB6700178A6D /* AnimalsNearYou */ = {
+			isa = PBXGroup;
+			children = (
+				E6B5E28127A3FB7900178A6D /* AnimalsNearYouViewModelTestCase.swift */,
+			);
+			path = AnimalsNearYou;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1042,8 +1056,10 @@
 				AE8550D526D71D8B00D21317 /* CoreDataTests.swift in Sources */,
 				AE72004826E9886A00E7489D /* RequestManagerMock.swift in Sources */,
 				AE72004626E9886A00E7489D /* AnimalsRequestMock.swift in Sources */,
+				E6B5E28227A3FB7900178A6D /* AnimalsNearYouViewModelTestCase.swift in Sources */,
 				AE72004426E9886A00E7489D /* AccessTokenManagerTests.swift in Sources */,
 				AE72004326E9886A00E7489D /* AccessTokenTestHelper.swift in Sources */,
+				E6B5E27F27A3FB3600178A6D /* SearchViewModelTestCase.swift in Sources */,
 				AE72004526E9886A00E7489D /* RequestManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
