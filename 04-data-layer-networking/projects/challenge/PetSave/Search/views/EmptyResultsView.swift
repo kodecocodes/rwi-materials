@@ -32,47 +32,24 @@
 
 import SwiftUI
 
-struct PetRankingView: View {
+struct EmptyResultsView: View {
+  let query: String
   var body: some View {
-    Text("TODO: Pet Ranking View")
+    VStack {
+      Image(systemName: "pawprint.circle.fill")
+        .resizable()
+        .frame(width: 64, height: 64)
+        .padding()
+        .foregroundColor(.yellow)
+      Text("Sorry, we couldn't find animals for \"\(query)\"")
+        .foregroundColor(.secondary)
+        .multilineTextAlignment(.center)
+    }
   }
 }
 
-struct PetRankImage: View {
-  let index: Int
-  @State var opacity: Double = 0.4
-  @State var tapped = false
-  @Binding var recentIndex: Int
-
-  var body: some View {
-    Image("creature_dog-and-bone")
-      .resizable()
-      .aspectRatio(contentMode: .fit)
-      .opacity(opacity)
-      .frame(width: 50, height: 50)
-      .onTapGesture {
-        opacity = tapped ? 0.4 : 1.0
-        tapped.toggle()
-        recentIndex = index
-      }
-      .onChange(of: recentIndex) { value in
-        checkOpacity(value: value)
-      }
-      .onAppear {
-        checkOpacity(value: recentIndex)
-      }
-  }
-
-  func checkOpacity(value: Int) {
-    opacity = value >= index ? 1.0 : 0.4
-    tapped.toggle()
-  }
-}
-
-struct PetRankingView_Previews: PreviewProvider {
+struct EmptyResultsView_Previews: PreviewProvider {
   static var previews: some View {
-    PetRankingView()
-      .padding()
-      .previewLayout(.sizeThatFits)
+    EmptyResultsView(query: "Kiki")
   }
 }
