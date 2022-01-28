@@ -43,7 +43,7 @@ struct AnimalsNearYouView: View {
     ],
     animation: .default
   )
-  var animals: FetchedResults<AnimalEntity>
+  private var animals: FetchedResults<AnimalEntity>
 
   var body: some View {
     NavigationView {
@@ -67,7 +67,8 @@ struct AnimalsNearYouView: View {
           ProgressView("Finding Animals near you...")
         }
       }
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 
   func presentSettings() {
