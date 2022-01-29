@@ -67,8 +67,10 @@ struct AnimalLocationView: View {
 
 struct AnimalLocationView_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalLocationView(animal: animalMock)
-      .padding()
-      .previewLayout(.sizeThatFits)
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      AnimalLocationView(animal: animal)
+        .padding()
+        .previewLayout(.sizeThatFits)
+    }
   }
 }
