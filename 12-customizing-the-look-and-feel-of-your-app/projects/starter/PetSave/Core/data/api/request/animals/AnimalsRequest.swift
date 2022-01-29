@@ -30,8 +30,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
-
 enum AnimalsRequest: RequestProtocol {
   case getAnimalsWith(page: Int, latitude: Double?, longitude: Double?)
   case getAnimalsBy(name: String, age: String?, type: String?)
@@ -53,6 +51,7 @@ enum AnimalsRequest: RequestProtocol {
       }
       params["sort"] = "random"
       return params
+
     case let .getAnimalsBy(name, age, type):
       var params: [String: String] = [:]
       if !name.isEmpty {

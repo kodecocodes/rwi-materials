@@ -34,7 +34,6 @@ import SwiftUI
 
 struct ContentView: View {
   let managedObjectContext = PersistenceController.shared.container.viewContext
-  let locationManager = LocationManager()
 
   var body: some View {
     TabView {
@@ -52,7 +51,6 @@ struct ContentView: View {
       .tabItem {
         Label("Near you", systemImage: "location")
       }
-      .environmentObject(locationManager)
       .environment(\.managedObjectContext, managedObjectContext)
 
       SearchView()
