@@ -34,10 +34,10 @@ import SwiftUI
 struct AnimalDetailsRouter: NavigationRouter {
   typealias Data = AnimalEntity
 
-  func navigate<T: View>(data: AnimalEntity, view: (() -> T)?) -> AnyView {
+  func navigate<T: View>(data: AnimalEntity, navigationState: NavigationState, view: (() -> T)?) -> AnyView {
     return AnyView(
       NavigationLink(
-        destination: AnimalDetailsViewRepresentable(name: data.name ?? "")
+        destination: AnimalDetailsViewRepresentable(name: data.name ?? "").environmentObject(navigationState)
       ) {
         view?()
       }

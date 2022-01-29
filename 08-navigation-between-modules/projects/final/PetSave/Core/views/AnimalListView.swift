@@ -60,9 +60,13 @@ struct AnimalListView<Content, Data>: View
         navigationState.isNavigatingDisabled.toggle()
       }
       ForEach(animals) { animal in
-        NavigationLink(destination: AnimalDetailsView(name: animal.name ?? "").environmentObject(navigationState)) {
+        router.navigate(
+          data: animal,
+          navigationState: navigationState
+        ) {
           AnimalRow(animal: animal)
-        }.disabled(navigationState.isNavigatingDisabled)
+        }
+        .disabled(navigationState.isNavigatingDisabled)
       }
 
       footer

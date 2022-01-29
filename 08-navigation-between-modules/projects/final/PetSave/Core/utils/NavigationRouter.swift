@@ -34,5 +34,9 @@ import SwiftUI
 
 protocol NavigationRouter {
   associatedtype Data
-  func navigate<T: View>(data: Data, view: (() -> T)?) -> AnyView
+  func navigate<T: View>(
+    data: Data,
+    navigationState: NavigationState,
+    view: (() -> T)?
+  ) -> AnyView
 }
