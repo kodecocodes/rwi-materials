@@ -35,16 +35,21 @@ import SwiftUI
 struct AnimalRow: View {
   let animal: AnimalEntity
 
-  var animalName: String {
-    animal.name ?? ""
-  }
+  var animalName: String
 
-  var animalType: String {
-    animal.type ?? ""
-  }
+  var animalType: String
+
+  var animalDescription: String
 
   var animalBreedAndType: String {
     "\(animal.breed) \(animalType)"
+  }
+
+  init(animal: AnimalEntity) {
+    self.animal = animal
+    animalName = animal.name ?? ""
+    animalType = animal.type ?? ""
+    animalDescription = animal.desc ?? ""
   }
 
   var body: some View {
@@ -98,6 +103,8 @@ struct AnimalRow: View {
 
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalRow(animal: animalMock)
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      AnimalRow(animal: animal)
+    }
   }
 }

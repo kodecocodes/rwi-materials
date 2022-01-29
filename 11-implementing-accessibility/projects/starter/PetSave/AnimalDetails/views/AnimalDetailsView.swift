@@ -72,7 +72,6 @@ struct AnimalDetailsView: View {
                   Text("Details")
                     .font(.headline)
                   Text(description)
-                    .accessibility(label: Text("Details about this pet: " + description))
                 }
               }
               AnimalContactsView(animal: animal)
@@ -95,17 +94,19 @@ struct AnimalDetailsView: View {
 
 struct AnimalsView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AnimalDetailsView(animal: animalMock)
-        .previewLayout(.sizeThatFits)
-    }
-    .previewLayout(.sizeThatFits)
-    .previewDisplayName("iPhone SE (2nd generation)")
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      NavigationView {
+        AnimalDetailsView(animal: animal)
+          .previewLayout(.sizeThatFits)
+      }
+      .previewLayout(.sizeThatFits)
+      .previewDisplayName("iPhone SE (2nd generation)")
 
-    NavigationView {
-      AnimalDetailsView(animal: animalMock)
+      NavigationView {
+        AnimalDetailsView(animal: animal)
+      }
+      .previewDevice("iPhone 12 Pro")
+      .previewDisplayName("iPhone 12 Pro")
     }
-    .previewDevice("iPhone 12 Pro")
-    .previewDisplayName("iPhone 12 Pro")
   }
 }

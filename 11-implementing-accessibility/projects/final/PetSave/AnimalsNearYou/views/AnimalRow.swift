@@ -36,19 +36,10 @@ struct AnimalRow: View {
   let animal: AnimalEntity
 
   var animalName: String
-//  {
-//    animal.name ?? ""
-//  }
 
   var animalType: String
-//  {
-//    animal.type ?? ""
-//  }
 
   var animalDescription: String
-//  {
-//    animal.desc ?? ""
-//  }
 
   var animalBreedAndType: String {
     "\(animal.breed) \(animalType)"
@@ -124,7 +115,8 @@ struct AnimalRow: View {
 
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalRow(animal: animalMock)
-      .previewLayout(.sizeThatFits)
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      AnimalRow(animal: animal)
+    }
   }
 }

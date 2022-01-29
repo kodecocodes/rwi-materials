@@ -67,8 +67,8 @@ final class AnimalsNearYouViewModel: ObservableObject {
     } catch {
       print("Error storing animals... \(error.localizedDescription)")
     }
-    hasMoreAnimals = !animals.isEmpty
     isLoading = false
+    hasMoreAnimals = !animals.isEmpty
   }
 
   func fetchMoreAnimals() async {

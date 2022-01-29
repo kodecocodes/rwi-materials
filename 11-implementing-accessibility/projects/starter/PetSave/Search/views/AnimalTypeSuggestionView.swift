@@ -36,7 +36,7 @@ struct AnimalTypeSuggestionView: View {
   let suggestion: AnimalSearchType
 
   private var gradientColors: [Color] {
-    [.clear, .black]
+    [Color.clear, Color.black]
   }
 
   @ViewBuilder private var gradientOverlay: some View {
