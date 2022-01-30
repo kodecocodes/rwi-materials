@@ -31,10 +31,9 @@
 /// THE SOFTWARE.
 
 import Foundation
-import CoreLocation
 
 struct AnimalsFetcherMock: AnimalsFetcher {
   func fetchAnimals(page: Int) async -> [Animal] {
-    return Animal.mock
+    Animal.mock
   }
 }

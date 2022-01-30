@@ -56,8 +56,7 @@ struct SearchFilterView: View {
         .onChange(of: viewModel.typeSelection) { _ in
           viewModel.search()
         }
-      }
-      footer: {
+      } footer: {
         Text("You can mix both, age and type, to make a more accurate search.")
       }
       Button("Clear", role: .destructive, action: viewModel.clearFilters)

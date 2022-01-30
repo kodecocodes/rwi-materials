@@ -32,6 +32,7 @@
 
 import CoreData
 
+// MARK: - CoreDataPersistable
 extension AnimalEnvironment: CoreDataPersistable {
   var keyMap: [PartialKeyPath<AnimalEnvironment>: String] {
     [

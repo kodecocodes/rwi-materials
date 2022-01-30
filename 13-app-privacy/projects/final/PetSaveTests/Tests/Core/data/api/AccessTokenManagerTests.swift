@@ -57,7 +57,6 @@ class AccessTokenManagerTests: XCTestCase {
     XCTAssertEqual(token, sameToken)
   }
 
-
   func testRequestNewToken() async throws {
     guard let token = try await requestManager?.requestAccessToken() else { return }
     guard let accessTokenManager = accessTokenManager else { return }

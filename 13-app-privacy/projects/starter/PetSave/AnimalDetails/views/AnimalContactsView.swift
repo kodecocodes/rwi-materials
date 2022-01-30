@@ -75,8 +75,10 @@ struct AnimalContactsView: View {
 
 struct AnimalContactsView_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalContactsView(animal: animalMock)
-      .padding()
-      .previewLayout(.sizeThatFits)
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      AnimalContactsView(animal: animal)
+        .padding()
+        .previewLayout(.sizeThatFits)
+    }
   }
 }

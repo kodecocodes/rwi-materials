@@ -31,7 +31,6 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import PetSaveOnboarding
 
 struct AnimalsNearYouView: View {
   @FetchRequest(

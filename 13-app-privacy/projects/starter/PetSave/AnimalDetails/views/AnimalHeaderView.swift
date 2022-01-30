@@ -144,39 +144,43 @@ struct HeaderTitle: View {
 
 struct HeaderTitle_Previews: PreviewProvider {
   static var previews: some View {
-    Group {
-      GeometryReader { geometry in
-        HeaderTitle(animal: animalMock, zoomed: .constant(true), geometry: geometry)
-      }
-      .frame(width: 200, height: 150)
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      Group {
+        GeometryReader { geometry in
+          HeaderTitle(animal: animal, zoomed: .constant(true), geometry: geometry)
+        }
+        .frame(width: 200, height: 150)
 
-      GeometryReader { geometry in
-        HeaderTitle(animal: animalMock, zoomed: .constant(false), geometry: geometry)
+        GeometryReader { geometry in
+          HeaderTitle(animal: animal, zoomed: .constant(false), geometry: geometry)
+        }
+        .frame(width: 200, height: 100)
       }
-      .frame(width: 200, height: 100)
+      .previewLayout(.sizeThatFits)
     }
-    .previewLayout(.sizeThatFits)
   }
 }
 
 struct AnimalHeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    Group {
-      GeometryReader { geometry in
-        AnimalHeaderView(animal: animalMock, zoomed: .constant(true), favorited: .constant(false), geometry: geometry)
-      }
-      .frame(width: 500, height: 700)
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      Group {
+        GeometryReader { geometry in
+          AnimalHeaderView(animal: animal, zoomed: .constant(true), favorited: .constant(false), geometry: geometry)
+        }
+        .frame(width: 500, height: 700)
 
-      GeometryReader { geometry in
-        AnimalHeaderView(animal: animalMock, zoomed: .constant(false), favorited: .constant(true), geometry: geometry)
-      }
-      .frame(width: 500, height: 100)
+        GeometryReader { geometry in
+          AnimalHeaderView(animal: animal, zoomed: .constant(false), favorited: .constant(true), geometry: geometry)
+        }
+        .frame(width: 500, height: 100)
 
-      GeometryReader { geometry in
-        AnimalHeaderView(animal: animalMock, zoomed: .constant(false), favorited: .constant(false), geometry: geometry)
+        GeometryReader { geometry in
+          AnimalHeaderView(animal: animal, zoomed: .constant(false), favorited: .constant(false), geometry: geometry)
+        }
+        .frame(width: 500, height: 100)
       }
-      .frame(width: 500, height: 100)
+      .previewLayout(.sizeThatFits)
     }
-    .previewLayout(.sizeThatFits)
   }
 }
