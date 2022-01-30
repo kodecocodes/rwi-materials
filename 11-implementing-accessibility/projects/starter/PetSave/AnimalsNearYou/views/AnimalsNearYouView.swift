@@ -35,7 +35,6 @@ import PetSaveOnboarding
 
 struct AnimalsNearYouView: View {
   @ObservedObject var viewModel: AnimalsNearYouViewModel
-  @State var settingsIsPresented = false
 
   @FetchRequest(
     sortDescriptors: [
@@ -71,10 +70,6 @@ struct AnimalsNearYouView: View {
       }
     }
     .navigationViewStyle(StackNavigationViewStyle())
-  }
-
-  func presentSettings() {
-    settingsIsPresented.toggle()
   }
 }
 
