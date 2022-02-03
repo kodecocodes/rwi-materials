@@ -35,14 +35,12 @@ import CoreData
 // MARK: - AnimalEntity Properties
 extension AnimalEntity {
   var age: Age {
-    // 1
     get {
       guard let ageValue = ageValue, let age = Age(rawValue: ageValue) else {
         return Age.unknown
       }
       return age
     }
-    // 2
     set {
       self.ageValue = newValue.rawValue
     }

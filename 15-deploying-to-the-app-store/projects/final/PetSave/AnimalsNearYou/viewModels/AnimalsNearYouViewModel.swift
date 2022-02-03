@@ -67,20 +67,14 @@ final class AnimalsNearYouViewModel: ObservableObject {
   func fetchAnimals(location: CLLocation?) async {
     isLoading = true
     do {
-      // 1
       let animals = await animalFetcher.fetchAnimals(
         page: page,
         latitude: location?.coordinate.latitude,
         longitude: location?.coordinate.longitude
       )
-
-      // 2
       try await animalStore.save(animals: animals)
-
-      // 3
       hasMoreAnimals = !animals.isEmpty
     } catch {
-      // 4
       print("Error fetching animals... \(error.localizedDescription)")
     }
     isLoading = false

@@ -32,7 +32,7 @@
 
 import Foundation
 
-// MARK: - Load animals
+// MARK: - Mock data
 extension Animal {
   static let mock = loadAnimals()
 }

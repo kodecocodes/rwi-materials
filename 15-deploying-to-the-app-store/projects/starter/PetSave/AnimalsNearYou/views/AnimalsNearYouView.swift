@@ -40,9 +40,7 @@ struct AnimalsNearYouView: View {
     animation: .default
   )
   private var animals: FetchedResults<AnimalEntity>
-
   @EnvironmentObject var locationManager: LocationManager
-
   @ObservedObject var viewModel: AnimalsNearYouViewModel
 
   var body: some View {
@@ -51,7 +49,6 @@ struct AnimalsNearYouView: View {
         RequestLocationView()
           .navigationTitle("Animals near you")
       } else {
-        // 2
         AnimalListView(animals: animals) {
           if !animals.isEmpty && viewModel.hasMoreAnimals {
             HStack(alignment: .center) {
@@ -75,7 +72,7 @@ struct AnimalsNearYouView: View {
           }
         }
       }
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 

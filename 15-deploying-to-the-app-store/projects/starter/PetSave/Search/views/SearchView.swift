@@ -87,7 +87,6 @@ struct SearchView: View {
             } label: {
               Label("Filter", systemImage: "slider.horizontal.3")
             }
-            // swiftlint:enable multiple_closures_with_trailing_closure
             .sheet(isPresented: $filterPickerIsPresented) {
               NavigationView {
                 SearchFilterView(viewModel: viewModel)
@@ -103,7 +102,7 @@ struct SearchView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
           }
         }
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 

@@ -71,8 +71,9 @@ struct AnimalDetailRow: View {
 
 struct AnimalDetailCards_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalDetailRow(animal: animalMock)
-      .previewLayout(.sizeThatFits)
-      .preferredColorScheme(.dark)
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      AnimalDetailRow(animal: animal)
+        .previewLayout(.sizeThatFits)
+    }
   }
 }

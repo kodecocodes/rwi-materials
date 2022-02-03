@@ -26,7 +26,6 @@
 		84190A9F26F3C50300200262 /* AnimalsFetcherMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84190A9E26F3C50300200262 /* AnimalsFetcherMock.swift */; };
 		84190AA226F3C53C00200262 /* AnimalSearcherMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84190AA126F3C53C00200262 /* AnimalSearcherMock.swift */; };
 		84190AA426F3C56900200262 /* FilterAnimals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84190AA326F3C56900200262 /* FilterAnimals.swift */; };
-		84190AA826F3CABA00200262 /* PreviewProvider+Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84190AA726F3CABA00200262 /* PreviewProvider+Animal.swift */; };
 		84190AAA26F3CAD800200262 /* AnimalAttributesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84190AA926F3CAD800200262 /* AnimalAttributesCard.swift */; };
 		8472150826C1EC33001FD40B /* AnimalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472150726C1EC33001FD40B /* AnimalHeaderView.swift */; };
 		8472DFAB26BF66EF000FEDAF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472DFAA26BF66EF000FEDAF /* LocationManager.swift */; };
@@ -159,7 +158,6 @@
 		84190A9E26F3C50300200262 /* AnimalsFetcherMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsFetcherMock.swift; sourceTree = "<group>"; };
 		84190AA126F3C53C00200262 /* AnimalSearcherMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSearcherMock.swift; sourceTree = "<group>"; };
 		84190AA326F3C56900200262 /* FilterAnimals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnimals.swift; sourceTree = "<group>"; };
-		84190AA726F3CABA00200262 /* PreviewProvider+Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewProvider+Animal.swift"; sourceTree = "<group>"; };
 		84190AA926F3CAD800200262 /* AnimalAttributesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalAttributesCard.swift; sourceTree = "<group>"; };
 		8472150726C1EC33001FD40B /* AnimalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalHeaderView.swift; sourceTree = "<group>"; };
 		8472DFAA26BF66EF000FEDAF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -642,7 +640,6 @@
 				8FDD2CA226B311AC00DBE33F /* Pagination.swift */,
 				847F49F726D3614E00B94FB8 /* Animal.swift */,
 				8F05DF2D26D56F8B001ACE04 /* AnimalsContainer.swift */,
-				84190AA726F3CABA00200262 /* PreviewProvider+Animal.swift */,
 				847F49F926D3621C00B94FB8 /* AnimalMock.swift */,
 			);
 			path = animal;
@@ -985,7 +982,6 @@
 				84190A9426F3C42C00200262 /* SearchFilterView.swift in Sources */,
 				AE929ED7272F04E40059D7B4 /* LoadingAnimation.swift in Sources */,
 				84B0507026B0E2EB00E0A709 /* AnimalDetailRow.swift in Sources */,
-				84190AA826F3CABA00200262 /* PreviewProvider+Animal.swift in Sources */,
 				8485B72726A4A3AB001874CB /* AnimalSearchType.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,
 			);
