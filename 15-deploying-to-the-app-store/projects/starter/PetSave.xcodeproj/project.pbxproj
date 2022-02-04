@@ -67,8 +67,6 @@
 		8FC6977C26C86A2B003CBFB0 /* AnimalsMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 849C44EE26A26F70009899B0 /* AnimalsMock.json */; };
 		8FDD2CA326B311AC00DBE33F /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD2CA226B311AC00DBE33F /* Pagination.swift */; };
 		AE0F2CD3277678BC007EBCEF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE0F2CD5277678BC007EBCEF /* Localizable.strings */; };
-		AE0F2CD82776A01E007EBCEF /* CatCafe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE0F2CD727769CD7007EBCEF /* CatCafe.ttf */; };
-		AE0F2CD92776A01E007EBCEF /* CatCafe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE0F2CD727769CD7007EBCEF /* CatCafe.ttf */; };
 		AE6A3786269B58350054C842 /* AnimalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3785269B58350054C842 /* AnimalDetailsView.swift */; };
 		AE6A3795269B59C20054C842 /* PetSave.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3793269B59C10054C842 /* PetSave.xcdatamodeld */; };
 		AE6A3805269B5C050054C842 /* PetSaveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6A3804269B5C050054C842 /* PetSaveUITests.swift */; };
@@ -184,6 +182,7 @@
 		84B0507726B0E8F500E0A709 /* AnimalContactLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalContactLink.swift; sourceTree = "<group>"; };
 		84B0507B26B0EFA800E0A709 /* AddressFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressFetcher.swift; sourceTree = "<group>"; };
 		84B0507D26B0F12200E0A709 /* AnimalDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailCard.swift; sourceTree = "<group>"; };
+		84BE665B27AD68140060877F /* sheep_sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sheep_sans.ttf; sourceTree = "<group>"; };
 		8F05DF1726D56B2B001ACE04 /* RequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
 		8F05DF1926D56BD6001ACE04 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 		8F05DF1B26D56D1B001ACE04 /* AuthTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTokenRequest.swift; sourceTree = "<group>"; };
@@ -200,7 +199,6 @@
 		AE0F2CD2277677FD007EBCEF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		AE0F2CD4277678BC007EBCEF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AE0F2CD6277678C0007EBCEF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AE0F2CD727769CD7007EBCEF /* CatCafe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CatCafe.ttf; sourceTree = "<group>"; };
 		AE6A3785269B58350054C842 /* AnimalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsView.swift; sourceTree = "<group>"; };
 		AE6A3794269B59C10054C842 /* PetSave.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PetSave.xcdatamodel; sourceTree = "<group>"; };
 		AE6A37F5269B5B850054C842 /* PetSaveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetSaveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -295,7 +293,7 @@
 				84B0506E26B0E2D600E0A709 /* AnimalDetails */,
 				AE6A376B269A86560054C842 /* AnimalsNearYou */,
 				AE6A376C269A866A0054C842 /* Search */,
-				AE0F2CD727769CD7007EBCEF /* CatCafe.ttf */,
+				84BE665B27AD68140060877F /* sheep_sans.ttf */,
 				1839F4AF25190F2A00BB00F1 /* AppMain.swift */,
 				18D775C422AD944300AE281E /* ContentView.swift */,
 				18D775C622AD944400AE281E /* Assets.xcassets */,
@@ -855,7 +853,6 @@
 			files = (
 				AE0F2CD3277678BC007EBCEF /* Localizable.strings in Resources */,
 				18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */,
-				AE0F2CD82776A01E007EBCEF /* CatCafe.ttf in Resources */,
 				18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */,
 				18D775C722AD944400AE281E /* Assets.xcassets in Resources */,
 				849C44EF26A26F70009899B0 /* AnimalsMock.json in Resources */,
@@ -866,7 +863,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE0F2CD92776A01E007EBCEF /* CatCafe.ttf in Resources */,
 				8FC6977C26C86A2B003CBFB0 /* AnimalsMock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
