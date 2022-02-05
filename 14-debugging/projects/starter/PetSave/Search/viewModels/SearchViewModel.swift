@@ -66,6 +66,7 @@ final class SearchViewModel: ObservableObject {
         age: ageSelection,
         type: typeSelection
       )
+
       do {
         try await animalStore.save(animals: animals)
       } catch {

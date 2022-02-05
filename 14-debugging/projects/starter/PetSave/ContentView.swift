@@ -41,11 +41,11 @@ struct ContentView: View {
       AnimalsNearYouView(
         viewModel: AnimalsNearYouViewModel(
           animalFetcher: FetchAnimalsService(
-            requestManager: RequestManager()
+            requestManager:
+              RequestManager()
           ),
           animalStore: AnimalStoreService(
-            context: PersistenceController.shared.container
-              .newBackgroundContext()
+            context: PersistenceController.shared.container.newBackgroundContext()
           )
         )
       )
