@@ -34,8 +34,11 @@ import SwiftUI
 
 struct AnimalRow: View {
   let animal: AnimalEntity
+
   var animalName: String
+
   var animalType: String
+
   var animalDescription: String
 
   var animalBreedAndType: String {
@@ -76,10 +79,10 @@ struct AnimalRow: View {
       VStack(alignment: .leading) {
         Text(animalName)
           .multilineTextAlignment(.center)
-          .font(Font.custom("CatCafe", size: 18, relativeTo: .title3))
+          .font(Font.custom("sheep_sans", size: 18, relativeTo: .title3))
           .accessibilityLabel(animalName)
         Text(animalBreedAndType)
-          .font(Font.custom("CatCafe", size: 15, relativeTo: .callout))
+          .font(Font.custom("sheep_sans", size: 15, relativeTo: .callout))
           .accessibilityLabel(animalBreedAndType)
           .accessibilityHidden(true)
         if let description = animal.desc {
@@ -112,7 +115,8 @@ struct AnimalRow: View {
 
 struct AnimalRow_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalRow(animal: animalMock)
-      .previewLayout(.sizeThatFits)
+    if let animal = CoreDataHelper.getTestAnimalEntity() {
+      AnimalRow(animal: animal)
+    }
   }
 }

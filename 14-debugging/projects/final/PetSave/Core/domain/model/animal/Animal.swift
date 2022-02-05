@@ -62,5 +62,6 @@ struct Animal: Codable {
   }
 }
 
+// MARK: - Identifiable
 extension Animal: Identifiable {
 }

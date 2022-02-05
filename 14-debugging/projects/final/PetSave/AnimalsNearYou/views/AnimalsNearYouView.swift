@@ -31,7 +31,6 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import PetSaveOnboarding
 
 struct AnimalsNearYouView: View {
   @FetchRequest(
@@ -41,18 +40,8 @@ struct AnimalsNearYouView: View {
     animation: .default
   )
   private var animals: FetchedResults<AnimalEntity>
-
   @EnvironmentObject var locationManager: LocationManager
-
-  @StateObject var viewModel = AnimalsNearYouViewModel(
-    animalFetcher: FetchAnimalsService(
-      requestManager: RequestManager()
-    ),
-    animalStore: AnimalStoreService(
-      context: PersistenceController.shared.container
-        .newBackgroundContext()
-    )
-  )
+  @ObservedObject var viewModel: AnimalsNearYouViewModel
 
   var body: some View {
     NavigationView {
@@ -60,7 +49,6 @@ struct AnimalsNearYouView: View {
         RequestLocationView()
           .navigationTitle("Animals near you")
       } else {
-        // 2
         AnimalListView(animals: animals) {
           if !animals.isEmpty && viewModel.hasMoreAnimals {
             HStack(alignment: .center) {
@@ -78,6 +66,11 @@ struct AnimalsNearYouView: View {
         }
         .listStyle(.plain)
         .navigationTitle("Animals near you")
+        .overlay {
+          if viewModel.isLoading && animals.isEmpty {
+            ProgressView("Finding Animals near you...")
+          }
+        }
       }
     }.navigationViewStyle(StackNavigationViewStyle())
   }
