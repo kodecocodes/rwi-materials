@@ -34,13 +34,9 @@ import SwiftUI
 
 struct AnimalRow: View {
   let animal: AnimalEntity
-
   var animalName: String
-
   var animalType: String
-
   var animalDescription: String
-
   var animalBreedAndType: String {
     "\(animal.breed) \(animalType)"
   }
