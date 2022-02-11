@@ -51,6 +51,6 @@ struct AnimalsNearYouView: View {
 
 struct AnimalsNearYouView_Previews: PreviewProvider {
   static var previews: some View {
-    AnimalsNearYouView()
+		AnimalsNearYouView(animals: Animal.mock, isLoading: false)
   }
 }
