@@ -35,7 +35,7 @@ import SwiftUI
 struct AnimalsNearYouView: View {
   @State var animals: [Animal] = []
   @State var isLoading = true
-  
+
   var body: some View {
     NavigationView {
       Text("TODO: Animals Near You View")
