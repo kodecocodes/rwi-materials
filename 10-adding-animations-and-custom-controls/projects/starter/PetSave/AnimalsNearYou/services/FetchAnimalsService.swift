@@ -32,7 +32,7 @@
 
 import Foundation
 
-actor FetchAnimalsService {
+struct FetchAnimalsService {
   private let requestManager: RequestManagerProtocol
 
   init(requestManager: RequestManagerProtocol) {
