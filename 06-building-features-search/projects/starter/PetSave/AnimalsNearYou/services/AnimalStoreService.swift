@@ -33,7 +33,7 @@
 import Foundation
 import CoreData
 
-actor AnimalStoreService {
+struct AnimalStoreService {
   private let context: NSManagedObjectContext
 
   init(context: NSManagedObjectContext) {
