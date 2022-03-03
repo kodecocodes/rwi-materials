@@ -59,7 +59,7 @@ struct AnimalsNearYouView: View {
 
   func fetchAnimals() async {
     do {
-      let animalsContainer: AnimalsContainer = try await requestManager.initRequest(with: AnimalsRequest.getAnimalsWith(
+      let animalsContainer: AnimalsContainer = try await requestManager.execute(with: AnimalsRequest.getAnimalsWith(
         page: 1,
         latitude: nil,
         longitude: nil))

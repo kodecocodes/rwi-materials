@@ -41,9 +41,9 @@ class RequestManagerMock: RequestManagerProtocol {
     self.accessTokenManager = accessTokenManager
   }
 
-  func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
+  func execute<T: Decodable>(with request: RequestProtocol) async throws -> T {
     let authToken = try await requestAccessToken()
-    let data = try await apiManager.initRequest(with: data, authToken: authToken)
+    let data = try await apiManager.execute(with: request, authToken: authToken)
     let decoded: T = try parser.parse(data: data)
     return decoded
   }

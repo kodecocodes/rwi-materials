@@ -34,7 +34,7 @@ import XCTest
 @testable import PetSave
 
 struct APIManagerMock: APIManagerProtocol {
-  func initRequest(with data: RequestProtocol, authToken: String) async throws -> Data {
+  func execute(with data: RequestProtocol, authToken: String) async throws -> Data {
     return try Data(contentsOf: URL(fileURLWithPath: data.path), options: .mappedIfSafe)
   }
 }
