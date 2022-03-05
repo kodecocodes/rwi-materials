@@ -48,7 +48,7 @@ class RequestManagerTests: XCTestCase {
 
   func testRequestAnimals() async throws {
     guard let container: AnimalsContainer =
-      try await requestManager?.execute(with: AnimalsRequestMock.getAnimals) else { return }
+      try await requestManager?.perform(AnimalsRequestMock.getAnimals) else { return }
     let animals = container.animals
 
     let first = animals.first

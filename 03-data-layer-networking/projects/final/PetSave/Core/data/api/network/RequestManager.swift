@@ -33,7 +33,7 @@
 protocol RequestManagerProtocol {
   var apiManager: APIManagerProtocol { get }
   var parser: DataParserProtocol { get }
-  func execute<T: Decodable>(with request: RequestProtocol) async throws -> T
+  func perform<T: Decodable>(_ request: RequestProtocol) async throws -> T
 }
 
 
@@ -54,15 +54,15 @@ final class RequestManager: RequestManagerProtocol {
       return accessTokenManager.fetchToken()
     }
 
-    let data = try await apiManager.execute(with: AuthTokenRequest.auth, authToken: "")
+    let data = try await apiManager.perform(AuthTokenRequest.auth, authToken: "")
     let token: APIToken = try parser.parse(data: data)
     try accessTokenManager.refreshWith(apiToken: token)
     return token.bearerAccessToken
   }
 
-  func execute<T: Decodable>(with request: RequestProtocol) async throws -> T {
+  func perform<T: Decodable>(_ request: RequestProtocol) async throws -> T {
     let authToken = try await requestAccessToken()
-    let data = try await apiManager.execute(with: request, authToken: authToken)
+    let data = try await apiManager.perform(request, authToken: authToken)
     let decoded: T = try parser.parse(data: data)
     return decoded
   }
