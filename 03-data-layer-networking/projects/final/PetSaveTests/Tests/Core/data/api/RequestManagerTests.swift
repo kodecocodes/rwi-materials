@@ -40,7 +40,7 @@ class RequestManagerTests: XCTestCase {
     super.setUp()
     guard let userDefaults = UserDefaults(suiteName: #file) else { return }
     userDefaults.removePersistentDomain(forName: #file)
-    requestManager = RequestManagerMock(
+    requestManager = RequestManager(
       apiManager: APIManagerMock(),
       accessTokenManager: AccessTokenManager(userDefaults: userDefaults)
     )
