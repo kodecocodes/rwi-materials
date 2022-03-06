@@ -40,7 +40,7 @@ class RequestManagerTests: XCTestCase {
     super.setUp()
     guard let userDefaults = UserDefaults(suiteName: #file) else { return }
     userDefaults.removePersistentDomain(forName: #file)
-    requestManager = RequestManagerMock(
+    requestManager = RequestManager(
       apiManager: APIManagerMock(),
       accessTokenManager: AccessTokenManager(userDefaults: userDefaults)
     )
@@ -48,7 +48,7 @@ class RequestManagerTests: XCTestCase {
 
   func testRequestAnimals() async throws {
     guard let container: AnimalsContainer =
-      try await requestManager?.initRequest(with: AnimalsRequestMock.getAnimals) else { return }
+      try await requestManager?.perform(AnimalsRequestMock.getAnimals) else { return }
     let animals = container.animals
 
     let first = animals.first

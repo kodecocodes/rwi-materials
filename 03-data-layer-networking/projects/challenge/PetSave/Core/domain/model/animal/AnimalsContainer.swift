@@ -30,7 +30,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct AnimalsContainer: Codable {
+struct AnimalsContainer: Decodable {
   let animals: [Animal]
   let pagination: Pagination
 }
