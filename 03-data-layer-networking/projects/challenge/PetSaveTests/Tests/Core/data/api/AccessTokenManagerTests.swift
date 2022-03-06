@@ -47,17 +47,17 @@ class AccessTokenManagerTests: XCTestCase {
     accessTokenManager = AccessTokenManager(userDefaults: userDefaults)
   }
 
-  func testRequestToken() async throws {
+  func testRequestToken() {
     guard let token = accessTokenManager?.fetchToken() else { return }
     XCTAssertFalse(token.isEmpty)
   }
 
-  func testCachedToken() async throws {
+  func testCachedToken() {
     let sameToken = accessTokenManager?.fetchToken()
     XCTAssertEqual(token.bearerAccessToken, sameToken)
   }
 
-  func testRefreshToken() async throws {
+  func testRefreshToken() throws {
     let randomToken = AccessTokenTestHelper.randomAPIToken()
     guard let accessTokenManager = accessTokenManager else { return }
     try accessTokenManager.refreshWith(apiToken: randomToken)
