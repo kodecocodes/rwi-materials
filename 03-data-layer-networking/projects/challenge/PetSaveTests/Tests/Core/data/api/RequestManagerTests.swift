@@ -48,7 +48,11 @@ class RequestManagerTests: XCTestCase {
 
   func testRequestAnimals() async throws {
     guard let container: AnimalsContainer =
-      try await requestManager?.perform(AnimalsRequestMock.getAnimals) else { return }
+            try await requestManager?.perform(
+              AnimalsRequestMock.getAnimals) else {
+                XCTFail("Didn't get data from the request manager")
+                return
+              }
     let animals = container.animals
 
     let first = animals.first
