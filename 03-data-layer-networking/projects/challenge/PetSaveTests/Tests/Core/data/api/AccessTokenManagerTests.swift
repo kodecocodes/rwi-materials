@@ -38,10 +38,7 @@ class AccessTokenManagerTests: XCTestCase {
   let token = AccessTokenTestHelper.randomAPIToken()
   override func setUp() {
     super.setUp()
-    guard let userDefaults = UserDefaults(suiteName: #file) else {
-      XCTFail("Unable to instantiate user defaults")
-      return
-    }
+    guard let userDefaults = UserDefaults(suiteName: #file) else { return }
 
     userDefaults.removePersistentDomain(forName: #file)
     userDefaults.set(token.expiresAt.timeIntervalSince1970, forKey: AppUserDefaultsKeys.expiresAt)
