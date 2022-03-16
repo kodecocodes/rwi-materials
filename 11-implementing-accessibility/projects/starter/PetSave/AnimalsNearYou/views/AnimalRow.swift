@@ -76,24 +76,24 @@ struct AnimalRow: View {
         Text(animalName)
           .multilineTextAlignment(.center)
           .font(.title3)
-          .accessibility(label: Text("The pet's name: " + animalName))
+          .accessibilityLabel(animalName)
         Text(animalBreedAndType)
           .font(.callout)
-          .accessibility(label: Text("The pet's breed: " + animalBreedAndType))
+          .accessibilityLabel(animalBreedAndType)
         if let description = animal.desc {
           Text(description)
             .lineLimit(2)
             .font(.footnote)
-            .accessibility(label: Text("The pet's description: " + description))
+            .accessibilityLabel(description)
         }
 
         HStack {
           Text(animal.age.rawValue)
             .modifier(AnimalAttributesCard(color: animal.age.color))
-            .accessibility(label: Text("The pet's age: " + animal.age.rawValue))
+            .accessibilityLabel(animal.age.rawValue)
           Text(animal.gender.rawValue)
             .modifier(AnimalAttributesCard(color: .pink))
-            .accessibility(label: Text("The pet's gender: " + animal.gender.rawValue))
+            .accessibilityLabel(animal.gender.rawValue)
         }
       }
       .lineLimit(1)
