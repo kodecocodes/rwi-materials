@@ -39,7 +39,7 @@ struct AnimalListView<Content, Data>: View
   Data.Element: AnimalEntity {
   let animals: Data
   @StateObject var navigationState = NavigationState()
-  var router = AnimalDetailsRouter()
+  let router = AnimalDetailsRouter()
 
   let footer: Content
 

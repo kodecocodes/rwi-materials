@@ -35,7 +35,7 @@ struct AnimalDetailsRouter: NavigationRouter {
   typealias Data = AnimalEntity
 
   func navigate<T: View>(data: AnimalEntity, navigationState: NavigationState, view: (() -> T)?) -> AnyView {
-    return AnyView(
+    AnyView(
       NavigationLink(
         destination: AnimalDetailsViewRepresentable(name: data.name ?? "").environmentObject(navigationState)
       ) {
