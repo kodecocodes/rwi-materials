@@ -54,9 +54,7 @@ extension AnimalSearcherService: AnimalSearcher {
     // 4
     do {
       let animalsContainer: AnimalsContainer = try await requestManager
-        .initRequest(
-          with: requestData
-        )
+        .perform(requestData)
       return animalsContainer.animals
     } catch {
       // 5
