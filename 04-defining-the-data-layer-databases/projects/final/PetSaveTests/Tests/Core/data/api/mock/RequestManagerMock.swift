@@ -36,15 +36,17 @@ import XCTest
 class RequestManagerMock: RequestManagerProtocol {
   let apiManager: APIManagerProtocol
   let accessTokenManager: AccessTokenManagerProtocol
+  let parser: DataParserProtocol
 
-  init(apiManager: APIManagerProtocol, accessTokenManager: AccessTokenManagerProtocol) {
+  init(apiManager: APIManagerProtocol, parser: DataParserProtocol = DataParser(), accessTokenManager: AccessTokenManagerProtocol) {
     self.apiManager = apiManager
+    self.parser = parser
     self.accessTokenManager = accessTokenManager
   }
 
-  func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
+  func perform<T: Decodable>(_ request: RequestProtocol) async throws -> T {
     let authToken = try await requestAccessToken()
-    let data = try await apiManager.initRequest(with: data, authToken: authToken)
+    let data = try await apiManager.perform(request, authToken: authToken)
     let decoded: T = try parser.parse(data: data)
     return decoded
   }
@@ -53,6 +55,7 @@ class RequestManagerMock: RequestManagerProtocol {
     if accessTokenManager.isTokenValid() {
       return accessTokenManager.fetchToken()
     }
+
     guard let data = AccessTokenTestHelper.generateValidToken().data(using: .utf8) else { return "" }
     let token: APIToken = try parser.parse(data: data)
     try accessTokenManager.refreshWith(apiToken: token)

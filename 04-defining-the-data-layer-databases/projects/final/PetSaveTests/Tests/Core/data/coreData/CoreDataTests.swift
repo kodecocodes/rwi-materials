@@ -52,7 +52,7 @@ class CoreDataTests: XCTestCase {
       let first = results.first else { return }
 
       XCTAssert(first.name == "CHARLA", """
-        Pet name did not match, was expecting Kiki, got
+        Pet name did not match, was expecting CHARLA, got
         \(String(describing: first.name))
       """)
       XCTAssert(first.type == "Dog", """

@@ -63,7 +63,7 @@ extension RequestProtocol {
     [:]
   }
 
-  func request(authToken: String) throws -> URLRequest {
+  func createURLRequest(authToken: String) throws -> URLRequest {
     var components = URLComponents()
     components.scheme = "https"
     components.host = host
