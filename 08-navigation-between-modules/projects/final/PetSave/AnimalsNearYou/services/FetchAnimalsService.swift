@@ -50,7 +50,7 @@ extension FetchAnimalsService: AnimalsFetcher {
     )
     do {
       let animalsContainer: AnimalsContainer = try await
-        requestManager.initRequest(with: requestData)
+        requestManager.perform(requestData)
       return animalsContainer.animals
     } catch {
       print(error.localizedDescription)
