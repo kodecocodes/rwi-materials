@@ -50,9 +50,7 @@ extension AnimalSearcherService: AnimalSearcher {
     )
     do {
       let animalsContainer: AnimalsContainer = try await requestManager
-        .initRequest(
-          with: requestData
-        )
+        .perform(requestData)
       return animalsContainer.animals
     } catch {
       print(error.localizedDescription)
