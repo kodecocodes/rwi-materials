@@ -33,7 +33,7 @@
 import Foundation
 
 protocol APIManagerProtocol {
-  func initRequest(with data: RequestProtocol, authToken: String) async throws -> Data
+  func perform(_ request: RequestProtocol, authToken: String) async throws -> Data
 }
 
 class APIManager: APIManagerProtocol {
@@ -43,8 +43,8 @@ class APIManager: APIManagerProtocol {
     self.urlSession = urlSession
   }
 
-  func initRequest(with data: RequestProtocol, authToken: String = "") async throws -> Data {
-    let (data, response) = try await urlSession.data(for: data.request(authToken: authToken))
+  func perform(_ request: RequestProtocol, authToken: String = "") async throws -> Data {
+    let (data, response) = try await urlSession.data(for: request.createURLRequest(authToken: authToken))
     guard let httpResponse = response as? HTTPURLResponse,
       httpResponse.statusCode == 200 else { throw NetworkError.invalidServerResponse }
     return data
