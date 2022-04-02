@@ -73,13 +73,14 @@ class CoreDataTests: XCTestCase {
     guard let results = try? previewContext.fetch(fetchRequest),
       let first = results.first else { return }
 
+    let expectedResult = results.count - 1
     previewContext.delete(first)
 
-    guard let results = try? previewContext.fetch(fetchRequest)
+    guard let resultsAfterDeletion = try? previewContext.fetch(fetchRequest)
       else { return }
 
-    XCTAssert(results.count == 9, """
-      The number of results was expected to be 9 after deletion, was \(results.count)
+    XCTAssertEqual(expectedResult, resultsAfterDeletion.count, """
+      The number of results was expected to be \(expectedResult) after deletion, was \(results.count)
     """)
   }
 }
