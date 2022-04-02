@@ -32,29 +32,25 @@
 
 import Foundation
 
-actor FetchAnimalsService {
-  private let requestManager: RequestManagerProtocol
-
-  init(requestManager: RequestManagerProtocol) {
-    self.requestManager = requestManager
-  }
+struct AnimalSearcherService {
+  let requestManager: RequestManagerProtocol
 }
 
-// MARK: - AnimalFetcher
-extension FetchAnimalsService: AnimalsFetcher {
-  func fetchAnimals(
-    page: Int,
-    latitude: Double?,
-    longitude: Double?
+// MARK: - AnimalSearcher
+extension AnimalSearcherService: AnimalSearcher {
+  func searchAnimal(
+    by text: String,
+    age: AnimalSearchAge,
+    type: AnimalSearchType
   ) async -> [Animal] {
-    let requestData = AnimalsRequest.getAnimalsWith(
-      page: page,
-      latitude: latitude,
-      longitude: longitude
+    let requestData = AnimalsRequest.getAnimalsBy(
+      name: text,
+      age: age != .none ? age.rawValue : nil,
+      type: type != .none ? type.rawValue : nil
     )
     do {
-      let animalsContainer: AnimalsContainer = try await
-        requestManager.initRequest(with: requestData)
+      let animalsContainer: AnimalsContainer = try await requestManager
+        .perform(requestData)
       return animalsContainer.animals
     } catch {
       print(error.localizedDescription)

@@ -1,15 +1,15 @@
 /// Copyright (c) 2022 Razeware LLC
-///
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
+/// 
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -30,47 +30,15 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-protocol RequestManagerProtocol {
-  var apiManager: APIManagerProtocol { get }
-  var parser: DataParserProtocol { get }
-  func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T
-}
+import XCTest
+@testable import PetSave
 
-
-class RequestManager: RequestManagerProtocol {
-  let apiManager: APIManagerProtocol
-  let accessTokenManager: AccessTokenManagerProtocol
-
-  init(
-    apiManager: APIManagerProtocol = APIManager(),
-    accessToken: AccessTokenManagerProtocol = AccessTokenManager()
-  ) {
-    self.apiManager = apiManager
-    self.accessTokenManager = accessToken
+struct APIManagerMock: APIManagerProtocol {
+  func perform(_ request: RequestProtocol, authToken: String) async throws -> Data {
+    return try Data(contentsOf: URL(fileURLWithPath: request.path), options: .mappedIfSafe)
   }
 
-  func requestAccessToken() async throws -> String {
-    if accessTokenManager.isTokenValid() {
-      return accessTokenManager.fetchToken()
-    }
-
-    let data = try await apiManager.initRequest(with: AuthTokenRequest.auth, authToken: "")
-    let token: APIToken = try parser.parse(data: data)
-    try accessTokenManager.refreshWith(apiToken: token)
-    return token.bearerAccessToken
-  }
-
-  func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
-    let authToken = try await requestAccessToken()
-    let data = try await apiManager.initRequest(with: data, authToken: authToken)
-    let decoded: T = try parser.parse(data: data)
-    return decoded
-  }
-}
-
-// MARK: - Returns Data Parser
-extension RequestManagerProtocol {
-  var parser: DataParserProtocol {
-    return DataParser()
+  func requestToken() async throws -> Data {
+    Data(AccessTokenTestHelper.generateValidToken().utf8)
   }
 }

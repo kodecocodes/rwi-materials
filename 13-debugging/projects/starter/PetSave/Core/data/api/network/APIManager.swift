@@ -32,66 +32,26 @@
 
 import Foundation
 
-protocol RequestProtocol {
-  var path: String { get }
-  var requestType: RequestType { get }
-  var headers: [String: String] { get }
-  var params: [String: Any] { get }
-  var urlParams: [String: String?] { get }
-  var addAuthorizationToken: Bool { get }
+protocol APIManagerProtocol {
+  func perform(_ request: RequestProtocol, authToken: String) async throws -> Data
+  func requestToken() async throws -> Data
 }
 
-// MARK: - Default RequestProtocol
-extension RequestProtocol {
-  var host: String {
-    APIConstants.host
+class APIManager: APIManagerProtocol {
+  private let urlSession: URLSession
+
+  init(urlSession: URLSession = URLSession.shared) {
+    self.urlSession = urlSession
   }
 
-  var addAuthorizationToken: Bool {
-    true
+  func perform(_ request: RequestProtocol, authToken: String = "") async throws -> Data {
+    let (data, response) = try await urlSession.data(for: request.createURLRequest(authToken: authToken))
+    guard let httpResponse = response as? HTTPURLResponse,
+      httpResponse.statusCode == 200 else { throw NetworkError.invalidServerResponse }
+    return data
   }
 
-  var params: [String: Any] {
-    [:]
-  }
-
-  var urlParams: [String: String?] {
-    [:]
-  }
-
-  var headers: [String: String] {
-    [:]
-  }
-
-  func request(authToken: String) throws -> URLRequest {
-    var components = URLComponents()
-    components.scheme = "https"
-    components.host = host
-    components.path = path
-
-    if !urlParams.isEmpty {
-      components.queryItems = urlParams.map { URLQueryItem(name: $0, value: $1) }
-    }
-
-    guard let url = components.url else { throw  NetworkError.invalidURL }
-
-    var urlRequest = URLRequest(url: url)
-    urlRequest.httpMethod = requestType.rawValue
-
-    if !headers.isEmpty {
-      urlRequest.allHTTPHeaderFields = headers
-    }
-
-    if addAuthorizationToken {
-      urlRequest.setValue(authToken, forHTTPHeaderField: "Authorization")
-    }
-
-    urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-    if !params.isEmpty {
-      urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
-    }
-
-    return urlRequest
+  func requestToken() async throws -> Data {
+    try await perform(AuthTokenRequest.auth)
   }
 }

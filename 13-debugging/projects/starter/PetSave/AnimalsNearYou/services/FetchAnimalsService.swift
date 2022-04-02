@@ -30,32 +30,36 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import PetSave
+import Foundation
 
-class RequestManagerMock: RequestManagerProtocol {
-  let apiManager: APIManagerProtocol
-  let accessTokenManager: AccessTokenManagerProtocol
+actor FetchAnimalsService {
+  private let requestManager: RequestManagerProtocol
 
-  init(apiManager: APIManagerProtocol, accessTokenManager: AccessTokenManagerProtocol) {
-    self.apiManager = apiManager
-    self.accessTokenManager = accessTokenManager
+  init(requestManager: RequestManagerProtocol) {
+    self.requestManager = requestManager
   }
+}
 
-  func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
-    let authToken = try await requestAccessToken()
-    let data = try await apiManager.initRequest(with: data, authToken: authToken)
-    let decoded: T = try parser.parse(data: data)
-    return decoded
-  }
+// MARK: - AnimalFetcher
+extension FetchAnimalsService: AnimalsFetcher {
+  func fetchAnimals(
+    page: Int,
+    latitude: Double?,
+    longitude: Double?
+  ) async -> [Animal] {
+    let requestData = AnimalsRequest.getAnimalsWith(
+      page: page,
+      latitude: latitude,
+      longitude: longitude
+    )
 
-  func requestAccessToken() async throws -> String {
-    if accessTokenManager.isTokenValid() {
-      return accessTokenManager.fetchToken()
+    do {
+      let animalsContainer: AnimalsContainer = try await
+        requestManager.perform(requestData)
+      return animalsContainer.animals
+    } catch {
+      print(error.localizedDescription)
+      return []
     }
-    guard let data = AccessTokenTestHelper.generateValidToken().data(using: .utf8) else { return "" }
-    let token: APIToken = try parser.parse(data: data)
-    try accessTokenManager.refreshWith(apiToken: token)
-    return token.bearerAccessToken
   }
 }
