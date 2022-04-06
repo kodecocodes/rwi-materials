@@ -1,0 +1,918 @@
+{
+  
+  "animals" : [
+    {
+      "id": 52432090,
+      "organization_id": "PA174",
+      "url": "https://www.petfinder.com/cat/kiki-52432090/pa/west-chester/brandywine-valley-spca-pennsylvania-pa174/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Cat",
+      "species": "Cat",
+      "breeds": {
+        "primary": "Domestic Short Hair",
+        "secondary": null,
+        "mixed": false,
+        "unknown": false
+      },
+      "colors": {
+        "primary": null,
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Female",
+      "size": "Medium",
+      "coat": "Short",
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": false,
+        "declawed": false,
+        "special_needs": false,
+        "shots_current": false
+      },
+      "environment": {
+        "children": null,
+        "dogs": null,
+        "cats": null
+      },
+      "tags": [],
+      "name": "Kiki",
+      "description": "A lovely and sweet Domestic Short Hair cat. Kiki is a docile cat that whenver possible is asking for belly rubs.",
+      "organization_animal_id": "48037715",
+      "photos": [
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800"
+        }
+      ],
+      "primary_photo_cropped": {
+        "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=300",
+        "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=450",
+        "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800&width=600",
+        "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52432090/1/?bust=1626905800"
+      },
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-21T22:06:28+0000",
+      "published_at": "2021-07-21T22:06:28+0000",
+      "distance": 94.6233,
+      "contact": {
+        "email": "info@bvspca.org",
+        "phone": "(610) 692-6113",
+        "address": {
+          "address1": "1212 Phoenixville Pike",
+          "address2": null,
+          "city": "West Chester",
+          "state": "PA",
+          "postcode": "19380",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52432090"
+        },
+        "type": {
+          "href": "/v2/types/cat"
+        },
+        "organization": {
+          "href": "/v2/organizations/pa174"
+        }
+      }
+    },
+    {
+      "id": 52341861,
+      "organization_id": "CA129",
+      "url": "https://www.petfinder.com/dog/id-number-a405763-52341861/ca/petaluma/north-bay-canine-rescue-and-placement-ca129/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Australian Cattle Dog / Blue Heeler",
+        "secondary": null,
+        "mixed": false,
+        "unknown": false
+      },
+      "colors": {
+        "primary": null,
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Young",
+      "gender": "Male",
+      "size": "Medium",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": true,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": true
+      },
+      "environment": {
+        "children": null,
+        "dogs": null,
+        "cats": null
+      },
+      "tags": [],
+      "name": "ID#A405763",
+      "description": "This animal is available at:\nSonoma County Animal Services (707) 565-7100\nPLEASE DO NOT CONTACT NORTH BAY\nID#A405763\n\nI am...",
+      "organization_animal_id": "17007775-Sonoma County AS",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:22:53+0000",
+      "published_at": "2021-07-14T03:22:53+0000",
+      "distance": null,
+      "contact": {
+        "email": "Petfinder@northbaycanine.org",
+        "phone": "(707) 776-6855",
+        "address": {
+          "address1": "PO Box 4522",
+          "address2": null,
+          "city": "Petaluma",
+          "state": "CA",
+          "postcode": "94955",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341861"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/ca129"
+        }
+      }
+    },
+    {
+      "id": 52341860,
+      "organization_id": "CA129",
+      "url": "https://www.petfinder.com/dog/rooster-261073-52341860/ca/petaluma/north-bay-canine-rescue-and-placement-ca129/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Jack Russell Terrier",
+        "secondary": "Irish Terrier",
+        "mixed": true,
+        "unknown": false
+      },
+      "colors": {
+        "primary": null,
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Male",
+      "size": "Small",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": true,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": true
+      },
+      "environment": {
+        "children": false,
+        "dogs": false,
+        "cats": null
+      },
+      "tags": [],
+      "name": "Rooster 261073",
+      "description": "This animal is available at Marin Humane Society\nEmail: adoptions@marinhumanesociety.org\nPlease do not contact North Bay\nRooster 261073\n\nBreed Jack...",
+      "organization_animal_id": "17007768-Marin Humane Soc",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:22:52+0000",
+      "published_at": "2021-07-14T03:22:52+0000",
+      "distance": null,
+      "contact": {
+        "email": "Petfinder@northbaycanine.org",
+        "phone": "(707) 776-6855",
+        "address": {
+          "address1": "PO Box 4522",
+          "address2": null,
+          "city": "Petaluma",
+          "state": "CA",
+          "postcode": "94955",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341860"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/ca129"
+        }
+      }
+    },
+    {
+      "id": 52341857,
+      "organization_id": "AK48",
+      "url": "https://www.petfinder.com/dog/ellie-52341857/ak/kodiak/humane-society-of-kodiak-animal-shelter-ak48/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Labrador Retriever",
+        "secondary": null,
+        "mixed": true,
+        "unknown": false
+      },
+      "colors": {
+        "primary": null,
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Young",
+      "gender": "Female",
+      "size": "Large",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": true,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": true
+      },
+      "environment": {
+        "children": null,
+        "dogs": null,
+        "cats": null
+      },
+      "tags": [],
+      "name": "Ellie",
+      "description": "Ellie loves to cuddle and can be vocal when she feels like she&amp;#39;s being ignored and wants your attention. She...",
+      "organization_animal_id": "B2021015",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:22:29+0000",
+      "published_at": "2021-07-14T03:22:29+0000",
+      "distance": null,
+      "contact": {
+        "email": "kodiakanimalshelter@gmail.com",
+        "phone": "(907) 486-8077",
+        "address": {
+          "address1": "2409 Mill Bay Rd",
+          "address2": null,
+          "city": "Kodiak",
+          "state": "AK",
+          "postcode": "99615",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341857"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/ak48"
+        }
+      }
+    },
+    {
+      "id": 52341743,
+      "organization_id": "WA424",
+      "url": "https://www.petfinder.com/dog/jasper-52341743/wa/kennewick/mikeys-chance-canine-rescue-wa424/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Golden Retriever",
+        "secondary": null,
+        "mixed": true,
+        "unknown": false
+      },
+      "colors": {
+        "primary": null,
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Male",
+      "size": "Medium",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": true,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": true
+      },
+      "environment": {
+        "children": true,
+        "dogs": true,
+        "cats": true
+      },
+      "tags": [],
+      "name": "Jasper",
+      "description": "Born 10/20/13 Jasper is a male Golden Retriever mix. Here is a little bit about him: He’s the sweetest! He’s...",
+      "organization_animal_id": null,
+      "photos": [
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/4/?bust=1626232681&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/4/?bust=1626232681&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/4/?bust=1626232681&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/4/?bust=1626232681"
+        },
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/1/?bust=1626232673&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/1/?bust=1626232673&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/1/?bust=1626232673&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/1/?bust=1626232673"
+        },
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/2/?bust=1626232676&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/2/?bust=1626232676&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/2/?bust=1626232676&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/2/?bust=1626232676"
+        },
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/3/?bust=1626232678&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/3/?bust=1626232678&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/3/?bust=1626232678&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/3/?bust=1626232678"
+        }
+      ],
+      "primary_photo_cropped": {
+        "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/4/?bust=1626232681&width=300",
+        "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/4/?bust=1626232681&width=450",
+        "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/4/?bust=1626232681&width=600",
+        "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341743/4/?bust=1626232681"
+      },
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:22:11+0000",
+      "published_at": "2021-07-14T03:22:11+0000",
+      "distance": null,
+      "contact": {
+        "email": "mikeyschance@gmail.com",
+        "phone": null,
+        "address": {
+          "address1": null,
+          "address2": null,
+          "city": "Kennewick",
+          "state": "WA",
+          "postcode": "99336",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341743"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/wa424"
+        }
+      }
+    },
+    {
+      "id": 52341727,
+      "organization_id": "CA710",
+      "url": "https://www.petfinder.com/dog/charla-52341727/ca/bell-gardens/miracle-dog-rescue-ca710/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Dachshund",
+        "secondary": "Chihuahua",
+        "mixed": true,
+        "unknown": false
+      },
+      "colors": {
+        "primary": "Brown / Chocolate",
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Baby",
+      "gender": "Female",
+      "size": "Small",
+      "coat": "Short",
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": true,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": true
+      },
+      "environment": {
+        "children": true,
+        "dogs": true,
+        "cats": null
+      },
+      "tags": [],
+      "name": "CHARLA",
+      "description": "CHARLA:  DASCHUND, CHIHUAHHAUA  MIX / SPAYED FEMALE / 4 MONTHS / 13 POUNDS\n\nHOUSE-TRAINED, INTELLIGENT, LOVES ITS PEOPLE, EAGER TO...",
+      "organization_animal_id": null,
+      "photos": [
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/1/?bust=1626232594&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/1/?bust=1626232594&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/1/?bust=1626232594&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/1/?bust=1626232594"
+        },
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/2/?bust=1626232602&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/2/?bust=1626232602&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/2/?bust=1626232602&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/2/?bust=1626232602"
+        },
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/3/?bust=1626232614&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/3/?bust=1626232614&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/3/?bust=1626232614&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/3/?bust=1626232614"
+        },
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/4/?bust=1626232638&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/4/?bust=1626232638&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/4/?bust=1626232638&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/4/?bust=1626232638"
+        },
+        {
+          "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/5/?bust=1626232657&width=100",
+          "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/5/?bust=1626232657&width=300",
+          "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/5/?bust=1626232657&width=600",
+          "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/5/?bust=1626232657"
+        }
+      ],
+      "primary_photo_cropped": {
+        "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/1/?bust=1626232594&width=300",
+        "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/1/?bust=1626232594&width=450",
+        "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/1/?bust=1626232594&width=600",
+        "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/52341727/1/?bust=1626232594"
+      },
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:21:32+0000",
+      "published_at": "2021-07-14T03:21:32+0000",
+      "distance": null,
+      "contact": {
+        "email": "miracledogrescue@gmail.com",
+        "phone": "(323) 383-8883",
+        "address": {
+          "address1": null,
+          "address2": null,
+          "city": "Bell Gardens",
+          "state": "CA",
+          "postcode": "90201",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341727"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/ca710"
+        }
+      }
+    },
+    {
+      "id": 52341850,
+      "organization_id": "ND07",
+      "url": "https://www.petfinder.com/dog/yankee-in-foster-52341850/nd/fargo/homeward-animal-shelter-nd07/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Pit Bull Terrier",
+        "secondary": null,
+        "mixed": false,
+        "unknown": false
+      },
+      "colors": {
+        "primary": null,
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Male",
+      "size": "Medium",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": true,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": true
+      },
+      "environment": {
+        "children": null,
+        "dogs": null,
+        "cats": false
+      },
+      "tags": [],
+      "name": "Yankee--In Foster",
+      "description": "Life, Liberty, and the Pursuit of a Forever Home... err, I mean Happiness... actually, it&amp;#39;s all the same to me....",
+      "organization_animal_id": "D-20-209",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:21:29+0000",
+      "published_at": "2021-07-14T03:21:29+0000",
+      "distance": null,
+      "contact": {
+        "email": "info@homewardonline.org",
+        "phone": "701-239-0077   ",
+        "address": {
+          "address1": "1201 28th Avenue North",
+          "address2": null,
+          "city": "Fargo",
+          "state": "ND",
+          "postcode": "58102",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341850"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/nd07"
+        }
+      }
+    },
+    {
+      "id": 52341849,
+      "organization_id": "WA650",
+      "url": "https://www.petfinder.com/dog/panzer-52341849/wa/seattle/dog-gone-seattle-wa650/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Doberman Pinscher",
+        "secondary": null,
+        "mixed": false,
+        "unknown": false
+      },
+      "colors": {
+        "primary": null,
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Male",
+      "size": "Large",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": true,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": true
+      },
+      "environment": {
+        "children": null,
+        "dogs": true,
+        "cats": null
+      },
+      "tags": [],
+      "name": "Panzer",
+      "description": "Animal Profile: Panzer is a red cropped and docked Dobie who is estimated at 2-3 years old and weighs about...",
+      "organization_animal_id": "16955302-A751308",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:21:28+0000",
+      "published_at": "2021-07-14T03:21:28+0000",
+      "distance": null,
+      "contact": {
+        "email": "adopt@doggoneseattle.org",
+        "phone": null,
+        "address": {
+          "address1": null,
+          "address2": null,
+          "city": "Seattle",
+          "state": "WA",
+          "postcode": "98165",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341849"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/wa650"
+        }
+      }
+    },
+    {
+      "id": 52341841,
+      "organization_id": "MN441",
+      "url": "https://www.petfinder.com/dog/fiona-52341841/mn/pequot-lakes/northern-lakes-rescue-mn441/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Pit Bull Terrier",
+        "secondary": null,
+        "mixed": false,
+        "unknown": false
+      },
+      "colors": {
+        "primary": "Apricot / Beige",
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Young",
+      "gender": "Female",
+      "size": "Medium",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": false,
+        "house_trained": false,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": true
+      },
+      "environment": {
+        "children": true,
+        "dogs": true,
+        "cats": null
+      },
+      "tags": [
+        "Gentle and Friendly"
+      ],
+      "name": "Fiona",
+      "description": "Hi, I am Fiona. I am a 9 month old beautiful sweet pittie girl! I love to play with my...",
+      "organization_animal_id": "24925",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:20:46+0000",
+      "published_at": "2021-07-14T03:20:46+0000",
+      "distance": null,
+      "contact": {
+        "email": "info@northernlakesrescue.org",
+        "phone": null,
+        "address": {
+          "address1": null,
+          "address2": null,
+          "city": "Pequot Lakes",
+          "state": "MN",
+          "postcode": "56472",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341841"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/mn441"
+        }
+      }
+    },
+    {
+      "id": 52341799,
+      "organization_id": "MN441",
+      "url": "https://www.petfinder.com/dog/liberty-52341799/mn/pequot-lakes/northern-lakes-rescue-mn441/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Chihuahua",
+        "secondary": "Mixed Breed",
+        "mixed": true,
+        "unknown": false
+      },
+      "colors": {
+        "primary": "Yellow / Tan / Blond / Fawn",
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Baby",
+      "gender": "Female",
+      "size": "Small",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": false,
+        "house_trained": false,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": false
+      },
+      "environment": {
+        "children": true,
+        "dogs": true,
+        "cats": true
+      },
+      "tags": [
+        "Playful"
+      ],
+      "name": "Liberty",
+      "description": "Liberty was born in foster care. She is a sweet little girl that loves life. Please apply at northernlakesrescue.org. Adoption...",
+      "organization_animal_id": "24985",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:20:46+0000",
+      "published_at": "2021-07-14T03:20:46+0000",
+      "distance": null,
+      "contact": {
+        "email": "info@northernlakesrescue.org",
+        "phone": null,
+        "address": {
+          "address1": null,
+          "address2": null,
+          "city": "Pequot Lakes",
+          "state": "MN",
+          "postcode": "56472",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341799"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/mn441"
+        }
+      }
+    },
+    {
+      "id": 52341800,
+      "organization_id": "MN441",
+      "url": "https://www.petfinder.com/dog/gertrude-52341800/mn/pequot-lakes/northern-lakes-rescue-mn441/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "Chihuahua",
+        "secondary": "Mixed Breed",
+        "mixed": true,
+        "unknown": false
+      },
+      "colors": {
+        "primary": "Black",
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Senior",
+      "gender": "Female",
+      "size": "Small",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": false,
+        "declawed": null,
+        "special_needs": true,
+        "shots_current": false
+      },
+      "environment": {
+        "children": null,
+        "dogs": null,
+        "cats": null
+      },
+      "tags": [
+        "Playful"
+      ],
+      "name": "Gertrude",
+      "description": "I&amp;#39;m a chi mix who is energetic, loves walks and snuggling on my foster parents laps. Gertrude&amp;#39;s adoption fee is...",
+      "organization_animal_id": "21568",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:20:46+0000",
+      "published_at": "2021-07-14T03:20:46+0000",
+      "distance": null,
+      "contact": {
+        "email": "info@northernlakesrescue.org",
+        "phone": null,
+        "address": {
+          "address1": null,
+          "address2": null,
+          "city": "Pequot Lakes",
+          "state": "MN",
+          "postcode": "56472",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341800"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/mn441"
+        }
+      }
+    },
+    {
+      "id": 52341806,
+      "organization_id": "MN441",
+      "url": "https://www.petfinder.com/dog/midnight-52341806/mn/pequot-lakes/northern-lakes-rescue-mn441/?referrer_id=beab0535-211e-4dd7-97ef-3444d26a13c4",
+      "type": "Dog",
+      "species": "Dog",
+      "breeds": {
+        "primary": "English Bulldog",
+        "secondary": "American Staffordshire Terrier",
+        "mixed": true,
+        "unknown": false
+      },
+      "colors": {
+        "primary": "Black",
+        "secondary": null,
+        "tertiary": null
+      },
+      "age": "Adult",
+      "gender": "Female",
+      "size": "Large",
+      "coat": null,
+      "attributes": {
+        "spayed_neutered": true,
+        "house_trained": false,
+        "declawed": null,
+        "special_needs": false,
+        "shots_current": false
+      },
+      "environment": {
+        "children": true,
+        "dogs": null,
+        "cats": false
+      },
+      "tags": [
+        "Playful"
+      ],
+      "name": "Midnight",
+      "description": "Hey, Midnight here. I am a 5 year old female bulldog/pit mix that is a lot bigger than I look...",
+      "organization_animal_id": "24381",
+      "photos": [],
+      "primary_photo_cropped": null,
+      "videos": [],
+      "status": "adoptable",
+      "status_changed_at": "2021-07-14T03:20:46+0000",
+      "published_at": "2021-07-14T03:20:46+0000",
+      "distance": null,
+      "contact": {
+        "email": "info@northernlakesrescue.org",
+        "phone": null,
+        "address": {
+          "address1": null,
+          "address2": null,
+          "city": "Pequot Lakes",
+          "state": "MN",
+          "postcode": "56472",
+          "country": "US"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/v2/animals/52341806"
+        },
+        "type": {
+          "href": "/v2/types/dog"
+        },
+        "organization": {
+          "href": "/v2/organizations/mn441"
+        }
+      }
+    }
+  ],
+  "pagination": {
+    "count_per_page": 20,
+    "total_count": 222336,
+    "current_page": 1,
+    "total_pages": 11117,
+    "_links": {
+      "next": {
+        "href": "/v2/animals?page=2"
+      }
+    }
+  }
+}
