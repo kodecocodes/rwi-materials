@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  PetSave
+
+  Created by Teacher on 12/24/21.
+  Copyright © 2021 Ray Wenderlich. All rights reserved.
+*/
+
+"Age" = "Edad";
+"Gender" = "Género";
+"Size" = "Talla";
+"Coat" = "Pelo";
+"Adult" = "Adulta";
+"Male" = "Masculina";
+"Female" = "Femenino";
+"Unknown" = "Ignoto";
+"Short" = "Corta";
+"Details" = "Detalles";
+"Contact" = "Contacto";
+"Location" = "Posición";
+"Rank me!" = "Clasificarme!";
+"Animals near you" = "Animales cerca de usted";
+"Near you" = "Cerca de usted";
+"Search" = "Búsqueda";
+"Young" = "Menor";
