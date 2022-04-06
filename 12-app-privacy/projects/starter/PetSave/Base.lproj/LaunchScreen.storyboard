@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="d7e-ma-iNb">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="t6r-L5-FA5">
+            <objects>
+                <viewController id="d7e-ma-iNb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vo3-oh-VNr">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pL1-q2-xea">
+                                <rect key="frame" x="0.0" y="761" width="390" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="" id="H9B-Sd-76D">
+                                        <imageReference key="image" image="location" catalog="system" symbolScale="default"/>
+                                        <imageReference key="selectedImage" image="location" catalog="system" symbolScale="default"/>
+                                    </tabBarItem>
+                                    <tabBarItem image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="ZMh-Mo-mLU"/>
+                                </items>
+                            </tabBar>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5V9-ra-Avu">
+                                <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem id="BUd-85-h3S"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="225-Df-Myh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wq0-Y7-9k8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-780" y="395"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController storyboardIdentifier="launchScreen" id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rwdevcon-bg" translatesAutoresizingMaskIntoConstraints="NO" id="thr-yb-z25">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rw-logo" translatesAutoresizingMaskIntoConstraints="NO" id="skm-4Q-SEq">
+                                <rect key="frame" x="20" y="247" width="350" height="350"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="skm-4Q-SEq" secondAttribute="height" multiplier="1:1" id="F6J-6J-J5s"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="thr-yb-z25" secondAttribute="trailing" id="0Yk-op-Sbr"/>
+                            <constraint firstItem="skm-4Q-SEq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0tf-Kh-S2U"/>
+                            <constraint firstItem="skm-4Q-SEq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="20" id="45c-ps-A1j"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="skm-4Q-SEq" secondAttribute="trailing" constant="20" id="Aji-Ek-k2q"/>
+                            <constraint firstAttribute="bottom" secondItem="thr-yb-z25" secondAttribute="bottom" id="FXS-f4-xfH"/>
+                            <constraint firstItem="skm-4Q-SEq" firstAttribute="width" secondItem="skm-4Q-SEq" secondAttribute="height" multiplier="1:1" id="Q4h-h8-kju"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="skm-4Q-SEq" secondAttribute="bottom" constant="20" id="TPw-KF-H85"/>
+                            <constraint firstItem="thr-yb-z25" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="bHm-5w-uXH"/>
+                            <constraint firstItem="thr-yb-z25" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="mnU-3N-lrW"/>
+                            <constraint firstItem="skm-4Q-SEq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="20" id="uY3-7w-Cr7"/>
+                            <constraint firstItem="skm-4Q-SEq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="wkC-oo-tPK"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-102" y="395"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="location" catalog="system" width="128" height="118"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="rw-logo" width="512" height="512"/>
+        <image name="rwdevcon-bg" width="1104" height="1104"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
