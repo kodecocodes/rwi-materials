@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PetSaveOnboarding",
+        "repositoryURL": "https://github.com/raywenderlich/PetSaveOnboarding.git",
+        "state": {
+          "branch": "main",
+          "revision": "23f8b43a15c99f551b0b7566c49ea6552f013fa0",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
